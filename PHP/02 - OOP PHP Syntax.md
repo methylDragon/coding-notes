@@ -1,7 +1,7 @@
 # Object-Oriented PHP Syntax Reference
 
-Author: methylDragon
-Contains a syntax reference for Object-Oriented PHP
+Author: methylDragon  
+Contains a syntax reference for Object-Oriented PHP  
 I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/watch?v=5YaF8xTmxs4
 
 ---
@@ -16,24 +16,24 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 ## Table Of Contents <a name="top"></a>
 
-1. [Introduction](#1)
-   1.1  [Objects and Classes](#1.1)
-   1.2  [Inheritance](#1.2)
-   1.3  [Polymorphisms](#1.3)
-   1.4  [Interfaces](#1.4)
-2. [OOP Syntax Reference](#2)
-   2.1   [Visibility (Access Levels)](#2.1)
-   2.2   [Class Declaration](#2.2)
-   2.3   [Child Class Declaration](#2.3)
-   2.4   [Object Construction](#2.4)
-   2.5   [Method Polymorphisms via Child Classes](#2.5)
-   2.6   [A note on :: and ->](#2.6)
-   2.7   [A note on self and $this](#2.7)
-   2.8   [Interface Declaration](#2.8)
-   2.9   [Method Polymorphisms via Interfaces](#2.9)
-   2.10 [Some more useful functions](#2.10)
-   2.11 [Abstract Classes and Methods](#2.11)
-3. [Reference Links](#3)
+1. [Introduction](#1)  
+   1.1  [Objects and Classes](#1.1)    
+   1.2  [Inheritance](#1.2)    
+   1.3  [Polymorphisms](#1.3)    
+   1.4  [Interfaces](#1.4)    
+2. [OOP Syntax Reference](#2)    
+   2.1   [Visibility (Access Levels)](#2.1)    
+   2.2   [Class Declaration](#2.2)    
+   2.3   [Child Class Declaration](#2.3)    
+   2.4   [Object Construction](#2.4)    
+   2.5   [Method Polymorphisms via Child Classes](#2.5)    
+   2.6   [A note on :: and ->](#2.6)    
+   2.7   [A note on self and $this](#2.7)    
+   2.8   [Interface Declaration](#2.8)    
+   2.9   [Method Polymorphisms via Interfaces](#2.9)    
+   2.10 [Some more useful functions](#2.10)    
+   2.11 [Abstract Classes and Methods](#2.11)    
+3. [Reference Links](#3)  
 
 ## 1. Introduction <a name="1"></a>
 
@@ -482,5 +482,5 @@ Abstract classes cannot be instantiated, but it **forces** classes that implemen
 
 ## 3. Reference Links <a name="3"></a>
 
-https://www.youtube.com/watch?v=5YaF8xTmxs4 (Heavily adapted)
+https://www.youtube.com/watch?v=5YaF8xTmxs4 (Heavily adapted)  
 http://www.logicbig.com/tutorials/misc/php/php-oop-cheat-sheet/ (Oh look! A more in-depth cheat sheet!)
