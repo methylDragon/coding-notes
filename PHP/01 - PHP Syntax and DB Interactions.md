@@ -38,13 +38,13 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.14 [String Functions](#2.14)    
    2.15 [Printf](#2.15)    
    2.16 [Regular Expressions](#2.16)    
-   2.17 [Die](#2.17)    
+   2.17 [Die](#2.17)  
 3. [Using PHP with MySQL](#3)    
    3.1 [Establishing Database Connection](#3.1)    
    3.2 [Database Functions](#3.2)    
    3.3 [Querying the Database](#3.3)    
    3.4 [Altering the Database](#3.4)    
-   3.5 [Small note on ->](#3.5)    
+   3.5 [Small note on ->](#3.5)  
 4. [Reference Links](#4)  
 
 
