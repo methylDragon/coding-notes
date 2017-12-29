@@ -471,7 +471,7 @@ You can define functions that accept classes that **extend** a certain class or 
 
 [go to top](#top)
 
-Abstract classes cannot be instantiated, but it **forces** classes that implement it to **override** any abstract method that are members of the abstract class.
+Abstract classes cannot be instantiated, but it **forces** classes that implement it to **override** any abstract methods that are members of the abstract class.
 
 ```php
 // Define an abstract class or method using the "abstract" keyword
