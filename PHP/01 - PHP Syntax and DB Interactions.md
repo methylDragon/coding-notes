@@ -1,7 +1,7 @@
 # PHP Syntax Reference
 
-Author: methylDragon
-Contains a syntax reference for PHP
+Author: methylDragon  
+Contains a syntax reference for PHP  
 I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/watch?v=7TF00hJI78Y
 
 ---
@@ -20,32 +20,32 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 ## Table Of Contents <a name="top"></a>
 
-1. [Introduction](#1)
-2. [Basic Syntax Reference](#2)
-   2.1 [HTML and PHP](#2.1)
-   2.2 [Comments](#2.2)
-   2.3   [Variable Declaration](#2.3)
-   2.4   [Echo](#2.4)
-   2.5   [Heredoc (Multiline strings)](#2.5)
-   2.6   [Arithmetic](#2.6)
-   2.7   [References](#2.7)
-   2.8   [Conditionals and Switch Cases](#2.8)
-   2.9   [Loops](#2.9)
-   2.10 [Functions](#2.10)
-   2.11 [Arrays](#2.11)
-   2.12 [Array Key Assignment](#2.12)
-   2.13 [Array Functions](#2.13)
-   2.14 [String Functions](#2.14)
-   2.15 [Printf](#2.15)
-   2.16 [Regular Expressions](#2.16)
-   2.17 [Die](#2.17)
-3. [Using PHP with MySQL](#3)
-   3.1 [Establishing Database Connection](#3.1)
-   3.2 [Database Functions](#3.2)
-   3.3 [Querying the Database](#3.3)
-   3.4 [Altering the Database](#3.4)
-   3.5 [Small note on ->](#3.5)
-4. [Reference Links](#4)
+1. [Introduction](#1)  
+2. [Basic Syntax Reference](#2)    
+   2.1 [HTML and PHP](#2.1)    
+   2.2 [Comments](#2.2)    
+   2.3   [Variable Declaration](#2.3)    
+   2.4   [Echo](#2.4)    
+   2.5   [Heredoc (Multiline strings)](#2.5)    
+   2.6   [Arithmetic](#2.6)    
+   2.7   [References](#2.7)    
+   2.8   [Conditionals and Switch Cases](#2.8)    
+   2.9   [Loops](#2.9)    
+   2.10 [Functions](#2.10)    
+   2.11 [Arrays](#2.11)    
+   2.12 [Array Key Assignment](#2.12)    
+   2.13 [Array Functions](#2.13)    
+   2.14 [String Functions](#2.14)    
+   2.15 [Printf](#2.15)    
+   2.16 [Regular Expressions](#2.16)    
+   2.17 [Die](#2.17)    
+3. [Using PHP with MySQL](#3)    
+   3.1 [Establishing Database Connection](#3.1)    
+   3.2 [Database Functions](#3.2)    
+   3.3 [Querying the Database](#3.3)    
+   3.4 [Altering the Database](#3.4)    
+   3.5 [Small note on ->](#3.5)    
+4. [Reference Links](#4)  
 
 
 
@@ -614,7 +614,7 @@ RENAME newtablename
 
 ## 4. Reference Links <a name="4"></a>
 
-https://www.youtube.com/watch?v=7TF00hJI78Y (Heavily adapted)
-https://www.cheatography.com/guslong/cheat-sheets/php-syntax-for-beginners/ (Oh look a cheatsheet for PHP!)
-http://www.dummies.com/programming/php/php-mysql-for-dummies-cheat-sheet/ (PHP-MySQL cheatsheet)
+https://www.youtube.com/watch?v=7TF00hJI78Y (Heavily adapted)  
+https://www.cheatography.com/guslong/cheat-sheets/php-syntax-for-beginners/ (Oh look a cheatsheet for PHP!)  
+http://www.dummies.com/programming/php/php-mysql-for-dummies-cheat-sheet/ (PHP-MySQL cheatsheet)  
 http://www.createafreewebsite.net/phpmysql/alter.html (Alter cheatsheet)
