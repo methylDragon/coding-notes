@@ -310,7 +310,7 @@ Returns true when done
 
 ## 3. Relevant links: <a name="3"></a> 
 
-https://codex.wordpress.org/Plugin_API
-https://www.youtube.com/watch?v=AQrXcsc4CIw (Actions, Filters, and Hooks)
-https://www.youtube.com/watch?v=w257tYZtL8Y (WordPress Plugin Development)
+https://codex.wordpress.org/Plugin_API  
+https://www.youtube.com/watch?v=AQrXcsc4CIw (Actions, Filters, and Hooks)  
+https://www.youtube.com/watch?v=w257tYZtL8Y (WordPress Plugin Development)  
 https://wordpress.stackexchange.com/questions/1007/difference-between-filter-and-action-hooks (Filters vs Actions)
