@@ -22,9 +22,9 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 1. [Introduction](#1)
 2. [Basic Syntax Reference](#2)
-   2.1   [HTML and PHP](#2.1)
-   2.2   [Comments](#2.2)
-   2.3   [Variable Declaration](#2.3)
+...2.1   [HTML and PHP](#2.1)
+...2.2   [Comments](#2.2)
+...2.3   [Variable Declaration](#2.3)
    2.4   [Echo](#2.4)
    2.5   [Heredoc (Multiline strings)](#2.5)
    2.6   [Arithmetic](#2.6)
