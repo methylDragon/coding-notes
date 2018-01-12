@@ -54,6 +54,8 @@ If working on WordPress, there's a bunch of handy database plugins out here. One
 
 ### 1.1 MySQL Database Architecture <a name="1.1"></a>
 
+[go to top](#top)
+
 In MySQL, data is stored in **Tables** that are grouped within **Databases**. It works best when you can pre-define your database schemas.
 
 Within each table, each entry of data is stored in a **row** (also known as records), whereas each property that is being stored (eg. Name, Telephone Number, Index Number) define the **columns** (also known as fields.)
@@ -63,6 +65,8 @@ Within each table, each entry of data is stored in a **row** (also known as reco
 ## 2. Basic Syntax Reference <a name="2"></a>
 
 ### 2.1 Logging In and Logging Out <a name="2.1"></a>
+
+[go to top](#top)
 
 Naturally, in order to have write-access to a database, you have to log in.
 
@@ -77,6 +81,8 @@ $ mysql -u <username> -p
 ```
 
 ### 2.2 Database Commands <a name="2.2"></a>
+
+[go to top](#top)
 
 It's good practice to write your commands and keywords in upper-case. It's not required, but it's better for clarity.
 
@@ -97,6 +103,8 @@ It's good practice to write your commands and keywords in upper-case. It's not r
 
 ### 2.3 Database Design <a name="2.3"></a>
 
+[go to top](#top)
+
 It's good practice to draw out your intended data input to see how you can design the schemas and tables.
 
 ![Student Table](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\MySQL\Images\01 Images\Student Table.PNG)Then eventually this will allow you to more easily see how to design your tables!![Student Schemas](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\MySQL\Images\01 Images\Student Schemas.PNG) 
@@ -116,6 +124,8 @@ Additionally:
 - Normalized tables
 
 ### 2.4 Table Creation <a name="2.4"></a>
+
+[go to top](#top)
 
 We've run through database commands
 
@@ -143,6 +153,8 @@ We've run through database commands
 ```
 
 ### 2.5 Data Types <a name="2.5"></a>
+
+[go to top](#top)
 
 It's a bit of a hefty list, so check here instead:  
 
@@ -178,6 +190,8 @@ YEAR # YYYY
 
 ### 2.6 Primary Keys <a name="2.6"></a>
 
+[go to top](#top)
+
 Primary keys can be thought of as **unique identifiers** for each element in a table. So think of them like serial numbers.
 
 They must be:
@@ -190,6 +204,8 @@ They must be:
 It's probably best to just auto-increment the value of the key using AUTO_INCREMENT
 
 ### 2.7 Foreign Keys <a name="2.7"></a>
+
+[go to top](#top)
 
 Foreign keys are a little bit different!
 
@@ -207,6 +223,8 @@ Another Example: Let's say you have an email server, with two tables, one for us
 It's a good way to ensure something exists, since multiple tables will reference it. Also a good way to set filtering constraints.
 
 ### 2.8 Inserting and Deleting Data <a name="2.8"></a>
+
+[go to top](#top)
 
 ```mysql
 # Remember! If you forget how the table is structured, use DESCRIBE
@@ -249,6 +267,8 @@ It's a good way to ensure something exists, since multiple tables will reference
 ```
 
 ### 2.9 Displaying Table Values (Also with filters!) <a name="2.9"></a>
+
+[go to top](#top)
 
 ```mysql
 ############################
@@ -331,6 +351,8 @@ Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 
 ### 2.10 Displaying Table Values (With Data Conditionals!) <a name="2.10"></a>
 
+[go to top](#top)
+
 ```mysql
 # Conditional operators: 
 # = , > , < , >= , <= , !
@@ -358,6 +380,8 @@ Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 ```
 
 ### 2.11 Altering Tables <a name="2.11"></a>
+
+[go to top](#top)
 
 ```mysql
 # To begin altering a table (adding, deleting, changing column names), use the ALTER keyword to open a prompt
@@ -387,6 +411,8 @@ Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 
 ### 2.12 Renaming Tables <a name="2.12"></a>
 
+[go to top](#top)
+
 ```mysql
 # Use the RENAME TABLE keyword to do this! It'll open a prompt
 > RENAME TABLE
@@ -395,6 +421,8 @@ Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 ```
 
 ### 2.13 Joins <a name="2.13"></a>
+
+[go to top](#top)
 
 You can JOIN two tables when you're pulling data!
 
@@ -417,6 +445,8 @@ You have to find commonalities between tables in order to join them though!
 
 ### 2.14 Advanced Joins (Inner and Left/Right) <a name="2.14"></a>
 
+[go to top](#top)
+
 ```mysql
 # LEFT JOINs return all relevant data from the first table, even if the relevant data in the second table is null
 > SELECT * FROM table1 LEFT JOIN table2 ON table1.id = table2.id;
@@ -433,6 +463,8 @@ You have to find commonalities between tables in order to join them though!
 Confused? No worries, someone wrote a better tutorial: https://www.sitepoint.com/understanding-sql-joins-mysql-database/
 
 ## Reference Links <a name="3"></a>
+
+[go to top](#top)
 
 https://www.ntu.edu.sg/home/ehchua/programming/sql/MySQL_Beginner.html (Oh, cool, NTU has its own MySQL tutorial haha!)    
 

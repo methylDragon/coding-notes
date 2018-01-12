@@ -1,28 +1,58 @@
-```diff 
+# Basic C++ Crash Course
 
-						   .     .
-                        .  |\-^-/|  .    
-                       /| } O.=.O { |\  
-                      /´ \ \_ ~ _/ / `\
-                    /´ |  \-/ ~ \-/  | `\
-                    |   |  /\\ //\  |   | 
-                     \|\|\/-""-""-\/|/|/
-                             ______/ /
-                             '------'
-                _   _        _  ___                         
-      _ __  ___| |_| |_ _  _| ||   \ _ _ __ _ __ _ ___ _ _ 
-     | '  \/ -_)  _| ' \ || | || |) | '_/ _` / _` / _ \ ' \ 
-     |_|_|_\___|\__|_||_\_, |_||___/|_| \__,_\__, \___/_||_|
-                        |__/                |___/          
-     -------------------------------------------------------
-                        methylDragon.com                     
-```
+Author: methylDragon  
+Contains a syntax reference for C++  
+I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/watch?v=Rub-JsjMhWY
 
-# C++ CRASH COURSE
-# (SECTION I: THE BASICS)
-<center>A brief summary of: https://www.youtube.com/watch?v=Rub-JsjMhWY</center>
+------
 
-## Comments
+## Pre-Requisites
+
+### Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)
+
+- How **variables, loops, conditionals, etc**. work (Basic coding fundamentals will help a lot!)
+- Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
+- Gone through the all preceding parts of the tutorial
+
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)  
+2. [Basic C++ Syntax Reference](#2)    
+   2.1   [Comments](#2.1)    
+   2.2   [Importing Libraries](#2.2)    
+   2.3   [Hello World!](#2.3)    
+   2.4   [Running Programs](#2.4)    
+   2.5   [Variables and Data Types](#2.5)    
+   2.6   [Ouputting Variables and Variable Info](#2.6)    
+   2.7   [Casting](#2.7)    
+   2.8   [Arithmetic Operations](#2.8)    
+   2.9   [Conditionals](#2.9)    
+   2.10 [Ternary Operators](#2.10)    
+   2.11 [Switch Cases](#2.11)    
+   2.12 [Arrays](#2.12)    
+   2.13 [Multi-Dimensional Arrays](#2.13)    
+   2.14 [Strings](#2.14)    
+   2.15 [User Input](#2.15)    
+   2.16 [For Loops](#2.16)    
+   2.17 [While Loops](#2.17)    
+   2.18 [Do While Loops](#2.18)    
+   2.19 [Vectors](#2.19)    
+3. [Reference Links](#3)  
+
+## 1. Introduction <a name="1"></a>
+
+C++ is great for most stuff! It allows you to do memory management with it, and it's also a good place to start learning about concepts like references, pointers, etc.
+
+More practically, it's used almost everywhere because of its speed, and if you're not using an offline app written by it, you're probably using stuff like Java, etc.
+
+It's powerful, but hard. If you're not very familiar with programming, maybe don't start with this, but if you like a challenge... Well, here we go. I'll hold your hand a little along the way, but we're all learners here.
+
+## 2. Basic C++ Syntax Reference <a name="2"></a>
+
+### 2.1 Comments <a name="2.1"></a>
+
+[go to top](#top)
+
 ```c++
 // this is a comment
 
@@ -30,7 +60,10 @@
 line comment! */
 ```
 
-## Importing Libraries
+### 2.2 Importing Libraries <a name="2.2"></a>
+
+[go to top](#top)
+
 `#include <NAME>`
 
 common ones are
@@ -40,32 +73,43 @@ common ones are
 `<string>`  for strings
 `<fstream>`  for file input outputs
 
-##Hello World! (RAWR.cpp)
+### 2.3 Hello World! (RAWR.cpp) <a name="2.3"></a>
+
+[go to top](#top)
 
 **Every C++ program consists of a main function**
 
 ```c++
+#include <iostream>
+
 int main() {
-	std::cout << "Rawr"<<endl; // endl is carriage return (enter key)
+	std::cout << "Rawr" <<endl; // endl is carriage return (enter key)
 	
 	return 0;
-
 } 
 ```
+
 If you don't want to type std:: , then type
 
 `using namespace std;  //right after your import statements`
 
-##Running RAWR.cpp
+### 2.4 Running Programs (RAWR.cpp) <a name="2.4"></a>
+
+[go to top](#top)
+
+Using a Linux **Terminal** in the directory RAWR.cpp is stored
+
 `$ g++ -std=c++11 RAWR.cpp`
 
-"Using g++, on version 11 of c++, COMPILE RAWR.cpp"
+Means: "Using g++, on version 11 of c++, COMPILE RAWR.cpp"
 
 `$ ./a.out`
 
-"RUN RAWR.cpp"
+Means: "RUN RAWR.cpp" (a.out stands for Assembler Output. That is, the last thing output by the assembler.)
 
-##Variables and Data Types
+### 2.5 Variables and Data Types <a name="2.5"></a>
+
+[go to top](#top)
 
 **Variables are like containers for data**
 
@@ -90,7 +134,8 @@ Also, constants are usually declared with all caps
 `unsigned int` (Same size as signed version)
 `long double` (Not less than double)
 
-### You can assign or change the values stored in a variable with
+**You can assign or change the values stored in a variable with**
+
 Just use the equals sign!
 Make sure you remember your semi-colons and you ensure it's the right data-type!
 
@@ -100,7 +145,10 @@ Make sure you remember your semi-colons and you ensure it's the right data-type!
 So you initialised varName as an integer containing 5
 Then you changed the data stored in it to 8 instead.
 
-#### Outputting variables
+### 2.6 Outputting Variables and Variable Info <a name="2.6"></a>
+
+[go to top](#top)
+
 ```c++
 float favNum = 3.141592;
 
@@ -119,7 +167,20 @@ Prints `Size of int 4`
 
 !! If you go out of of the byte range, you'll get overflow (google that, basically bad stuff, your number will be inaccurate)
 
-## Arithmetic Operations
+### 2.7 Casting <a name="2.7"></a>
+
+[go to top](#top)
+
+```c++
+// You can convert between data types using casting!
+cout << "4 / 5 = " << 4 / 5 << endl;
+cout << "4 / 5 = " << (float) 4 / 5 << endl; // See how it works?
+```
+
+### 2.8 Arithmetic Operations <a name="2.8"></a>
+
+[go to top](#top)
+
 ```c++
 + //add
 -  //subtract
@@ -141,6 +202,7 @@ cout << "--5 = " <, --five << endl;
 ```
 
 Returns
+
 ```c++
 5++ = 5
 ++5 = 7
@@ -148,23 +210,27 @@ Returns
 --5 = 5
 ```
 
-### That's so weird!
+**That's so weird!**
 
 The reason for this is because when you increment or decrement on the **RIGHT** side, it'll perform the action **AFTER** it gives the value.
 
 If you increment or decrement it on the **LEFT** side, it'll perform the action **BEFORE** it gives the value. The reason you have 7 is because 5++ incremented 5 to a 6, but sent 5 before it incremented, so when you have ++5, it took a 6 to begin with and incremented it to 7, then printed it.
 
-### Here's another shorthand!
+**Here's another shorthand!**
 
 `five += 5; // five = five + 5;`
 `five -= 5; //five = five - 5;`
 
-### Order of operations
+**Order of operations**
+
 REMEMBER IT!
 
-## Conditionals
+### 2.9 Conditionals <a name="2.9"></a>
+
+[go to top](#top)
 
 **Comparison Operators**
+
 ```c++
 == // equal to 
 != // NOT equal to
@@ -173,12 +239,14 @@ REMEMBER IT!
 >= //  more than or equal to
 <= // less than or equal to
 ```
+
 !! NOTE. "==" IS **NOT** "="
 
 == COMPARES
 = ASSIGNS VALUES
 
 **Logical Operators**
+
 ```c++
 && // AND
 || // OR
@@ -202,7 +270,10 @@ if((age >= 1) && (age < 16) { // If you're 1 or older, but less than 16, you can
 }	
 ```
 
-## Ternary Operators
+### 2.10 Ternary Operators <a name="2.10"></a>
+
+[go to top](#top)
+
 Use these if you want to look cool!
 
 Example
@@ -215,9 +286,10 @@ int largestNum =  (5>2) ? 5 : 2;
 
 "Is 5 greater than 2? If yes, largestNum = 5, if no, largestNum = 2."
 
+### 2.111 Switch cases <a name="2.11"></a>
 
+[go to top](#top)
 
-## Switch cases
 Use it whenever you have a limited number of options
 
 ```c++
@@ -240,13 +312,16 @@ switch(greetingOption) {
 
 In this case, `Rawr` will be printed
 
-## Arrays
+### 2.12 Arrays <a name="2.12"></a>
+
+[go to top](#top)
+
 Arrays store multiple values of the same datatype. They're like 'boxes in memory'.
 
 `int myFavNums[5]`
 You need to define how many boxes there are in the array in the beginning, and this can't be changed. (We'll use vectors to change them later on)
 
-example
+Example:
 
 ```c++
 int myFavNums[5];
@@ -256,7 +331,10 @@ int badNums[5] = {4, 13, 14, 24, 34};
 cout << "Bad NUmber 1: " << badNums[0] << endl; //Prints 4, as indexing begins from 0, so 4 is index 0, 13 is index 1, 14 is index 2, 24 is index 3, and so on
 ```
 
-## Multi-Dimensional Arrays
+### 2.13 Multi-Dimensional Arrays <a name="2.13"></a>
+
+[go to top](#top)
+
 "Boxes of boxes"
 
 ```c++
@@ -271,11 +349,13 @@ myName[0][2] = 'e';
 cout << myName[0][2] << endl; // prints e
 ```
 
-## Strings
+### 2.14 Strings <a name="2.14"></a>
+
+[go to top](#top)
 
 Strings are arrays of characters! An array of strings then, is essentially a two-dimensional array.
 
-Always surround them by double quotes. In C++ strings are objects! (Unlike C)
+Always surround them by double quotes. In C++ strings are objects! (Unlike C. So think Object-Oriented Programming!)
 
 `string methylDragon = "methylDragon";`
 is equivalent to
@@ -283,7 +363,7 @@ is equivalent to
 or
 `string methylDragon = str("methylDragon");`
 
-```
+```c++
 //Assigning to C++ string
 methylDragon = "Rawr";
 str1 = str2.assign(str2); // Now str1 = str2
@@ -331,13 +411,19 @@ str1.erase(6,7); // Starting from index 6, delete 7 characters.
 str1.replace(6, 5, "Maximus") //Starting from index 6, delete 5 characters, then append the string "Maximus"
 ```
 
-## User Input
+### 2.15 User Input <a name="2.15"></a>
+
+[go to top](#top)
 
 `getline(cin, storageVariable);`
 
 If you want to get an integer, remember to use `intStorageVariable = stoi(storageVariable)`
 
-## For loops
+(stoi stands for String to Integer. It's a function that converts the datatype of a `string` containing numbers to `integer`.)
+
+### 2.16 For loops <a name="2.16"></a>
+
+[go to top](#top)
 
 "Initialise an incrementer i
 FOR as long as (some condition relating to i), RUN the code block
@@ -357,11 +443,13 @@ for(int j = 0; j < 6; j++) {
 // The above bit prints out meeylDragon (cause we changed t to e previously)
 ```
 
-## While loop
+### 2.17 While loops <a name="2.17"></a>
+
+[go to top](#top)
 
 Use these when you don't know ahead of time when this loop is going to end.
 
-```
+```c++
 int randNum = (rand() % 100) // generates numbers between 0 and 99
 
 while(randNum != 99){
@@ -375,11 +463,13 @@ cout << endl;
 
 It'll print until the condition is no longer fulfilled! So in this case we'll print random numbers until randNum assumes the value 99.
 
-## Do While loops
+### 2.18 Do While loops <a name="2.18"></a>
+
+[go to top](#top)
 
 Use them when you want to execute whatever is in the loop at least **ONCE**.
 
-```
+```c++
 do {
 	string numberGuessed;
 	int intNumberGuessed;
@@ -398,7 +488,10 @@ cout << "You win!" << endl;
 
 That's a guessing game that'll keep looping until you guess 4.
 
-## Vectors
+### 2.19 Vectors <a name="2.19"></a>
+
+[go to top](#top)
+
 Vectors are like arrays, but with one key difference.
 
 **THEIR SIZE CAN CHANGE**
@@ -409,6 +502,7 @@ int lotteryNumArray[5] = {4, 13, 14, 24, 34};
 
 lotteryNumVect.nsert(lotteryNumVect.begin(), lotteryNumArray, lotteryNumArray+3); //This just appends the first three numbers from lotteryNumArray
 ```
+
 Then, typing
 `cout << lotteryNumVect.at(2) << endl;`
 Prints "14" as "14" is in index 2
@@ -436,149 +530,3 @@ Removes the final value of the vector.
                          .  |\-^-/|  .    
                         /| } O.=.O { |\     
 ```
-
-# C++ CRASH COURSE
-# (SECTION II: FUNCTIONS AND MORE)
-
-## Functions
-Declare your functions **BEFORE** the main function!
-
-`int addNumbers(int firstNum, int secondNum = 0)`
-firstNum and secondNum are attributes. We set secondNum's default value if no value is given to be 0.
-
-int on the addNumbers function prototype is the RETURN datatype, in other words, the data type of the function's output.
-
-```
-int addNumbers(int firstNum, int secondNum = 0) {
-	int combinedValue = firstNum + secondNum;
-	
-	return combinedValue;
-	
-}
-```
-
-!! NOTE. combinedValue is not accessible anywhere else other than in addNumbers, as it is a **LOCAL** variable defined WITHIN a function.
-
-### You CAN overload functions
->C++ allows specification of more than one function of the same name in the same scope. These are called overloaded functions and are described in detail in Overloading. Overloaded functions enable programmers to supply different semantics for a function, depending on the types and number of arguments.
-
->For example, a print function that takes a string (or char *) argument performs very different tasks than one that takes an argument of type double. Overloading permits uniform naming and prevents programmers from having to invent names such as print_sz or print_d. The following table shows what parts of a function declaration C++ uses to differentiate between groups of functions with the same name in the same scope. - Microsoft
-
-
-```
-int addNumbers(int firstNum, int secondNum, int thirdNum){
-	return firstNum + secondNum + thirdNum;
-```
-
-Calling the two functions
-
-`cout << addNumbers(1) << endl;`
-Prints 0
-
-`cout << addNumbers(1, 5, 6)`
-Prints 12
-
-## Recursive Functions
-These are functions that call THEMSELVES. Trippy.
-
-```
-int getFactorial(int number){
-	int sum;
-	if(number == 1) sum = 1; //Yeah you can do this
-	else sum = getFactorial(number - 1) * number;
-	return sum;
-)
-```
-
-This function returns the factorial of itself, and it keeps calling itself which results in it calling itself until it stops, then it resolves one by one till all are resolved.
-
-## FILE I/O
-File input output.
-
-```c++
-string dragonQuote = "Rawr. But I can talk. Sup."; // Define the string to be written
-
-ofstream writer("dragonQuote.txt");  //Open a .txt file called dragonQuote, this is an OUTPUT filestream
-
-if(! writer) { //Check to see if the filestream is open
-
-	cout << "Error opening file" << endl;
-	return -1; // Return -1 if failed
-
-	)	else {
-
-	writer << dragonQuote << endl; // Write dragonQuote to writer, which causes dragonQuote.txt to contain only dragonQuote 
-	writer.close(); // Close the file
-
-	}
-}
-
-ofstream writer2("dragonQuote.txt", ios::app); //Create a writer object that appends to dragonQuote.txt
-
-// Open a stream to append to what's there with ios::app
-// ios::binary : Treat the file as binary
-// ios::in : Open a file to read input
-// ios::trunc : Default
-// ios::out : Open a file to write output
-
-if(! writer2) { //Check to see if the filestream is open
-
-	cout << "Error opening file" << endl;
-	return -1; // Return -1 if failed
-
-	)	else {
-
-	writer2 << "\n -methylDragon" << endl; // Append  "\n -methylDragon" 
-	writer2.close(); // Close the file
-
-	}
-	
-	char letter;
-	
-	ifstream reader("dragonQuote.txt"); // Open an input filestream that reads dragonQuote.txt
-	
-	if(! reader){
-		
-		cout << "Error opening file" << endl;
-		return -1;
-		
-	} else {
-		
-		for(int i = 0; ! reader.eof(); i++){ // Read until end of file
-		
-		reader.get(letter); // Get the next letter 
-		cout << letter; // And print it
-	
-	}
-	
-	cout << endl;
-	reader.close();
-}
-```
-
-## Exception Handling
-
-LITERALLY THE BEST THING EVER
-
-THIS IS PART OF WHAT WON ME THE GOOGLE HACKATHON. DEBUGGING LOVE.
-
-```
-try{ // Try this. If it doesn't work, then it's fine.
-
-	if(number != 0){
-	
-		cout << 2/number << endl;
-	
-	} else throw(number); // Throw the problematic number
-
-}
-
-catch(int number) { // Catch it!
-	
-	cout << number << " is not valid" << endl; // Prints 0 (or any non number) is not valid
-	
-}
-```
-
-## POINTERS
-#### OH NO
