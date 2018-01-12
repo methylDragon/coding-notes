@@ -286,7 +286,7 @@ int largestNum =  (5>2) ? 5 : 2;
 
 "Is 5 greater than 2? If yes, largestNum = 5, if no, largestNum = 2."
 
-### 2.111 Switch cases <a name="2.11"></a>
+### 2.11 Switch cases <a name="2.11"></a>
 
 [go to top](#top)
 
