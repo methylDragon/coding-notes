@@ -299,7 +299,7 @@ class Dragon : public Animal{
 
 void whatClassAreYou(Animal *animal){
   	animal -> getClass();
-}
+};
 ```
 
 ```c++
