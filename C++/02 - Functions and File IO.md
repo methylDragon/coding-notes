@@ -97,6 +97,8 @@ This function returns the factorial of itself, and it keeps calling itself which
 
 File input output.
 
+Remember to `#include <string>` and `#include <fstream>`
+
 ```c++
 string dragonQuote = "Rawr. But I can talk. Sup."; // Define the string to be written
 

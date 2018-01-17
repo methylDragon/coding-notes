@@ -37,6 +37,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.17 [While Loops](#2.17)    
    2.18 [Do While Loops](#2.18)    
    2.19 [Vectors](#2.19)    
+   2.20 [Printf](#2.20)    
+   2.21 [Argc and Argv](#2.21)    
 3. [Reference Links](#3)  
 
 ## 1. Introduction <a name="1"></a>
@@ -77,7 +79,7 @@ common ones are
 
 [go to top](#top)
 
-**Every C++ program consists of a main function**
+**Every C++ program consists of a <u>main function</u>**
 
 ```c++
 #include <iostream>
@@ -524,6 +526,97 @@ Returns the size of the vector
 
 `lotteryNumVect.pop_back();`
 Removes the final value of the vector.
+
+### 2.20 Printf() <a name="2.20"></a>
+
+[go to top](#top)
+
+We've talked about `cout <<` when we were talking about printing things. But this is another way to do it that's kind of flexible as well!
+
+Example from http://www.cplusplus.com/reference/cstdio/printf/
+
+```c++
+/* printf example */
+#include <stdio.h>
+
+int main()
+{
+   printf ("Characters: %c %c \n", 'a', 65);
+   printf ("Decimals: %d %ld\n", 1977, 650000L);
+   printf ("Preceding with blanks: %10d \n", 1977);
+   printf ("Preceding with zeros: %010d \n", 1977);
+   printf ("Some different radices: %d %x %o %#x %#o \n", 100, 100, 100, 100, 100);
+   printf ("floats: %4.2f %+.0e %E \n", 3.1416, 3.1416, 3.1416);
+   printf ("Width trick: %*d \n", 5, 10);
+   printf ("%s \n", "A string");
+   return 0;
+}
+
+/* OUTPUT:
+Characters: a A
+Decimals: 1977 650000
+Preceding with blanks:       1977
+Preceding with zeros: 0000001977
+Some different radices: 100 64 144 0x64 0144
+floats: 3.14 +3e+000 3.141600E+000
+Width trick:    10
+A string
+*/
+```
+
+What's essentially happening is that the string elements preceded by a % act as standins where you can fill data! The data filled in here were constants, but you can potentially put variables in here too!
+
+There's a whole bunch of different types, but the commonly used ones are
+
+%c: character
+
+%d: signed integer
+
+%f: float
+
+%s: string
+
+### 2.21 Argc and Argv <a name="2.21"></a>
+
+[go to top](#top)
+
+Now that we've gone through a lot of C++, you should be curious why the main function is int main(). Why are there parentheses for it? Can it take arguments?
+
+Turns out, it can. The function prototype for the main function is actually `int main(int argc, string argv[])`. This means that you can actually input arguments into the program when you're running it! Either from the command line or programatically.
+
+argc stands for **argument count** (The default value is 1, the name of the program being run)
+
+argv stands for **argument vector** (In this case, an array of strings. Each string is one of the arguments passed to the program.)
+
+You can reference and access these variables! Notice how in the example how the first argument is the name of the program though!
+
+Illustrative example:
+
+```c++
+int main(int argc, string argv[])
+{
+  int i;
+  printf("Main has %d arguments inputted \n", argc);
+  
+  for(i=0; i < argc; ++i)
+  {
+    printf("%s\n", argv[i]);
+  }
+  return 0;
+}
+
+// Let's say... we call this program test.cpp
+// And we run it using
+// ./test ra raa rawr
+
+/* OUTPUT:
+Main has 4 arguments inputted
+./test
+ra
+raa
+rawr
+*/
+```
 
 ```
                             .     .
