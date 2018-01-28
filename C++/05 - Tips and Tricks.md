@@ -14,6 +14,8 @@ I'll be adapting it from The Happie Cat's "Top 10 Things I Wish I Had Known When
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
 - Gone through the all preceding parts of the tutorial
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -29,9 +31,13 @@ I'll be adapting it from The Happie Cat's "Top 10 Things I Wish I Had Known When
    2.9   [Try using a UNIX platform](#2.9)    
    2.10 [Effective C++](#2.10)    
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 Alright! Now let's deal with some issues that might pop up or random problems you might come across (that are due to C++'s quirks instead of your own user errors) and spend waaaaay too long solving!
+
+
 
 ## 2. Tips and Tricks <a name="2"></a>
 
@@ -43,11 +49,15 @@ It might have been very closely related in the past, but they're more or less ve
 
 Don't make yourself look dumb!
 
+
+
 ### 2.2 C++ is just moving memory around <a name="2.2"></a>
 
 [go to top](#top)
 
 If C++ is too hard to get your head around, go look up a tutorial on computer architecture! (Binary, to Assembly, opcodes, and the like.) If you want a game to play to learn it, I recommend **Human Resource Machine**.
+
+
 
 ### 2.3 Plan your code before you write it <a name="2.3"></a>
 
@@ -57,6 +67,8 @@ Go old school, with pen and paper. Draw your program-flow charts and what you in
 
 It'll help you debug faster, and help you actually make sure you implement everything you wanted to to begin with.
 
+
+
 ### 2.4 The Rubber Ducky Method <a name="2.4"></a>
 
 [go to top](#top)
@@ -65,6 +77,8 @@ So it turns out there's a secret weapon in the programmer's arsenal for whenever
 
 Get a small toy, or a friend. AND EXPAIN YOUR CODE TO THEM. Or maybe explain your problem to them, framing it as a question. Sometimes flaws in your logic suddenly become obvious. Woo.
 
+
+
 ### 2.5 Organise your code <a name="2.5"></a> 
 
 [go to top](#top)
@@ -72,6 +86,8 @@ Get a small toy, or a friend. AND EXPAIN YOUR CODE TO THEM. Or maybe explain you
 - Classes should do ONE THING (Chessboards shouldn't have methods for every single chess-PIECE)
 - Functions should be 25 lines OR LESS. Makes it easier to debug. If they're longer, split it up.
 - COMMENT YOUR CODE. You and your peers will thank me in a couple years' time. It's very easy to forget what you wanted to do a couple of weeks or months after leaving or finishing a project. Comments help a lot.
+
+
 
 ### 2.6 Pointer Arithmetic <a name="2.6"></a>
 
@@ -88,6 +104,8 @@ int* y = 4;
 y = &x;
 ```
 
+
+
 ### 2.7 Use const and scoping <a name="2.7"></a>
 
 [go to top](#top)
@@ -103,6 +121,8 @@ blah(){ // THE BRACKETS ARE THE SCOPE. They prevent naming conflicts by keeping 
   	// stuff
 }
 ```
+
+
 
 ### 2.8 Header Guards <a name="2.8"></a>
 
@@ -175,17 +195,23 @@ public:                       int y;               A a;
      A.h                       B.h                      htest.cc
 ```
 
+
+
 ### 2.9 Try using a UNIX platform <a name="2.9"></a>
 
 [go to top](#top)
 
 Instead of using fancy tools! Start from a simpler tool first to get better acquainted with C++
 
+
+
 ### 2.10 Effective C++ <a name="2.10"></a>
 
 [go to top](#top)
 
 ^^^^^^^^^^^^^^^^^^ This book is nice.
+
+
 
 ```
                             .     .

@@ -11,6 +11,8 @@ Contains notes on WordPress in general, plugin development, and a code reference
 
 - **PHP** (read my PHP syntax reference!)
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -31,6 +33,8 @@ Contains notes on WordPress in general, plugin development, and a code reference
    2.14 [Unhooking filters](#2.14)    
    2.15 [Miscellaneous filter related functions](#2.15)    
 3. [Relevant Links](#3)    
+
+
 
 ## 1. Introduction <a name="1"></a> 
 
@@ -74,7 +78,7 @@ Also, **FYI**, whenever you open a parenthesis, make sure you add a space after 
 
 
 
-## 2.3 Actions, Filters, and Hooks <a name="2.3"></a>
+### 2.3 Actions, Filters, and Hooks <a name="2.3"></a>
 
 [go to top](#top)
 
@@ -82,7 +86,7 @@ In order to deal with constant WP updates while maintaining plugin compatibility
 
 
 
-## 2.4 A Refresher on PHP Functions <a name="2.4"></a>
+### 2.4 A Refresher on PHP Functions <a name="2.4"></a>
 
 [go to top](#top)
 
@@ -98,7 +102,7 @@ You can call functions directly on WP using functionName(); , or call them via a
 
 
 
-## 2.5 Hooks <a name="2.5"></a>
+### 2.5 Hooks <a name="2.5"></a>
 
 [go to top](#top)
 
@@ -108,7 +112,7 @@ These hooks exist in two forms, Actions, and Filters.
 
 
 
-## 2.6 Actions: Call PHP functions that are supposed to <u>do something <a name="2.6"></a></u>
+### 2.6 Actions: Call PHP functions that are supposed to <u>do something <a name="2.6"></a></u>
 
 [go to top](#top)
 
@@ -143,6 +147,8 @@ OPTIONAL: $arg (mixed) You can pass arguments to the action!
 
 	do_action( 'function_name', 'arg_1', true, 'foo', 'arg_4' );
 ```
+
+
 ### 2.8 add_action() <a name="2.8"></a>
 
 [go to top](#top)
@@ -164,6 +170,8 @@ NOTE: The arguments passed to the $tag action will be the ones passed to the $fu
 // Or if calling a function from within a class
 	add_action( 'some_hook', array( 'some_class', 'callback_function_in_some_class' ) );
 ```
+
+
 
 ### 2.9 Unhooking actions <a name="2.9"></a>
 
@@ -196,6 +204,8 @@ Note: Becareful when using this, because it might cause issues with nested hooks
 	remove_all_actions( 'some_hook' );
 ```
 
+
+
 ### 2.10 Miscellaneous action related functions <a name="2.10"></a>
 
 [go to top](#top)
@@ -212,7 +222,7 @@ It returns a boolean value, or an integer, if the action has a priority value as
 
 
 
-## 2.11 Filters: Call PHP functions that <u>receive and returns values <a name="2.11"></a></u>
+### 2.11 Filters: Call PHP functions that <u>receive and returns values <a name="2.11"></a></u>
 
 [go to top](#top)
 
@@ -238,6 +248,8 @@ You must supply a parameter!
 	apply_filters( 'filter_to_use', 'value_to_filter', 'potentially_more_values' );
 ```
 
+
+
 ### 2.13 add_filter() <a name="2.13"></a>
 
 [go to top](#top)
@@ -258,6 +270,8 @@ Note: Don't forget to define your callback function!
 
 	add_filter( 'filter_to_use', 'additional_filter' );
 ```
+
+
 
 ### 2.14 Unhooking filters <a name="2.14"></a>
 
@@ -282,6 +296,8 @@ Returns true when done
 // remove_all_filters() does exactly what you think it does
 	remove_all_filters( 'some_hook' );
 ```
+
+
 
 ### 2.15 Miscellaneous filter related functions <a name="2.15"></a>
 

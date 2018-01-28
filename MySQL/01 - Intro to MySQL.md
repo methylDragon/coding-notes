@@ -18,6 +18,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - PHP
 - General coding syntax (I'll use # for comments)
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)    
@@ -39,6 +41,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.14 [Advanced Joins](#2.14) (Inner and Left/Right)    
 3. [Reference Links](#3)  
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 >MySQL is a database, used for storing information in a way that makes it easy to get at particular pieces of information when you want them. It can be used for lots of things, but in this case, it's to store data to be used for a website. (r/eli5)
@@ -52,6 +56,8 @@ If you want a GUI program to access your database, use https://www.mysql.com/pro
 
 If working on WordPress, there's a bunch of handy database plugins out here. One of which is ARI Adminer. But apparently you can also use MySQL workbench: https://www.michaelstults.com/2014/10/how-to-setup-mysql-workbench-database-for-wordpress-on-windows-server/
 
+
+
 ### 1.1 MySQL Database Architecture <a name="1.1"></a>
 
 [go to top](#top)
@@ -61,6 +67,8 @@ In MySQL, data is stored in **Tables** that are grouped within **Databases**. It
 Within each table, each entry of data is stored in a **row** (also known as records), whereas each property that is being stored (eg. Name, Telephone Number, Index Number) define the **columns** (also known as fields.)
 
 ![MySQL Table](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\MySQL\Images\01 Images\MySQL Table.png)
+
+
 
 ## 2. Basic Syntax Reference <a name="2"></a>
 
@@ -79,6 +87,8 @@ $ mysql -u <username> -p
 # To LOG OUT
 > quit
 ```
+
+
 
 ### 2.2 Database Commands <a name="2.2"></a>
 
@@ -101,6 +111,8 @@ It's good practice to write your commands and keywords in upper-case. It's not r
 > DROP DATABASE IF EXISTS <database_name>; # Destroys the database if it exists
 ```
 
+
+
 ### 2.3 Database Design <a name="2.3"></a>
 
 [go to top](#top)
@@ -122,6 +134,8 @@ Additionally:
 - Don't have multiple columns with the same sort of information
 - Don't include multiple values in one cell
 - Normalized tables
+
+
 
 ### 2.4 Table Creation <a name="2.4"></a>
 
@@ -151,6 +165,8 @@ We've run through database commands
   
 # Notice: The semicolon ; appeared at the end of the ENTIRE statement!
 ```
+
+
 
 ### 2.5 Data Types <a name="2.5"></a>
 
@@ -188,6 +204,8 @@ TIMESTAMP # YYYYMMDDHHMMSS
 YEAR # YYYY
 ```
 
+
+
 ### 2.6 Primary Keys <a name="2.6"></a>
 
 [go to top](#top)
@@ -202,6 +220,8 @@ They must be:
 - Cannot be changed
 
 It's probably best to just auto-increment the value of the key using AUTO_INCREMENT
+
+
 
 ### 2.7 Foreign Keys <a name="2.7"></a>
 
@@ -221,6 +241,8 @@ Example: If a region listing and included the primary keys for all the different
 Another Example: Let's say you have an email server, with two tables, one for users, and one for the emails sent. The user table will have a PRIMARY KEY for user IDs, but you can reference the user IDs in the emails sent, since each email had to have been sent by a user. For the email table, the FOREIGN KEY is the user ID inputted into each row.
 
 It's a good way to ensure something exists, since multiple tables will reference it. Also a good way to set filtering constraints.
+
+
 
 ### 2.8 Inserting and Deleting Data <a name="2.8"></a>
 
@@ -265,6 +287,8 @@ It's a good way to ensure something exists, since multiple tables will reference
 > UPDATE dragonsurvey SET likes_dragons="Y" WHERE name="dragonHater";
 # Forces dragonHater to like dragons ... :>
 ```
+
+
 
 ### 2.9 Displaying Table Values (Also with filters!) <a name="2.9"></a>
 
@@ -349,6 +373,8 @@ It's a good way to ensure something exists, since multiple tables will reference
 
 Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 
+
+
 ### 2.10 Displaying Table Values (With Data Conditionals!) <a name="2.10"></a>
 
 [go to top](#top)
@@ -378,6 +404,8 @@ Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 # _ matches any SINGLE character
 # This one displays entries where 'name' starts with m OR id ends with 8
 ```
+
+
 
 ### 2.11 Altering Tables <a name="2.11"></a>
 
@@ -409,6 +437,8 @@ Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 # Why would dragons need zipcodes anyway..?
 ```
 
+
+
 ### 2.12 Renaming Tables <a name="2.12"></a>
 
 [go to top](#top)
@@ -419,6 +449,8 @@ Function list: https://www.w3schools.com/sql/sql_ref_mysql.asp
 -> dragonsurvey to dragons;
 # You can rename multiple tables this way, just use the ',' in place of the ';' until you're done.
 ```
+
+
 
 ### 2.13 Joins <a name="2.13"></a>
 
@@ -443,6 +475,8 @@ You have to find commonalities between tables in order to join them though!
 
 ```
 
+
+
 ### 2.14 Advanced Joins (Inner and Left/Right) <a name="2.14"></a>
 
 [go to top](#top)
@@ -461,6 +495,8 @@ You have to find commonalities between tables in order to join them though!
 ```
 
 Confused? No worries, someone wrote a better tutorial: https://www.sitepoint.com/understanding-sql-joins-mysql-database/
+
+
 
 ## Reference Links <a name="3"></a>
 

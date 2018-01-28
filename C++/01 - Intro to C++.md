@@ -14,6 +14,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
 - Gone through the all preceding parts of the tutorial
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -42,6 +44,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.22 [Exception Handling](#2.22)    
 3. [Reference Links](#3)  
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 C++ is great for most stuff! It allows you to do memory management with it, and it's also a good place to start learning about concepts like references, pointers, etc.
@@ -49,6 +53,8 @@ C++ is great for most stuff! It allows you to do memory management with it, and 
 More practically, it's used almost everywhere because of its speed, and if you're not using an offline app written by it, you're probably using stuff like Java, etc.
 
 It's powerful, but hard. If you're not very familiar with programming, maybe don't start with this, but if you like a challenge... Well, here we go. I'll hold your hand a little along the way, but we're all learners here.
+
+
 
 ## 2. Basic C++ Syntax Reference <a name="2"></a>
 
@@ -63,6 +69,8 @@ It's powerful, but hard. If you're not very familiar with programming, maybe don
 line comment! */
 ```
 
+
+
 ### 2.2 Importing Libraries <a name="2.2"></a>
 
 [go to top](#top)
@@ -75,6 +83,8 @@ common ones are
 `<vector> ` for vectors
 `<string>`  for strings
 `<fstream>`  for file input outputs
+
+
 
 ### 2.3 Hello World! (RAWR.cpp) <a name="2.3"></a>
 
@@ -96,6 +106,8 @@ If you don't want to type std:: , then type
 
 `using namespace std;  //right after your import statements`
 
+---
+
 ### 2.4 Running Programs (RAWR.cpp) <a name="2.4"></a>
 
 [go to top](#top)
@@ -109,6 +121,8 @@ Means: "Using g++, on version 11 of c++, COMPILE RAWR.cpp"
 `$ ./a.out`
 
 Means: "RUN RAWR.cpp" (a.out stands for Assembler Output. That is, the last thing output by the assembler.)
+
+
 
 ### 2.5 Variables and Data Types <a name="2.5"></a>
 
@@ -164,6 +178,8 @@ varName = 8;
 So you initialised varName as an integer containing 5
 Then you changed the data stored in it to 8 instead.
 
+
+
 ### 2.6 Outputting Variables and Variable Info <a name="2.6"></a>
 
 [go to top](#top)
@@ -186,6 +202,8 @@ Prints `Size of int 4`
 
 !! If you go out of of the byte range, you'll get overflow (google that, basically bad stuff, your number will be inaccurate)
 
+
+
 ### 2.7 Casting (Type Conversion) <a name="2.7"></a>
 
 [go to top](#top)
@@ -195,6 +213,8 @@ Prints `Size of int 4`
 cout << "4 / 5 = " << 4 / 5 << endl;
 cout << "4 / 5 = " << (float) 4 / 5 << endl; // See how it works?
 ```
+
+
 
 ### 2.8 Arithmetic Operations <a name="2.8"></a>
 
@@ -244,6 +264,8 @@ If you increment or decrement it on the **LEFT** side, it'll perform the action 
 
 REMEMBER IT!
 
+
+
 ### 2.9 Conditionals <a name="2.9"></a>
 
 [go to top](#top)
@@ -289,6 +311,8 @@ if((age >= 1) && (age < 16) { // If you're 1 or older, but less than 16, you can
 }	
 ```
 
+
+
 ### 2.10 Ternary Operators <a name="2.10"></a>
 
 [go to top](#top)
@@ -304,6 +328,8 @@ int largestNum =  (5>2) ? 5 : 2;
 ```
 
 "Is 5 greater than 2? If yes, largestNum = 5, if no, largestNum = 2."
+
+
 
 ### 2.11 Switch cases <a name="2.11"></a>
 
@@ -331,6 +357,8 @@ switch(greetingOption) {
 
 In this case, `Rawr` will be printed
 
+
+
 ### 2.12 Arrays <a name="2.12"></a>
 
 [go to top](#top)
@@ -350,6 +378,8 @@ int badNums[5] = {4, 13, 14, 24, 34};
 cout << "Bad Number 1: " << badNums[0] << endl; //Prints 4, as indexing begins from 0, so 4 is index 0, 13 is index 1, 14 is index 2, 24 is index 3, and so on
 ```
 
+
+
 ### 2.13 Multi-Dimensional Arrays <a name="2.13"></a>
 
 [go to top](#top)
@@ -367,6 +397,8 @@ myName[0][2] = 'e';
 
 cout << myName[0][2] << endl; // prints e
 ```
+
+
 
 ### 2.14 Strings <a name="2.14"></a>
 
@@ -429,6 +461,8 @@ str1.erase(6,7); // Starting from index 6, delete 7 characters.
 //Replacing parts of a string
 str1.replace(6, 5, "Maximus") //Starting from index 6, delete 5 characters, then append the string "Maximus"
 ```
+
+
 
 ### 2.15 User Input <a name="2.15"></a>
 
@@ -510,6 +544,8 @@ for(int j = 0; j < 6; j++) {
 // The above bit prints out meeylDragon (cause we changed t to e previously)
 ```
 
+
+
 ### 2.17 While loops <a name="2.17"></a>
 
 [go to top](#top)
@@ -529,6 +565,8 @@ cout << endl;
 ```
 
 It'll print until the condition is no longer fulfilled! So in this case we'll print random numbers until randNum assumes the value 99.
+
+
 
 ### 2.18 Do While loops <a name="2.18"></a>
 
@@ -554,6 +592,8 @@ cout << "You win!" << endl;
 ```
 
 That's a guessing game that'll keep looping until you guess 4.
+
+
 
 ### 2.19 Vectors <a name="2.19"></a>
 
@@ -591,6 +631,8 @@ Returns the size of the vector
 
 `lotteryNumVect.pop_back();`
 Removes the final value of the vector.
+
+
 
 ### 2.20 Printf() <a name="2.20"></a>
 
@@ -641,6 +683,8 @@ There's a whole bunch of different types, but the commonly used ones are
 
 %s: string
 
+
+
 ### 2.21 Argc and Argv <a name="2.21"></a>
 
 [go to top](#top)
@@ -683,6 +727,8 @@ rawr
 */
 ```
 
+
+
 ### 2.22 Exception Handling <a name="2.22"></a>
 
 [go to top](#top)
@@ -708,6 +754,8 @@ catch(int number) { // Catch it!
 	
 }
 ```
+
+
 
 ```
                             .     .

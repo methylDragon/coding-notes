@@ -18,6 +18,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - **Regular Expressions** (Regex) (It's more or less a souped up version of Ctrl+F)
   - https://regexone.com/ Get your refresher here
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -49,6 +51,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 
 
+
 ## 1. Introduction <a name="1"></a>
 
 > PHP can be used for lots of things too, but the main thing its used for is generating html on the fly. 
@@ -73,6 +76,8 @@ Additionally, you can use PHP to push and pull from a MySQL database, as well as
 
 NOTE: The parenthesis formatting I'm using here is for PHP. It differs from WordPress in that here I won't care about the whitespace after the opening parenthesis and before the closing parenthesis. DO NOT FORGET IT FOR WordPress!
 
+
+
 ## 2. Basic Syntax Reference <a name="2"></a>
 
 ### 2.1 HTML and PHP <a name="2.1"></a> 
@@ -95,6 +100,8 @@ You can insert PHP into a HTML file by using the `<?php` and `?>` tags! HTML and
 </html>
 ```
 
+
+
 ### 2.2 Comments <a name="2.2"></a> 
 
 [go to top](#top)
@@ -110,6 +117,8 @@ This is a multiline PHP comment
 <!-- This is a multiline HTML comment -->
 
 ```
+
+
 
 ### 2.3 Variable Declaration <a name="2.3"></a> 
 
@@ -129,6 +138,8 @@ This is a multiline PHP comment
 	define('PI', 3.1415926)
 
 ```
+
+
 
 ### 2.4 Echo <a name="2.4"></a> 
 
@@ -152,6 +163,8 @@ This is a multiline PHP comment
 
 Intermediary Note: **DO NOT FORGET YOUR SEMICOLON**
 
+
+
 ### 2.5 Heredoc (Multiline strings) <a name="2.5"></a> 
 
 [go to top](#top)
@@ -169,6 +182,8 @@ EOD;
 
 # NOTE: It is important that the ending identifier contains NO OTHER CHARACTERS, THIS INCLUDES INDENTATIONS before the identifier, and WHITESPACES after the semicolon
 ```
+
+
 
 ### 2.6 Arithmetic and Type Arithmetic <a name="2.6"></a> 
 
@@ -194,6 +209,8 @@ EOD;
 	++$number; # Echoing this will give 7, since it increments BEFORE any access
 ```
 
+
+
 ### 2.7 References <a name="2.7"></a> 
 
 [go to top](#top)
@@ -205,6 +222,8 @@ EOD;
 	$refToNum = &$randNum;
 	echo '$refToNum = ' . $refToNum; # Prints $refToNum = 100
 ```
+
+
 
 ### 2.8 Conditionals and Switch Cases <a name="2.8"></a> 
 
@@ -248,6 +267,8 @@ Comparison Operators
 			break;
 	}
 ```
+
+
 ### 2.9 Loops <a name="2.9"></a> 
 
 [go to top](#top)
@@ -271,6 +292,8 @@ Comparison Operators
 }
 ```
 
+
+
 ### 2.10 Functions <a name="2.10"></a> 
 
 [go to top](#top)
@@ -284,6 +307,8 @@ Comparison Operators
 // To call it use addNumbers()
 	addNumbers(1,2); # Returns 3
 ```
+
+
 
 ### 2.11 Arrays <a name="2.11"></a> 
 
@@ -308,6 +333,8 @@ Comparison Operators
                       array('Sally', '124 Main', '15213'))
 ```
 
+
+
 ### 2.12 Array Key Assignment <a name="2.12"></a> 
 
 [go to top](#top)
@@ -319,6 +346,8 @@ You can assign a key to an array using =>
 */
 	$dragons = array('Name'=>$dragonName, 'Subspecies'=>$dragonType);
 ```
+
+
 
 ### 2.13 Array Functions <a name="2.13"></a> 
 
@@ -348,6 +377,8 @@ You can assign a key to an array using =>
 // array_unshift(): Adds an element before the FIRST element of an array
 
 ```
+
+
 
 ### 2.14 String Functions <a name="2.14"></a> 
 
@@ -403,6 +434,8 @@ You can assign a key to an array using =>
 	str_replace("Rwar", "Rar", "Raa Rwar Rawr"); # Returns Raa Rar Rawr
 ```
 
+
+
 ### 2.15 Printf <a name="2.15"></a> 
 
 [go to top](#top)
@@ -420,6 +453,8 @@ You can assign a key to an array using =>
 	# Prints: Decimal num = 2.35
 ```
 
+
+
 ### 2.16 Regular Expressions <a name="2.16"></a> 
 
 [go to top](#top)
@@ -436,6 +471,8 @@ You can assign a key to an array using =>
 	# Replace all 'abc' with 'def'
 ```
 
+
+
 ### 2.17 Die <a name="2.17"></a> 
 
 [go to top](#top)
@@ -445,6 +482,8 @@ You can assign a key to an array using =>
 // You use it to exit the script to prevent unresponsive scripts
 	die("Error message here");
 ```
+
+
 
 ## 3. Using PHP with MySQL <a name="3"></a>
 
@@ -498,6 +537,8 @@ OR die('Could not connect to MySQL: ' . mysqli_connect_error());
 	require_once('../mysqli_connect.php');
 ```
 
+
+
 ### 3.2 Database Functions <a name="3.2"></a> 
 
 [go to top](#top)
@@ -538,6 +579,8 @@ Remember each column denotes a property! Each row denotes an entry!
 	mysqli_insert_id($cxn)
 ```
 
+
+
 ### 3.3 Querying the Database <a name="3.3"></a> 
 
 [go to top](#top)
@@ -574,6 +617,8 @@ UPDATE table SET col=value,… WHERE clause
 	}
 ```
 
+
+
 ### 3.4 Altering the Database <a name="3.4"></a> 
 
 [go to top](#top)
@@ -596,6 +641,8 @@ RENAME newtablename
   
 ```
 
+
+
 ### 3.5 Small note on -> <a name="3.5"></a> 
 
 [go to top](#top)
@@ -611,6 +658,8 @@ RENAME newtablename
 // Call a method of the $obj object named getProperty
 	$obj->getProperty();
 ```
+
+
 
 ## 4. Reference Links <a name="4"></a>
 

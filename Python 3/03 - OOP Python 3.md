@@ -1,9 +1,9 @@
-# Advanced C++ Crash Course (OOP)
+# OOP Python 3 Crash Course
 
 Author: methylDragon  
-Contains an advanced syntax reference for C++  
+Contains an advanced syntax reference for Python 3  
 This time, we'll be going through OOP!   
-I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/watch?v=Rub-JsjMhWY
+I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/watch?v=N4mEzFDjqtA
 
 ------
 
@@ -15,8 +15,6 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
 - Gone through the all preceding parts of the tutorial
 
-
-
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -27,13 +25,9 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.4   [Child Class Declaration](#2.4)    
    2.5   [Virtual Methods and Polymorphism](#2.5)    
 
-
-
 ## 1. Introduction <a name="1"></a>
 
 Object-Oriented Programming. Pretty standard, some small quirks in C++, but good vibes. :)
-
-
 
 ## 2. Object-Oriented C++ Syntax Reference <a name="2"></a>
 
@@ -63,8 +57,6 @@ protected:
 
 // NOTE: Visibility affects inheritance as well! Private attributes and methods are NOT inherited
 ```
-
-
 
 ### 2.2 Access Operators <a name="2.2"></a>
 
@@ -109,8 +101,6 @@ int main() {
 	y->Create();
 }
 ```
-
-
 
 ### 2.3 Classes <a name="2.3"></a>
 
@@ -216,8 +206,6 @@ int main(){
 // Welp, we made them
 ```
 
-
-
 ### 2.4 Child Class Declaration <a name="2.4"></a>
 
 [go to top](#top)
@@ -284,8 +272,6 @@ tom.toString();
 // etc. etc. etc.
 ```
 
-
-
 ### 2.5 Virtual Methods and Polymorphism <a name="2.5"></a>
 
 [go to top](#top)
@@ -337,8 +323,6 @@ int main(){
   return 0;
 }
 ```
-
-
 
 ```
                             .     .

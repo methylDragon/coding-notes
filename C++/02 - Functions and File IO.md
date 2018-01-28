@@ -15,6 +15,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
 - Gone through the all preceding parts of the tutorial
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -24,9 +26,13 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.3   [Recursive Functions](#2.3)    
    2.4   [File I/O](#2.4)    
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 We've gone through the basics of C++. Now let's throw in some functions and file interactions!
+
+
 
 ## 2. Functional C++ Syntax Reference <a name="2"></a>
 
@@ -52,6 +58,8 @@ int addNumbers(int firstNum, int secondNum = 0) {
 
 !! NOTE. combinedValue is not accessible anywhere else other than in addNumbers, as it is a **LOCAL** variable defined WITHIN a function.
 
+
+
 ### 2.2 Function Overloading <a name="2.2"></a>
 
 [go to top](#top)
@@ -76,6 +84,8 @@ void sameFunction(int a, float b){
 
 Functions can have the same name, but do DIFFERENT THINGS depending on what gets passed to them!
 
+
+
 ### 2.3 Recursive Functions <a name="2.3"></a>
 
 [go to top](#top)
@@ -94,6 +104,8 @@ int getFactorial(int number){
 This function returns the factorial of itself, and it keeps calling itself which results in it calling itself until it stops, then it resolves one by one till all are resolved.
 
 The last function calls to go on the stack are resolved first! USE THE STACK! Play some Magic!
+
+
 
 ### 2.4 File I/O <a name="2.4"></a>
 
@@ -163,6 +175,8 @@ if(! writer2) { //Check to see if the filestream is open
 	reader.close();
 }
 ```
+
+
 
 ```
                             .     .

@@ -14,6 +14,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - Basic **HTML**
 - Completed the **PHP** syntax tutorial
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -35,6 +37,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.11 [Abstract Classes and Methods](#2.11)    
 3. [Reference Links](#3)  
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 Let's do a refresher for some basic Object Oriented Programming (OOP) concepts! 
@@ -42,6 +46,8 @@ Let's do a refresher for some basic Object Oriented Programming (OOP) concepts!
 > The basis for all object oriented programming languages is the manipulation of **objects**.
 >
 > **Objects** contain **Attributes** and **Methods**. These two can be referred to collectively as the **Members** of the **Object's Class**.
+
+
 
 ### 1.1 Objects and Classes <a name="1.1"></a>
 
@@ -74,6 +80,8 @@ So for example, you can have a class that defines an object with the property: "
 >
 > **Note:** When constructing an object belonging to a class, you **can** override the default values defined by the class. So when defining **methylDragon**, you can give him alternative attribute values! Like the **Color: Black**!
 
+
+
 ### 1.2 Inheritance <a name="1.2"></a>
 
 [go to top](#top)
@@ -102,6 +110,8 @@ Notably, **you can nest classes!** Sub-classes will then **inherit** or **overri
 > Eat() | (<u>Inherited</u>)
 > Fly() | (<u>Inherited</u>)
 
+
+
 ### 1.3 Polymorphisms <a name="1.3"></a>
 
 [go to top](#top)
@@ -111,6 +121,8 @@ You can override pre-existing methods defined by a parent class. This means that
 > **Example:** The **Music_Dragon** class defines an alternate version of the Sound() method that allows objects belonging it to also make music!
 >
 > So **methylDragon** can make music! :musical_note:
+
+
 
 ### 1.4 Interfaces <a name="1.4"></a>
 
@@ -133,6 +145,8 @@ http://php.net/manual/en/language.oop5.interfaces.php
 > Today I manufacture cars, tomorrow it can be a van, but I'll keep the same interface, and maybe add some options, so that you can still drive it without learning every little detail about cars, vans, trucks, motorcycles and so on. (r/eli5)
 
 In short, implementing an interface is like having an object sign a contract to implement any method defined in the interface.
+
+
 
 ## 2. OOP Syntax Reference <a name="2"></a>
 
@@ -162,6 +176,8 @@ protected:
 
 # NOTE: Visibility affects inheritance as well! Private attributes and methods are NOT inherited
 ```
+
+
 
 ### 2.2 Class Declaration <a name="2.2"></a>
 
@@ -280,6 +296,8 @@ class Animal {
 }
 ```
 
+
+
 ### 2.3 Child Class Declaration <a name="2.3"></a>
 
 [go to top](#top)
@@ -298,6 +316,8 @@ class Dragon extends Animal {
 	}
 }
 ```
+
+
 
 ### 2.4 Object Construction <a name="2.4"></a>
 
@@ -329,6 +349,8 @@ Now let's make some objects!
 	# This will print "3 + 5 = 8"
 ```
 
+
+
 ### 2.5 Method Polymorphisms via Child Classes <a name="2.5"></a>
 
 [go to top](#top)
@@ -352,6 +374,8 @@ $toothless->sound = "Raa"
 # The polymorphism worked!
 ```
 
+
+
 ### 2.6 A note on `::` and `->` <a name="2.6"></a>
 
 [go to top](#top)
@@ -362,6 +386,8 @@ https://stackoverflow.com/questions/7524503/php-difference-between-and
 > Use `->` to access **static or non-static** members of an **object**
 
 > Use `::` to access **ONLY static** members of an **object** or **class**
+
+
 
 ### 2.7 A note on `self` and `$this` <a name="2.7"></a>
 
@@ -386,6 +412,8 @@ class myClass {
     }
 }
 ```
+
+
 
 ### 2.8 Interface Declaration <a name="2.8"></a>
 
@@ -420,6 +448,8 @@ class Human extends Animal implements Singable {
 }
 ```
 
+
+
 ### 2.9 Method Polymorphisms via Interfaces <a name="2.9"></a>
 
 [go to top](#top)
@@ -447,6 +477,8 @@ You can define functions that accept classes that **extend** a certain class or 
 // Prints "Bob the human sings 'Ohhh~♪~♫'"
 ```
 
+
+
 ### 2.10 Some more useful functions <a name="2.10"></a>
 
 [go to top](#top)
@@ -467,6 +499,8 @@ You can define functions that accept classes that **extend** a certain class or 
 
 ```
 
+
+
 ### 2.11 Abstract Classes and Methods <a name="2.11"></a> 
 
 [go to top](#top)
@@ -479,6 +513,8 @@ Abstract classes cannot be instantiated, but it **forces** classes that implemen
 		abstract function RandomFunction($attribute);
 	}
 ```
+
+
 
 ## 3. Reference Links <a name="3"></a>
 

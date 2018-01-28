@@ -15,6 +15,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
 - Gone through the all preceding parts of the tutorial
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -27,9 +29,13 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.6   [Indirection (Pointers of Pointers)](#2.6)    
    2.7   [When to use Pointers and when to use References](#2.7)    
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 Ok. So we've covered the basics of C++ that overlap with most other programming languages. Now we'll dive into the deep end of what makes C++, well, C++. Memory management, pointers, and the like.
+
+
 
 ## 2. C++ Pointer Syntax Reference <a name="2"></a>
 
@@ -56,6 +62,8 @@ In order to print out the memory address of a variable, use the **reference** ('
 ```c++
 std::cout << "The variable's value lives at memory address " << &myVariable << "\n"; // This prints out the memory address of myVariable
 ```
+
+
 
 ### 2.2 Passing by Value vs Passing by Reference <a name="2.2"></a>
 
@@ -131,6 +139,8 @@ void myMultiplicationFunction(int &x) // Pass this function variables! (paramete
 // myMultiplicationFunction(a);
 ```
 
+
+
 ### 2.3 References <a name="2.3"></a>
 
 [go to top](#top)
@@ -173,6 +183,8 @@ i = 6
 > - References cannot be NULL (they must always be an alias for something that exists)
 > - References cannot be changed to be an alias for another object/variable
 > - A reference must be initialised when it is created
+
+
 
 ### 2.4 Pointers <a name="2.4"></a>
 
@@ -230,6 +242,8 @@ Pointers STORE the memory addresses. When you increment a pointer, you are incre
 >
 > You want to look up a specific topic in a book so you open it and find the index. The index says the glossary is on page 200. In the glossary you find that the phrase "intermediate value theorem" is referenced on page 106, and 110. Pointers to pointers!
 
+
+
 ### 2.5 Arrays with Pointers <a name="2.5"></a>
 
 [go to top](#top)
@@ -272,6 +286,8 @@ After: 2
 ```
 
 > So because of this. Just remember that array variables are special, since they're not really variables (aliases), but pointers that point to the array. So passing arrays to functions will result in you passing by reference!
+
+
 
 ### 2.6 Indirection (Pointers of Pointers) <a name="2.6"></a>
 
@@ -316,6 +332,8 @@ Another example of indirection being used, is with strings!
 >
 > If you want a list of bio-libraries (a ??lol), you can use `char ******lol`
 
+
+
 ### 2.7 When to use Pointers and when to use References <a name="2.7"></a>
 
 [go to top](#top)
@@ -327,6 +345,8 @@ Use pointers if you don't want to initialise it at point of declaration. (Declar
 You HAVE to initialise a reference when you create it because a reference cannot be an alias for nothing/NULL, but pointers CAN!!
 
 Pointers can also be altered to point to other memory addresses! But references are stuck with being an immutable alias for only ONE object!
+
+
 
 ```
                             .     .

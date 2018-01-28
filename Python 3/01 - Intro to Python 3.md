@@ -15,6 +15,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - But if not... https://www.youtube.com/playlist?list=PLGLfVvz_LVvTn3cK5e6LjhgGiSeVlIRwt
   - Or you can learn on the go!
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -40,6 +42,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.19 [String Functionss](#2.19)    
 3. [Reference Links](#3)  
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 If you are a beginner, Python is probably the way to go.
@@ -53,6 +57,8 @@ The trouble is, it's slow, so while it's good to learn and use for prototypes, y
 > Whitespace errors (too many or too little before or after each line) can break your program, so make sure you set them correctly! (A single level of indentation in Python is 4 spaces.)
 
 Here's the Python 3 style guide: https://www.python.org/dev/peps/pep-0008/#function-and-variable-names
+
+
 
 ## 2. Basic Python 3 Syntax Reference <a name="2"></a>
 
@@ -68,6 +74,8 @@ multi
 line comment!
 '''
 ```
+
+
 
 ### 2.2 Importing Libraries <a name="2.2"></a>
 
@@ -94,6 +102,8 @@ More module advice:
 https://stackoverflow.com/questions/1453952/most-useful-python-modules-from-the-standard-library
 
 https://wiki.python.org/moin/UsefulModules
+
+
 
 ### 2.3 Print <a name="2.3"></a>
 
@@ -165,6 +175,8 @@ print("Rawr", end=" I'm a dragon")
 # Output: Rawr I'm a dragon
 ```
 
+
+
 ### 2.4 Variables <a name="2.4"></a>
 
 [go to top](#top)
@@ -212,6 +224,8 @@ type(my_number) # Returns <class "int">
 >
 > See: https://stackoverflow.com/questions/10262920/understanding-pythons-call-by-object-style-of-passing-function-arguments
 
+
+
 ### 2.5 Arithmetic <a name="2.5"></a>
 
 [go to top](#top)
@@ -242,6 +256,8 @@ There are others though!
 
 https://www.tutorialspoint.com/python/operators_precedence_example.htm
 
+
+
 ### 2.6 More Arithmetic <a name="2.6"></a>
 
 [go to top](#top)
@@ -268,6 +284,8 @@ string = string_one + string_two
 # Sqrt() does a square root
 sqrt(4) # Returns 2
 ```
+
+
 
 ### 2.7 Lists <a name="2.7"></a>
 
@@ -327,6 +345,8 @@ list_three = list_one + list_two
 # list_three now contains: [1, 2, 3, 4]
 ```
 
+
+
 ### 2.8 List Functions <a name="2.8"></a>
 
 [go to top](#top)
@@ -374,6 +394,8 @@ min(dragon_list) # Returns Rawr
 sum(dragon_list) # This won't work unless the list elements are numbers though...
 ```
 
+
+
 ### 2.9 Tuples <a name="2.9"></a>
 
 [go to top](#top)
@@ -399,6 +421,8 @@ max()
 min()
 ```
 
+
+
 ### 2.10 Dictionaries <a name="2.10"></a>
 
 [go to top](#top)
@@ -423,6 +447,8 @@ species_dictionary["methylDragon"] # Returns Dragon
 species_dictionary["Jane"] = "Human"
 ```
 
+
+
 ### 2.11 Dictionary Functions <a name="2.11"></a>
 
 [go to top](#top)
@@ -442,6 +468,8 @@ species_dictionary.keys()
 # Get a list of values
 species_dictionary.values()
 ```
+
+
 
 ### 2.12 Conditionals <a name="2.11"></a>
 
@@ -495,6 +523,8 @@ else :
 	print("Well ok then. Raa.")
 ```
 
+
+
 ### 2.13 Ternary Operators <a name="2.13"></a>
 
 [go to top](#top)
@@ -515,6 +545,8 @@ print("True") if 5 == 5 else print("False")
 >
 > But eh
 
+
+
 ### 2.14 User Input <a name="2.14"></a>
 
 [go to top](#top)
@@ -530,6 +562,8 @@ float_input = float(input("Put your float here: "))
 > NOTE: DO NOT USE eval() UNLESS YOU KNOW WHAT YOU'RE DOING
 >
 > It lets the user run code directly in your program. That's what eval() does-- run whatever was eval()'ed as if it were code!
+
+
 
 ### 2.15 For Loops <a name="2.15"></a>
 
@@ -560,6 +594,8 @@ for _ in range(10):
     count++
     print(count, end=", ")
 ```
+
+
 
 ### 2.16 Handy For Loop Functions and Keywords <a name="2.16"></a>
 
@@ -640,6 +676,8 @@ for x in num_list:
     print("Check!", end=" ")
 ```
 
+
+
 ### 2.17 While loops <a name="2.17"></a> 
 
 [go to top](#top)
@@ -670,6 +708,8 @@ while(i <= 20): # This while loop will stop once i becomes 21
 >  You can also use all the cool stuff listed in the previous section with while loops!
 >
 >  Even break and continue!
+
+
 
 ### 2.18 Strings <a name="2.18"></a>
 
@@ -708,6 +748,8 @@ print(f"Hi! I am {dragon} and I make {stuff}!")
 
 ```
 
+
+
 ### 2.19 String Functions <a name="2.19"></a>
 
 [go to top](#top)
@@ -744,6 +786,8 @@ rawr_string = "I am methylDragon, and while I can talk, I also rawr!" # Let's re
 rawr_string.split(",")
 # Output: ['I am methylDragon', 'and while I can talk', ' I also rawr!']
 ```
+
+
 
 ```
                             .     .

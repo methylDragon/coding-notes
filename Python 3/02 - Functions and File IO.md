@@ -20,6 +20,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - But if not... https://www.youtube.com/playlist?list=PLGLfVvz_LVvTn3cK5e6LjhgGiSeVlIRwt
   - Or you can learn on the go!
 
+
+
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
@@ -29,9 +31,13 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.3   [Recursive Functions](#2.3)    
    2.4   [File I/O](#2.4)    
 
+
+
 ## 1. Introduction <a name="1"></a>
 
 We've gone through the basics of Python 3. Now let's throw in some functions and file interactions!
+
+
 
 ## 2. Functional Python 3 Syntax Reference <a name="2"></a>
 
@@ -85,6 +91,8 @@ def calculate(a, b, c, memo={}):
 
 > Note: Python 3 does not support function overloading like in C++. This is a consequence of it being a loosely typed language.
 
+
+
 ### 2.2 Local and Global variables
 
 [go to top](#top)
@@ -102,6 +110,8 @@ print(added_numbers) # Will give you an error!
 Variables declared inside a function are considered **local** and cannot be accessed outside of the function!
 
 Variables declared outside a function are considered **global** and can be accessed everywhere!
+
+
 
 ### 2.3 Recursive Functions <a name="2.3"></a>
 
@@ -140,6 +150,8 @@ def fibi(n):
         a, b = b, a + b
     return a
 ```
+
+
 
 ### 2.4 File I/O <a name="2.4"></a>
 
@@ -265,6 +277,8 @@ os.getcwd() # OS's version of linux's pwd
 Like.. say you want to read delimited data with json or something, or do more advanced writing,
 
 Check: https://docs.python.org/3/tutorial/inputoutput.html
+
+
 
 ```
                             .     .
