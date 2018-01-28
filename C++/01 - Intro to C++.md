@@ -24,7 +24,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.4   [Running Programs](#2.4)    
    2.5   [Variables and Data Types](#2.5)    
    2.6   [Ouputting Variables and Variable Info](#2.6)    
-   2.7   [Casting](#2.7)    
+   2.7   [Casting (Type Conversion)](#2.7)    
    2.8   [Arithmetic Operations](#2.8)    
    2.9   [Conditionals](#2.9)    
    2.10 [Ternary Operators](#2.10)    
@@ -186,7 +186,7 @@ Prints `Size of int 4`
 
 !! If you go out of of the byte range, you'll get overflow (google that, basically bad stuff, your number will be inaccurate)
 
-### 2.7 Casting <a name="2.7"></a>
+### 2.7 Casting (Type Conversion) <a name="2.7"></a>
 
 [go to top](#top)
 
