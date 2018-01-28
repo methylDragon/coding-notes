@@ -39,6 +39,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.19 [Vectors](#2.19)    
    2.20 [Printf](#2.20)    
    2.21 [Argc and Argv](#2.21)    
+   2.22 [Exception Handling](#2.22)    
 3. [Reference Links](#3)  
 
 ## 1. Introduction <a name="1"></a>
@@ -129,20 +130,36 @@ Also, constants are usually declared with all caps
 `char` (Stores a single character, a single byte)
 `int`  (Whole numbers)
 `float` (Decimals, accurate up to 6 .dp)
-`boolean` (Normally starts with isName) (Contains TRUE or FALSE, i.e. 1 or 0)
+`bool` (Normally starts with isName) (Contains TRUE or FALSE, i.e. 1 or 0)
 `short int` (Int of 16 bits)
 `long int` (int of 32 bits)
 `long long int` (Int of 64 bits)
 `unsigned int` (Same size as signed version)
 `long double` (Not less than double)
 
-**You can assign or change the values stored in a variable with**
+Example Declaration:
 
-Just use the equals sign!
+```c++
+bool isTrue = true;
+int myInt = 6;
+char myChar = 'a';
+
+// NOTE: Single Quotes ' declare characters
+// Double quotes " declare strings (a null terminated array)
+// So, if you did char myChar = "a"; It will throw an error! As what you're really saying is
+// char myChar = {'a','\0'}; Which is too big for the array
+```
+
+
+
+**You can assign or change the values stored in a variable**: Just use the equals sign!
+
 Make sure you remember your semi-colons and you ensure it's the right data-type!
 
-`int varName = 5;`
-`varName = 8;`
+```c++
+int varName = 5;
+varName = 8;
+```
 
 So you initialised varName as an integer containing 5
 Then you changed the data stored in it to 8 instead.
@@ -255,7 +272,7 @@ REMEMBER IT!
 ! // NOT
 ```
 
-**Example**
+**Example IF, ELIF**
 
 ```c++
 int age = 70;
@@ -268,7 +285,7 @@ if((age >= 1) && (age < 16) { // If you're 1 or older, but less than 16, you can
 	} else if(! isNotIntoxicated) { // If you're not NotIntoxicated (i.e. that you are) you can't drive either
 
 	cout << "You can't drive" << endl;
-	}
+	} // else is not stated here, since I'm just defining nothing for it
 }	
 ```
 
@@ -330,7 +347,7 @@ int myFavNums[5];
 
 int badNums[5] = {4, 13, 14, 24, 34};
 
-cout << "Bad NUmber 1: " << badNums[0] << endl; //Prints 4, as indexing begins from 0, so 4 is index 0, 13 is index 1, 14 is index 2, 24 is index 3, and so on
+cout << "Bad Number 1: " << badNums[0] << endl; //Prints 4, as indexing begins from 0, so 4 is index 0, 13 is index 1, 14 is index 2, 24 is index 3, and so on
 ```
 
 ### 2.13 Multi-Dimensional Arrays <a name="2.13"></a>
@@ -419,9 +436,57 @@ str1.replace(6, 5, "Maximus") //Starting from index 6, delete 5 characters, then
 
 `getline(cin, storageVariable);`
 
-If you want to get an integer, remember to use `intStorageVariable = stoi(storageVariable)`
+If you want to get an integer, remember to use `int intStorageVariable = stoi(storageVariable)`
 
 (stoi stands for String to Integer. It's a function that converts the datatype of a `string` containing numbers to `integer`.)
+
+```c++
+// Example use
+// Getline inputs the first sentence (until the first newline)
+
+int quiz_marks;
+
+printf("Enter your quiz marks!\n");
+getline(cin, quiz_marks); // C++ will wait for user input via console
+
+// Alternative form
+// Though, note! This inputs the first word/number (till the whitespace)
+
+printf("Enter your quiz marks!\n");
+cin >> quiz_marks
+```
+
+```c++
+// You can also do INPUT VALIDATION!
+
+// Validation function
+bool isNumber(const string &line) 
+{
+    if (line == "0") return 1; // If input is 0, return True
+    if (atoi(line.c_str()) > 100){
+        printf("You can't score more than 100!\n");
+        return 0; // If input is more than 100, return False
+    }
+    return (atoi(line.c_str())); // If input has numbers above 0, return True
+  // atoi means (alphanumeric to integer)
+  // c_str: http://www.cplusplus.com/reference/string/string/c_str/
+}
+
+// Keep asking until a valid response is attained
+do { // Do While loops explained later
+	printf("Enter your final marks!\n");
+	getline(cin, final_marks); // Wait for user input
+	if (cin.good() && !isNumber(final_marks)) printf("ERROR!!! Enter a valid number please!\n");
+} while (cin.good() && !isNumber(final_marks)); // While input is ok, and isNumber returns false, keep asking for final marks
+```
+
+> Notes on the differences between cin and getline(cin, <storagevariable>)
+>
+> Basically, `std::cin` (or more generally, any `std::istream`) is used directly in order to obtain formatted input, e.g. `int x; std::cin >> x;`.  `std::cin.getline()` is used simply to fill a raw `char *` buffer.
+>
+> Source: https://stackoverflow.com/questions/4745858/stdcin-getline-vs-stdcin
+
+
 
 ### 2.16 For loops <a name="2.16"></a>
 
@@ -616,6 +681,32 @@ ra
 raa
 rawr
 */
+```
+
+### 2.22 Exception Handling <a name="2.22"></a>
+
+[go to top](#top)
+
+LITERALLY THE BEST THING EVER
+
+THIS IS PART OF WHAT WON ME THE GOOGLE HACKATHON. DEBUGGING LOVE.
+
+```c++
+try{ // Try this. If it doesn't work, then it's fine.
+
+	if(number != 0){
+	
+		cout << 2/number << endl;
+	
+	} else throw(number); // Throw the problematic number
+
+}
+
+catch(int number) { // Catch it!
+	
+	cout << number << " is not valid" << endl; // Prints 0 (or any non number) is not valid
+	
+}
 ```
 
 ```

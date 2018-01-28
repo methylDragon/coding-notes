@@ -23,7 +23,6 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.2   [Function Overloading](#2.2)    
    2.3   [Recursive Functions](#2.3)    
    2.4   [File I/O](#2.4)    
-   2.5   [Exception Handling](#2.5)    
 
 ## 1. Introduction <a name="1"></a>
 
@@ -62,17 +61,20 @@ int addNumbers(int firstNum, int secondNum = 0) {
 > For example, a print function that takes a string (or char *) argument performs very different tasks than one that takes an argument of type double. Overloading permits uniform naming and prevents programmers from having to invent names such as print_sz or print_d. The following table shows what parts of a function declaration C++ uses to differentiate between groups of functions with the same name in the same scope. - Microsoft
 
 ```c++
-int addNumbers(int firstNum, int secondNum, int thirdNum){
-	return firstNum + secondNum + thirdNum;
+void sameFunction(int a){
+  // do stuff;
+}
+
+int sameFunction(float a){
+  // do something else;
+}
+
+void sameFunction(int a, float b){
+  // do something different;
+}
 ```
 
-Calling the two functions
-
-`cout << addNumbers(1) << endl;`
-Prints 0
-
-`cout << addNumbers(1, 5, 6)`
-Prints 12
+Functions can have the same name, but do DIFFERENT THINGS depending on what gets passed to them!
 
 ### 2.3 Recursive Functions <a name="2.3"></a>
 
@@ -90,6 +92,8 @@ int getFactorial(int number){
 ```
 
 This function returns the factorial of itself, and it keeps calling itself which results in it calling itself until it stops, then it resolves one by one till all are resolved.
+
+The last function calls to go on the stack are resolved first! USE THE STACK! Play some Magic!
 
 ### 2.4 File I/O <a name="2.4"></a>
 
@@ -159,34 +163,6 @@ if(! writer2) { //Check to see if the filestream is open
 	reader.close();
 }
 ```
-
-### 2.5 Exception Handling <a name="2.5"></a>
-
-[go to top](#top)
-
-LITERALLY THE BEST THING EVER
-
-THIS IS PART OF WHAT WON ME THE GOOGLE HACKATHON. DEBUGGING LOVE.
-
-```c++
-try{ // Try this. If it doesn't work, then it's fine.
-
-	if(number != 0){
-	
-		cout << 2/number << endl;
-	
-	} else throw(number); // Throw the problematic number
-
-}
-
-catch(int number) { // Catch it!
-	
-	cout << number << " is not valid" << endl; // Prints 0 (or any non number) is not valid
-	
-}
-```
-
-
 
 ```
                             .     .
