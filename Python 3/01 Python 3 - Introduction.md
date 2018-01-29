@@ -487,11 +487,17 @@ len()
 species_dictionary.get("methylDragon") # Returns Dragon
 # This works the same as [], except, if no value is found, it defaults to NULL as opposed to throwing an error
 
+# Get a list of key-value pairs
+species_dictionary.items()
+
 # Get a list of keys
 species_dictionary.keys()
 
 # Get a list of values
 species_dictionary.values()
+
+# Add a key
+species_dictionary.update("Key","Value")
 ```
 
 
@@ -499,12 +505,12 @@ species_dictionary.values()
 ### 2.12 Conditionals <a name="2.11"></a>
 
 ```python
-== // equal to 
-!= // NOT equal to
-> // more than
-< // less than
->= //  more than or equal to
-<= // less than or equal to
+== # equal to 
+!= # NOT equal to
+> # more than
+< # less than
+>= #  more than or equal to
+<= # less than or equal to
 ```
 
 > NOTE. "==" IS **NOT** "="
@@ -516,9 +522,9 @@ species_dictionary.values()
 **Logical Operators**
 
 ```python
-&& // AND
-|| // OR
-! // NOT
+and # Eg: (a and b) is True
+or # Eg: (a or b) is True
+not # Eg: not(a and b) is False
 ```
 
 **Example IF, ELIF, ELSE**
@@ -540,9 +546,9 @@ else : # Else
 is_dragon = True
 dragon_rating = 10
 
-if (dragon_rating < 10 && is_dragon == True) :
+if (dragon_rating < 10 and is_dragon == True) :
     print("Oh no! Dragons shouldn't hate themselves!")
-elif (dragon_rating < 10 && is_dragon != True) :
+elif (dragon_rating < 10 and is_dragon != True) :
 	print("NEEDS MORE DRAGONS")
 else :
 	print("Well ok then. Raa.")
@@ -707,7 +713,7 @@ for x in num_list:
 
 [go to top](#top)
 
-Use these when you don't know ahead of time when this loop is going to end.
+Use these when you don't know ahead of time when this loop is going to end. Note! The condition is checked right BEFORE each run through of the loop, NOT THROUGHOUT!
 
 ```python
 import random
@@ -733,6 +739,19 @@ while(i <= 20): # This while loop will stop once i becomes 21
 >  You can also use all the cool stuff listed in the previous section with while loops!
 >
 >  Even break and continue!
+
+```python
+# I didn't want to write a new section for a do-while loop
+# since Python doesn't explicitly support it
+# But... Here's an example implementation. It's good for state machines!
+
+do_check = True
+while do_check or <condition>:
+    do_check = False # This won't break the loop until condition is checked again!
+    do_stuff()
+```
+
+
 
 
 
