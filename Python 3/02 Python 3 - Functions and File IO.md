@@ -95,8 +95,6 @@ def function(a, b):
     """Do X and return a list."""
 ```
 
-
-
 **Default value pitfalls**
 
 ```python
@@ -126,7 +124,7 @@ def calculate(a, b, c, memo={}):
 
 
 
-### 2.2 Local and Global variables
+### 2.2 Local and Global variables <a name="2.2"></a>
 
 [go to top](#top)
 
