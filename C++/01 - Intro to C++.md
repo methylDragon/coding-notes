@@ -387,15 +387,15 @@ cout << "Bad Number 1: " << badNums[0] << endl; //Prints 4, as indexing begins f
 "Boxes of boxes"
 
 ```c++
-char myName[5][6] = {{'m','e','t','h','y','l'},{'D','r','a','g','o','n'}}
+char myName[2][7] = {{'m','e','t','h','y','l','\0'},{'D','r','a','g','o','n','\0'}}
 
 cout << "2nd letter in 2nd array " << myName[1][1] << endl; // prints 'r'
 
 // You can change elements in an array like you do with variables as well!
 
-myName[0][2] = 'e';
+myName[0][1] = 'e';
 
-cout << myName[0][2] << endl; // prints e
+cout << myName[0][1] << endl; // prints e
 ```
 
 
@@ -604,33 +604,40 @@ Vectors are like arrays, but with one key difference.
 **THEIR SIZE CAN CHANGE**
 
 ```c++
-vector <int> lotteryNumVect(10);`
+vector <int> lotteryNumVect(10);
 int lotteryNumArray[5] = {4, 13, 14, 24, 34};
 
-lotteryNumVect.nsert(lotteryNumVect.begin(), lotteryNumArray, lotteryNumArray+3); //This just appends the first three numbers from lotteryNumArray
+lotteryNumVect.insert(lotteryNumVect.begin(), lotteryNumArray, lotteryNumArray+3); //This just appends the first three numbers from lotteryNumArray
 ```
 
 Then, typing
-`cout << lotteryNumVect.at(2) << endl;`
-Prints "14" as "14" is in index 2
 
-`lotteryNumVect.insert(lotteryNumVect.begin()+5, 44);` 
-.begin puts you back to index 0, and +5 brings you to index 5. Then we insert 44 into the container at index 5 within lotteryNumVect.
+```c++
+cout << lotteryNumVect.at(2) << endl;
+// Prints "14" as "14" is in index 2
 
-`lotteryNumVect.push_back(64);` 
-Adds 64 at the end of the vector.
+lotteryNumVect.insert(lotteryNumVect.begin()+5, 44); 
+// Inserts 44 at the 5th index 
+// .begin puts you back to index 0, and +5 brings you to index 5. Then we insert 44 into the container at index 5 within lotteryNumVect.
 
-`lotteryNumVect.back();` 
-Returns the final value of the vector.
+lotterNumVect.insert(lotteryNumVect.begin(), lotteryNumArray, lotteryNumArray+3)
+// Inserts from the beginning of lotteryNumVect, the elements between lotteryNumArray[0] and lotteryNumArray[3], BUT NOT INCLUDING lotteryNumArray[3]
 
-`lotteryNumVect.front();`
-Returns the first value of the vector
+lotteryNumVect.push_back(64); 
+// Adds 64 at the end of the vector.
 
-`lotteryNumVect.size();`
-Returns the size of the vector
+lotteryNumVect.back(); 
+// Returns the final value of the vector.
 
-`lotteryNumVect.pop_back();`
-Removes the final value of the vector.
+lotteryNumVect.front();
+// Returns the first value of the vector
+
+lotteryNumVect.size();
+// Returns the size of the vector
+
+lotteryNumVect.pop_back();
+// Removes the final value of the vector.
+```
 
 
 

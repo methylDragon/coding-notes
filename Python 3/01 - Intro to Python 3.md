@@ -118,8 +118,11 @@ And manipulate it in cool ways!
 print("Rawr")
 # Output: Rawr
 
-print("Rawr","Rar") # Comma appends with a space between each!
+print("Rawr","Rar") # Comma appends with a space between each by default!
 # Output: Rawr Rar
+
+print("Rawr","Rar",sep=", ") # You can change this default though!
+# Output: Rawr, Rar
 
 print("Rawr\nRar") # \n is a newline character!
 ''' Output:
@@ -146,6 +149,24 @@ dragon = "methylDragon"
 stuff = "orchestral music"
 print(f"Hi! I am {dragon} and I make {stuff}!")
 # Output: Hi! I am methylDragon and I make orchestral music!
+
+# .format example
+
+dragon = "methylDragon"
+stuff = "orchestral music"
+print('{} makes {}!'.format(dragon, stuff))
+# Output: methylDragon makes orchestral music
+
+# Extra options
+# There are a lot more! https://pyformat.info/
+# When you're using {}, you can also add :<stuff> to add extra formatting options!
+# {:<10} Left padding (align left)
+# {:>10} Right padding (align right)
+# {:^10} Centre padding (align centre)
+# {:.5} Truncate string
+# {:d} Int
+# {:f} Float
+# {:5d} Padded Int
 
 ```
 
