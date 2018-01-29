@@ -64,6 +64,39 @@ add_numbers(1,2) # Gives 3
 add_numbers(4,5) # Gives 9
 ```
 
+```python
+# DOCSTRINGS
+def my_function(some_parameters):
+    '''
+    You can include what's called a docstring in python 3 functions!
+    The first string declared after the function declaration statement is the docstring
+    
+    Docstrings are used to help clarify your function's purpose and arguments
+    As well as to provide other necessary help. Think of it as a help document!
+    Triple-quotes are generally the convention even if the docstring is one line
+    
+    Docstrings can be accessed using  my_function.__doc__
+    '''
+    
+# Docstring conventions from the PEP
+# Multi-Line Docstring
+def complex(real=0.0, imag=0.0):
+    """Form a complex number.
+
+    Keyword arguments:
+    real -- the real part (default 0.0)
+    imag -- the imaginary part (default 0.0)
+    """
+    if imag == 0.0 and real == 0.0:
+        return complex_zero
+    
+# One-Line Docstring
+def function(a, b):
+    """Do X and return a list."""
+```
+
+
+
 **Default value pitfalls**
 
 ```python

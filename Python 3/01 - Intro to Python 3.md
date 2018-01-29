@@ -39,7 +39,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.16 [Handy For Loop Functions and Keywords](#2.16)    
    2.17 [While Loops](#2.17)    
    2.18 [Strings](#2.18)    
-   2.19 [String Functionss](#2.19)    
+   2.19 [String Functions](#2.19)    
+   2.20 [Exception Handling](#2.20)    
 3. [Reference Links](#3)  
 
 
@@ -216,6 +217,9 @@ isn\'t it great?!'''
 
 # If you want to find out the type of a variable, use type()
 type(my_number) # Returns <class "int">
+
+# If you want to find its address, use id()
+id(my_number) # Returns my_number's address
 ```
 
 > Ok. I said variables are like containers for data, but that only helps beginners visualise it. In Python it's a little different. The variable names you define refer to objects that store values. But when you change the value, what happens is NOT that the value stored in the referred object changes, but rather, another object is created and the variable names becomes a reference to that new object.
@@ -785,6 +789,81 @@ rawr_string = "I am methylDragon, and while I can talk, I also rawr!" # Let's re
 # Split a string by some delimiter
 rawr_string.split(",")
 # Output: ['I am methylDragon', 'and while I can talk', ' I also rawr!']
+```
+
+
+
+### 2.20 Exception Handling <a name="2.20"></a>
+
+[go to top](#top)
+
+By far the most important concept for debugging purposes! Try to always use them!
+
+Alternatively, if you know where a program might throw **exceptions** (i.e. errors), you can code in handlers for them if you know they can occur but it's either by design or because it might be user errors, etc. !
+
+**Try-Except**
+
+```python
+# Exception handling is done mostly with try-except blocks
+try:
+    # Some code
+except <error_one>:
+    # Run this code ONLY if an exception for <error_one> is thrown
+except <error_two> as err:
+    print(err) # Print the error ONLY if <error_two> is thrown
+except:
+    # Wildcard error. Run this code ONLY if an exception unaccounted for is thrown
+```
+**Else**
+
+```python
+# You can also use else in try-except blocks!
+try:
+    # Some code
+except:
+    # Wildcard error handler
+else:
+    # Run if no errors were thrown AFTER running the code protected by the try block
+```
+**Finally**
+
+```python
+# You use the keyword finally to run code regardless of whether an exception was thrown or not
+try:
+    # Some code
+except:
+    # Wildcard error handler
+else:
+    # Run if NO ERRORS were thrown
+finally:
+    # Run before exiting the entire try block, whether errors were thrown or not
+```
+
+**Raise**
+
+```python
+# You can raise an exception, forcing it occur
+raise NameError('some_strign')
+
+# Let's say you do this in the try block
+# The first raise won't be thrown, so you can reraise it using just raise
+try:
+    raise NameError('some_strign')
+except:
+    raise
+```
+
+**With**
+
+```python
+# This isn't exactly exception handling, and I mention it again in file I/O
+# But... This is still useful
+
+with open("myfile.txt") as f:
+    # Some code
+    
+# Because the file was opened, an object was created
+# With ensures that the file will be closed and cleaned from memory when appropriate
 ```
 
 
