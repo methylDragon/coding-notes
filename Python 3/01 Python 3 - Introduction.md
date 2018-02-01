@@ -136,29 +136,68 @@ print("a" * 5) # You can multiply!
 
 If you want formatted output, use % or f
 
+**Using %**
 ```python
 # % example
 
 dragon = "methylDragon"
 print("%s %s %s" % ("Hi!", "I am", dragon))
 # Output: Hi! I am methylDragon
+# %.<decimals>f - Floating point numbers with a fixed amount of digits to the right of the dot.
 
-# f example (Valid from Python 3.6 onwards)
+# With dictionaries
+my_dict = {"dragons":"Dragons", "are":"are", "the":"the", "best":"best! Yeah!"}
+print("%(dragons)s %(are)s %(the)s %(best)s" % (my_dict))
+# Output: Dragons are the best! Yeah!
+```
+**Using f-strings**
+```python
+# f-strings (Valid from Python 3.6 onwards)
 
 dragon = "methylDragon"
 stuff = "orchestral music"
 print(f"Hi! I am {dragon} and I make {stuff}!")
 # Output: Hi! I am methylDragon and I make orchestral music!
 
-# .format example
+# f-strings also support expressions! So you can do print(f{6*6})
+# Output: 36
 
+# .format example
+```
+**Using .format**
+```python
 dragon = "methylDragon"
 stuff = "orchestral music"
-print('{} makes {}!'.format(dragon, stuff))
+number = 5
+
+print("{} makes {}!".format(dragon, stuff))
 # Output: methylDragon makes orchestral music
 
-# Extra options
-# There are a lot more! https://pyformat.info/
+# .format has other more specific uses though!
+
+# Custom indexing in your argument tuple!
+print("{1} makes {0}!".format(dragon, stuff))
+# Output: orchestral music makes methylDragon!
+
+# Formatting
+print("{:.1f}".format(number))
+# Output: 5.0
+# Notice the number decimal places is 1!
+
+# Expressions as arguments
+print("{}".format(5*5))
+# Output: 25
+
+# Named arguments
+print("{name}".format(name="methylDragon"))
+# Output: methylDragon
+
+# Dictionaries
+my_dict = {"dragons":"Dragons", "are":"are", "the":"the", "best":"best! Yeah!"}
+print("{dragons} {are} {the} {best}".format(**my_dict))
+# Output: Dragons are the best! Yeah!
+
+# Format options!
 # When you're using {}, you can also add :<stuff> to add extra formatting options!
 # {:<10} Left padding (align left)
 # {:>10} Right padding (align right)
@@ -167,6 +206,13 @@ print('{} makes {}!'.format(dragon, stuff))
 # {:d} Int
 # {:f} Float
 # {:5d} Padded Int
+# {:.5f} Fixed Decimal Float
+
+# {:+d} Sign Prefixed Number
+# Eg: {42:+d} : +42 , {-42:+d} : -42
+# {: d} Space Prefixed Number
+# {:=5d} Control the position of the sign relative to padding!
+# Eg: {42: d} : [space]42 , {-42: d} : -42
 
 ```
 
@@ -193,7 +239,6 @@ HiTest
 # Basically, what end="" does, is replace the newline character with whatever you put in the quotes
 
 print("Rawr", end=" I'm a dragon")
-
 # Output: Rawr I'm a dragon
 ```
 
@@ -205,7 +250,7 @@ print("Rawr", end=" I'm a dragon")
 
 **Variables are like containers for data**
 
-- Variables must start off with a letter, but can contain numbers, or underscores. (But they MUST start off with a letter.)
+- Variables names must start off with a letter, but can contain numbers, or underscores. (But they MUST start off with a letter.)
 - They also cannot be keywords used in Python.
 - Names are CASE SENSITIVE
 - The Pythonic way of naming variables, is lowercase, separated by underscores. Or whatever the code was using. Keep it consistent and neat!
@@ -444,6 +489,23 @@ my_tuple_again = tuple(my_list)
 len()
 max()
 min()
+```
+```python
+# Assigning variables using tuples!
+methyl_tuple = ("methyl","Dragon")
+
+whole_tuple = methyl_tuple
+# whole_tuple: ("methyl","Dragon")
+
+methyl_tuple, dragon_half = methyl_tuple
+# half_tuple: "methyl"
+# tuple_half: "Dragon"
+
+(methyl_tuple, dragon_half) = methyl_tuple
+# half_tuple: "methyl"
+# tuple_half: "Dragon"
+
+# Cool eh!
 ```
 
 
@@ -774,7 +836,7 @@ rawr_string[:-5] + "roar!"
 # Output: I am metyhlDragon, and while I can talk, I also roar!
 ```
 
-**Formatted Strings**
+**Formatted Strings** (repeated from print)
 
 ```python
 # % example
@@ -789,6 +851,24 @@ dragon = "methylDragon"
 stuff = "orchestral music"
 print(f"Hi! I am {dragon} and I make {stuff}!")
 # Output: Hi! I am methylDragon and I make orchestral music!
+
+# .format example
+
+dragon = "methylDragon"
+stuff = "orchestral music"
+print('{} makes {}!'.format(dragon, stuff))
+# Output: methylDragon makes orchestral music
+
+# Extra options
+# There are a lot more! https://pyformat.info/
+# When you're using {}, you can also add :<stuff> to add extra formatting options!
+# {:<10} Left padding (align left)
+# {:>10} Right padding (align right)
+# {:^10} Centre padding (align centre)
+# {:.5} Truncate string
+# {:d} Int
+# {:f} Float
+# {:5d} Padded Int
 
 ```
 

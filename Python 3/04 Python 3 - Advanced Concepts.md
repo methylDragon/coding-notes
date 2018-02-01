@@ -1,4 +1,4 @@
-# OOP Python 3 Crash Course
+# Advanced Python 3 Crash Course
 
 Author: methylDragon  
 Contains an advanced syntax reference for Python 3  
@@ -27,9 +27,9 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 1. [Introduction](#1)  
 2. [Advanced Python 3 Syntax and Concepts](#2)    
-   2.1   [Visibility](#2.1)    
-   2.2   [Access Operators](#2.2)    
-   2.3   [Classes](#2.3)    
+   2.1   [if \_\_name__ == "\_\_main__":](#2.1)    
+   2.2   [Lambda, Filter(), Reduce(), and Map()](#2.2)    
+   2.3   [*args and **kwargs](#2.3)    
    2.4   [Child Class Declaration](#2.4)    
    2.5   [Virtual Methods and Polymorphism](#2.5)    
 
@@ -118,8 +118,6 @@ noprimes = [j for i in range(2, 8) for j in range(i*2, 50, i)]
 primes = [x for x in range(2, 50) if x not in noprimes]
 # primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
 ```
-
-
 
 ```python
 # You can also use it with non numbers!
