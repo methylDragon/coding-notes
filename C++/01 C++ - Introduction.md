@@ -42,7 +42,9 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.20 [Printf](#2.20)    
    2.21 [Argc and Argv](#2.21)    
    2.22 [Exception Handling](#2.22)    
+   2.22 [Scopes](#2.23)    
 3. [Reference Links](#3)  
+
 
 
 
@@ -106,7 +108,7 @@ If you don't want to type std:: , then type
 
 `using namespace std;  //right after your import statements`
 
----
+
 
 ### 2.4 Running Programs (RAWR.cpp) <a name="2.4"></a>
 
@@ -761,6 +763,40 @@ catch(int number) { // Catch it!
 	
 }
 ```
+
+
+
+### 2.23 Scopes <a name="2.23"></a>
+
+[go to top](#top)
+
+Eh, you'll come across this sooner or later. So might as well let it be now.
+
+Source: http://en.cppreference.com/w/cpp/language/scope
+
+I'll just run through the block scope first since it's the easiest to illustrate. But basically, { } limits the name scope
+
+```c++
+int main()
+{
+    int a = 0; // scope of the first 'a' begins
+    ++a; // the name 'a' is in scope and refers to the first 'a'
+    
+    {
+        int a = 1; // scope of the second 'a' begins
+                   // scope of the first 'a' is interrupted
+        a = 42;    // 'a' is in scope and refers to the second 'a'                 
+    } // block ends, scope of the second 'a' ends
+      
+    //             scope of the first 'a' resumes
+} // block ends, scope of the first 'a' ends
+
+int b = a; // Error: name 'a' is not in scope
+```
+
+
+
+
 
 
 

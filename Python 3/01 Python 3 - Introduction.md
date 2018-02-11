@@ -104,6 +104,17 @@ https://stackoverflow.com/questions/1453952/most-useful-python-modules-from-the-
 
 https://wiki.python.org/moin/UsefulModules
 
+```python
+# If you're NOT SURE WHAT'S IN THE LIBRARY
+# Do
+
+dir(<library>)
+
+# It'll print out all the commands in the library for you to use!
+```
+
+
+
 
 
 ### 2.3 Print <a name="2.3"></a>
@@ -259,9 +270,13 @@ print("Rawr", end=" I'm a dragon")
 # Assign variable values using =
 my_variable = "Hi"
 my_number = 6
+
+# Imaginary numbers are possible too!!!
+my_imaginary_number = 6 + 6j # Use j!
+
 my_float = 5.3
 my_string = "\"I decided I wanted to put a quote in here"
-# my_string has this weird ting \" because I wanted to put a quote in!
+# my_string has this weird thing \" because I wanted to put a quote in!
 # If printed, it reads: "I decided I wanted to put a quote in here
 # This is known as an escape character
 my_multiline_quote = ''' this also
@@ -293,6 +308,19 @@ id(my_number) # Returns my_number's address
 > The names are essentially rebound! (I'm guessing this might be why the performance is so meh)
 >
 > See: https://stackoverflow.com/questions/10262920/understanding-pythons-call-by-object-style-of-passing-function-arguments
+
+```python
+# Now, if you wanted to CHECK (in a conditional) what the type of a variable is
+# Use isinstance!
+methylDragon = "methylDragon"
+
+if isinstance(methylDragon, str):
+    print("Rawr!")
+elif isinstance(methylDragon, bool):
+    print("Orh")
+```
+
+
 
 
 
@@ -355,6 +383,8 @@ string = string_one + string_two
 sqrt(4) # Returns 2
 ```
 
+> NOTE: The ++ and -- operators DO NOT WORK IN PYTHON!
+
 
 
 ### 2.7 Lists <a name="2.7"></a>
@@ -382,6 +412,10 @@ music_services = ["Spotify", "YouTube", "Google Play", "iTunes", "Deezer", "And 
 # Printing from index
 print(music_services[0])
 # Output: Spotify
+
+# Printing from index from the back
+print(music_services[-1])
+# Output: And More!
 
 # Printing slices (Prints up to but not including the second number)
 # Slice syntax: list_name[startAt:endBefore:skip]
@@ -415,7 +449,38 @@ list_three = list_one + list_two
 # list_three now contains: [1, 2, 3, 4]
 ```
 
-
+> Some additional information:
+>
+> Lists are mutable types in python. That is...
+>
+> ```python
+> a = 5
+> b = a
+>
+> b = 0
+> print(a)
+> # Output: 5
+> # Changing b DID NOT change a because the number referred to is NOT THE SAME OBJECT
+> ```
+> ```python
+> # BUT FOR LISTS...
+> a_list = [5]
+> b_list = a_list
+>
+> b_list[0] = 0
+> print(a_list)
+> # Output: [0]
+> # Changing b changed a because the list referred to is the SAME OBJECT!
+> ```
+>
+> If you really wanted to create a separate distinct list, USE LIST SLICES!
+>
+> ```python
+> a_list = [5]
+> b_list = a_list[:]
+> ```
+>
+> 
 
 ### 2.8 List Functions <a name="2.8"></a>
 
@@ -462,6 +527,10 @@ min(dragon_list) # Returns Rawr
 
 # Sum all values in the list
 sum(dragon_list) # This won't work unless the list elements are numbers though...
+
+# Find index of a list element
+dragon_list.index("Rawr")
+# Output: 1
 ```
 
 
@@ -564,7 +633,9 @@ species_dictionary.update("Key","Value")
 
 
 
-### 2.12 Conditionals <a name="2.11"></a>
+### 2.12 Conditionals <a name="2.12"></a>
+
+[go to top](#top)
 
 ```python
 == # equal to 
@@ -614,6 +685,24 @@ elif (dragon_rating < 10 and is_dragon != True) :
 	print("NEEDS MORE DRAGONS")
 else :
 	print("Well ok then. Raa.")
+```
+
+**any() and all()**
+
+```python
+# Think of any() and all() as a series of 'or' and 'and' operators
+
+# any() returns True if at least one element is True
+# all() returns True if all elements are True
+
+# Example:
+num_list = [1, 2, 3, 4, 5]
+all(n > 2) # Returns False
+any(n > 2) # Returns True
+
+# Use it with a list comprehension!
+def is_prime(n):
+	return n > 1 and all(n % i for i in range(2,n))
 ```
 
 
@@ -684,7 +773,7 @@ for element in range(10): # You can call the element anything, some people even 
 # Output: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 count = 0
 for _ in range(10):
-    count++
+    count += 1
     print(count, end=", ")
 ```
 
@@ -963,12 +1052,12 @@ finally:
 
 ```python
 # You can raise an exception, forcing it occur
-raise NameError('some_strign')
+raise NameError('some_string')
 
 # Let's say you do this in the try block
 # The first raise won't be thrown, so you can reraise it using just raise
 try:
-    raise NameError('some_strign')
+    raise NameError('some_string')
 except:
     raise
 ```

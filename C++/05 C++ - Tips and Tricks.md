@@ -128,6 +128,14 @@ blah(){ // THE BRACKETS ARE THE SCOPE. They prevent naming conflicts by keeping 
 
 [go to top](#top)
 
+> Beware the difference between #define and #include !
+>
+> \#define tells the compiler that you're defining something
+>
+> YOU MUST INCLUDE IT TO USE HEADER GUARDS!
+>
+> \#include includes the stuff... pretty self-explanatory
+
 Code examples from: http://faculty.cs.niu.edu/~mcmahon/CS241/c241man/node90.html
 
 `#ifdef` and `#ifndef` are conditional compilation macros used in C++
