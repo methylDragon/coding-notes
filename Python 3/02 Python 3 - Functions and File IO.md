@@ -115,6 +115,24 @@ for item in rawr():
 # "raa"
 # "rer"
 # "rawr"
+
+# Yield can do something cooler too!
+# Combine it with next() to create an INFINITE ITERATABLE! (Without killing your memory)
+# Yield computes only when it needs to!
+
+def infinity():
+    x = 0
+    while True:
+        yield x
+        x += 1
+        
+infinity_forever = infinity()
+while True:
+    print(next(infinity_forever, end=", "))
+    
+# Prints
+# 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ......................
+# At least, until your computer runs out of memory I guess?
 ```
 
 **Default value pitfalls**

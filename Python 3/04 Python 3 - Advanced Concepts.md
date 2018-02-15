@@ -264,7 +264,7 @@ function_name(arguments, *args, **kwargs)
 
 
 
-### 2.7 Virtual Methods and Polymorphism <a name="2.7"></a>
+### 2.7 Virtual Methods and Polymorphisms <a name="2.7"></a>
 
 [go to top](#top)
 
