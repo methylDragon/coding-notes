@@ -41,6 +41,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.18 [Strings](#2.18)    
    2.19 [String Functions](#2.19)    
    2.20 [Exception Handling](#2.20)    
+   2.21 [Iterations, Iterables, and Iterators, and More!](#2.21)    
 3. [Reference Links](#3)  
 
 
@@ -96,6 +97,23 @@ import decimal
 import datetime
 import time
 import re # Regular Expressions, check my tutorial
+import sympy
+import sys # For OS commands!
+
+# When you import using import, you invoke module methods like so
+math.pi
+math.e
+
+# When you import using from
+from math import e
+
+# The imported method fills the namespace and you call it without invoking the module name
+print(e)
+# Output: 2.718281828459045
+
+# Handy ones are stuff like
+from math import pi, e
+from sympy import diff # diff(expression, varable, order of derivative)
 ```
 
 More module advice:
@@ -511,6 +529,9 @@ dragon_list.remove("Rrr")
 del dragon_list[3]
 # dragon_list now contains: ["Rawr", "Rar", "Raa"]
 
+dragon_list.count("Rar") # Count the number of occurances of an element in a list!
+# Output: 1
+
 dragon_list.sort() # Sort!
 dragon_list.reverse() # Reverses order of list
 
@@ -527,6 +548,9 @@ min(dragon_list) # Returns Rawr
 
 # Sum all values in the list
 sum(dragon_list) # This won't work unless the list elements are numbers though...
+
+# Return a dictionary containing the unique elements of the list
+set([1,1,1,1,1,2]) # Returns {1, 2}
 
 # Find index of a list element
 dragon_list.index("Rawr")
@@ -613,10 +637,12 @@ species_dictionary["Jane"] = "Human"
 # List functions work!
 del dictionary_name[<key>]
 len()
+pop(key)
+clear() # Empties the entire dictionary
 
 # Get values
 species_dictionary.get("methylDragon") # Returns Dragon
-# This works the same as [], except, if no value is found, it defaults to NULL as opposed to throwing an error
+# This works the same as [], except, if no value is found, it defaults to None as opposed to throwing an error
 
 # Get a list of key-value pairs
 species_dictionary.items()
@@ -627,9 +653,30 @@ species_dictionary.keys()
 # Get a list of values
 species_dictionary.values()
 
-# Add a key
-species_dictionary.update("Key","Value")
+# Add a key (Update merges another dictionary!)
+species_dictionary.update({"Key","Value"})
+
+# Add a key (alternative)
+species_dictionary["Smaug"] = "Dragon"
 ```
+
+Example: Putting it all together!
+
+```python
+# Return a list of numbers that appear most frequently in an input list
+# Show multiple if tied
+# Eg. Input: [1, 1, 2, 2, 3]
+# Output: [1, 2]
+
+def most_frequent(lst):
+    count_dict = {}
+    for i in lst:
+        if count_dict.get(i) == None:
+            count_dict.update({i : lst.count(i)})
+    return [x for x in count_dict.keys() if count_dict[x] == max(count_dict.values())]
+```
+
+
 
 
 
@@ -687,6 +734,20 @@ else :
 	print("Well ok then. Raa.")
 ```
 
+**in**
+
+```python
+# The in keyword is a nice way to call an object's __contains__ method
+
+# It works as such
+num_list = [1, 2, 3, 4, 5]
+
+2 in num_list # Returns True
+6 in num_list # Returns False
+
+# Basically it's used to check if something is in an iterable (more on iterables later)!
+```
+
 **any() and all()**
 
 ```python
@@ -703,6 +764,17 @@ any(n > 2) # Returns True
 # Use it with a list comprehension!
 def is_prime(n):
 	return n > 1 and all(n % i for i in range(2,n))
+
+# Specifically, they are functions that take in ITERABLES
+# Iterables are anything that can be iterated over (strings, lists, tuples)
+# Example:
+any((1 == 2, 2 == 3, True)) # Returns True 
+all((1 == 2, 2 == 3, True)) # Returns False
+```
+```python
+# BONUS: Combine any and all with in!
+all(x in num_list for x in range(5)) # Returns False : x is 0, 1, 2, 3, 4
+all(x in num_list for x in range(1, 5)) # Returns True : x is 1, 2, 3, 4
 ```
 
 
@@ -786,6 +858,7 @@ for _ in range(10):
 **range()**
 
 ```python
+# range(start, non-inclusive end, steps)
 range(5) # Returns [0, 1, 2, 3, 4]
 range(3,6) # Returns [3, 4, 5]
 range(4,10,2) # Returns [4, 6, 8]
@@ -820,7 +893,7 @@ for num, rawr in enumerate(rawr_list):
 
 # You can also tweak the starting number!
 # Output: 5 Rawr, 6 Rar, 7 Rer, 8 Raa,
-for num, rawr in enumerate(rawr_list,5):
+for num, rawr in enumerate(rawr_list, 5):
     print(num, rawr, end=", ")
 ```
 
@@ -869,11 +942,11 @@ Use these when you don't know ahead of time when this loop is going to end. Note
 ```python
 import random
 
-random_num = random.randrange(0,100) # Generate a random number between 0 and 100
+random_num = random.randrange(0, 100) # Generate a random number between 0 and 100
 
 while(random_num != 15): # This while loop will stop once random_num becomes 15
     print(random_num)
-    random_num = random.randrange(0,100)
+    random_num = random.randrange(0, 100)
 ```
 
 It'll print until the condition is no longer fulfilled! So in this case we'll print random numbers until random_num assumes the value 15.
@@ -1077,8 +1150,78 @@ with open("myfile.txt") as f:
 
 
 
+### 2.21 Iterations, Iterables, and Iterators, and More! <a name="2.21"></a>
+
+[go to top](#top)
+
+We know more or less what Iterations are, since we went through the for and while loops.
+
+An **iteration** is the process of going through a list, array, or set of elements **one at a time**.
+
+Ever wondered how this works? Python implements this using Iterables and Iterators!
+
+- **Iterables** are objects that can be iterated on
+  - Things that can be used in a for loop! List comprehensions, lists, strings, all that good stuff!
+
+  - There is a special kind of iterator called a **Generator**
+
+  - ```python
+    # Unlike lists, you can't do a for loop over this more than once
+    mygenerator = (x*x for x in range(3))
+
+    # Generators can only be iterated over ONCE. They do not store values in memory,
+    # but instead generate them on the fly
+    ```
+
+- **Iterators** are objects that defines how the iteration is done! (Specifically, what the next item to be iterated is.)
+
+  -  Think of them as text 'cursors' that point to objects in an iterable
+
+  - Iterators are iterables in their own right! It has an \_\_iter\_\_ and \_\_next\_\_ methods, which allow it to perform its function!
+
+  - Example execution
+
+    ```python
+    >>> rawr = "rawr" # iterable
+    >>> b1 = iter(rawr) # iterator 1
+    >>> b2 = iter(rawr) # iterator 2, independent of b1
+    >>> next(b1)
+    'r'
+    >>> next(b1)
+    'a'
+    >>> next(b2) # start over, as it is the first call to b2. Independent iterator!
+    'r'
+    >>> next(b1)
+    'w'
+    >>> next(b1)
+    'r'
+    >>> next(b1)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    StopIteration
+    >>> b1 = iter(a) # new one, start over
+    >>> next(b1)
+    'r'
+    ```
+
+
+**Intuition**
+
+> I don’t know if it helps anybody but I always like to visualize concepts in my head to better understand them. So as I have a little son I visualize iterable/iterator concept with bricks and white paper.
+>
+> Suppose we are in the dark room and on the floor we have bricks for my son. Bricks of different size, color, does not matter now. Suppose we have 5 bricks like those. Those 5 bricks can be described as an **object** – let’s say **bricks kit**. We can do many things with this bricks kit – can take one and then take second and then third, can change places of bricks, put first brick above the second. We can do many sorts of things with those. Therefore this bricks kit is an **iterable object** or **sequence** as we can go through each brick and do something with it. We can only do it like my little son – we can play with **one** brick **at a time**. So again I imagine myself this bricks kit to be an **iterable**.
+>
+> Now remember that we are in the dark room. Or almost dark. The thing is that we don’t clearly see those bricks, what color they are, what shape etc. So even if we want to do something with them – aka **iterate through them** – we don’t really know what and how because it is too dark.
+>
+> What we can do is near to first brick – as element of a bricks kit – we can put a piece of white fluorescent paper in order for us to see where the first brick-element is. And each time we take a brick from a kit, we replace the white piece of paper to a next brick in order to be able to see that in the dark room. This white piece of paper is nothing more than an **iterator**. It is an **object as well**. But an object with what we can work and play with elements of our iterable object – bricks kit.
+>
+> (https://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols)
+
+
+
+
 ```
                             .     .
                          .  |\-^-/|  .    
-                        /| } O.=.O { |\     
+                        /| } O.=.O { |\
 ```

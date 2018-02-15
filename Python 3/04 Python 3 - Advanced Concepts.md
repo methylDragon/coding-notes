@@ -29,9 +29,10 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 2. [Advanced Python 3 Syntax and Concepts](#2)    
    2.1   [if \_\_name__ == "\_\_main__":](#2.1)    
    2.2   [Lambda, Filter(), Reduce(), and Map()](#2.2)    
-   2.3   [*args and **kwargs](#2.3)    
-   2.4   [Child Class Declaration](#2.4)    
-   2.5   [Virtual Methods and Polymorphism](#2.5)    
+   2.3   [List Comprehensions](#2.3)    
+   2.4   [*args and **kwargs](#2.4)    
+   2.5   [Child Class Declaration](#2.5)    
+   2.6   [Virtual Methods and Polymorphism](#2.6)    
 
 
 

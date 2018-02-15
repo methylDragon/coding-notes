@@ -54,7 +54,7 @@ They're a handy way to chunk up your code so you don't have to repeat what you d
 
 def add_numbers(first_num, second_num):
     added_numbers = first_num + second_num
-    return added_numbers
+    return added_numbers # Stop the function and output the value stored in added_numbers
 
 # The function's name is add_numbers
 # And it takes two parameters, first_num and second_num
@@ -93,6 +93,28 @@ def complex(real=0.0, imag=0.0):
 # One-Line Docstring
 def function(a, b):
     """Do X and return a list."""
+```
+
+**Yield**
+
+```python
+# If you want to define a function to generate items instead of returning a single one
+# You can let the function have outputs without ending the function using Yield!
+
+# It works just like Return, but it doesn't end the function!
+
+def rawr():
+    yield "raa"
+    yield "rer"
+    yield "rawr"
+
+for item in rawr():
+    print item
+    
+# Output:
+# "raa"
+# "rer"
+# "rawr"
 ```
 
 **Default value pitfalls**
