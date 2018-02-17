@@ -631,18 +631,20 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 [go to top](#top)
 
 ```python
-# define executable using messages etc.
+  # define executable to be built using messages etc.
+  # and the dependencies it needs
   add_executable(message_program src/main.cpp)
   add_dependencies(message_program ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
   # define executable not using any messages/services provided by this package
+  # and the dependencies it needs
   add_executable(does_not_use_local_messages_program src/main.cpp)
   add_dependencies(does_not_use_local_messages_program ${catkin_EXPORTED_TARGETS})
 ```
 
 
 
-### 4.10 Specify Build Targets (and more!) (`add_library()/add_executable()/target_link_libraries()`) <a name="4.10"></a> 
+### 4.10 Specify Build Targets (and more!) (`add_library(), add_executable(), target_link_libraries()`) <a name="4.10"></a> 
 
 [go to top](#top)
 

@@ -89,6 +89,19 @@ Basically,
 Illustrative Example:
 
 ```c++
+#include <iostream>
+
+using namespace std;
+
+class Car {
+    public:
+    	int number;
+    
+    	void Create() {
+			cout << "Car created, number is: " << number << "\n" ; 
+        }
+}
+
 // The two chunks for (x) and (*y) are equal
 // Credit: https://www.programcreek.com/2011/01/an-example-of-c-dot-and-arrow-usage/
 

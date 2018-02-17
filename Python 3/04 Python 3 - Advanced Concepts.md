@@ -114,7 +114,7 @@ Basically, they're stupidly useful, and super elegant. I love them!
 # Here's a bunch of more complicated list comprehensions!
 # Source: http://www.secnetix.de/olli/Python/list_comprehensions.hawk
 
-# This one uses two list comprehensiosn together
+# This one uses two list comprehensions together
 noprimes = [j for i in range(2, 8) for j in range(i*2, 50, i)]
 primes = [x for x in range(2, 50) if x not in noprimes]
 # primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]

@@ -316,6 +316,8 @@ isn\'t it great?!'''
 
 # If you want to find out the type of a variable, use type()
 type(my_number) # Returns <class "int">
+# Note: You compare it using: type(my_number) == int
+# Returns True
 
 # If you want to find its address, use id()
 id(my_number) # Returns my_number's address

@@ -64,6 +64,23 @@ add_numbers(1,2) # Gives 3
 add_numbers(4,5) # Gives 9
 ```
 
+**Optional Inputs**
+
+```python
+# You can state OPTIONAL INPUTS as well!
+
+# third_num is an optional input with default value 0
+def add_more_numbers(first_num, second_num, third_num = 0): 
+    added_numbers = first_num + second_num + third_num
+    return added_numbers
+
+add_more_numbers(1, 2) # Gives 3
+add_more_numbers(4, 5) # Gives 9
+add_more_numbers(4, 5, 1) # Gives 10! The optional value got overwritten with your input!
+```
+
+***Docstrings**
+
 ```python
 # DOCSTRINGS
 def my_function(some_parameters):
@@ -140,6 +157,12 @@ while True:
 ```python
 # Python 3 supports default argument values as well!
 # But there are pitfalls!
+# If you pass a mutable type like a list, the same list will get altered each time you run the function, which means its default value won't be default anymore.
+
+# If you really need to use a list
+def myfunc(value = None):
+    if value is None:
+        value = []
 
 # Read about it here: http://effbot.org/zone/default-values.htm
 
@@ -147,15 +170,16 @@ while True:
 # None is a good one
 
 def function_name(parameter1 = None):
-	# bla bla bla    
+	# bla bla bla
     
 # The link I posted has this really good memoisation implementation
 # I'll talk about memoisation in the advanced section, not here
+
 def calculate(a, b, c, memo={}):
     try:
         value = memo[a, b, c] # return already calculated value
     except KeyError:
-        value = heavy_calculation(a, b, c)
+        value = heavy_calculation(a, b, c) # Running some expensive recursive function
         memo[a, b, c] = value # update the memo dictionary
     return value
 ```
