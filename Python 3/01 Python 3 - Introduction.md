@@ -515,6 +515,13 @@ dragon_list.append("Rer")
 dragon_list.append("Pop_Me")
 # dragon_list now contains: ["Rawr", "Rar", "Raa", "Rer", "Pop_Me"]
 
+# Extending
+number_list = [1, 2, 3]
+extend_list = [4, 5]
+# Ok. Now let's examine the differences! (Assume number_list is reinitialised between statements)
+number_list.append(extend_list) # [1, 2, 3, [4, 5]]
+number_list.extend(extend_list) # [1, 2, 3, 4, 5] Notice how the list is no longer nested!
+
 # Pop: Removes the last element
 dragon_list.pop()
 # dragon_list now contains: ["Rawr", "Rar", "Raa", "Rer"]
@@ -693,6 +700,11 @@ def most_frequent(lst):
 < # less than
 >= #  more than or equal to
 <= # less than or equal to
+
+is # Checks if something is the same object as something else
+# Eg.
+# 1 == True (Returns True)
+# 1 is True (Returns False, as 1 does not refer to the same object)
 ```
 
 > NOTE. "==" IS **NOT** "="
@@ -758,10 +770,10 @@ num_list = [1, 2, 3, 4, 5]
 # any() returns True if at least one element is True
 # all() returns True if all elements are True
 
-# Example:
-num_list = [1, 2, 3, 4, 5]
-all(n > 2) # Returns False
-any(n > 2) # Returns True
+# Example
+any([True, False, False]) # Returns True
+all([True, False, False]) # Returns False
+all([True, True, True]) # Returns True
 
 # Use it with a list comprehension!
 def is_prime(n):
@@ -1042,6 +1054,10 @@ print('{} makes {}!'.format(dragon, stuff))
 
 [go to top](#top)
 
+> **NOTE**: ALL THESE METHODS DO NOT CHANGE THE STRING. It's not like list append or extend!
+>
+> If you want to change the string, reassign it!
+
 ```python
 rawr_string = "I am methylDragon, and while I can talk, I also rawr!"
 
@@ -1065,14 +1081,19 @@ rawr_string.replace("methylDragon", "a dragon")
 # Let's undo that
 rawr_string.replace("a dragon", "methylDragon")
 
-# Strip away all whitespaces
+# Strip away all trailing whitespaces
 rawr_string.strip()
 
 rawr_string = "I am methylDragon, and while I can talk, I also rawr!" # Let's reset
 
 # Split a string by some delimiter
+# Note, this does not change the string! You must reassign this!
 rawr_string.split(",")
 # Output: ['I am methylDragon', 'and while I can talk', ' I also rawr!']
+
+# Using strings to join lists of strings!
+# Remember to save!
+"|".join(["1", "2", "3", "4", "5"]) # Returns '1|2|3|4|5'
 ```
 
 

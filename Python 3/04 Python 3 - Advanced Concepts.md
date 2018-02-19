@@ -252,13 +252,13 @@ function_name(arguments, *args, **kwargs)
 
 
 
-### 2.5 Classes <a name="2.5"></a>
+### 2.5 Decorators <a name="2.5"></a>
 
 [go to top](#top)
 
 
 
-### 2.6 Child Class Declaration <a name="2.6"></a>
+### 2.6 Memoisation <a name="2.6"></a>
 
 [go to top](#top)
 
