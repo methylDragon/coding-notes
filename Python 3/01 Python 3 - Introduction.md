@@ -85,6 +85,11 @@ line comment!
 
 ```python
 import <MODULE_NAME>
+
+# If you make your own, say... my_module.py
+# This works too!
+
+import my_module
 ```
 
 Sometimes you want to extend the functionalities of your Python installation by importing modules (libraries of functions other people have written.)
@@ -236,6 +241,7 @@ print("{dragons} {are} {the} {best}".format(**my_dict))
 # {:f} Float
 # {:5d} Padded Int
 # {:.5f} Fixed Decimal Float
+# {:08b} Binary with 8 digits zero-padded on the left
 
 # {:+d} Sign Prefixed Number
 # Eg: {42:+d} : +42 , {-42:+d} : -42
@@ -312,6 +318,13 @@ isn\'t it great?!'''
 # list: Ordered Array of same type
 # tuple: Immutable Array of possibly different type
 # dictionary: Keyed Array
+
+# You can convert between types!
+num = 1.12345
+bin_num = 100
+int(num) # Returns 1
+int(str(bin_num), 2) # The optional base input tells int() what the input base is
+
 
 
 # If you want to find out the type of a variable, use type()
@@ -667,6 +680,13 @@ species_dictionary.update({"Key","Value"})
 
 # Add a key (alternative)
 species_dictionary["Smaug"] = "Dragon"
+
+# Set a default response to a particular key query if the key is not found
+species_dictionary.setdefault("methylDragon", "bad_dragon")
+species_dictionary.setdefault("Toothless", "good_dragon")
+
+species_dictionary["methylDragon"] # returns "Dragon" (as the key was found)
+species_dictionary["Toothless"] # returns "good_dragon"
 ```
 
 Example: Putting it all together!
@@ -1070,8 +1090,11 @@ rawr_string.find("rawr") # Returns 48
 # Check to see if everything is alphabetical
 rawr_string.isalpha() # Returns False (we have punctuation!)
 
+# Check to see if everything is alphanumeric
+rawr_string.isalnum() # Returns False (because, of course, we have punctuations!)
+
 # Check to see if everything is numeric
-rawr_string.isalnum() # Returns False (because, of course)
+rawr_string.isdigit() # Returns False
 
 # Find length
 len(rawr_string)
@@ -1090,6 +1113,10 @@ rawr_string = "I am methylDragon, and while I can talk, I also rawr!" # Let's re
 # Note, this does not change the string! You must reassign this!
 rawr_string.split(",")
 # Output: ['I am methylDragon', 'and while I can talk', ' I also rawr!']
+
+# split() if left without any arguments splits by a varying length of whitespace!
+space_string = "hello    \nthis is    great"
+space_string.split() # Returns ['hello', 'this', 'is', 'great']
 
 # Using strings to join lists of strings!
 # Remember to save!

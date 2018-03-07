@@ -127,6 +127,7 @@ As such
 
 void MyClass::foo()
 {
+    // some implementation
 }
 ```
 

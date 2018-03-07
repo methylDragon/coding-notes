@@ -126,7 +126,7 @@ def rawr():
     yield "rawr"
 
 for item in rawr():
-    print item
+    print(item)
     
 # Output:
 # "raa"
