@@ -79,7 +79,7 @@ add_more_numbers(4, 5) # Gives 9
 add_more_numbers(4, 5, 1) # Gives 10! The optional value got overwritten with your input!
 ```
 
-***Docstrings**
+**Docstrings**
 
 ```python
 # DOCSTRINGS
