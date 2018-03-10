@@ -20,6 +20,10 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
+   1.1  [Objects and Classes](#1.1)    
+   1.2  [Inheritance](#1.2)    
+   1.3  [Polymorphisms](#1.3)    
+   1.4  [Interfaces](#1.4)    
 2. [OOP C++ Syntax Reference](#2)    
    2.1   [Visibility](#2.1)    
    2.2   [Access Operators](#2.2)    
@@ -32,6 +36,111 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 ## 1. Introduction <a name="1"></a>
 
 Object-Oriented Programming. Pretty standard, some small quirks in C++, but good vibes. :)
+
+> The basis for all object oriented programming languages is the manipulation of **objects**.
+>
+> **Objects** contain **Attributes** and **Methods**. These two can be referred to collectively as the **Members** of the **Object's Class**.
+
+
+
+### 1.1 Objects and Classes <a name="1.1"></a>
+
+[go to top](#top)
+
+> These subsections are pulled from my PHP OOP reference, but I'm including them here for convenience's sake 
+
+**Objects** act a lot like real-world objects. They:
+
+- Can be **created** or **destroyed**
+- Are instances of **Classes**
+- Have manipulable **Properties/Attributes**
+- Have callable **Methods** (it's like calling functions!)
+
+**Classes** define the **Attributes** and **Methods** of objects that belong to them! Attributes and Methods are referred collectively as the class' **Members**.
+
+So for example, you can have a class that defines an object with the property: "Colour", but the instance of the class (the object), can have any value within that property (Red, Black, etc.) **You can also state the default value of the class otherwise!**
+
+> **Example:** **methylDragon** is an object that belongs to the **Dragon** class. This gives him default attributes like:
+>
+> Color: Red
+> Sound: ["Rawr"]  (This is an array because the object might make multiple sounds)
+> Breath: Fire
+>
+> And methods like:
+>
+> Sound()
+> Talk()
+> Walk()
+> Eat()
+> Fly()
+>
+> **Note:** When constructing an object belonging to a class, you **can** override the default values defined by the class. So when defining **methylDragon**, you can give him alternative attribute values! Like the **Color: Black**!
+
+
+
+### 1.2 Inheritance <a name="1.2"></a>
+
+[go to top](#top)
+
+Notably, **you can nest classes!** Sub-classes will then **inherit** or **overriding** the attributes and methods of their parent classes as a **polymorphism**.
+
+> **Example:** The class **Dragon** has a child class (sub-class) **Music_Dragon** that **methylDragon** belongs to! 
+>
+> This can confer new methods or attributes (Like... A stage-name, and music making ability) **in addition** to any attributes and methods the **Dragon** class conferred.
+>
+> It can also override any pre-existing methods or attributes the defined objects would have had. So for example, Sound could be re-defined as containing ["Rawr", "~♪~♫~♪~♪"] by default instead!
+>
+> So now **methylDragon** has the following:
+>
+> Attributes:
+>
+> Color: Black | (<u>Custom defined</u>)
+> Sound: ["Rawr", "~♪~♫~♪~♪"] | (<u>Overridden</u>)
+> Breath: Fire | (<u>Inherited</u>)
+>
+> Methods:
+>
+> Sound() | (<u>Overridden</u>)
+> Talk() | (<u>Inherited</u>)
+> Walk() | (<u>Inherited</u>)
+> Eat() | (<u>Inherited</u>)
+> Fly() | (<u>Inherited</u>)
+
+
+
+### 1.3 Polymorphisms <a name="1.3"></a>
+
+[go to top](#top)
+
+You can override pre-existing methods defined by a parent class. This means that when the method is called, the child class' method definition will be used instead of the parent class'.
+
+> **Example:** The **Music_Dragon** class defines an alternate version of the Sound() method that allows objects belonging it to also make music!
+>
+> So **methylDragon** can make music! 🎵
+
+
+
+### 1.4 Interfaces <a name="1.4"></a>
+
+[go to top](#top)
+
+http://php.net/manual/en/language.oop5.interfaces.php
+
+> Object interfaces allow you to create code which specifies which methods a class must implement, without having to define how these methods are handled.  
+>
+> Interfaces are defined in the same way as a class, but with the *interface* keyword replacing the *class* keyword and without any of the methods having their contents defined.  
+>
+> All methods declared in an interface must be public; this is the nature of an interface.
+
+> Imagine that I make cars, and you drive them.
+>
+> Me, as the car manufacturer, don't want you to be messing around with it's internals (motor, ECU, etc), but I do want you to drive it.
+>
+> So I create the interface, wheel, buttons, etc. So you just need to learn the interface. However, nothing stops you to pop up the hood and see what's in it, right?
+>
+> Today I manufacture cars, tomorrow it can be a van, but I'll keep the same interface, and maybe add some options, so that you can still drive it without learning every little detail about cars, vans, trucks, motorcycles and so on. (r/eli5)
+
+In short, implementing an interface is like having an object sign a contract to implement any method defined in the interface.
 
 
 
@@ -115,7 +224,7 @@ int main() {
  
 	Car *y; // declare y as a pointer which points to a Car object
 	y = &x; // assign x's address to the pointer y
-	(*y).Create(); // *y is object
+	(*y).Create(); // *y is the object
 	y->Create(); // same as previous line, y points to x object. It stores a reference(memory address) to x object.
  
 	y->number = 456; // this is equal to (*y).number = 456;

@@ -40,7 +40,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.17 [While Loops](#2.17)    
    2.18 [Strings](#2.18)    
    2.19 [String Functions](#2.19)    
-   2.20 [Exception Handling](#2.20)    
+   2.20 [Exception Handling and Debugging](#2.20)    
    2.21 [Iterations, Iterables, and Iterators, and More!](#2.21)    
 3. [Reference Links](#3)  
 
@@ -512,6 +512,8 @@ list_three = list_one + list_two
 > a_list = [5]
 > b_list = a_list[:]
 > ```
+>
+> Or you can use the copy module! Check the advanced section! 
 >
 > 
 
@@ -1125,7 +1127,7 @@ space_string.split() # Returns ['hello', 'this', 'is', 'great']
 
 
 
-### 2.20 Exception Handling <a name="2.20"></a>
+### 2.20 Exception Handling and Debugging <a name="2.20"></a>
 
 [go to top](#top)
 
@@ -1183,6 +1185,21 @@ try:
     raise NameError('some_string')
 except:
     raise
+```
+
+**Assert**
+
+This of an assert like a raise-if-not statement
+
+```python
+# Raise an exception if the condition returns False
+assert (5 == 5), "5 is not equal to 5!" # This will just run properly
+assert (5 != 5), "5 is equal to 5!" # This will raise an error!
+
+# Specifically,
+# AssertionError: 5 is equal to 5!
+
+# Assertions are a good way to make your own checks, and raise your own exceptions
 ```
 
 **With**

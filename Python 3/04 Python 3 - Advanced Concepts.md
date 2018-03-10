@@ -31,8 +31,9 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.2   [Lambda, Filter(), Reduce(), and Map()](#2.2)    
    2.3   [List Comprehensions](#2.3)    
    2.4   [*args and **kwargs](#2.4)    
-   2.5   [Child Class Declaration](#2.5)    
-   2.6   [Virtual Methods and Polymorphism](#2.6)    
+   2.5   [Decorators](#2.5)    
+   2.6   [Memoisation](#2.6)    
+   2.7   [Copy](#2.7)    
 
 
 
@@ -41,7 +42,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 Ok. We've gone through all the basic stuff and simple syntax.
 
-Now let's dive into the deep end. Very little hand holding here, but lots of useful concepts, and some pretty powerful stuff! 
+Now let's dive into the deep end. Very little hand holding here, but lots of useful concepts, and some pretty powerful stuff!  Also, since it can get pretty deep, I might make references to links to longer resources, and only mention the gist of what needs to be written so you can understand the concepts.
 
 > I can't find a way to organise these, so just look through what looks interesting. I'll try to write pre-requisite concepts so you can have things to Google or refer to, but we're going to go pretty fast.
 
@@ -66,9 +67,99 @@ else:
 
 
 
-### 2.2 Lambda, Filter(), Reduce(), and Map() <a name="2.2"></a>
+### 2.2 lambda, map(), filter(), reduce() <a name="2.2"></a>
 
 [go to top](#top)
+
+map(), filter(), and reduce() operate on lists. But if we want to use them properly, we're going to have to go though lambda expressions first.
+
+**lambda**
+
+Lambda expressions are a good way to create throwaway functions! Just take note that they can't feature return statements, as their output is their default return output.
+
+```python
+# Observe the syntax
+add_nums = lambda x, y: x + y
+
+add_nums(1, 2) # Returns 3
+add_nums(4, 5) # Returns 9
+```
+
+As you can see, this lambda expression for add_nums is more or less a function definition, turning add_nums into the name for a function.
+
+Now we'll see how they can be used to create arbitrary anonymous functions
+
+```python
+# Define a function creates an anomymous function, and returns the output
+def multiply_by(n):
+    return lambda x : x + n
+
+multiply_eight = multiply_by(8) # The function that is created multiplies the input by 8
+multiply_six = multiply_by(6) # The function that is created multiplies the input by 6
+
+multiply_eight(2) # Returns 16 (i.e. 2 * 8)
+multiply_six(2) # Returns 12 (i.e. 2 * 6)
+```
+
+However, the TRUE utility of lambda expressions comes when you pair them with map, filter, reduce!
+
+**map()**
+
+Map takes a list of items, and applies a function to every item in said list.
+
+```python
+# Let's do a map to square every number in a list!
+my_nums = [1, 2, 3, 4, 5]
+
+# Notice the lambda! We don't need to make a new named function for this!
+map(lamda x: x ** 2, my_nums) # This creates a map object
+my_squares = list(map(lamda x: x ** 2, my_nums)) # We need to create a list for it!
+
+print(my_squares) # [1, 4, 9, 16, 25] We did it!
+
+# Let's try one more, for uppercasing everything in an input string
+rawr = "rawr"
+
+RAWR = list(map(lambda x: x.upper(), rawr))
+
+print(RAWR) # ['R', 'A', 'W', 'R']
+```
+
+**filter()**
+
+Filter runs a function through every item in a list, creating a new list of items that fulfill the conditions set by said function.
+
+More specifically items get added to the new list if the function that gets applied returns True
+
+```python
+# Let's filter out numbers that are not greater than 3
+my_nums = [1, 2, 3, 4, 5]
+
+print(list(filter(lambda x: x > 3, my_nums))) # [4, 5]
+```
+
+**reduce()**
+
+Ok! We've done map and filter! **Reduce has to be imported.**
+
+Reduce 'combines' items in a list, by running a function through every item in a list. 
+
+The function that you use to run through the list has to take in two values, the first being the accumulated value, and the second being the current item you're iterating through in the list.
+
+```python
+from functools import reduce
+
+my_nums = [1, 2, 3, 4]
+
+# Remember, the first value is the accumulated value, and the second is the current value
+
+# This one adds all values!
+print(reduce(lambda x, y: x + y, my_nums)) # 10
+# This one multiplies all values!
+print(reduce(lambda x, y: x * y, my_nums)) # 24
+# This one concatenates strings!
+print(reduce(lambda x, y: x + y, ["methyl", "Dragon"])) # "methylDragon"
+```
 
 
 
@@ -256,17 +347,427 @@ function_name(arguments, *args, **kwargs)
 
 [go to top](#top)
 
+If I don't explain it well enough for you, try: https://realpython.com/blog/python/primer-on-python-decorators/
+
+Or a video tutorial: https://www.youtube.com/watch?v=FsAPt_9Bf3U
+
+If you're having problems with docstrings also, do look up that link. They mention @wraps
+
+**Pre-amble**
+
+So you thought you knew functions. And sure you do!
+
+You know how to:
+
+```python
+# Define them
+def my_function(parameters):
+    # Do stuff
+    yield # Stuff
+    return # Stuff also
+
+# Compose them
+def my_function(parameters):
+    composed_function(other_parameters) # Call another function within a function!
+    # Stuff
+    return # Stuff
+
+# Pass functions (and lambdas!) as parameters
+# You can do this because in python, functions are first-class, i.e. they're objects that can be
+# passed
+def my_function(some_function):
+    # Do stuff
+
+my_function(lambda x : blahblah)
+my_function(another_function)
+
+# Return arbitrary ones
+def my_function(parameters):
+    # Do stuff
+    return lambda x: #Some output
+```
+
+**Functions within Functions**
+
+So it turns out, you can **define functions within other functions!**
+
+```python
+# Sorta like returning arbitrary ones with lambda expressions!
+def outer_function():
+    def inner_function()
+    	return
+    return
+```
+
+**Decorators**
+
+Decorators are functions that takes another function as an argument, and adds functionality to that function without changing its source code of the passed function. (Adding functionality to input functions!)
+
+```python
+# Simplest example
+# Intuitively, decorators 'wrap' the extra functionality around our oiginal function
+
+# before_after will be our decorator here:
+def before_after(f): # Where f is a function
+    def wrapper():
+        print("before")
+        f()
+        print("after")
+    return wrapper
+
+# In effect, calling before_after(f)
+# Is the same as calling
+# print("before")
+# f()
+# print("after")
+```
+```python
+# Now let's try it with a bunch of functions!
+def hello():
+    print("hello")
+
+def rawr():
+    print("rawr")
+
+# You decorate a function by reassigning the function name to a function call of the decorator!
+# All without changing the actual source code of rawr!
+# This allows us to add extra functionality to functions that might have been messy to write in the
+# function's code!
+rawr = before_after(rawr) # Notice how it isn't rawr() !
+rawr()
+
+# Now rawr() runs the wrapper function, with f() being rawr()!
+# Prints:
+# before
+# rawr
+# after
+
+# You can also apply the same decorator across different functions very easily!
+hello = before_after(hello)
+hello()
+
+# Prints:
+# before
+# hello
+# after
+```
+
+> **An important note!**
+>
+> ```python
+> def before_after(f): # Where f is a function
+>     def wrapper():
+>         print("before")
+>         f()
+>         print("after")
+>     return wrapper
+>
+> # IS NOT
+>
+> def before_after_wrong(f): # Where f is a function
+>     print("before")
+>     f()
+>     print("after")
+>     return f
+>
+> # Here's the illustration
+>
+> # We know how this goes
+> # It changes rawr() into a decorator() call with rawr() as f()
+> rawr = before_after(rawr)
+>
+> # But
+> # This won't actually change rawr()'s behaviour! Since it returns f, not decorator!
+> rawr = before_after_wrong(rawr) # This will actually immediately do the decorator prints
+> # As before_after_wrong(rawr) returns rawr
+> # then: rawr = before_after_wrong(rawr)
+> # is: rawr = rawr (but with the extra print statements as an extra effect)
+>
+> rawr() # Behaves the same as rawr() before the 'decoration'!
+> ```
+>
+> 
+
+**Syntactic Sugar** (@ notation)
+
+```python
+# We've seen that we can apply a decorator by writing it as a composite function
+rawr = before_after(rawr)
+
+# There's a nicer way to do it though! Just use @ (it's called pie syntax)
+
+@before_after
+def rawr():
+    print("rawr")
+    
+@before_after
+def hello():
+    print("hello")
+    
+# Now you can do it across any number of functon definitions!
+# You can even chain different decorators! It makes things really clear!
+
+@decorator1 # Called last (outermost)
+@decorator2 # Called second
+@decorator3 # Called first (innermost)
+def my_function:
+    # blahblah
+    
+# Is equivalent to the less clear
+my_function = decorator1(decorator2(decorator3(my_function)))
+```
+
+**Decorators with arguments**
+
+Now we have a few problems. What happens when arguments are involved? This problem arises in two specific cases:
+
+1. The original function had arguments
+2. You want arguments to change how the decorator behaves
+
+We can fix them easily!
+
+```python
+# Original function had arguments
+
+# Just use *args and **kwargs! Now you can apply it to any given input function!
+def decorator_function(f):
+    def wrapper_function(*args, **kwargs): # Put the arguments on your wrapper!
+        print("decorator stuff")
+        return f(*args, **kwargs)
+    return wrapper_function
+
+# Let's observe what happens with an example!
+
+@decorator_function
+def my_function(num1, num2):
+    print(num1)
+    print(num2)
+    return num1 + num2
+
+print(my_function(1,5))
+# Output
+# decorator stuff
+# 1
+# 5
+# 6
+```
+
+```python
+# Arguments change how the decorator behaves
+# Note: This one gets a little complicated...
+
+# Put your arguments in, no fear! But have an extra layer of wrapping!
+def decorator_function(arguments): # Put your arguments on your decorator function!
+    def outer_wrapper(f): # The outer_wrapper takes care of the input function!
+        def wrapper_function():
+            return f() # Manipulate your f with the arguments here!
+        return wrapper_function
+    return outer_wrapper
+
+# An example will help a lot here!
+
+def multiply_by(num): # A call to this decorator
+    def function_wrapper(f):
+        def wrapper_function(*args):
+            return f(*args) * num # Because we know our f() will take arguments
+        return wrapper_function 
+        # Returns a function that multiplies the original input function's output by num
+    return function_wrapper
+    # And adds that functionality to the input function
+
+# This is equivalent to
+
+# First making a decorator
+# Let's say we make num = 3
+def multiply_by_three(f):
+    def wrapper():
+        return f() * 3
+    return wrapper
+
+# Then applying the decorator
+@multiply_by_three
+def decorated_function():
+    return # blah blah
+
+# Let's test it out!
+@multiply_by(3)
+def multiply_by_3(num):
+    return num
+
+multiply_by_3(3) # Returns 9 
+```
+
+**Practical Examples**
+
+```python
+# Source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Decorators/snippets.txt
+
+# Decorators, implemented using a class
+class decorator_class(object):
+
+    def __init__(self, original_function):
+        self.original_function = original_function
+
+    def __call__(self, *args, **kwargs):
+        print('call method before {}'.format(self.original_function.__name__))
+        self.original_function(*args, **kwargs)
+
+# Logging decorator
+def my_logger(orig_func):
+    import logging
+    logging.basicConfig(filename='{}.log'.format(orig_func.__name__), level=logging.INFO)
+
+    def wrapper(*args, **kwargs):
+        logging.info(
+            'Ran with args: {}, and kwargs: {}'.format(args, kwargs))
+        return orig_func(*args, **kwargs)
+
+    return wrapper
+
+# Timer decorator
+def my_timer(orig_func):
+    import time
+
+    def wrapper(*args, **kwargs):
+        t1 = time.time()
+        result = orig_func(*args, **kwargs)
+        t2 = time.time() - t1
+        print('{} ran in: {} sec'.format(orig_func.__name__, t2))
+        return result
+
+    return wrapper
+```
+
+Hopefully these toy examples help you out! I'll be using decorators in some of the other sections too! So it wouldn't hurt to learn it!
+
+But, if you want to go deeper, with classes, for example: https://www.codementor.io/sheena/advanced-use-python-decorators-class-function-du107nxsv
+
 
 
 ### 2.6 Memoisation <a name="2.6"></a>
 
 [go to top](#top)
 
+**Pre-Requisites**
+
+- Recursive functions
+- Decorators
+
+**Introduction**
+
+Memoisation is a way to speed up computation time for recursive functions, by ensuring that repeat computations do not happen! (It can potentially reduce O(n^2) complexity algorithms to O(n)! It's very important in dynamic programming problems!)
+
+Consider this recursive function, one that calculates the Fibonacci numbers up to the input number
+
+```python
+def fib(num):
+    if num == 0:
+        return 0
+    elif num == 1:
+        return 1
+    else:
+        return fib(num - 1) + fib(num - 2)
+```
+
+One can easily see that at high values of num, there will be many repeat calls of lower numbers!
+
+```python
+# For example
+
+fib(5)
+
+# Will result in a call to:
+# fib(4) + fib(3)
+# Which splits into:
+# fib(3) + fib(2) + fib(2) + fib(1)
+# fib(2) + fib(1) + fib(2) + fib(2) + fib(1)
+
+# Already there's three repeat calls to fib(2)! Now, if only there was a way to store the answer
+# And substitute it in instead of splitting the calls again...
+```
+
+**Implementation**
+
+Let's see how we can do this! It's very easy!
+
+```python
+# Create a memoisation decorator
+def memoise(f):
+    memo = {}
+    def checker(x):
+        if x not in memo:            
+            memo[x] = f(x)
+        return memo[x]
+    return checker
+
+# And apply it! Done!
+@memoise
+def fib(num):
+    if num == 0:
+        return 0
+    elif num == 1:
+        return 1
+    else:
+        return fib(num - 1) + fib(num - 2)
+```
+
+```python
+# https://www.python-course.eu/python3_memoization.php
+# mentions a way to do it with a class as well
+
+class Memoize:
+    def __init__(self, fn):
+        self.fn = fn
+        self.memo = {}
+    def __call__(self, *args):
+        if args not in self.memo:
+	    self.memo[args] = self.fn(*args)
+        return self.memo[args]
+
+@Memoize
+def fib(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+```
 
 
-### 2.7 Virtual Methods and Polymorphisms <a name="2.7"></a>
+
+### 2.7 Copy <a name="2.7"></a>
 
 [go to top](#top)
+
+(Copy and Deepcopy behave the same if the objects being copied are immutable types, so what I write here only applies otherwise.)
+
+Use the copy module if you're having trouble recursively copying lists or other mutable types!
+
+```python
+import copy
+
+# With assignment, you don't create a new object
+# b_list is simply an alias for a_list
+a_list = [5] #Some Mutable Type
+b_list = a_list
+
+# Shallow copying, copies references to nested mutable objects,
+# c_list is a new object
+# But contains references to the objects in a_list
+c_list = copy.copy(a_list)
+print(id(c_list) is id(a_list) # False
+print(id(c_list[0]) is id(a_list[0])) # True
+
+# Deep copying, copies the nested objects instead of references
+# d_list is a new object
+# And contains objects that are the same value as, but are distinct from those in a_list
+d_list = copy.deepcopy(a_list)
+print(id(d_list) is id(a_list)) # False
+print(id(d_list[0]) is id(a_list[0])) # False
+```
+
+
 
 
 
