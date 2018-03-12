@@ -36,7 +36,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.4   [Polymorphisms](#2.4)    
    2.5   [Magic Methods](#2.5)    
    2.6   [Generating Multiple Objects at a Time](#2.6)    
-   2.6   [Encapsulation, Getters, Setters, and Property()](#2.7)    
+   2.7   [Encapsulation, Getters, Setters, and Property()](#2.7)    
 
 
 
