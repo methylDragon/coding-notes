@@ -60,9 +60,9 @@ If the Python 3 main interpreter is running the program, (i.e. that the program 
 
 ```python
 if __name__ == "__main__": # There we are!
-	print("We're running the program directly!")
+    print("We're running the program directly!")
 else:
-	print("We're running the program indirectly! It's imported!")
+    print("We're running the program indirectly! It's imported!")
 ```
 
 
@@ -219,7 +219,7 @@ words = 'The quick brown fox jumps over the lazy dog'.split()
 
 stuff = [[w.upper(), w.lower(), len(w)] for w in words]
 for i in stuff:
-	print i
+    print i
     
 '''
 ['THE', 'the', 3]
@@ -237,7 +237,7 @@ for i in stuff:
 # But it's less comprehensible (that was not meant to be a pun)
 stuff = map(lambda w: [w.upper(), w.lower(), len(w)], words)
 for i in stuff:
-	print i
+    print i
 ```
 
 > You cannot use list comprehensions when the construction rule is too complicated to be expressed with "for" and "if" statements, or if the construction rule can change dynamically at runtime.  
@@ -321,9 +321,9 @@ kwargs = {"p1": 1, "p2": 2, "p3": 3}
 ```python
 # If the function is defined 
 def function_name(*args):
-	# Then
+    # Then
     arguments = args
-	# Will have arguments return a tuple of arguments
+    # Will have arguments return a tuple of arguments
     
 # If the function is defined
 def function_name(**kwargs):
@@ -395,7 +395,7 @@ So it turns out, you can **define functions within other functions!**
 # Sorta like returning arbitrary ones with lambda expressions!
 def outer_function():
     def inner_function()
-    	return
+        return
     return
 ```
 
@@ -721,7 +721,7 @@ class Memoize:
         self.memo = {}
     def __call__(self, *args):
         if args not in self.memo:
-	    self.memo[args] = self.fn(*args)
+        self.memo[args] = self.fn(*args)
         return self.memo[args]
 
 @Memoize

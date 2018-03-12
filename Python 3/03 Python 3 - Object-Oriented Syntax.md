@@ -35,7 +35,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.3   [Child Class Definition](#2.3)    
    2.4   [Polymorphisms](#2.4)    
    2.5   [Magic Methods](#2.5)    
-   2.6   [Generating Multiple Objects at a Time](#2.5)   
+   2.6   [Generating Multiple Objects at a Time](#2.6)    
+   2.6   [Encapsulation, Getters, Setters, and Property()](#2.7)    
 
 
 
@@ -46,7 +47,7 @@ Object-Oriented Programming. Pretty standard, good vibes. :)
 
 Why Object-Oriented though? It's good to model programming structures like how real world objects are like! Real world objects have properties (colour, height, etc.) and abilities (run, walk, swim)! 
 
-Python 3 objects have Properties and Methods! These are collectively known as the Elements of an object!
+Python 3 objects have Attributes/Properties and Methods! These are collectively known as the Members of an object!
 
 > The basis for all object oriented programming languages is the manipulation of **objects**.
 >
@@ -105,16 +106,16 @@ Notably, **you can nest classes!** Sub-classes will then **inherit** or **overri
 >
 > Attributes:
 >
-> Color: Black | (<u>Custom defined</u>)
-> Sound: ["Rawr", "~♪~♫~♪~♪"] | (<u>Overridden</u>)
-> Breath: Fire | (<u>Inherited</u>)
+> Color: Black | (<u>Custom defined</u>)    
+> Sound: ["Rawr", "~♪~♫~♪~♪"] | (<u>Overridden</u>)    
+> Breath: Fire | (<u>Inherited</u>)    
 >
 > Methods:
 >
-> Sound() | (<u>Overridden</u>)
-> Talk() | (<u>Inherited</u>)
-> Walk() | (<u>Inherited</u>)
-> Eat() | (<u>Inherited</u>)
+> Sound() | (<u>Overridden</u>)    
+> Talk() | (<u>Inherited</u>)    
+> Walk() | (<u>Inherited</u>)    
+> Eat() | (<u>Inherited</u>)    
 > Fly() | (<u>Inherited</u>)
 
 
@@ -203,7 +204,7 @@ class Animal:
     # You could go on to define the rest of them for the rest of the properties
     # I won't though
 
-    # Define getter methods (methods that set objectproperties)
+    # Define getter methods (methods that set object properties)
     def get_name(self): # Because the name is private
         return self._name
     
@@ -369,7 +370,7 @@ def __del__(self):
 
 
 
-### 2.6 Generating Multiple Objects at a Time<a name="2.6"></a>
+### 2.6 Generating Multiple Objects at a Time <a name="2.6"></a>
 
 [go to top](#top)
 
@@ -391,17 +392,17 @@ objs[0].do_sth()
 from math import sqrt
 
 class Coordinate:
-	x = 0
-	y = 0
+    x = 0
+    y = 0
 
 def area_of_triangle(p1,p2,p3):
-	side = lambda a, b : sqrt((b.x-a.x)**2  + (b.y-a.y)**2)
-	side_one = side(p1,p2)
-	side_two = side(p2,p3)
-	side_three = side(p3,p1)
-	s = (side_one + side_two + side_three)/2
-	area = sqrt(s*(s-side_one)*(s-side_two)*(s-side_three))
-	return round(area,2)
+    side = lambda a, b : sqrt((b.x-a.x)**2  + (b.y-a.y)**2)
+    side_one = side(p1,p2)
+    side_two = side(p2,p3)
+    side_three = side(p3,p1)
+    s = (side_one + side_two + side_three)/2
+    area = sqrt(s*(s-side_one)*(s-side_two)*(s-side_three))
+    return round(area,2)
 
 points = list() # Generate a list for Coordinate objects
 
@@ -431,6 +432,96 @@ print(objects["Steven"].name) # Prints "Steven"
 ```
 
 
+
+### 2.7 Encapsulation, Getters, Setters, and Property() <a name="2.7"></a>
+
+[go to top](#top)
+
+Recall our Animal and Dragon classes. Ever wondered why we set their attributes as protected?
+
+This is a concept known as **encapsulation**, which is a good programming practice, allowing you to separate an object's behaviour from its implementation (i.e. hiding away internal data and protecting it from being messed around with by clients.)
+
+Because the attributes are protected, we need to define **getter** and **setter** methods, which are public methods that can access them!
+
+Consider this class
+
+```python
+class Celsius:  
+    def __init__(self, temperature = 0):
+        self._temperature = temperature
+    
+    # Getter method
+    def get_temperature(self):
+        return self._temperature
+    
+    # Setter method
+    def set_temperature(self, temperature):
+        if temperature < -273:
+            temperature = -273
+        self._temperature = temperature
+```
+**Property()**
+It can be annoying to have to deal with remembering the getters and setters! Luckily, Python has a neat trick that allows you to access them as you would public attributes, but still get the benefits of encapsulation!
+
+You do this by defining a public interface to the attribute using the property() function!
+
+```python
+class Celsius:  
+    def __init__(self, temperature = 0):
+        self._temperature = temperature
+    
+    # Getter method
+    def get_temperature(self):
+        return self._temperature
+    
+    # Setter method
+    def set_temperature(self, temperature):
+        if temperature < -273:
+            temperature = -273
+        self._temperature = temperature
+  
+    temperature = property(get_temperature, set_temperature)
+```
+
+The general way to write a property() call is as such
+
+```python
+<attribute> = property(getter_method, setter_method, deleter_method, "DOC_STRING")
+```
+
+With this, we can access the temperature class' attributes like this!
+
+```python
+temp = Celsius()
+
+# Before, you needed to do it via
+temp.get_temperature() # Get
+temp.set_temperature(20) # Set
+
+# Now, you can do it like this! Notice how it's almost as if the attribute is now public?
+temp.temperature # Get
+temp.temperature = 50 # Set
+```
+
+**BONUS: Property() with Decorators!** (See advanced section for info about decorators)
+
+```python
+class Celsius:  
+    def __init__(self, temperature = 0):
+        self._temperature = temperature
+    
+    # Getter method
+    @property # Here's the decorator!
+    def temperature(self): # Notice the method name changed!
+        return self._temperature
+
+    # Setter method
+    @temperature.setter # And here!
+    def temperature(self, temperature): # Notice the method name changed!
+        if temperature < -273:
+            temperature = -273
+        self._temperature = temperature
+```
 
 
 

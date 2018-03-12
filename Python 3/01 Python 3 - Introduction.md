@@ -685,10 +685,10 @@ species_dictionary["Smaug"] = "Dragon"
 
 # Set a default response to a particular key query if the key is not found
 species_dictionary.setdefault("methylDragon", "bad_dragon")
-species_dictionary.setdefault("Toothless", "good_dragon")
+species_dictionary.setdefault("Toothless", "dumb_dragon")
 
 species_dictionary["methylDragon"] # returns "Dragon" (as the key was found)
-species_dictionary["Toothless"] # returns "good_dragon"
+species_dictionary["Toothless"] # returns "dumb_dragon"
 ```
 
 Example: Putting it all together!
@@ -749,11 +749,11 @@ not # Eg: not(a and b) is False
 dragon_rating = 10
 
 if dragon_rating < 10 : # If condition is fulfilled
-	print("NEEDS MORE DRAGONS") # Do this
+    print("NEEDS MORE DRAGONS") # Do this
 elif dragon_rating < 15 : # Else, If condition is fulfilled
-	print("Good, but needs MORE") # Do this instead
+    print("Good, but needs MORE") # Do this instead
 else : # Else
-	print("EXCELLENT") # Do this otherwise
+    print("EXCELLENT") # Do this otherwise
 ```
 
 ```python
@@ -765,9 +765,9 @@ dragon_rating = 10
 if (dragon_rating < 10 and is_dragon == True) :
     print("Oh no! Dragons shouldn't hate themselves!")
 elif (dragon_rating < 10 and is_dragon != True) :
-	print("NEEDS MORE DRAGONS")
+    print("NEEDS MORE DRAGONS")
 else :
-	print("Well ok then. Raa.")
+    print("Well ok then. Raa.")
 ```
 
 **in**
@@ -799,7 +799,7 @@ all([True, True, True]) # Returns True
 
 # Use it with a list comprehension!
 def is_prime(n):
-	return n > 1 and all(n % i for i in range(2,n))
+    return n > 1 and all(n % i for i in range(2,n))
 
 # Specifically, they are functions that take in ITERABLES
 # Iterables are anything that can be iterated over (strings, lists, tuples)
@@ -912,7 +912,7 @@ range(len(list_name)) # Returns [0, 1, 2]
 # list_name[startAt:endBefore:skip]
 my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 for _ in my_list[::2]
-	print(_,end=" ")
+    print(_,end=" ")
     
 # Output: 1 3 5 7 9
 ```
@@ -925,7 +925,7 @@ rawr_list = ["Rawr", "Rar", "Rer", "Raa"]
 # Enumerate() returns a list of tuples, with an increasing counter
 # Output: 0 Rawr, 1 Rar, 2 Rer, 3 Raa,
 for num, rawr in enumerate(rawr_list):
-	print(num, rawr, end=", ")
+    print(num, rawr, end=", ")
 
 # You can also tweak the starting number!
 # Output: 5 Rawr, 6 Rar, 7 Rer, 8 Raa,
