@@ -28,10 +28,10 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.5   [Arithmetic](#2.5)    
    2.6   [More Arithmetic](#2.6)    
    2.7   [Lists](#2.7)    
-   2.8   [List Functions](#2.8)    
+   2.8   [List Methods](#2.8)    
    2.9   [Tuples](#2.9)    
    2.10 [Dictionaries](#2.10)    
-   2.11 [Dictionary Functions](#2.11)    
+   2.11 [Dictionary Methods](#2.11)    
    2.12 [Conditionals](#2.12)    
    2.13 [Ternary Operators](#2.13)    
    2.14 [User Input](#2.14)    
@@ -41,7 +41,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.18 [Strings](#2.18)    
    2.19 [String Functions](#2.19)    
    2.20 [Exception Handling and Debugging](#2.20)    
-   2.21 [Iterations, Iterables, and Iterators, and More!](#2.21)    
+   2.21 [Iterations, Iterables, Iterators, and More!](#2.21)    
 3. [Reference Links](#3)  
 
 
@@ -118,7 +118,7 @@ print(e)
 
 # Handy ones are stuff like
 from math import pi, e
-from sympy import diff # diff(expression, varable, order of derivative)
+from sympy import diff # diff(expression, variable, order of derivative)
 ```
 
 More module advice:
@@ -195,11 +195,11 @@ print(f"Hi! I am {dragon} and I make {stuff}!")
 
 # f-strings also support expressions! So you can do print(f{6*6})
 # Output: 36
-
-# .format example
 ```
 **Using .format**
 ```python
+# .format example
+
 dragon = "methylDragon"
 stuff = "orchestral music"
 number = 5
@@ -309,13 +309,13 @@ isn\'t it great?!'''
 
 # You don't have to declare your types! Python does it for you!
 # Data types are good to know though! Here's some common ones
-# string: List of characters
+# string: Immutable array of characters
 # int: Integer
 # long: Integer with more 
 # float: Floating Point Number (Decimal)
 # double: Float with more memory space (More decimals)
 # bool: True/False
-# list: Ordered Array of same type
+# list: Mutable ordered Array of same type
 # tuple: Immutable Array of possibly different type
 # dictionary: Keyed Array
 
@@ -517,7 +517,7 @@ list_three = list_one + list_two
 >
 > 
 
-### 2.8 List Functions <a name="2.8"></a>
+### 2.8 List Methods<a name="2.8"></a>
 
 [go to top](#top)
 
@@ -614,13 +614,13 @@ methyl_tuple = ("methyl","Dragon")
 whole_tuple = methyl_tuple
 # whole_tuple: ("methyl","Dragon")
 
-methyl_tuple, dragon_half = methyl_tuple
-# half_tuple: "methyl"
-# tuple_half: "Dragon"
+methyl_half, dragon_half = methyl_tuple
+# methyl_half: "methyl"
+# dragon_half: "Dragon"
 
-(methyl_tuple, dragon_half) = methyl_tuple
-# half_tuple: "methyl"
-# tuple_half: "Dragon"
+(methyl_half, dragon_half) = methyl_tuple
+# methyl_half: "methyl"
+# dragon_half: "Dragon"
 
 # Cool eh!
 ```
@@ -633,7 +633,7 @@ methyl_tuple, dragon_half = methyl_tuple
 
 A dictionary is made up of values with a **UNIQUE** key for each value! It's basically a keyed list.
 
-They're also called maps
+They're also called maps (don't be confused with map() though!)
 
 > You can't join them like you can with lists though!
 
@@ -653,7 +653,7 @@ species_dictionary["Jane"] = "Human"
 
 
 
-### 2.11 Dictionary Functions <a name="2.11"></a>
+### 2.11 Dictionary Methods<a name="2.11"></a>
 
 [go to top](#top)
 
@@ -848,6 +848,24 @@ input_variable = input("Input here: ") # The console will display Input Here:
 # You can also convert the input to whatever you need!
 float_input = float(input("Put your float here: "))
 ```
+
+```python
+# Example Input Validation
+while not userID or not password or " " in userID or " " in password:
+
+    userID = "1"
+    password = "1"
+
+    userID = str(input("Key In Your Username!:"))
+    password = str(input("Key In Your Password!:"))
+
+    if not userID or not password or " " in userID or " " in password:
+        print("Invalid input! Please enter again!\n")
+    else:
+        print()
+```
+
+
 
 > NOTE: DO NOT USE eval() UNLESS YOU KNOW WHAT YOU'RE DOING
 >
@@ -1217,7 +1235,7 @@ with open("myfile.txt") as f:
 
 
 
-### 2.21 Iterations, Iterables, and Iterators, and More! <a name="2.21"></a>
+### 2.21 Iterations, Iterables, Iterators, and More! <a name="2.21"></a>
 
 [go to top](#top)
 

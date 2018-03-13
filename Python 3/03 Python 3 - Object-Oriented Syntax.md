@@ -25,7 +25,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 ## Table Of Contents <a name="top"></a>
 
-1. [[Introduction](#1)  
+1. [Introduction](#1)  
    1.1  [Objects and Classes](#1.1)    
    1.2  [Inheritance](#1.2)    
    1.3  [Polymorphisms](#1.3)    
@@ -168,6 +168,20 @@ In Python 3,
 - Protected elements are defined by preceding the element name with one underscore `_element_name`
 
 
+> Ok, actually this is **TECHNICALLY NOT TRUE. (Python doesn't have a privacy model.)** But it's good practice to pretend that it is.
+>
+> \_\_element_name will behave like a private element at the outset, but that's because Python will mangle the name into \_parent\_\_element_name. It's technically still available for use, but we can just assume no sane person would actually do it. (... Although)
+>
+> _element_name is just conventionally taken to be 'private', but we can just take it to be 'protected', since children will inherit it.
+>
+> More info:
+>
+> (https://stackoverflow.com/questions/20261517/inheritance-of-private-and-protected-methods-in-python)
+>
+> (http://radek.io/2011/07/21/private-protected-and-public-in-python/)
+
+
+
 
 ### 2.2 Class Definition <a name="2.2"></a>
 
@@ -188,7 +202,7 @@ class Animal:
 
     # We're defining methods here! Think of them as class specific functions!
 
-    # Define a constructor method that runs each time a new isntance of the class is instantiated
+    # Define a constructor method that runs each time a new instance of the class is instantiated
     def __init__(self, name, height, weight, sound):
         # Initialise all the properties as input
         # We're setting these as protected because we want sub-classes to inherit them
@@ -361,11 +375,35 @@ There's one more I'd like to tell you about, but the rest of them are here: http
 
 ```python
 # If __init__(self) is the constructor method
-
 # __del__(self) is the destructor! It gets called each time an object is uninstantiated/destroyed
 
 def __del__(self):
     print("Object being destroyed")
+    
+# MORE MAGIC METHODS
+# Let's say we have two objects: ob1 and ob2
+# We can define with MAGIC METHODS what happens when you...
+# ob1 + ob2
+# ob1 - ob2
+# ob1 == ob2
+# ob1 * ob2
+# ob1(blahblah) <-- Like a function!
+# so on and so forth!
+# More or less every basic operation has one for it... Here are just a few!
+
+# These magic methods are callbacks for when you...
+
+# Add the object
+def __add__(self,other): # Other is the object that you're subtracting from! (ob2)
+    
+# Subtract the object
+def __sub__(self,other):
+    
+# Multiply the object
+def __mul__(self,other):
+    
+# Call the object (like a function!)
+def __call__(self, *INPUTS):
 ```
 
 

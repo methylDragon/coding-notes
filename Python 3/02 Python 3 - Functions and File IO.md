@@ -272,7 +272,7 @@ print(my_file.name) # Returns rawr.txt in this case
 my_file.write(bytes("I'm Rawring inside this file!\n", 'UTF-8')) # UTF-8 is the encoding
 
 # Close the file
-my_file.close
+my_file.close()
 my_file.closed # Checks if a file is closed (returns True if yes, False if no)
 ```
 
@@ -324,6 +324,28 @@ my_file.tell()
 # Whence = 2 means seek from end of file
 # Offset is how far to move
 my_file.seek(0,0) # Returns you to the beginning of file
+```
+
+```python
+# This is pretty nifty!
+# You can use this to append to the end of a file in write mode!
+# Course, you could always just use a+ ...
+
+f = open("rawr.txt", "r+")
+
+# Bring cursor to EOF
+f.seek(0,2)
+
+# Write!
+f.write("\nRawr")
+
+# Bring cursor to beginning of file
+f.seek(0,0)
+
+# Print the results!
+print(f.read())
+
+f.close()
 ```
 
 

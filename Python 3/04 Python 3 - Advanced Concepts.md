@@ -2,8 +2,7 @@
 
 Author: methylDragon  
 Contains an advanced syntax reference for Python 3  
-This time, we'll be going through many many (mostly unrelated) Python 3 coding concepts!  
-I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/watch?v=N4mEzFDjqtA
+This time, we'll be going through many many (mostly unrelated) Python 3 coding concepts!    
 
 ------
 
@@ -34,6 +33,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.5   [Decorators](#2.5)    
    2.6   [Memoisation](#2.6)    
    2.7   [Copy](#2.7)    
+3. [Cool Stuff](#3)    
 
 
 
@@ -233,12 +233,14 @@ for i in stuff:
 ['DOG', 'dog', 3]
 '''
 
-# Course, the equivalent can be used with lambda functions
+# Course, you can just use lambda functions to get the same result
 # But it's less comprehensible (that was not meant to be a pun)
 stuff = map(lambda w: [w.upper(), w.lower(), len(w)], words)
 for i in stuff:
     print i
 ```
+
+> **PS: These can be used as generators or in dictionaries (dictionary comprehensions!)** :D
 
 > You cannot use list comprehensions when the construction rule is too complicated to be expressed with "for" and "if" statements, or if the construction rule can change dynamically at runtime.  
 >
@@ -766,6 +768,28 @@ d_list = copy.deepcopy(a_list)
 print(id(d_list) is id(a_list)) # False
 print(id(d_list[0]) is id(a_list[0])) # False
 ```
+
+
+
+## 3. Cool Stuff
+
+\# Cool Stuff
+
+### Remove Overhead
+
+- Throw a decorator on stuff, remove Python overhead (where applicable!): 
+  - http://numba.pydata.org/
+- Write some parts of your code in C, and throw it in a different interpreter!
+  - http://cython.org/
+
+
+
+### ML
+
+- http://scikit-learn.org/ !!!
+- http://pytorch.org/
+- https://www.tensorflow.org/
+- https://opencv.org/
 
 
 
