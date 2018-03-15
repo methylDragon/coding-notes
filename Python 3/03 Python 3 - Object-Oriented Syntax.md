@@ -328,6 +328,61 @@ methylDragon.multple_sounds(2) # Prints: Rawr 2 times!
 
 
 
+### 2.4 Useful Class-Related Operators <a name="2.4"></a>
+
+[go to top](#top)
+
+**isinstance()**
+
+Check to see if something is an instance of a class (child class instances are also instances of the parent/base class!)
+
+Specifically, if an **object** is an instance of a **class**
+
+This is known as an is-a relationship!
+
+```python
+# Syntax: isinstance(object, baseclass)
+
+# Let's say we have the Dragon class defined before (with Animal)
+methylDragon = Dragon("methylDragon", 201, 80, "rawr", "The Breath Of Song")
+
+# methylDragon is an instance of the Dragon class
+isinstance(methylDragon, Dragon) # True
+
+# Which is also a child class of the Animal parent class! So he's also an instance of Animal
+isinstance(methylDragon, Animal) # True
+
+
+# The alternative is to do this:
+# But why would you
+if str(type(object)) == "<class 'instance'>":
+    print("True")
+else:
+    print("False")
+```
+
+**issubclass()**
+
+Check to see if something is an instance of a class (child class instances are also instances of the parent/base class!)
+
+Specifically, if an **class** is a subclass of a **class**
+
+This is known as the base class having a has-a relationship! (Animals have Dragons included!)
+
+```python
+# Syntax: issubclass(class, baseclass)
+
+methylDragon = Dragon("methylDragon", 201, 80, "rawr", "The Breath Of Song")
+
+# methylDragon IS NOT A CLASS! He's an instance of Dragon!
+isinstance(methylDragon, Dragon) # ERROR!
+
+# Dragon is a sub-class of Animal!
+isinstance(Dragon, Animal) # True
+```
+
+
+
 ### 2.4 Polymorphisms <a name="2.4"></a>
 
 [go to top](#top)
@@ -404,6 +459,9 @@ def __mul__(self,other):
     
 # Call the object (like a function!)
 def __call__(self, *INPUTS):
+    
+# Equating objects
+def __eq__(self, other):
 ```
 
 
