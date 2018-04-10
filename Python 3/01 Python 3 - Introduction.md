@@ -1252,7 +1252,7 @@ Ever wondered how this works? Python implements this using Iterables and Iterato
 
   - ```python
     # Unlike lists, you can't do a for loop over this more than once
-    mygenerator = (x*x for x in range(3))
+    mygenerator = (x * x for x in range(3))
 
     # Generators can only be iterated over ONCE. They do not store values in memory,
     # but instead generate them on the fly

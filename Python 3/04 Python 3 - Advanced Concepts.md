@@ -54,7 +54,7 @@ Now let's dive into the deep end. Very little hand holding here, but lots of use
 
 Looks intimidating at first, but it actually means something really simple.
 
-Each time Python 3 opens and read code, it sets several special (global) variables before executing said code. One of these is the `__name__` variable.
+Each time Python 3 opens and reads code, it sets several special (global) variables before executing said code. One of these is the `__name__` variable.
 
 If the Python 3 main interpreter is running the program, (i.e. that the program is being run directly instead of through an import statement), `__name__` is set to `"__main__"`
 
@@ -791,6 +791,11 @@ print(id(d_list[0]) is id(a_list[0])) # False
 - https://www.tensorflow.org/
 - https://opencv.org/
 
+
+### Making Things Look Pretty
+
+- Colour your console output!
+  - https://pypi.python.org/pypi/colorama
 
 
 

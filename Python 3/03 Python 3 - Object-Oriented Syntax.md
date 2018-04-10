@@ -195,12 +195,12 @@ So for example, you can have an Animal class which defines common properties and
 class Animal:
     # We're defining properties here! Think of them as class specific variables!
     # These are the default values that instances of the class (objects) are initiated with
-    _name = ""
-    _height = 0
-    _weight = 0
-    _sound = 0
+    
+    # Since we stated them without self. ,
+    # These variables are STATIC! I.e. they're tied to the class and not the class instances
+    number_of_animals = 0
 
-    # We're defining methods here! Think of them as class specific functions!
+    # Ok! Time to define methods! Think of them as class specific functions!
 
     # Define a constructor method that runs each time a new instance of the class is instantiated
     def __init__(self, name, height, weight, sound):
@@ -210,6 +210,9 @@ class Animal:
         self._height = height
         self._weight = weight
         self._sound = sound
+        
+        # Increment the static variable class counter
+        Animal.number_of_animals += 1
 
     # Define setter methods (methods that set object properties)
     def set_name(self, name): # Self refers to the instance of the class when the method is called!
@@ -323,7 +326,11 @@ print(methylDragon)
 
 # Let's test our overloaded method!
 methylDragon.multiple_sounds() # Prints: Rawr
-methylDragon.multple_sounds(2) # Prints: Rawr 2 times!
+methylDragon.multiple_sounds(2) # Prints: Rawr 2 times!
+
+# Ok, remember our static number_of_animals variable?
+print(methylDragon.number_of_animals) # Prints: 2
+print(cat.number_of_animals) # Prints: 2 ! Cool huh!
 ```
 
 
