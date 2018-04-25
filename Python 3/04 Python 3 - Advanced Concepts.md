@@ -33,6 +33,7 @@ This time, we'll be going through many many (mostly unrelated) Python 3 coding c
    2.5   [Decorators](#2.5)    
    2.6   [Memoisation](#2.6)    
    2.7   [Copy](#2.7)    
+   2.8   [Global, Local, and Nonlocal](#2.8)    
 3. [Cool Stuff](#3)    
 
 
@@ -742,7 +743,7 @@ def fib(n):
 
 [go to top](#top)
 
-(Copy and Deepcopy behave the same if the objects being copied are immutable types, so what I write here only applies otherwise.)
+(Copy and Deepcopy behave the same if the objects being copied are immutable types, so what I'll write here only applies otherwise.)
 
 Use the copy module if you're having trouble recursively copying lists or other mutable types!
 
@@ -771,7 +772,142 @@ print(id(d_list[0]) is id(a_list[0])) # False
 
 
 
-## 3. Cool Stuff
+### 2.8 Global, Local, and Nonlocal <a name="2.8"></a>
+
+Let's just get a refresher on variable scopes first
+
+**Local variables**
+
+```python
+x = "outer"
+
+def inner():
+    # Notice how the reassignment of this x doesn't change the outer x
+    # That is the hallmark of a local variable!
+    x = "inner"
+    
+    return x
+
+print("outer:", x)
+print("inner:", inner())
+
+'''
+Output:
+outer: outer
+inner: inner
+'''
+```
+
+As you can see, variables declared within a function (and other kinds of scopes, like classes, and class methods), are **local** to their scope. In other words, they don't interact with anything outside of the scope!
+
+Here's one more example
+
+**Local variables (one level deeper!)**
+
+```python
+x = "outer"
+
+def inner():
+    x = "inner"
+    
+    def even_inner():
+        # x is local to inner(), which encompasses even_inner() so this works
+        print("even_inner:", x) 
+        
+        # x = 10 <-- This will break it though, since x becomes local to even_inner
+        # Which will cause the previous statement to break as inner's x gets deassigned
+        # within even_inner
+        
+        return x # Notice that this still works!
+    
+    return even_inner()
+
+print("outer:", x)
+print("inner:", inner())
+
+'''
+Output:
+outer: outer
+even_inner: inner
+inner: inner
+'''
+```
+
+**global and nonlocal**
+
+Ok. That was troublesome.
+
+Did you know that there is a way to control what scope variables fall into? This way you can have variables that would have been local affect the global variable (or a parent scope's variable) instead!
+
+Use the keywords `global` and `nonlocal`!
+
+**global**
+
+```python
+x = "unaffected"
+
+def inner():
+    # This sets any assignments to the name 'x' to be the same as assignments
+    # to the global x
+    global x
+    
+    x = "affected"
+    
+    
+print("before inner:", x)
+inner()
+print("after inner:", x)
+
+'''
+Output: (We can see this works!)
+before inner: unaffected
+after inner: affected
+'''
+```
+
+**nonlocal**
+
+Non-local is something similar, but different.
+
+Where `global` allows you to assign to variables in the global scope.
+
+`nonlocal` instead allows you to go 'one-step up only'. Allowing you to change local variables local to a **parent** scope instead of the global scope! It's a good way of encapsulating variables and preventing stuff from 'spilling out', so to speak.
+
+It's best illustrated with an example:
+
+```python
+x = "global"
+
+def inner():
+    x = "inner" # This sets up a variable local to inner
+    print("before even_inner:", x) # We verify it here
+    
+    def even_inner():
+        nonlocal x # Now we can reassign the x that is local to inner!
+        x = "even_inner" # Which we do here
+    
+    even_inner() # This sets "inner" -> "even_inner"
+    
+    return x # And returns "even_inner"
+    
+print("global:", x)
+print("after even_inner:", inner())
+print("global preserved?:", x)
+
+'''
+Output:
+global: global
+before even_inner: inner
+after even_inner: even_inner
+global preserved?: global
+'''
+```
+
+Now you have the power!
+
+
+
+## 3. Cool Stuff <a name="3"></a>
 
 \# Cool Stuff
 

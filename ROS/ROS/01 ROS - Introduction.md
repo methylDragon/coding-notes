@@ -21,7 +21,7 @@ and ETHz https://www.youtube.com/watch?v=0BxVPCInS3M&list=PLE-BQwvVGf8HOvwXPgtDf
 2. [Setup and Basic Concepts](#2)    
    2.1   [Installing ROS](#2.1)    
    2.2   [ROS Architecture](#2.2)    
-   2.3   [Installing Nodes](#2.3)    
+   2.3   [Installing Packages](#2.3)    
    2.4   [Convenience Tools](#2.4)    
 3. [ROS Crash Course](#3)    
    3.1   [ROS Workspaces](#3.1)    
@@ -42,7 +42,7 @@ ROS stands for Robot Operating System. And true to its name, it's for working wi
 
 ROS
 
-- Is a **publisher-subscriber** **framework **(pub-sub) for running independent programs on robots (across different system architectures)
+- Is a **publisher-subscriber framework** (pub-sub) for running independent programs on robots (across different system architectures)
 - Has a **rich ecosystem of open-source packages and tools** written by its active community
 - Is one of the **go-to frameworks for robotics research and prototyping!**
 
@@ -106,7 +106,7 @@ The rest of it is just learning how to route the publishers and subscribers, deb
 
 
 
-### 2.3 Installing Nodes  <a name="2.3"></a> 
+### 2.3 Installing Packages <a name="2.3"></a> 
 
 When you first install ROS, it installs the base workspace for it (think of it as a working folder, or environment for working with ROS.) **It is in ROS workspaces do we install ROS packages, which define ROS nodes!**
 
@@ -537,7 +537,7 @@ $ roslaunch launch_file_name.launch arg_name:=value
 
 
 
-Conditionals**
+**Conditionals**
 
 ```xml
 <?xml version="1.0"?>
@@ -611,7 +611,6 @@ And now, let's try it in Gazebo! (Run the commands in separate terminals each)
 ```shell
 # Give this about 5 minutes to load the first time around
 $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
-
 
 # This one will drive the turtlebot autonomously and avoid obstacles
 $ roslaunch turtlebot3_gazebo turtlebot3_simulation.launch
