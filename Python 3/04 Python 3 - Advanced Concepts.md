@@ -187,7 +187,7 @@ WELL NOW YOU CAN!
 # Mathematicians do!
 
 # You can do this with math
-exponent_list = [x**2 for x in range(10)]
+exponent_list = [x ** 2 for x in range(10)]
 # exponent_list: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 
 # Or using conditionals to filter results!

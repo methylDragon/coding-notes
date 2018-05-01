@@ -32,16 +32,18 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.9   [Tuples](#2.9)    
    2.10 [Dictionaries](#2.10)    
    2.11 [Dictionary Methods](#2.11)    
-   2.12 [Conditionals](#2.12)    
-   2.13 [Ternary Operators](#2.13)    
-   2.14 [User Input](#2.14)    
-   2.15 [For Loops](#2.15)    
-   2.16 [Handy For Loop Functions and Keywords](#2.16)    
-   2.17 [While Loops](#2.17)    
-   2.18 [Strings](#2.18)    
-   2.19 [String Functions](#2.19)    
-   2.20 [Exception Handling and Debugging](#2.20)    
-   2.21 [Iterations, Iterables, Iterators, and More!](#2.21)    
+   2.12 [Sets](#2.12) 
+   2.13 [Set Methods](#2.13) 
+   2.14 [Conditionals](#2.14)    
+   2.15 [Ternary Operators](#2.15)    
+   2.16 [User Input](#2.16)    
+   2.17 [For Loops](#2.17)    
+   2.18 [Handy For Loop Functions and Keywords](#2.18)    
+   2.19 [While Loops](#2.19)    
+   2.20 [Strings](#2.20)    
+   2.21 [String Functions](#2.21)    
+   2.22 [Exception Handling and Debugging](#2.22)    
+   2.23 [Iterations, Iterables, Iterators, and More!](#2.23)    
 3. [Reference Links](#3)  
 
 
@@ -480,7 +482,26 @@ list_one = [1, 2]
 list_two = [3, 4]
 list_three = list_one + list_two
 # list_three now contains: [1, 2, 3, 4]
+
+# Empty list
+empty_list = []
 ```
+
+**List Comprehensions** (More on this in the advanced section)
+
+```python
+# Just some examples for reference
+# [item for item in list if conditional]
+
+x_list = [x for i in range(10)]
+# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+x_y_list = [(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
+# [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+```
+
+
 
 > Some additional information:
 >
@@ -537,7 +558,7 @@ extend_list = [4, 5]
 number_list.append(extend_list) # [1, 2, 3, [4, 5]]
 number_list.extend(extend_list) # [1, 2, 3, 4, 5] Notice how the list is no longer nested!
 
-# Pop: Removes the last element
+# Pop: Removes and returns the last element
 dragon_list.pop()
 # dragon_list now contains: ["Rawr", "Rar", "Raa", "Rer"]
 
@@ -573,12 +594,26 @@ min(dragon_list) # Returns Rawr
 # Sum all values in the list
 sum(dragon_list) # This won't work unless the list elements are numbers though...
 
-# Return a dictionary containing the unique elements of the list
+# Return a set containing the unique elements of the list
 set([1,1,1,1,1,2]) # Returns {1, 2}
 
 # Find index of a list element
 dragon_list.index("Rawr")
 # Output: 1
+```
+
+**Bonus: Treating lists as queues**
+
+```python
+import collections
+
+# deque stands for double queue
+# All list methods work with queues, but we also get some extra features!
+numbers = collections.deque([1, 2, 3, 4])
+
+# Popleft: Removes and returns the first element
+numbers.popleft()
+# Now: [2, 3, 4]
 ```
 
 
@@ -649,6 +684,21 @@ species_dictionary["methylDragon"] # Returns Dragon
 
 # To reassign values (Think lists, but with keys instead of indexes!)
 species_dictionary["Jane"] = "Human"
+
+# Empty dictionary
+empty_dictionary = {}
+```
+
+**Dictionary Comprehensions** (More on this in the advanced section)
+
+```python
+# Just some examples for reference
+# {key:value for item in list if conditional}
+
+name_list = ["a", "b", "c", "d", "e"]
+num_list = [1, 2, 3, 4, 5]
+
+dictionary = {x : y for x, y in zip(name_list, num_list)}
 ```
 
 
@@ -678,13 +728,16 @@ species_dictionary.keys()
 species_dictionary.values()
 
 # Add a key (Update merges another dictionary!)
-species_dictionary.update({"Key","Value"})
+species_dictionary.update({"Key":"Value"})
 
-# Add a key (alternative)
+# Add multiple keys (As above, update merges another dictionary)
+species_dictionary.update({"Key_1":"Value_1", "Key_2":"Value_2"})
+
+# Add a key (alternative) (Though it isn't an explicit method call...)
 species_dictionary["Smaug"] = "Dragon"
 
 # Set a default response to a particular key query if the key is not found
-species_dictionary.setdefault("methylDragon", "bad_dragon")
+species_dictionary.setdefault("methylDragon", "rad_dragon")
 species_dictionary.setdefault("Toothless", "dumb_dragon")
 
 species_dictionary["methylDragon"] # returns "Dragon" (as the key was found)
@@ -709,9 +762,109 @@ def most_frequent(lst):
 
 
 
+### 2.12 Sets <a name="2.12"></a> 
+
+[go to top](#top)
+
+Read more: https://www.programiz.com/python-programming/set
+
+Sets are **unordered** collections of **unique items!** Adding a duplicate to a set will not add anything!
+
+Items added to a set must be immutable, but the set itself is mutable.
+
+```python
+# Define a set using {}
+unique_numbers = {1, 1, 2, 3}
+# unique_numbers : {1, 2, 3} Notice how the duplicate disappears!
+
+# Another way is to just cast to a set
+numbers = [4, 4, 5, 6]
+more_unique_numbers = set(numbers)
+
+# Empty set
+# You have to do it this way since {} will initialise a dictionary!
+unique_numbers = set()
+
+# Iterate through a set using loops!
+for i in unique_numbers:
+    pass
+```
+
+**Set Comprehensions**
+
+```python
+# Just some examples for reference
+# {item for item in list if conditional}
+
+some_set = {x for x in range(10)}
+```
+
+> Remember, since sets are unordered, and the values aren't keyed, you can't index into them.
 
 
-### 2.12 Conditionals <a name="2.12"></a>
+
+### 2.13 Set Methods <a name="2.13"></a>
+
+[go to top](#top)
+
+It's probably best to treat sets as completely distinct from lists and dictionaries
+
+Set operations work ala math as well!
+
+```python
+example_set = {1, 2, 3}
+
+# Add a value
+example_set.add(3) # Nothing gets added since 3 exists already
+example_set.add(4) # Now {1, 2, 3, 4}
+
+# Add multiple values (Update merges sets!)
+example_set.update([5, 6, 7]) # In this case it converts the list first
+
+# Add multiple values (alternative)
+example_set.update([5, 6, 7], {6, 7, 8}) # In case you wanted to merge a list and a set in too
+
+# Remove a value
+example_set.remove(8)
+
+# Remove a value (alternative)
+# Discard will not throw an error if the argument is not in the set
+# Remove will
+# It's like dictionary.get() vs dictionary[index]!
+example_set.discard(8)
+
+# Remove the last value
+example_set.pop() # This will also return the value
+
+# Clear the set
+example_set.clear()
+
+# There's a bunch more: https://www.programiz.com/python-programming/set
+```
+
+**Set Operations**
+
+```python
+a = {1, 2, 3}
+b = {"rawr", "raa", 3}
+
+# Union
+print(a | b) # {1, 2, 3, 'raa', 'rawr'}
+
+# Intersection
+print(a & b) # {3}
+
+# Difference (A - B)
+print(a - b) # {1, 2}
+print(b - q) # {'raa', 'rawr'}
+
+# Symmetric difference (Opposite of intersection)
+print(a ^ b) # {1, 2, 'raa', 'rawr'}
+```
+
+
+
+### 2.14 Conditionals <a name="2.14"></a>
 
 [go to top](#top)
 
@@ -815,7 +968,7 @@ all(x in num_list for x in range(1, 5)) # Returns True : x is 1, 2, 3, 4
 
 
 
-### 2.13 Ternary Operators <a name="2.13"></a>
+### 2.15 Ternary Operators <a name="2.15"></a>
 
 [go to top](#top)
 
@@ -837,7 +990,7 @@ print("True") if 5 == 5 else print("False")
 
 
 
-### 2.14 User Input <a name="2.14"></a>
+### 2.16 User Input <a name="2.16"></a>
 
 [go to top](#top)
 
@@ -873,7 +1026,7 @@ while not userID or not password or " " in userID or " " in password:
 
 
 
-### 2.15 For Loops <a name="2.15"></a>
+### 2.17 For Loops <a name="2.17"></a>
 
 [go to top](#top)
 
@@ -905,7 +1058,7 @@ for _ in range(10):
 
 
 
-### 2.16 Handy For Loop Functions and Keywords <a name="2.16"></a>
+### 2.18 Handy For Loop Functions and Keywords <a name="2.18"></a>
 
 [go to top](#top)
 
@@ -987,7 +1140,7 @@ for x in num_list:
 
 
 
-### 2.17 While loops <a name="2.17"></a> 
+### 2.19 While loops <a name="2.19"></a> 
 
 [go to top](#top)
 
@@ -1033,7 +1186,7 @@ while do_check or <condition>:
 
 
 
-### 2.18 Strings <a name="2.18"></a>
+### 2.20 Strings <a name="2.20"></a>
 
 [go to top](#top)
 
@@ -1090,7 +1243,7 @@ print('{} makes {}!'.format(dragon, stuff))
 
 
 
-### 2.19 String Functions <a name="2.19"></a>
+### 2.21 String Functions <a name="2.21"></a>
 
 [go to top](#top)
 
@@ -1141,11 +1294,14 @@ space_string.split() # Returns ['hello', 'this', 'is', 'great']
 # Using strings to join lists of strings!
 # Remember to save!
 "|".join(["1", "2", "3", "4", "5"]) # Returns '1|2|3|4|5'
+
+# Pad with zeroes from the left
+"a".zfill(5) # "0000a" (4 zeroes)
 ```
 
 
 
-### 2.20 Exception Handling and Debugging <a name="2.20"></a>
+### 2.22 Exception Handling and Debugging <a name="2.22"></a>
 
 [go to top](#top)
 
@@ -1235,7 +1391,7 @@ with open("myfile.txt") as f:
 
 
 
-### 2.21 Iterations, Iterables, Iterators, and More! <a name="2.21"></a>
+### 2.23 Iterations, Iterables, Iterators, and More! <a name="2.23"></a>
 
 [go to top](#top)
 
@@ -1252,7 +1408,7 @@ Ever wondered how this works? Python implements this using Iterables and Iterato
 
   - ```python
     # Unlike lists, you can't do a for loop over this more than once
-    mygenerator = (x * x for x in range(3))
+    my_generator = (x * x for x in range(3))
 
     # Generators can only be iterated over ONCE. They do not store values in memory,
     # but instead generate them on the fly

@@ -236,10 +236,10 @@ Example
 
 ```c++
 int five = 5;
-cout << "5++ =  " << five++ << endl;
-cout << "++5 = " << ++five << endl;
-cout << "5-- = " << five-- << endl;
-cout << "--5 = " <, --five << endl;
+cout << "5++ =  " << five++ << endl; // Increment by 1
+cout << "++5 = " << ++five << endl; // Increment by 1
+cout << "5-- = " << five-- << endl; // Decrement by 1
+cout << "--5 = " << --five << endl; // Decrement by 1
 ```
 
 Returns
@@ -528,9 +528,11 @@ do { // Do While loops explained later
 
 [go to top](#top)
 
-"Initialise an incrementer i
-FOR as long as (some condition relating to i), RUN the code block
-Each time you finish running the code block, INCREMENT according to your INCREMENTING statement"
+> Initialise an incrementer i
+>
+> **FOR** as long as (some condition relating to i), RUN the code block
+>
+> Each time you finish running the code block, INCREMENT according to your INCREMENTING statement
 
 ```c++
 for(int i = 1; i <= 10; i++) { // Begin with i = 1, FOR as long as i is less than or equal to 10, run the code block, printing the value of i for that iteration, then let i = i + 1
@@ -544,6 +546,27 @@ for(int j = 0; j < 6; j++) {
 }
 
 // The above bit prints out meeylDragon (cause we changed t to e previously)
+```
+
+**A more Pythonic for loop**
+
+```c++
+int my_nums[5] = {1, 2, 3, 4, 5};
+
+// Python equivalent:
+// for x in my_nums:
+
+for (int x: my_nums){
+    cout << x << endl;
+}
+
+/* Output:
+1
+2
+3
+4
+5
+*/
 ```
 
 
@@ -618,11 +641,11 @@ Then, typing
 cout << lotteryNumVect.at(2) << endl;
 // Prints "14" as "14" is in index 2
 
-lotteryNumVect.insert(lotteryNumVect.begin()+5, 44); 
+lotteryNumVect.insert(lotteryNumVect.begin() + 5, 44); 
 // Inserts 44 at the 5th index 
 // .begin puts you back to index 0, and +5 brings you to index 5. Then we insert 44 into the container at index 5 within lotteryNumVect.
 
-lotterNumVect.insert(lotteryNumVect.begin(), lotteryNumArray, lotteryNumArray+3)
+lotterNumVect.insert(lotteryNumVect.begin(), lotteryNumArray, lotteryNumArray + 3)
 // Inserts from the beginning of lotteryNumVect, the elements between lotteryNumArray[0] and lotteryNumArray[3], BUT NOT INCLUDING lotteryNumArray[3]
 
 lotteryNumVect.push_back(64); 
