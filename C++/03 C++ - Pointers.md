@@ -9,7 +9,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 ## Pre-Requisites
 
-### Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)
+**Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)**
 
 - How **variables, loops, conditionals, etc**. work (Basic coding fundamentals will help a lot!)
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)

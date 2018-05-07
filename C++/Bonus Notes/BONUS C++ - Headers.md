@@ -34,7 +34,7 @@ So sometimes you see .hpp or .h files appearing instead of .cpp in other people'
 
 >If you're just starting out in C++, you might be wondering why you need to #include files and why you would want to have multiple .cpp files for a program. The reasons for this are simple:
 >
->**(1)** It speeds up compile time. As your program grows, so does your code, and if everything is in a single file, then everything must be fully recompiled every time you make any little change. This might not seem like a big deal for small programs (and it isn't), but when you have a reasonable size project, compile times can take *several minutes* to compile the entire program. Can you imagine having to wait that long between every minor change?
+>**(1)** It speeds up compile time. As your program grows, so does your code, and if everything is in a single file, then everything must be fully recompiled every time you make any little change. This might not seem like a big deal for small programs (and it isn't), but when you have a project of reasonable size, compile times can take *several minutes* to compile the entire program. Can you imagine having to wait that long between every minor change?
 >
 >Compile / wait 8 minutes / "oh crap, forgot a semicolon" / compile / wait 8 minutes / debug / compile / wait 8 minutes / etc
 >
@@ -88,7 +88,7 @@ int main()
 }
 ```
 
-Since MyClass was not define in main.cpp, you'll get a compiler error even though you made provisions for it in myclass.cpp!
+Since MyClass was not defined in main.cpp, you'll get a compiler error even though you made provisions for it in myclass.cpp!
 
 How do we get around that? Funny you'd ask that...
 
@@ -99,6 +99,8 @@ How do we get around that? Funny you'd ask that...
 [go to top](#top)
 
 Header files are used to make an **interface** separate from implementation. Think OOP PHP interfaces (check my tutorial for that.) This allows you to speed up compile time because you can just resettle the interface instead of redoing every source file.
+
+Again, the header files are the **interface** which allow other source files to **interact with the implementation** defined in the source (.cpp) files that are associated with their relevant header files.
 
 Here's the example from: http://www.cplusplus.com/articles/Gw6AC542/
 
@@ -141,6 +143,8 @@ int main()
   return 0;
 }
 ```
+
+Remember! Each individual .cpp is compiled independently, and then linked together. Including the header file in the main.cpp source file lets it play with the interface (so you've declared it and it's aware of it), but leaves the implementation to be done by the myclass.cpp source file, which will eventually get linked to main.cpp once the entire program is compiled.
 
 
 

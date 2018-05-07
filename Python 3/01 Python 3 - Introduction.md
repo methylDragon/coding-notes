@@ -172,7 +172,8 @@ print("a" * 5) # You can multiply!
 
 If you want formatted output, use % or f
 
-**Using %**
+#### **Using %**
+
 ```python
 # % example
 
@@ -186,7 +187,10 @@ my_dict = {"dragons":"Dragons", "are":"are", "the":"the", "best":"best! Yeah!"}
 print("%(dragons)s %(are)s %(the)s %(best)s" % (my_dict))
 # Output: Dragons are the best! Yeah!
 ```
-**Using f-strings**
+
+
+#### **Using f-strings**
+
 ```python
 # f-strings (Valid from Python 3.6 onwards)
 
@@ -198,7 +202,10 @@ print(f"Hi! I am {dragon} and I make {stuff}!")
 # f-strings also support expressions! So you can do print(f{6*6})
 # Output: 36
 ```
-**Using .format**
+
+
+#### **Using .format**
+
 ```python
 # .format example
 
@@ -487,7 +494,7 @@ list_three = list_one + list_two
 empty_list = []
 ```
 
-**List Comprehensions** (More on this in the advanced section)
+#### **List Comprehensions** (More on this in the advanced section)
 
 ```python
 # Just some examples for reference
@@ -602,7 +609,7 @@ dragon_list.index("Rawr")
 # Output: 1
 ```
 
-**Bonus: Treating lists as queues**
+#### **Bonus: Treating lists as queues**
 
 ```python
 import collections
@@ -689,7 +696,7 @@ species_dictionary["Jane"] = "Human"
 empty_dictionary = {}
 ```
 
-**Dictionary Comprehensions** (More on this in the advanced section)
+#### **Dictionary Comprehensions** (More on this in the advanced section)
 
 ```python
 # Just some examples for reference
@@ -790,7 +797,7 @@ for i in unique_numbers:
     pass
 ```
 
-**Set Comprehensions**
+#### **Set Comprehensions**
 
 ```python
 # Just some examples for reference
@@ -842,7 +849,7 @@ example_set.clear()
 # There's a bunch more: https://www.programiz.com/python-programming/set
 ```
 
-**Set Operations**
+#### **Set Operations**
 
 ```python
 a = {1, 2, 3}
@@ -888,7 +895,7 @@ is # Checks if something is the same object as something else
 >
 > = ASSIGNS VALUES
 
-**Logical Operators**
+#### **Logical Operators**
 
 ```python
 and # Eg: (a and b) is True
@@ -896,7 +903,7 @@ or # Eg: (a or b) is True
 not # Eg: not(a and b) is False
 ```
 
-**Example IF, ELIF, ELSE**
+#### **Example IF, ELIF, ELSE**
 
 ```python
 dragon_rating = 10
@@ -1062,7 +1069,7 @@ for _ in range(10):
 
 [go to top](#top)
 
-**range()**
+#### **range()**
 
 ```python
 # range(start, non-inclusive end, steps)
@@ -1076,7 +1083,7 @@ list_name = ["rawr", "raa", "rer"]
 range(len(list_name)) # Returns [0, 1, 2]
 ```
 
-**Slicing**
+#### **Slicing**
 
 ```python
 # Remember that you can slice lists!
@@ -1088,7 +1095,7 @@ for _ in my_list[::2]
 # Output: 1 3 5 7 9
 ```
 
-**enumerate()**
+#### **enumerate()**
 
 ```python
 rawr_list = ["Rawr", "Rar", "Rer", "Raa"]
@@ -1104,7 +1111,7 @@ for num, rawr in enumerate(rawr_list, 5):
     print(num, rawr, end=", ")
 ```
 
-**zip()**
+#### **zip()**
 
 ```python
 rawr_list = ["Rawr", "Rar", "Rer", "Raa"]
@@ -1116,7 +1123,7 @@ for x, y in zip(rawr_list, num_list):
     print(x, y, end=", ")
 ```
 
-**continue and break**
+#### **continue and break**
 
 ```python
 num_list = [1, 2, 3, 4, 5]
@@ -1205,7 +1212,7 @@ rawr_string[:-5] + "roar!"
 # Output: I am metyhlDragon, and while I can talk, I also roar!
 ```
 
-**Formatted Strings** (repeated from print)
+#### **Formatted Strings** (repeated from print)
 
 ```python
 # % example
@@ -1309,7 +1316,7 @@ By far the most important concept for debugging purposes! Try to always use them
 
 Alternatively, if you know where a program might throw **exceptions** (i.e. errors), you can code in handlers for them if you know they can occur but it's either by design or because it might be user errors, etc. !
 
-**Try-Except**
+#### **Try-Except**
 
 ```python
 # Exception handling is done mostly with try-except blocks
@@ -1322,7 +1329,9 @@ except <error_two> as err:
 except:
     # Wildcard error. Run this code ONLY if an exception unaccounted for is thrown
 ```
-**Else**
+
+
+#### **Else**
 
 ```python
 # You can also use else in try-except blocks!
@@ -1333,7 +1342,9 @@ except:
 else:
     # Run if no errors were thrown AFTER running the code protected by the try block
 ```
-**Finally**
+
+
+#### **Finally**
 
 ```python
 # You use the keyword finally to run code regardless of whether an exception was thrown or not
@@ -1347,7 +1358,7 @@ finally:
     # Run before exiting the entire try block, whether errors were thrown or not
 ```
 
-**Raise**
+#### **Raise**
 
 ```python
 # You can raise an exception, forcing it occur
@@ -1361,7 +1372,7 @@ except:
     raise
 ```
 
-**Assert**
+#### **Assert**
 
 This of an assert like a raise-if-not statement
 
@@ -1376,7 +1387,7 @@ assert (5 != 5), "5 is equal to 5!" # This will raise an error!
 # Assertions are a good way to make your own checks, and raise your own exceptions
 ```
 
-**With**
+#### **With**
 
 ```python
 # This isn't exactly exception handling, and I mention it again in file I/O
@@ -1445,8 +1456,7 @@ Ever wondered how this works? Python implements this using Iterables and Iterato
     'r'
     ```
 
-
-**Intuition**
+#### **Intuition**
 
 > I don’t know if it helps anybody but I always like to visualize concepts in my head to better understand them. So as I have a little son I visualize iterable/iterator concept with bricks and white paper.
 >

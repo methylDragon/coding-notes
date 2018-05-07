@@ -9,7 +9,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 ## Pre-Requisites
 
-### Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)
+**Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)**
 
 - How **variables, loops, conditionals, etc**. work (Basic coding fundamentals will help a lot!)
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
@@ -57,6 +57,24 @@ int addNumbers(int firstNum, int secondNum = 0) {
 ```
 
 !! NOTE. combinedValue is not accessible anywhere else other than in addNumbers, as it is a **LOCAL** variable defined WITHIN a function.
+
+**Calling Functions**
+
+```c++
+// So, we've made a function called addNumbers above
+// Call it like this
+
+addNumbers(1, 2); // It'll return 3
+
+// Simple eh?
+```
+
+> **Note:**
+>
+> - When you write the data-type infront of the function name, you're defining a new function **prototype**
+> - If you don't, you're calling it.
+>
+> Remember the distinction! 
 
 
 

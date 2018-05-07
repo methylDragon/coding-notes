@@ -117,7 +117,7 @@ struct ShapeType{
 };
 ```
 
-**Creating a topic**
+#### **Creating a topic**
 
 ```c++
 // Create a topic (we're creating one with the name Circle now)
@@ -148,7 +148,7 @@ Remember that **DataWriters** and **DataReaders** write and consume data, but yo
 
 Here's a example from: http://download.prismtech.com/docs/Vortex/pdfs/OpenSplice_DDSTutorial.pdf
 
-**Let's make a topic first**
+#### **Let's make a topic first**
 
 ```c++
 // TempControl.idl
@@ -168,7 +168,7 @@ TemperatureScale scale;
 #pragma keylist TempSensorType id
 ```
 
-**Writing Data in DDS**
+#### **Writing Data in DDS**
 
 Now we can make our Domain Participants, Topics, Publishers, and Data Writers!
 
@@ -195,7 +195,7 @@ dw.write(sensor);
 dw << tutorial::TempSensorType(2, 26.5F, 74.0F, tutorial::CELSIUS);
 ```
 
-**Reading Data in DDS**
+#### **Reading Data in DDS**
 
 ```c++
 // create a Domain Participant, -1 defaults to value defined in configuration file

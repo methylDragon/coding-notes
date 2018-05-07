@@ -181,7 +181,9 @@ $ catkin_create_package <package_name> [depend1] [depend2] ...
 
 This will create a package folder with its respective package.xml and CMakeLists.txt, filled somewhat with the information you gave the script.
 
-**Finding Package Dependencies via rospack**
+
+
+#### **Finding Package Dependencies via rospack**
 
 First-order package dependencies are stored in the package.xml file.
 
@@ -218,7 +220,9 @@ catkin_make will now do certain things to certain files:
 - **Source files, scripts, and other static files** will remain in the **source space (/src)** 
 - **Generated files (libraries, executables, etc.)** will be placed in the **devel space (/devel)**
 
-**Devel and Install spaces**
+
+
+#### **Devel and Install spaces**
 
 > CHOOSE BETWEEN USING THE INSTALL OR DEVEL SPACE
 >
@@ -228,7 +232,9 @@ The development space (devel) is useful for, guess what, developing. When you're
 
 The install space (install) is there for when you're ready to distribute.
 
-**Sourcing the built workspace**
+
+
+#### **Sourcing the built workspace**
 
 You know the drill. Find the setup.bash, and source it. Appending it to .bashrc will be useful.
 
@@ -250,19 +256,25 @@ Sometimes your build might fail at a certain package (eg, at package 100 out of 
 
 If you just ran catkin_make again, it'll rebuild everything starting from package 1. How do you fix stuff like that? Turns out there are more parameters you can use for catkin_make! (Actually you can customise it even more by changing your CMakeLists.txt, but if you don't want to do that, there's a lot you can do from the terminal!)
 
-**Build specific packages**
+
+
+#### **Build specific packages**
 
 ```shell
 $ catkin_make --pkg <package A> <package B>
 ```
 
-**Build starting from a specific package**
+
+
+#### **Build starting from a specific package**
 
 ```shell
 $ catkin_make --from-pkg <package>
 ```
 
-**Previewing the build order (catkin tools preview!)**
+
+
+#### **Previewing the build order (catkin tools preview!)**
 
 Now we'll talk about a handy command we can use from the third-party catkin tools!: http://catkin-tools.readthedocs.io/en/latest/verbs/catkin_build.html
 
@@ -304,6 +316,7 @@ It contains the following data: (Order matters! Play it safe!)
 - License
 - Author Info
 - Dependencies
+- ...
 
 
 
@@ -529,17 +542,17 @@ find_package(catkin REQUIRED)
 find_package(catkin REQUIRED COMPONENTS package1 package2 package3)
 ```
 
-find_package() creates some environment variables once catkin finds the package. These variables tell CMae where the relevant components of the package are (header files, source, libraries, dependencies, paths, etc.)
+find_package() creates some environment variables once catkin finds the package. These variables tell CMake where the relevant components of the package are (header files, source, libraries, dependencies, paths, etc.)
 
 > <NAME>_FOUND - Set to true if the library is found, otherwise false 
 >
-> <NAME>_INCLUDE_DIRS or <NAME>_INCLUDES - The include paths exported by the package 
+> <NAME>_INCLUDE_DIRS or <NAME>\_INCLUDES - The include paths exported by the package 
 >
-> <NAME>_LIBRARIES or <NAME>_LIBS - The libraries exported by the package 
+> <NAME>_LIBRARIES or <NAME>\_LIBS - The libraries exported by the package 
 >
 > <NAME>_DEFINITIONS - ? 
 
-If you don't state the component as a component, the paths, libraries, etc. stated in the quoted block above won't get added. So please **add as components**.
+If you don't state the component as a component, the paths, libraries, etc. stated in the quoted block above won't get added. So please **add them as components**.
 
 
 
@@ -555,7 +568,7 @@ Create a setup.py file, and add
 catkin_python_setup()
 ```
 
-**DO NOT USE THIS TO INSTALL PYTHON SCRIPTS YOU WANT TO USE AS A PACKAGE.** There's a section for that later on!
+**DO NOT USE THIS ALONE TO INSTALL PYTHON SCRIPTS YOU WANT TO USE AS A PACKAGE IN THE INSTALL SPACE.** There's a section for that later on!
 
 
 
@@ -600,7 +613,7 @@ generate_messages()
 
 
 
-### 4.8 Specify Package Build-Info (`catkin_package()`)  <a name="4.8"></a> 
+### 4.8 Specify Package Build-Info (`catkin_package()`, `include_directories`)  <a name="4.8"></a> 
 
 [go to top](#top)
 
@@ -621,8 +634,13 @@ catkin_package(
    CATKIN_DEPENDS roscpp nodelet
    DEPENDS eigen opencv)
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+link_directories(~/some_lib_dirs)
 ```
+
+`include_directories`:  For C++ library paths (since you include them)
+
+`link_directories`: Used to add additional library paths (not recommended)
 
 
 
@@ -653,7 +671,9 @@ There are generally two ways to specify a build target
 - Executable: Something you run
 - Library: Something that is used by executable targets
 
-**Name your targets!** They have to be unique! You can rename stuff though!
+
+
+#### **Name your targets!** They have to be unique! You can rename stuff though!
 
 ```python
 set_target_properties(rviz_image_view
@@ -661,7 +681,9 @@ set_target_properties(rviz_image_view
                       PREFIX "")
 ```
 
-**Specify a custom output directory**
+
+
+#### **Specify a custom output directory**
 
 Sometimes you might want a different directory to install to for certain packages (like python module installs)
 
@@ -670,7 +692,9 @@ set_target_properties(python_module_library
   PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_PYTHON_DESTINATION})
 ```
 
-**Include Paths and Library Paths**
+
+
+#### **Include Paths and Library Paths**
 
 You need to specify the locations of your resources before specifying your targets
 
@@ -681,7 +705,9 @@ You need to specify the locations of your resources before specifying your targe
 include_directories(include ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 ```
 
-**Specify your targets**
+
+
+#### **Specify your targets**
 
 Executable target
 
@@ -696,7 +722,9 @@ Library Target
 add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SRCS})
 ```
 
-**Link Libraries**
+
+
+#### **Link Libraries**
 
 Then you link your libraries to your executables!
 
@@ -720,6 +748,8 @@ catkin_add_gtest(myUnitTest test/utest.cpp)
 
 [go to top](#top)
 
+> Make sure catkin_package() is called BEFORE install()!
+
 Normally, `catkin_make` places built targets into the **devel space (/devel)**. But if you want to do a proper release where users build using `catkin_make install`, use install() to place built targets into the **install space (/install)**.
 
 install() takes the following arguments:
@@ -739,7 +769,7 @@ install(TARGETS ${PROJECT_NAME}
 )
 ```
 
-**Or if you want to install to a specific folder:**
+**Or if you want to install to a specific folder:** (In this case, a Python library folder)
 
 ```python
 install(TARGETS python_module_library

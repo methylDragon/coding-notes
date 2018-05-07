@@ -64,7 +64,7 @@ add_numbers(1,2) # Gives 3
 add_numbers(4,5) # Gives 9
 ```
 
-**Optional Inputs**
+#### **Optional Inputs**
 
 ```python
 # You can state OPTIONAL INPUTS as well!
@@ -79,7 +79,7 @@ add_more_numbers(4, 5) # Gives 9
 add_more_numbers(4, 5, 1) # Gives 10! The optional value got overwritten with your input!
 ```
 
-**Docstrings**
+#### **Docstrings**
 
 ```python
 # DOCSTRINGS
@@ -112,7 +112,7 @@ def function(a, b):
     """Do X and return a list."""
 ```
 
-**Yield**
+#### **Yield**
 
 ```python
 # If you want to define a function to generate items instead of returning a single one
@@ -152,7 +152,7 @@ while True:
 # At least, until your computer runs out of memory I guess?
 ```
 
-**Default value pitfalls**
+#### **Default value pitfalls**
 
 ```python
 # Python 3 supports default argument values as well!
@@ -254,7 +254,7 @@ def fibi(n):
 
 File input output.
 
-**Create, Open, and Write to a file!**
+#### **Create, Open, and Write to a file!**
 
 ```python
 # Create and Open a file!
@@ -276,7 +276,7 @@ my_file.close()
 my_file.closed # Checks if a file is closed (returns True if yes, False if no)
 ```
 
-**Read from the file!**
+#### **Read from the file!**
 
 ```python
 import os # This is so we can delete the file later
@@ -304,7 +304,7 @@ print(text_in_my_file) # Returns I'm Rawring inside this file!\n
 os.remove("rawr.txt")
 ```
 
-**tell() and seek()**
+#### **tell() and seek()**
 
 `tell()` returns an integer giving the current position of the cursor in the file (in bytes when in mode `b` or as a number otherwise)
 
@@ -350,7 +350,7 @@ f.close()
 
 
 
-**File Modes**
+#### **File Modes**
 
 > - `r` for reading
 > - `w` for writing
@@ -362,7 +362,7 @@ f.close()
 >
 > https://stackoverflow.com/questions/41406116/what-is-the-difference-between-rw-and-r
 
-**Good to know**
+#### **Good to know**
 
 ```python
 # It's good practice to open files using "with"
@@ -389,7 +389,7 @@ os.chdir("dir_name") # Not like linux! :( But this is basically cd
 os.getcwd() # OS's version of linux's pwd
 ```
 
-**For extra stuff**
+#### **For extra stuff**
 
 Like.. say you want to read delimited data with json or something, or do more advanced writing,
 

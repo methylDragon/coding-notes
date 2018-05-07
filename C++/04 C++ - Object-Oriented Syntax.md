@@ -9,7 +9,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 ## Pre-Requisites
 
-### Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)
+**Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)**
 
 - How **variables, loops, conditionals, etc**. work (Basic coding fundamentals will help a lot!)
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
@@ -29,7 +29,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.2   [Access Operators](#2.2)    
    2.3   [Classes](#2.3)    
    2.4   [Child Class Declaration](#2.4)    
-   2.5   [Virtual Methods and Polymorphism](#2.5)    
+   2.5   [Virtual Methods and Polymorphisms](#2.5)    
 
 
 
@@ -408,7 +408,7 @@ tom.toString();
 
 
 
-### 2.5 Virtual Methods and Polymorphism <a name="2.5"></a>
+### 2.5 Virtual Methods and Polymorphisms <a name="2.5"></a>
 
 [go to top](#top)
 

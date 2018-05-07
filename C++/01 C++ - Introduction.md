@@ -8,7 +8,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 ## Pre-Requisites
 
-### Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)
+**Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)**
 
 - How **variables, loops, conditionals, etc**. work (Basic coding fundamentals will help a lot!)
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
@@ -55,6 +55,22 @@ C++ is great for most stuff! It allows you to do memory management with it, and 
 More practically, it's used almost everywhere because of its speed, and if you're not using an offline app written by it, you're probably using stuff like Java, etc.
 
 It's powerful, but hard. If you're not very familiar with programming, maybe don't start with this, but if you like a challenge... Well, here we go. I'll hold your hand a little along the way, but we're all learners here.
+
+> You need a compiler to build and run C++ programs!
+>
+> I can only really help for Windows at the moment.
+>
+> Windows: Cygwin or MinDW: https://www3.ntu.edu.sg/home/ehchua/programming/howto/Cygwin_HowTo.html
+>
+> Linux should be Googleable though!
+
+> For choice of editor, I'd go with:
+>
+> - Atom
+> - Visual Studio Code
+> - Sublime Text
+>
+> I haven't found a need for a full IDE like Eclipse yet, so...
 
 
 
@@ -548,7 +564,7 @@ for(int j = 0; j < 6; j++) {
 // The above bit prints out meeylDragon (cause we changed t to e previously)
 ```
 
-**A more Pythonic for loop**
+#### **A more Pythonic for loop**
 
 ```c++
 int my_nums[5] = {1, 2, 3, 4, 5};

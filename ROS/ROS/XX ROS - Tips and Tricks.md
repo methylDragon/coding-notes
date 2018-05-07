@@ -1,9 +1,7 @@
-# ROS Crash Course
+# ROS Tips and Tricks (WORK IN PROGRESS)
 
 Author: methylDragon  
-Fairly comprehensive ROS crash course!  
-I'll be adapting it from the ROS Tutorials: http://wiki.ros.org/ROS/Tutorials    
-and ETHz: https://www.youtube.com/watch?v=0BxVPCInS3M&list=PLE-BQwvVGf8HOvwXPgtDfWoxd4Cc6ghiP
+Just a collection of useful things I've found    
 
 ------
 
@@ -32,44 +30,60 @@ and ETHz: https://www.youtube.com/watch?v=0BxVPCInS3M&list=PLE-BQwvVGf8HOvwXPgtD
    3.6   [Visualising the ROS Graph](#3.6)    
    3.7   [roslaunch](#3.7)    
    3.8   [Launch Files](#3.8)    
-   3.9   [RViz](#3.9)
-   3.10 [Gazebo (Simulation)](#3.10)     
+   3.9   [Gazebo (Simulation)](#3.9)     
 
 
 
 ## 1. Introduction <a name="1"></a>
 
-ROS stands for Robot Operating System. And true to its name, it's for working with robots!
-
-ROS
-
-- Is a **publisher-subscriber framework** (pub-sub) for running independent programs on robots (across different system architectures)
-- Has a **rich ecosystem of open-source packages and tools** written by its active community
-- Is one of the **go-to frameworks for robotics research and prototyping!**
-
-You have enough in the ecosystem to create a fairly robust autonomous system, and there are many tutorials for applications like robotic arms, autonomous ground vehicles, SLAM, and more!
-
-> ROS is an open-source, meta-operating system for your robot. It provides the services you would expect from an operating system, including hardware abstraction, low-level device control, implementation of commonly-used functionality, message-passing between processes, and package management. It also provides tools and libraries for obtaining, building, writing, and running code across multiple computers. ROS is similar in some respects to 'robot frameworks,' such as [Player](http://playerstage.sf.net/), [YARP](http://eris.liralab.it/yarp/), [Orocos](http://www.orocos.org/), [CARMEN](http://carmen.sourceforge.net/), [Orca](http://orca-robotics.sourceforge.net/), [MOOS](http://www.robots.ox.ac.uk/~pnewman/TheMOOS/index.html), and [Microsoft Robotics Studio](http://msdn.microsoft.com/en-us/robotics/default.aspx).
->
-> The ROS runtime "graph" is a peer-to-peer network of processes (potentially distributed across machines) that are loosely coupled using the ROS communication infrastructure. ROS implements several different styles of communication, including synchronous RPC-style communication over [services](http://wiki.ros.org/Services), asynchronous streaming of data over [topics](http://wiki.ros.org/Topics), and storage of data on a [Parameter Server](http://wiki.ros.org/Parameter%20Server). These are explained in greater detail in our [Conceptual Overview](http://wiki.ros.org/ROS/Concepts).
->
-> (http://wiki.ros.org/ROS/Introduction)
+Everyone loves being ~~lazy~~ efficient!
 
 
 
-## 2. Setup and Basic Concepts <a name="2"></a>
+## 2. Convenience Tips <a name="2"></a>
 
-### 2.1 Installing ROS <a name="2.1"></a>
+### 2.1 Linux Aliases <a name="2.1"></a>
 
 [go to top](#top)
 
-For this crash course, I'll be assuming that we'll be using ROS Kinetic for Ubuntu 16.04. Make sure you install the correct version of Ubuntu, otherwise it might be troublesome to install ROS (since it's officially supported on only specific distributions!)
+Ever wish you could just swap your stated ROS_MASTER_URIs and ROS_HOSTNAMEs **without** having to go `$ sudo nano ~/.bashrc` or typing out the entire line?
 
-Make sure you **read** the tutorials! Don't just blindly copy terminal commands!
+**Aliases** have you covered! (For more than just those purposes!)
 
-Dualbooting Ubuntu 16.04: https://www.tecmint.com/install-ubuntu-16-04-alongside-with-windows-10-or-8-in-dual-boot/
+Inside ~/.bashrc:
 
-Installing ROS: http://wiki.ros.org/kinetic/Installation/Ubuntu
+```bash
+alias command_name="<run this as if you ran it in terminal>" 
+# Don't add spaces between the = sign and the words, it'll break it
+
+# So for the IP change example:
+alias rosinit_local="export ROS_HOSTNAME = localhost && export ROS_MASTER_URI = http://localhost:11311"
+```
+
+Now, you can do this!
+
+```shell
+$ rosinit_local
+
+# Is equivalent to running
+$ export ROS_HOSTNAME = localhost && export ROS_MASTER_URI = http://localhost:11311
+```
+
+And your IPs will be set accordingly! Easy!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -143,58 +157,19 @@ $ sudo apt-get install terminator
 
 
 
-## 3. ROS Crash Course <a name="3"></a>
+## 3. rospy <a name="3"></a>
 
-### 3.1 ROS Workspaces <a name="3.1"></a>
+### 3.1 Introduction<a name="3.1"></a>
 
 [go to top](#top)
 
-When you first start using ROS, it's most likely going to involve playing around with nodes other people have written, and running them with Terminal!
-
-ROS comes with a whole bunch of command line tools that let you mess around with nodes and packages inside your ROS workspace! But in order to be able to use them, you must first **source** them from the ROS workspaces you want to use!
-
-The ROS installation tutorial should have already gotten you set up with sourcing the base workspace for ROS.
-
-```shell
-$ echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-$ source ~/.bashrc
-```
-
-
-
-#### **Making your own workspace**
-
-But what if we wanted to create our own workspace for our own robotics project? 
-
-(It's generally recommended to do this so that you can port your project over to other systems instead of having to port the whole of ROS)
-
-Then, we need to make our workspace
-
-```shell
-$ mkdir -p workspace_name/src # Create a catkin_ws folder with a src folder in it
-$ cd workspace_name # Navigate into the folder's root
-$ catkin_make # Build the required files
-```
-
-Then source it
-
-```shell
-$ source devel/setup.bash # Make sure you run this from your workspace's root!
-
-# It would be good to also append this source command to your .bashrc so you don't have to keep doing it everytime you open a terminal
-
-# Append source <workspace_directory>/devel/setup.bash
-```
-
-To check if you've sourced into it properly, run
-
-```shell
-$ echo $ROS_PACKAGE_PATH
-
-# Ensure your workspace's directory appears in here
-```
-
-> For more in-depth information on ROS workspaces and building packages, check out my catkin tutorial!
+> rospy is a pure Python client library for ROS. 
+>
+> The rospy client API enables Python programmers to quickly interface with ROS [Topics](http://ros.org/wiki/Topics), [Services](http://ros.org/wiki/Services), and [Parameters](http://ros.org/wiki/Parameter%20Server). The design of rospy favors implementation speed (i.e. developer time) over runtime performance so that algorithms can be quickly prototyped and tested within ROS. 
+>
+> It is also ideal for non-critical-path code, such as configuration and initialization code. Many of the ROS tools are written in rospy to take advantage of the type introspection capabilities. Many of the ROS tools, such as [rostopic](http://ros.org/wiki/rostopic) and [rosservice](http://ros.org/wiki/rosservice), are built on top of rospy. 
+>
+> (http://wiki.ros.org/rospy)
 
 
 
@@ -239,9 +214,9 @@ As mentioned before, the **ROS master** facilitates messaging between nodes, and
 
 
 
-#### **ROS Communication Setup**
+**ROS Communication Setup**
 
-In order to help it along, you **MUST** specify the IP address of the ROS master to each machine in the network that you want to communicate via ROS with!
+In order to help it along, you **MUST **specify the IP address of the ROS master to each machine in the network that you want to communicate via ROS with!
 
 ```shell
 # On the machine with the ROS master
@@ -259,7 +234,7 @@ I'd highly suggest you append these commands into ~/.bashrc so you don't have to
 
 
 
-#### **Starting the ROS Master**
+**Starting the ROS Master**
 
 Then, you can go ahead and start the ROS master. Pretty simple.
 
@@ -273,7 +248,7 @@ $ roscore
 
 [go to top](#top)
 
-#### **Nodes**
+**Nodes**
 
 Further reading: http://wiki.ros.org/rosnode
 
@@ -299,7 +274,7 @@ $ rosnode kill node_name
 
 
 
-#### **Topics**
+**Topics**
 
 Further reading: http://wiki.ros.org/rostopic
 
@@ -320,7 +295,7 @@ $ rostopic info /topic_name
 
 
 
-#### **Messages**
+**Messages**
 
 Messages are the things that are sent to and read from the topics!
 
@@ -474,7 +449,8 @@ Launch files are written in XML. So get to learning it! It's not that hard!
 <!-- This is an XML comment -->
 ```
 
-#### **Minimal launch file**
+
+Minimal launch file**
 
 ```xml
 <launch>
@@ -485,7 +461,7 @@ Launch files are written in XML. So get to learning it! It's not that hard!
 
 
 
-#### **Setting parameters**
+**Setting parameters**
 
 Certain nodes might have certain parameters that can be tweaked! (Eg. a laser node's max range)
 
@@ -517,7 +493,7 @@ Launch files can set them too!
 
 
 
-#### **Taking arguments**
+**Taking arguments**
 
 Now you can write your launch file to take arguments! You can write placeholder 'variables' that get filled when you run the launch file as such
 
@@ -537,7 +513,7 @@ $ roslaunch launch_file_name.launch arg_name:=value
 
 
 
-#### **Conditionals**
+**Conditionals**
 
 ```xml
 <?xml version="1.0"?>
@@ -559,7 +535,7 @@ $ roslaunch launch_file_name.launch arg_name:=value
 
 
 
-#### **Calling other launch files or importing files**
+**Calling other launch files or importing files**
 
 ```xml
 <launch>
@@ -575,28 +551,7 @@ $ roslaunch launch_file_name.launch arg_name:=value
 
 
 
-### 3.9 RViz <a name="3.9"></a>
-
-[go to top](#top)
-
-Read more: http://wiki.ros.org/rviz/Tutorials
-
-RViz is a **3D visualisation tool for ROS** with many different camera views. 
-
-It subscribes to topics, and you can choose to visualise the data!
-
-You can save and load configurations in RViz! And it can take plugins! There's a lot to go through, so it probably warrants its own tutorial...
-
-But some uses for it are:
-
-- Just pure visualisation
-- Mapping
-- Navigation 'GUI' (You can send commands to the robot via RViz using the interface)
-- Finding map points (Clicking on the Publish Point button publishes the coordinate to the topic /clicked_point)
-
-
-
-### 3.10 Gazebo (Simulation) <a name="3.10"></a>
+### 3.9 Gazebo (Simulation) <a name="3.9"></a>
 
 [go to top](#top)
 

@@ -8,7 +8,7 @@ I'll be adapting it from The Happie Cat's "Top 10 Things I Wish I Had Known When
 
 ## Pre-Requisites
 
-### Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)
+**Assumed knowledge (This is a C++ crash course, not a basic coding tutorial)**
 
 - How **variables, loops, conditionals, etc**. work (Basic coding fundamentals will help a lot!)
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)

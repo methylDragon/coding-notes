@@ -74,7 +74,7 @@ else:
 
 map(), filter(), and reduce() operate on lists. But if we want to use them properly, we're going to have to go though lambda expressions first.
 
-**lambda**
+#### **lambda**
 
 Lambda expressions are a good way to create throwaway functions! Just take note that they can't feature return statements, as their output is their default return output.
 
@@ -104,7 +104,7 @@ multiply_six(2) # Returns 12 (i.e. 2 * 6)
 
 However, the TRUE utility of lambda expressions comes when you pair them with map, filter, reduce!
 
-**map()**
+#### **map()**
 
 Map takes a list of items, and applies a function to every item in said list.
 
@@ -126,7 +126,7 @@ RAWR = list(map(lambda x: x.upper(), rawr))
 print(RAWR) # ['R', 'A', 'W', 'R']
 ```
 
-**filter()**
+#### **filter()**
 
 Filter runs a function through every item in a list, creating a new list of items that fulfill the conditions set by said function.
 
@@ -261,7 +261,7 @@ Source: https://pythontips.com/2013/08/04/args-and-kwargs-in-python-explained/
 
 Well. Technically it's *whatever \*\*whatever, but convention is *args and **kwargs.
 
-**\*args**
+#### **\*args**
 
 *args and **kwargs can be generally seen to be used in function definitions. They both allow for you to pass a variable (or let's say, a number that you can't plan for) number of arguments to a function.
 
@@ -283,7 +283,7 @@ Another arg through *argv: music
 '''
 ```
 
-**\*\*kwargs**
+#### **\*\*kwargs**
 
 So we've seen how *args is used to pass a non-keyworded variable length list of arguments. **kwargs does this, but for named/keyworded arguments!
 
@@ -298,7 +298,7 @@ rawr(methylDragon="rawr", Rakkarn="sup")
 # Rakkarn says sup
 ```
 
-**Passing args and kwargs**
+#### **Passing args and kwargs**
 
 ```python
 # Let's say you want to write a list instead
@@ -337,7 +337,7 @@ def function_name(**kwargs):
 # You can then use these to iterate using for loops
 ```
 
-**Args, Kwarg, Formal Arguments ordering**
+#### **Args, Kwarg, Formal Arguments ordering**
 
 ```python
 # The order is done in this way
@@ -356,7 +356,7 @@ Or a video tutorial: https://www.youtube.com/watch?v=FsAPt_9Bf3U
 
 If you're having problems with docstrings also, do look up that link. They mention @wraps
 
-**Pre-amble**
+#### **Pre-amble**
 
 So you thought you knew functions. And sure you do!
 
@@ -390,7 +390,7 @@ def my_function(parameters):
     return lambda x: #Some output
 ```
 
-**Functions within Functions**
+#### **Functions within Functions**
 
 So it turns out, you can **define functions within other functions!**
 
@@ -402,7 +402,7 @@ def outer_function():
     return
 ```
 
-**Decorators**
+#### **Decorators**
 
 Decorators are functions that takes another function as an argument, and adds functionality to that function without changing its source code of the passed function. (Adding functionality to input functions!)
 
@@ -464,34 +464,34 @@ hello()
 >         f()
 >         print("after")
 >     return wrapper
->
+> 
 > # IS NOT
->
+> 
 > def before_after_wrong(f): # Where f is a function
 >     print("before")
 >     f()
 >     print("after")
 >     return f
->
+> 
 > # Here's the illustration
->
+> 
 > # We know how this goes
 > # It changes rawr() into a decorator() call with rawr() as f()
 > rawr = before_after(rawr)
->
+> 
 > # But
 > # This won't actually change rawr()'s behaviour! Since it returns f, not decorator!
 > rawr = before_after_wrong(rawr) # This will actually immediately do the decorator prints
 > # As before_after_wrong(rawr) returns rawr
 > # then: rawr = before_after_wrong(rawr)
 > # is: rawr = rawr (but with the extra print statements as an extra effect)
->
+> 
 > rawr() # Behaves the same as rawr() before the 'decoration'!
 > ```
 >
 > 
 
-**Syntactic Sugar** (@ notation)
+#### **Syntactic Sugar** (@ notation)
 
 ```python
 # We've seen that we can apply a decorator by writing it as a composite function
@@ -520,7 +520,7 @@ def my_function:
 my_function = decorator1(decorator2(decorator3(my_function)))
 ```
 
-**Decorators with arguments**
+#### **Decorators with arguments**
 
 Now we have a few problems. What happens when arguments are involved? This problem arises in two specific cases:
 
@@ -600,7 +600,7 @@ def multiply_by_3(num):
 multiply_by_3(3) # Returns 9 
 ```
 
-**Practical Examples**
+#### **Practical Examples**
 
 ```python
 # Source: https://github.com/CoreyMSchafer/code_snippets/blob/master/Decorators/snippets.txt
@@ -656,7 +656,7 @@ But, if you want to go deeper, with classes, for example: https://www.codementor
 - Recursive functions
 - Decorators
 
-**Introduction**
+#### **Introduction**
 
 Memoisation is a way to speed up computation time for recursive functions, by ensuring that repeat computations do not happen! (It can potentially reduce O(n^2) complexity algorithms to O(n)! It's very important in dynamic programming problems!)
 
@@ -689,7 +689,7 @@ fib(5)
 # And substitute it in instead of splitting the calls again...
 ```
 
-**Implementation**
+#### **Implementation**
 
 Let's see how we can do this! It's very easy!
 
@@ -776,7 +776,7 @@ print(id(d_list[0]) is id(a_list[0])) # False
 
 Let's just get a refresher on variable scopes first
 
-**Local variables**
+#### **Local variables**
 
 ```python
 x = "outer"
@@ -802,7 +802,7 @@ As you can see, variables declared within a function (and other kinds of scopes,
 
 Here's one more example
 
-**Local variables (one level deeper!)**
+#### **Local variables (one level deeper!)**
 
 ```python
 x = "outer"
@@ -833,7 +833,7 @@ inner: inner
 '''
 ```
 
-**global and nonlocal**
+#### **global and nonlocal**
 
 Ok. That was troublesome.
 
@@ -841,7 +841,7 @@ Did you know that there is a way to control what scope variables fall into? This
 
 Use the keywords `global` and `nonlocal`!
 
-**global**
+#### **global**
 
 ```python
 x = "unaffected"
@@ -865,7 +865,7 @@ after inner: affected
 '''
 ```
 
-**nonlocal**
+#### **nonlocal**
 
 Non-local is something similar, but different.
 
@@ -911,7 +911,7 @@ Now you have the power!
 
 \# Cool Stuff
 
-### Remove Overhead
+#### Remove Overhead
 
 - Throw a decorator on stuff, remove Python overhead (where applicable!): 
   - http://numba.pydata.org/
@@ -920,7 +920,7 @@ Now you have the power!
 
 
 
-### ML
+#### ML
 
 - http://scikit-learn.org/ !!!
 - http://pytorch.org/
@@ -928,7 +928,7 @@ Now you have the power!
 - https://opencv.org/
 
 
-### Making Things Look Pretty
+#### Making Things Look Pretty
 
 - Colour your console output!
   - https://pypi.python.org/pypi/colorama

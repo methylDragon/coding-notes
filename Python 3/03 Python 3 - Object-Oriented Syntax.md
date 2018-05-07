@@ -339,7 +339,7 @@ print(cat.number_of_animals) # Prints: 2 ! Cool huh!
 
 [go to top](#top)
 
-**isinstance()**
+#### **isinstance()**
 
 Check to see if something is an instance of a class (child class instances are also instances of the parent/base class!)
 
@@ -368,7 +368,7 @@ else:
     print("False")
 ```
 
-**issubclass()**
+#### **issubclass()**
 
 Check to see if something is an instance of a class (child class instances are also instances of the parent/base class!)
 
@@ -479,7 +479,7 @@ def __eq__(self, other):
 
 Let's say you're lazy and you want to make multiple objects without having to type them out one by one.
 
-**Use a list comprehension and make them in a list!**
+#### **Use a list comprehension and make them in a list!**
 
 ```python
 objs = [my_class() for i in range(10)]
@@ -518,7 +518,7 @@ for num in range(3):
 print("Area of triangle:",area_of_triangle(points[0],points[1],points[2]))
 ```
 
-**Or a dictionary comprehension!**
+#### **Or a dictionary comprehension!**
 
 ```python
 class my_class:
@@ -563,7 +563,8 @@ class Celsius:
             temperature = -273
         self._temperature = temperature
 ```
-**Property()**
+#### **Property()**
+
 It can be annoying to have to deal with remembering the getters and setters! Luckily, Python has a neat trick that allows you to access them as you would public attributes, but still get the benefits of encapsulation!
 
 You do this by defining a public interface to the attribute using the property() function!
@@ -606,7 +607,7 @@ temp.temperature # Get
 temp.temperature = 50 # Set
 ```
 
-**BONUS: Property() with Decorators!** (See advanced section for info about decorators)
+#### **BONUS: Property() with Decorators!** (See advanced section for info about decorators)
 
 ```python
 class Celsius:  
