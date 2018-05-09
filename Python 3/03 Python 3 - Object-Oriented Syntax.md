@@ -37,6 +37,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.5   [Magic Methods](#2.5)    
    2.6   [Generating Multiple Objects at a Time](#2.6)    
    2.7   [Encapsulation, Getters, Setters, and Property()](#2.7)    
+   2.8   [Modules and \_\_init\_\_.py](#2.8)    
 
 
 
@@ -628,6 +629,104 @@ class Celsius:
 ```
 
 
+
+### 2.8 Modules and \_\_init\_\_.py <a name="2.8"></a>
+
+[go to top](#top)
+
+So we all know about the **import** statement. If you don't, uh.. Go back to part 1 and start again...?
+
+It's a good way to literally import modules into your code, which you can treat (in a really handwavy fashion) as it just being a copy paste of the imported code at hand. In that way, you make the imported code (and any methods or variables) available to your code!
+
+For example...
+
+Test.py
+
+```python
+import test
+
+print(test.raa) # Prints: "raa"
+test.rawr() # Prints: "Rawr"
+```
+
+test_alt.py
+
+```python
+from test import raa, rawr
+
+print(raa) # Prints: "raa"
+rawr() # Prints: "Rawr"
+```
+
+my_module.py
+
+```python
+raa = "raa"
+
+def rawr():
+    print("Rawr")
+```
+
+
+
+#### **\_\_init\_\_.py**
+
+That was cool! What if we wanted to have our module structured in directories?
+
+Folder structure:
+
+- my_script.py
+- my_package
+  - **\_\_init\_\_.py**  <----
+  - module_file_1.py
+  - module_file_2.py
+  - ...
+
+The first way you can initialise the module (which works even if your \_\_init\_\_.py file is **blank**) (given that the package is in PYTHONPATH) is to do this:
+
+```python
+import my_package.module_file_1
+
+# or
+
+from my_package import module_file_1
+```
+
+Notably, you **cannot import functions, only Python files!**
+
+If you wanted to do that, **USE \_\_init\_\_.py**!
+
+> On importing the package (`import my_package`), \_\_init\_\_.py will be run!
+
+So you can do stuff like this
+
+\_\_init\_\_.py (example)
+
+```python
+from module_file_1 import function_1, function_2
+from module_file_2 import function_1, function_2
+
+# While you could, try NOT to do this
+# import module_file_1
+# import module_file_2
+
+# Be Pythonic! Be explicit!
+
+
+# Maybe write some metadata? Version, author, release date, etc.
+# Maybe some documentation? :)
+
+...
+
+# any other init stuff
+
+# Maybe instantiate a class?
+my_object = Some_Class()
+
+# Maybe do something else?
+```
+
+Overall a pretty cool concept! Go forth and make your own modules!
 
 
 

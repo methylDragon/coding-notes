@@ -498,6 +498,7 @@ hello()
 rawr = before_after(rawr)
 
 # There's a nicer way to do it though! Just use @ (it's called pie syntax)
+# .. Yes. Seriously.
 
 @before_after
 def rawr():
