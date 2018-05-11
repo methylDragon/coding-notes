@@ -156,7 +156,7 @@ Let's make a constant variable of type double (which means it's a decimal number
 
 Also, constants are usually declared with all caps
 
-!! Note, when you declare variables outside of a function, they're **GLOBAL** they can be read by all functions. But if they're declared WITHIN a fucntion, they're **LOCAL** and can only be read by the function in question.
+!! Note, when you declare variables outside of a function, they're **GLOBAL** they can be read by all functions. But if they're declared WITHIN a function, they're **LOCAL** and can only be read by the function in question.
 
 **Other variable data types you have are**
 `char` (Stores a single character, a single byte)
@@ -169,7 +169,7 @@ Also, constants are usually declared with all caps
 `unsigned int` (Same size as signed version)
 `long double` (Not less than double)
 
-Example Declaration:
+**Example Variable Initialisation:**
 
 ```c++
 bool isTrue = true;
@@ -180,6 +180,55 @@ char myChar = 'a';
 // Double quotes " declare strings (a null terminated array)
 // So, if you did char myChar = "a"; It will throw an error! As what you're really saying is
 // char myChar = {'a','\0'}; Which is too big for the array
+
+// You can also initialise multiple variables OF THE SAME TYPE on the same line
+int x = 6, y = 2;
+```
+
+
+
+#### **Multiple ways to initialise a variable**
+
+But it actually turns out that there are three ways to initialise a variable!
+
+You **generally** (not always!) want to prioritise the way you initialise variables in this order, because as we go down, memory use becomes less efficient (assignment creates takes up more space in memory since memory is allocated to the variable (which will be empty) in addition to the data.)
+
+- Brace initialisation (Supported from C++11 onwards) (aka uniform initialisation)
+- Direct initialisation (Almost as good as brace, but not supported for some types)
+- Copy Initialisation (Assignment) (Bad for memory, and also not supported for some types)
+
+**Brace Initialisation**
+
+Read more: https://mbevin.wordpress.com/2012/11/16/uniform-initialization/
+
+```c++
+int variable{5}; // Now stores 5
+int empty_variable{}; // Empty
+
+int error_variable{4.5}; // Brace initialisation disallows 'narrowing' type conversions
+// You'll get an error!
+
+
+int array_var[] {1, 2, 3, 4, 5}; // Oh look an array!
+std::vector<int> vector_var {1, 2, 3, 4, 5}; // Oh my a vector! (Read about vectors later)
+std::set<int> set_var {1, 2, 3, 4, 5}; // Check Python tutorial for set
+std::map<int, std::string> map_var { {0, "zero"}, {1, "one"}, {2, "two"} }; // A 'DICT'!
+```
+
+**Direct Initialisation**
+
+```c++
+int variable(525); // Now stores 5
+
+// Note: variable() will not work! You can't initialise an empty variable that way
+```
+
+**Copy Initialisation** (Lowest priority, try to avoid)
+
+```c++
+// We've seen this before
+
+int a = 5; // Woo
 ```
 
 

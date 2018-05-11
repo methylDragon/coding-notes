@@ -78,6 +78,90 @@ addNumbers(1, 2); // It'll return 3
 
 
 
+#### **Returning arrays**
+
+Read more + code source: https://www.geeksforgeeks.org/return-local-array-c-function/
+
+Turns out you **can't return arrays** from functions just like that. It's not so simple.
+
+This is a little pre-mature since we have to go into OOP and/or pointers to do it.. but.. Here are the several ways to "return an array" from a function.
+
+**Return a dynamically allocated array pointer**
+
+Like so: `int *arr = new int[100];`
+
+```c++
+int *fun()
+{
+   int *arr = new int[100]; // HERE IT IS!
+
+   arr[0] = 10;
+   arr[1] = 20;
+    
+   return arr; // Return the pointer to the array!
+}
+ 
+int main()
+{
+    int *ptr = fun();
+    cout << ptr[0] << " " << ptr[1]; // Prints 10 20
+    return 0;
+}
+```
+
+**Return a static array**
+
+Like so: `static int arr[100];`
+
+```c++
+int *fun()
+{
+   static int arr[100] // HERE IT IS!
+
+   arr[0] = 10;
+   arr[1] = 20;
+    
+   return arr; // Return the pointer to the array!
+}
+ 
+int main()
+{
+    int *ptr = fun();
+    cout << ptr[0] << " " << ptr[1]; // Prints 10 20
+    return 0;
+}
+```
+
+**Use Structs** (Probably my preferred method)
+
+```c++
+struct arrWrap
+{
+   int arr[100];
+};
+ 
+struct arrWrap fun() // Function returns the struct
+{
+   struct arrWrap x;
+ 
+   x.arr[0] = 10;
+   x.arr[1] = 20;
+    
+   return x;
+}
+ 
+int main()
+{
+   struct arrWrap x = fun();
+   cout << x.arr[0] << " " << x.arr[1]; // And you can access the struct members
+   return 0;
+}
+```
+
+
+
+
+
 ### 2.2 Function Overloading <a name="2.2"></a>
 
 [go to top](#top)

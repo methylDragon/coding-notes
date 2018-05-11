@@ -28,6 +28,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.5   [Arrays with Pointers](#2.5)    
    2.6   [Indirection (Pointers of Pointers)](#2.6)    
    2.7   [When to use Pointers and when to use References](#2.7)    
+   2.8   [Memory Management](#2.8)    
 
 
 
@@ -253,7 +254,7 @@ Basic concept: When an array is initialised in C++, each successive array elemen
 ```c++
 // Let's try this out!
 int numbers[5] = {1, 2, 3, 4, 5}; // Initialise an array
-int* numbersPtr = numbers; // And a pointer!
+int* numbersPtr = numbers; // And a pointer which stores the pointer to the first element!
 
 cout << "Before: " << *numbersPtr << endl;
 
@@ -345,6 +346,73 @@ Use pointers if you don't want to initialise it at point of declaration. (Declar
 You HAVE to initialise a reference when you create it because a reference cannot be an alias for nothing/NULL, but pointers CAN!!
 
 Pointers can also be altered to point to other memory addresses! But references are stuck with being an immutable alias for only ONE object!
+
+
+
+### 2.8 Memory Management <a name="2.8"></a>
+
+[go to top](#top)
+
+Read more: http://www.cplusplus.com/doc/tutorial/dynamic/
+
+I have to say it here, since we've covered pointers. The reason why C++ is so powerful (and hard), is because you have to control how memory is managed in the program. This means cleaning up after yourself if you want to no longer use variables, controlling the memory flow, assigning pointers, and all the like. It goes really, really deep.
+
+So here's a small primer! For **dynamic (runtime) memory management.**
+
+
+
+#### **new and new[]**
+
+> You use `new` if you want objects to persist until you `delete` it. But if you don't specifically need that, DO NOT USE NEW because it's expensive memory-wise.
+
+`new` reserves memory, and returns a pointer to the memory that was allocated! If you assign an array, then it returns the pointer to the first element of the array.
+
+```c++
+int * foo; // Initialise a pointer
+int * bar; // Another one
+
+foo = new int; // And allocate memory to it
+bar = new int [5]; // Or perhaps an array of size 5?
+```
+
+>  But be careful! Memory allocated in this way needs to be disposed of manually using `delete.`
+>
+> Otherwise it becomes a memory leak, which, if accumulated enough such that your program runs out of the memory allocated to it, crashes.
+
+
+
+#### **delete and delete[]**
+
+`delete` is how you do garbage disposal. Be wary of using pointers you've deleted though! Since the memory space previously allocated to the pointer could have been used for other things, or would be filled with garbage.
+
+```c++
+delete ptr; // To delete pointers
+delete[] array_ptr; // To delete array pointers
+```
+
+
+
+#### **Assignment Failures**
+
+From: http://www.cplusplus.com/doc/tutorial/dynamic/
+
+If you try to store a variable that will take too much memory than the memory that is available, the assignment statement will fail.
+
+**You can catch this exception!**
+
+Alternatively, if you want to still let it pass, then use `nothrow`, which will return a null pointer instead (which is still bad, and you still have to verify if it worked, so it's less efficient, but easier to write intiailly...)
+
+```c++
+ foo = new int [5];  // if allocation fails, an exception is thrown 
+
+// Or using (nothrow)
+
+int * bar;
+bar = new (nothrow) int [5];
+if (bar == nullptr) { // Check to see if bar was assigned a null pointer
+  // error assigning memory. Take measures.
+}
+```
 
 
 
