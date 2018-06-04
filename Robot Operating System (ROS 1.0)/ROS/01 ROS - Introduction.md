@@ -3,7 +3,7 @@
 Author: methylDragon  
 Fairly comprehensive ROS crash course!  
 I'll be adapting it from the ROS Tutorials: http://wiki.ros.org/ROS/Tutorials    
-and ETHz: https://www.youtube.com/watch?v=0BxVPCInS3M&list=PLE-BQwvVGf8HOvwXPgtDfWoxd4Cc6ghiP
+and ETHz: http://www.rsl.ethz.ch/education-students/lectures/ros.html
 
 ------
 

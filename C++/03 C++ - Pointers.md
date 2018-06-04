@@ -317,7 +317,6 @@ https://stackoverflow.com/questions/5580761/why-use-double-pointer-or-why-use-po
 > - but now you want to change that address.
 > - you could, by doing pointer1 = pointer2, and pointer1 would now have the address of pointer2.
 > - BUT! if you want a function to do that for you, and you want the result to persist after the function is done, you need do some extra work, you need a new pointer3 just to point to pointer1, and pass pointer3 to the function.
-> - here is a fun example (take a look at the output bellow first, to understand!):
 
 Another example of indirection being used, is with strings!
 
@@ -400,7 +399,7 @@ If you try to store a variable that will take too much memory than the memory th
 
 **You can catch this exception!**
 
-Alternatively, if you want to still let it pass, then use `nothrow`, which will return a null pointer instead (which is still bad, and you still have to verify if it worked, so it's less efficient, but easier to write intiailly...)
+Alternatively, if you want to still let it pass, then use `nothrow`, which will return a null pointer instead (which is still bad, and you still have to verify if it worked, so it's less efficient, but easier to write intially...)
 
 ```c++
  foo = new int [5];  // if allocation fails, an exception is thrown 

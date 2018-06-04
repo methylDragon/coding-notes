@@ -1,4 +1,4 @@
-# Writing ROS Nodes
+# ROS Messages, Services, and Actions
 
 Author: methylDragon  
 Fairly comprehensive ROS crash course!  
@@ -38,159 +38,742 @@ and ETHz http://www.rsl.ethz.ch/education-students/lectures/ros.html
    2.13 [roscpp: Basic Subscriber](#2.13)    
    2.14 [roscpp: Parameters](#2.14)    
    2.15 [Making and building the roscpp package](#2.15)    
+3. [STILL WORKING ON THIS](#3)    
+   3.1   [ROS Workspaces](#3.1)    
+   3.2   [rosbash](#3.2)    
+   3.3   [roscore (ROS Master)](#3.3)    
+   3.4   [Using ROS](#3.4)    
+   3.5   [A Simple ROS Example](#3.5)    
+   3.6   [Visualising the ROS Graph](#3.6)    
+   3.7   [roslaunch](#3.7)    
+   3.8   [Launch Files](#3.8)    
+   3.9   [Gazebo (Simulation)](#3.9)     
 
 
 
-## 1. Concepts <a name="1"></a>
+## 1. Introduction <a name="1"></a>
 
-### 1.1 Introduction <a name="1.1"></a>
+So now you know how to write nodes. Ever wondered if you could do more? Of course you can!
+
+You can create **custom messages**, create **nodes just for serving requests**, or nodes that **carry out actions, and provide feedback.**
+
+We're going to talk about **messages, services, and actions!**
+
+
+
+## 2. Messages <a name="2"></a>
+
+### 2.1. Introduction <a name="2.1"></a>
 
 [go to top](#top)
 
-We've learnt about how to use ROS from the operator's perspective. Now we'll learn how to write nodes!
+Messages are what are sent to ROS nodes via topics! They are the subject that is published and sent to subscribers!
 
-But before we really jump into the code, let's get some concepts out of the way first. Then I'll go through the commonly used client APIs/interfaces. (C++ and Python, **roscpp** and **rospy** respectively.)
+You can create messages very easily, because ROS has a couple of macros that dynamically generate the language-specific message related code for you! All you need to do, is create the **.msg file**.
 
-There will be more concepts in the later sections, but let's take things as they come, ROS is a pretty extensive system after all.
+> [msg](http://wiki.ros.org/msg): msg files are simple text files that describe the fields of a ROS message. They are used to generate source code for messages in different languages.
+>
+> (http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv)
 
 
 
-### 1.2 ROS Packages <a name="1.2"></a>
+### 2.2. Messages <a name="2.2"></a>
 
 [go to top](#top)
 
-To create a new package:
+#### **Eligible Message Field Types**
 
-```shell
-$ catkin_create_pkg <package_name> <dependency_1> <dependency_2> ...
+Msg files are text files that consist of a single field per line. These are the eligible types:
+
+- int8, int16, int32, int64 (plus uint*)
+- float32, float64
+- string
+- time, duration
+- other msg files
+- variable-length array[] and fixed-length array[C]
+- the special Header type
+
+> The **Header** type consists of a **timestamp** and **coordinate frame.** A lot of packages use them, and it normally appears as the first line of a .msg file.
+
+
+
+#### **Example .msg file**
+
+```
+  Header header
+  string child_frame_id
+  geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/TwistWithCovariance twist
 ```
 
-Your nodes and executables will inevitably find themselves within ROS **packages** if you ever intend them to be used in a ROS system.
-
-Packages can contain:
-
-- Source code (/src)
-- Launch files (/launch)
-- Config files (/config and /param)
-- Message files (/msg)
-- And more!
 
 
-
-#### **Important Pointers**
-
-- **Keep track of dependencies!** You have to state them properly!
-
-- Make sure you **write your CMakelists.txt properly!** The Catkin reference I've written will help, but nothing beats trying it out yourself and having it break on you for a couple of (horrifically stressful) hours!
-
-- **Separate message definition packages from other packages**, because including messages in your executable packages tends to break stuff.
-
-  ![2.1](./Images/2.1.png)
-
-
-
-#### **Package.xml and CMakeLists.txt (Briefly)**
-
-For more info, read the catkin reference:
-
-Package.xml defines the package's properties:
-
-- Name
-- Description
-- Version
-- Author
-- Maintainer
-- **Dependencies**
-- **Build Tool** (use catkin !!)
-- etc. etc.
-
-CMakeLists.txt configures your package compilation, and configures:
-
-- CMake version (`cmake_minimum_required`)
-- Package name (`project()`)
-- Package dependencies (`find_package()`)
-- Python Module support (`catkin_python_setup()`)
-- Message/service/action generator setup (`add_message_files()`, `add_service_files`, `add_action_files()`)
-- Message/service/action generation (`generate_messages()`)
-- Build Info (`catkin_package()`)
-- Libraries and Executable build targets (`add_library()`, `add_exectuable()`, `target_link_libraries()`)
-- Tests (`catkin_add_gtest()`)
-- Install rules (`install()`)
-
-
-
-#### **Workflow**
-
-- Follow the instructions in the generated files to configure your package's CMakeLists.txt (more critical) and package.xml (ensure the build-tool selected is catkin!) (Refer to the catkin reference for more info!)
-- Then write your nodes and populate the src space and other relavant directories within the package folder!
-- Then go to the workspace root, and `catkin_make`!
-- Then re-source the workspace and double-check to see if your packages can be called via rosrun/roslaunch
-
->  I'll go through this again if it's important to later on. But if not, check out the catkin reference!
-
-
-
-### 1.3 Nodes <a name="1.3"></a>
+### 2.3 rosmsg <a name="2.3"></a>
 
 [go to top](#top)
 
-**Publishers** and **Subscribers**!
+ROS has a bunch of command line tools to help with messages as well!
 
-We already got the basic idea from the previous part, but going a little deeper, **nodes** can be treated like **objects** that:
+```shell
+# Show displays the contents of the corresponding message file
+$ rosmsg show package_name message_name
 
-- **Initialise** and **Shutdown** (with a node handler, and callback hooks!)
-- **Publish** or **subscribe** to topics (sending or receiving messages!)
-- **Run persistently** until otherwise (spin())
-- Have **namespaces** (/node_name vs <namespace>/node_name)
-- Can **log info** (ROS_INFO and ROS_INFO_STREAM)
-- Can have **callback functions** (on receiving a message)
-- Can store and retrieve **parameters** (via the ROS parameter server)
+# If you don't know the package, rosmsg will search for a matching message file!
+$ rosmsg show message_name
+
+# You can even use it in combination with rostopic to display type info about the topic!
+$ rostopic type /topic_name | rosmsg show
+
+
+# List displays a list of all messages
+$ rosmsg list
+
+# Package displays a list of all messages in a package
+$ rosmsg package package_name
+
+# Packages displays a list of all packages with messages
+$ rosmsg packages
+
+```
 
 
 
-### 1.4 Parameters <a name="1.4"></a>
+### 2.4 Creating Custom Messages  <a name="2.4"></a>
 
 [go to top](#top)
 
-**Configuration** parameters!
+Let's try making some custom messages!
 
-They're either **defined in launch files**, or referenced from **YAML files** within a package (like a config file!)
+> Reminder: To create a new package,
+>
+> ```shell
+> $ cd <your_workspace_directory>/src
+> $ catkin_create_pkg package_name rospy <any other dependencies, including standard ones!>
+> 
+> # Eg. catkin_create_pkg basic_pub_sub rospy std_msgs
+> ```
 
-- The ROS Master will cater for a **parameter server** that will be maintained that stores all the parameters within the entire ROS network.
-- **Nodes** use this parameter server to **store and retrieve parameters**
+**1. Go to your package directory**
 
+```shell
+$ roscd msg_example_msgs # Using a message-only package is good practice!
+$ mkdir msg # Make a msg folder to keep your message files
 
+$ cd msg
+$ touch My_msg.msg # Capitalising the first letter is the convention!
+```
 
-#### **Loading Parameters**
+**2. Then open that .msg file in your favourite text editor** and HAVE AT IT! (Write your data types and names)
 
-Normally parameters are loaded using launch files. Use `rosparam`
+```
+Header header
+string name
+uint8 dragon_rating
+```
+
+**3. Then go to package.xml** and **append these two lines**
 
 ```xml
-<launch>
-
-    <node pkg="my_package" type="node_name" name="custom_identifier" output="screen">
-        <rosparam command="load" file="$(find my_package)/config/default.yaml" />
-    </node>
-
-</launch>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
 ```
 
+**4. Then say hello to our ~~nemesis~~ good old friend CMakeLists.txt**
 
+Ensure these lines are present
 
-#### **Useful ROS terminal commands**
+```cmake
+cmake_minimum_required(VERSION 2.8.3)
+project(msg_example_msgs)
+
+# Standard dependencies
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  message_generation
+)
+
+# Your message files!
+add_message_files(
+  FILES
+  My_msg.msg # <-- Like this one!
+)
+
+# You need to include this in as well
+# Call it BEFORE catkin_package
+generate_messages(
+  DEPENDENCIES
+  std_msgs # You might have additional message files from other packages
+)
+
+# Additional catkin dependencies
+catkin_package(CATKIN_DEPENDS
+  message_runtime
+)
+```
+
+> NOTE:
+>
+> When you are compiling a package that requires message files from a separate message package, be sure to add
+>
+> ```cmake
+> add_dependencies(CURRENT_PACKAGE MESSAGE_PACKAGE_generate_messages_cpp)
+> ```
+>
+> Otherwise it **will** fail!
+
+**5. Then go back to your workspace root, and rebuild!**
 
 ```shell
-# List parameters
-$ rosparam list
-
-# Get value of parameter
-$ rosparam get parameter_name
-
-# Set value of parameter
-$ rosparam set parameter_name value
+$ roscd msg_example_msgs
+$ cd ../..
+$ catkin_make # or catkin_make install, see what works
 ```
 
-Of course, you can write parameter retrieve and store commands within node source code! We'll go through that for each client library we'll be going over.
+
+
+### 2.5 Using Custom Messages <a name="2.5"></a>
+
+[go to top](#top)
+
+In the last tutorial part, we learnt how to use the **rospy** and **roscpp** client libraries to write nodes that use in-built messages!
+
+Now I'll show you how to use them to include/import custom messages!
+
+> Our message file is structured as such
+>
+> ```
+> Header header
+> string name
+> uint8 dragon_rating
+> ```
+
+#### **rospy**
+
+Including the message
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# ^^^ The encoding line is just because I want to have a cute emoticon ヾ(°∇°*)
+
+import rospy
+from msg_example_msgs.msg import My_msg
+
+# Create the message object to publish
+msg = My_msg()
+```
+
+Testing it with a publisher
+
+```python
+# Then to use it~
+def talker():
+    # My_msg is the topic type (aka the message file the topic takes)
+    pub = rospy.Publisher("msg_example", My_msg, queue_size = 10)
+    
+    rospy.init_node("msg_example_node", anonymous = True)
+    rate = rospy.Rate(10)
+    
+    while not rospy.is_shutdown():
+        msg.header.stamp = rospy.Time.now() # Since our message has a header
+        # The header sequence value will increase once a subscriber is connected
+        
+        msg.name = "methylDragon"
+        msg.dragon_rating = 10
+        
+        rospy.loginfo("FIND MY OUTPUT ON /msg_example ! ヾ(°∇°*)")
+        
+        pub.publish(msg)
+        rate.sleep()
+        
+if __name__ == '__main__':
+    try:
+        talker()
+    except rospy.ROSInterruptException:
+        pass
+```
+
+#### **roscpp**
+
+Including the message
+
+```c++
+#include <ros/ros.h>
+#include <msg_example_msgs/My_msg.h>
+
+msg_example_msgs::My_msg msg;
+```
+
+Testing it with a publisher
+
+```c++
+int main(int argc, char **argv)
+{
+    ros::init(argc, argv, "msg_example_node");
+    ros::NodeHandle nh;
+
+    ros::Publisher chatter_publisher = nh.advertise<msg_example_msgs::My_msg>("msg_example", 1);
+
+    ros::Rate loopRate(10);
+
+    unsigned int count = 0;
+
+    while (ros::ok())
+    {
+        msg_example_msgs::My_msg msg; // Make a new message object
+        msg.header.stamp = ros::Time::now();
+        
+        msg.name = "methylDragon";
+        msg.dragon_rating = 10;
+        
+        ROS_INFO_STREAM("       .     .\n"
+                        "                                    .  |\\-^-/|  .\n"
+                        "FIND MY OUTPUT ON /msg_example !   /| } O.=.O { |\\ \n");
+
+        chatter_publisher.publish(msg);
+
+        ros::spinOnce();
+        loopRate.sleep();
+    }
+
+    return 0;
+}
+```
+
+
+
+Oh my goodness that was **exceedingly hard!**
+
+> Note: If you're importing messages from other packages, append these lines to **package.xml**
+>
+> ```xml
+> <build_depend>name_of_package_containing_custom_msg</build_depend>
+> <exec_depend>name_of_package_containing_custom_msg</exec_depend>
+> ```
+>
+> And this line to **CMakeLists.txt**
+>
+> ```cmake
+> add_dependencies(your_program ${catkin_EXPORTED_TARGETS})
+> 
+> # And then add these lines if you're using roscpp
+> find_package(catkin REQUIRED COMPONENTS std_msgs sensor_msgs)
+> include_directories(include ${catkin_INCLUDE_DIRS})
+> 
+> add_dependencies(your_program ${catkin_EXPORTED_TARGETS})
+> add_dependencies(your_library ${catkin_EXPORTED_TARGETS})
+> ```
+
+
+
+## 3. Services <a name="3"></a>
+
+### 3.1 Introduction <a name="3.1"></a>
+
+[go to top](#top)
+
+A ROS service is a special kind of topic that allows for two-way communication between nodes. (Specifically, request-response communication.)
+
+A service is used by two types of nodes:
+
+- The service server advertises the service, and listens for messages sent to the service
+  - It then computes the response, and publishes its response to the service!
+- The service client publishes to the service, calling it
+  - Then, it subscribes to the service and waits for the response
+
+The message types available for use with services are based off of the eligible .msg types, as shown in the previous section of this tutorial.
+
+But the service messages are defined in a special type of file called a .srv file.
+
+![3.1](./Images/3.1.png)
+
+(Image source: ETHz)
+
+
+
+### 3.2 Services  <a name="3.2"></a>
+
+[go to top](#top)
+
+#### **Eligible Service Field Types**
+
+Exactly the same as messages!
+
+Service files are just two message files 'smushed' into one!
+
+
+
+#### **Example .srv file**
+
+Recall the example .msg file:
+
+```
+  Header header
+  string child_frame_id
+  geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/TwistWithCovariance twist
+```
+
+A .srv file is **similar** (it's just two message files smushed into one, one request, one response)
+
+```
+request
+---
+response
+```
+
+Eg:
+
+```
+int64 A
+int64 B
+---
+int64 Sum
+```
+
+
+
+### 3.3 rosservice  <a name="3.3"></a>
+
+[go to top](#top)
+
+> NOTE: `rosservice` is **different** from `rossrv`, which does the same thing that `rosmsg` does for .srv files.
+
+You can use `rosservice` in the same way `rostopic` is used to publish and subscribe to topics, except now you're **calling the service.**
+
+```shell
+# List available services
+$ rosservice list
+
+# Show the type of the service (what messages it takes)
+$ rosservice type /service_name
+
+# Call a service
+$ rosservice call /service_name <argument_1> <argument_2> ...
+```
+
+
+
+### 3.4 Creating Services <a name="3.4"></a>
+
+[go to top](#top)
+
+Okay. Let's make a service file!
+
+> Reminder: To create a new package,
+>
+> ```shell
+> $ cd <your_workspace_directory>/src
+> $ catkin_create_pkg package_name rospy <any other dependencies, including standard ones!>
+> 
+> # Eg. catkin_create_pkg basic_pub_sub rospy std_msgs
+> ```
+
+**1. Go to your package directory**
+
+```shell
+$ roscd srv_example
+$ mkdir srv # Make a srv folder to keep your service files
+
+$ cd srv
+$ touch AddTwoInts.srv # Capitalising the first letter is the convention!
+```
+
+**2. Then open that .msg file in your favourite text editor** and HAVE AT IT! (Write your data types and names)
+
+```
+int64 A
+int64 B
+---
+int64 Sum
+```
+
+**3. Then go to package.xml** and **append these two lines**
+
+```xml
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+```
+
+**4. Then say hello to our ~~nemesis~~ good old friend CMakeLists.txt**
+
+Ensure these lines are present (**IN ORDER!**)
+
+```cmake
+find_package(catkin REQUIRED COMPONENTS
+   roscpp
+   rospy
+   std_msgs # <-- Add these
+   message_generation # <-- Add these (even though you're generating services)
+)
+
+# Uncomment this block
+add_service_files(
+  FILES
+  AddTwoInts.srv # <-- Add your srv files
+)
+
+# Uncomment this block (even though you're generating services)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+
+catkin_package(
+  CATKIN_DEPENDS message_runtime <and your other catkin dependencies> # <-- Add this 
+)
+```
+
+**5. Then go back to your workspace root, and rebuild!**
+
+```shell
+$ roscd example_service_package
+$ cd ../..
+$ catkin_make # or catkin_make install, see what works
+```
+
+
+
+### 3.5 Using Custom Services <a name="3.5"></a>
+
+[go to top](#top)
+
+This one is a little more involved than just including the messages like we did in the previous part.
+
+Let's use this service
+
+AddTwoInts.srv
+
+```
+int64 A
+int64 B
+---
+int64 Sum
+```
+
+Which should have generated a header file called AddTwoInts.h on build.
+
+
+
+#### **rospy server**
+
+>  Note: You import from your PACKAGE_NAME.srv !
+
+```python
+#!/usr/bin/env python
+
+from srv_example.srv import *
+import rospy
+
+# Here's your service callback function
+def handle_add_two_ints(req):
+    print("Returning [%s + %s = %s]" % (req.A, req.B, (req.A + req.B)))
+    return AddTwoIntsResponse(req.A + req.B)
+
+def add_two_ints_server():
+    rospy.init_node('add_two_ints_server')
+    
+    # Here's your service hook (AddTwoInts is the service type/file)
+    s = rospy.Service('add_two_ints', AddTwoInts, handle_add_two_ints)
+    print("Ready to add two ints.")
+    rospy.spin()
+
+if __name__ == "__main__":
+    add_two_ints_server()
+```
+
+#### **rospy client**
+
+```python
+#!/usr/bin/env python
+
+import sys
+import rospy
+from srv_example.srv import *
+
+# Service call handler (arguments are request.A, request.B, as x and y)
+def add_two_ints_client(x, y):
+    # Wait for service to become available
+    rospy.wait_for_service('add_two_ints')
+    
+    try:
+        # The service proxy handles the service call, like a temporary node!
+        # add_two_ints is the service name
+        # AddTwoInts is the service type/file
+        add_two_ints = rospy.ServiceProxy('add_two_ints', AddTwoInts)
+        resp1 = add_two_ints(x, y)
+        return resp1.sum
+
+    except rospy.ServiceException, e:
+        print("Service call failed: %s" %  e)
+
+# Invalid call reminder
+def usage():
+    return "Usage: %s [x y]" % sys.argv[0]
+
+if __name__ == "__main__":
+    
+    # If the service call was properly formatted, proceed
+    if len(sys.argv) == 3:
+        x = int(sys.argv[1])
+        y = int(sys.argv[2])
+        
+    # Else, remind the user of the proper usage
+    else:
+        print(usage())
+        sys.exit(1) # Terminate the script	
+
+    print("Requesting %s+%s" % (x, y))
+    print("%s + %s = %s" % (x, y, add_two_ints_client(x, y)))
+```
+
+> Remember to `chmod +x scripts/service_node_file.py` !
+
+
+
+#### **roscpp server**
+
+```c++
+#include <ros/ros.h>
+#include <srv_example/AddTwoInts.h>
+
+// Callback function
+bool add(srv_example::AddTwoInts::Request &request,
+         srv_example::AddTwoInts::Response &response)
+{
+  response.Sum = request.A + request.B;
+  
+  ROS_INFO("request: x=%ld, y=%ld", (long int)request.B, (long int)request.B);
+  
+  ROS_INFO(" sending back response: [%ld]", (long int)response.Sum);
+  
+  return true;
+}
+
+int main(int argc, char **argv)
+{
+  // Start the node
+  ros::init(argc, argv, "add_two_ints_server");
+  ros::NodeHandle nh;
+  
+  // Advertise the service
+  ros::ServiceServer service = nh.advertiseService("add_two_ints", add);
+  ROS_INFO("Ready to add two ints.");
+    
+  // Spin up
+  ros::spin();
+
+  return 0;
+}
+```
+
+#### **roscpp client**
+
+```c++
+#include <ros/ros.h>
+#include <srv_example/AddTwoInts.h>
+#include <cstdlib>
+
+int main(int argc, char **argv) {
+  ros::init(argc, argv, "add_two_ints_client");
+
+  if (argc != 3) {
+    ROS_INFO("Usage: %s [x y]", argv[0]);
+    return 1;
+}
+
+ros::NodeHandle nh;
+ros::ServiceClient client = nh.serviceClient<srv_example::AddTwoInts>("add_two_ints");
+
+srv_example::AddTwoInts service;
+service.request.A = atoi(argv[1]);
+service.request.B = atoi(argv[2]);
+
+// Service callback function
+// client.call(service) calls the client!
+if (client.call(service)) {
+  ROS_INFO("Sum: %ld", (long int)service.response.Sum);
+}
+else {
+  ROS_ERROR("Failed to call service add_two_ints");
+  return 1;
+}
+
+  return 0;
+} 
+```
+
+
+
+#### **Testing your service**
+
+```shell
+# Terminal 1
+$ roscore
+
+# Terminal 2
+$ rosrun srv_example srv_example_server
+
+# Terminal 3
+$ rosservice call /add_two_ints 1 3
+
+# Expected outputs
+# Terminal 2: Returning [1 + 3 = 4] (Or something along those lines)
+# Terminal 3: Sum: 4
+
+# NOTE: Remember to catkin_make and source your devel/setup.bash !
+```
+
+
+
+#### **argv refresher**
+
+`sys.argv` is a list that contains the arguments passed to the script using the command line. It comes from the argc argv  (argument count, argument vector) concept in C++.
+
+Basically, the elements of sys.argv are as such.
+
+The **first** element is the name of the script being called
+
+The elements **beyond** the first are the arguments passed to the script in order.
+
+SO. This is why you see calls to sys.argv[1], sys.argv[2] for the 2 argument service call in the rospy service example.
+
+
+
+### 1.5 Services <a name="1.5"></a>
+
+[go to top](#top)
+
+
+
+### 1.5 Services <a name="1.5"></a>
+
+[go to top](#top)
+
+
+
+### 1.5 Services <a name="1.5"></a>
+
+[go to top](#top)
+
+
+
+### 1.5 Services <a name="1.5"></a>
+
+[go to top](#top)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -215,7 +798,7 @@ Python is generally slower, but easier to write for than C++. You can mix nodes 
 
 [go to top](#top)
 
-(ros - pi, ros_py!!)
+(ros - pee, ros_py!!)
 
 Adapted from: http://wiki.ros.org/rospy_tutorials/Tutorials/WritingPublisherSubscriber
 
@@ -235,7 +818,7 @@ Ensure the following:
 
 [go to top](#top)
 
-(You don't need a .py in the script name, the first line solves that issue)
+(You don't need a .py, the first line solves that issue)
 
 ```python
 #!/usr/bin/env python
@@ -1095,6 +1678,8 @@ catkin_package(
   DEPENDS system_lib
 )
 
+# THIS IS SUPER IMPORTANT!
+# You need this to let catkin find ROS
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
@@ -1108,7 +1693,6 @@ target_link_libraries(basic_sub ${catkin_LIBRARIES})
 
 add_executable(hello_world src/hello_world.cpp)
 target_link_libraries(hello_world ${catkin_LIBRARIES})
-
 
 install(DIRECTORY launch
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
@@ -1164,7 +1748,7 @@ Read the rospy modularisation section first to get an idea of what's going on!
 
 ---
 
-![2.2](Images/2.2.png)
+![2.2](images/2.2.png)
 
 Source: ETHz
 
