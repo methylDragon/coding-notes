@@ -2,7 +2,7 @@
 
 Author: methylDragon  
 Fairly comprehensive ROS crash course!  
-I'll be adapting it from the ROS Tutorials:http://wiki.ros.org/ROS/Tutorials    
+I'll be adapting code and tutorial content from the ROS Tutorials:http://wiki.ros.org/ROS/Tutorials    
 and ETHz http://www.rsl.ethz.ch/education-students/lectures/ros.html    
 
 ------
@@ -17,39 +17,26 @@ and ETHz http://www.rsl.ethz.ch/education-students/lectures/ros.html
 
 ## Table Of Contents <a name="top"></a>
 
-1. [Introduction](#1)    
-   1.1   [Introduction](#1.1)    
-   1.2   [ROS Packages](#1.2)    
-   1.3   [Nodes](#1.3)    
-   1.4   [Parameters](#1.4)    
-2. [Basics of Writing Nodes](#2)    
+1. [Introduction](#1)        
+2. [Messages](#2)    
    2.1   [Introduction](#2.1)    
-   2.2   [rospy](#2.2)    
-   2.3   [rospy: hello_world](#2.3)    
-   2.4   [rospy: Basic Publisher](#2.4)    
-   2.5   [rospy: Basic Subscriber](#2.5)    
-   2.6   [rospy: Parameters](#2.6)    
-   2.7   [Making and building the rospy package](#2.7)    
-   2.8   [Extra rospy tips](#2.8)    
-   2.9   [roscpp](#2.9)    
-   2.10 [roscpp: Concepts](#2.10)    
-   2.11 [roscpp: hello_world](#2.11)    
-   2.12 [roscpp: Basic Publisher](#2.12)    
-   2.13 [roscpp: Basic Subscriber](#2.13)    
-   2.14 [roscpp: Parameters](#2.14)    
-   2.15 [Making and building the roscpp package](#2.15)    
-3. [STILL WORKING ON THIS](#3)    
-   3.1   [ROS Workspaces](#3.1)    
-   3.2   [rosbash](#3.2)    
-   3.3   [roscore (ROS Master)](#3.3)    
-   3.4   [Using ROS](#3.4)    
-   3.5   [A Simple ROS Example](#3.5)    
-   3.6   [Visualising the ROS Graph](#3.6)    
-   3.7   [roslaunch](#3.7)    
-   3.8   [Launch Files](#3.8)    
-   3.9   [Gazebo (Simulation)](#3.9)     
-
-
+   2.2   [Message Files](#2.2)    
+   2.3   [rosmsg](#2.3)    
+   2.4   [Creating Message Files](#2.4)    
+   2.5   [Using Custom Messages](#2.5) ([rospy](2.5.1)) ([roscpp](2.5.2))    
+3. [Services](#3)    
+   3.1   [Introduction](#3.1)    
+   3.2   [Service Files](#3.2)    
+   3.3   [rosservice](#3.3)    
+   3.4   [Creating Service Files](#3.4)    
+   3.5   [Writing Service Nodes](#3.5) ([rospy](3.5.1)) ([roscpp](3.5.2))    
+4. [Actions](#4)    
+   4.1   [Introduction](#4.1)    
+   4.2   [Action Files](#4.2)    
+   4.3   [rostopic for Actions](#4.3)    
+   4.4   [Creating Action Files](#4.4)    
+   4.5   [Writing Action Nodes](#4.5) ([rospy](4.5.1)) ([roscpp](4.5.2))    
+5. [Concluding Comparison](#5)    
 
 ## 1. Introduction <a name="1"></a>
 
@@ -77,7 +64,7 @@ You can create messages very easily, because ROS has a couple of macros that dyn
 
 
 
-### 2.2. Messages <a name="2.2"></a>
+### 2.2. Message Files <a name="2.2"></a>
 
 [go to top](#top)
 
@@ -138,11 +125,11 @@ $ rosmsg packages
 
 
 
-### 2.4 Creating Custom Messages  <a name="2.4"></a>
+### 2.4 Creating Message Files <a name="2.4"></a>
 
 [go to top](#top)
 
-Let's try making some custom messages!
+Let's try making some custom message files!
 
 > Reminder: To create a new package,
 >
@@ -249,7 +236,7 @@ Now I'll show you how to use them to include/import custom messages!
 > uint8 dragon_rating
 > ```
 
-#### **rospy**
+#### **rospy** <a name="2.5.1"></a>
 
 Including the message
 
@@ -296,7 +283,9 @@ if __name__ == '__main__':
         pass
 ```
 
-#### **roscpp**
+
+
+#### **roscpp** <a name="2.5.2"></a>
 
 Including the message
 
@@ -345,8 +334,6 @@ int main(int argc, char **argv)
 
 
 
-Oh my goodness that was **exceedingly hard!**
-
 > Note: If you're importing messages from other packages, append these lines to **package.xml**
 >
 > ```xml
@@ -366,6 +353,9 @@ Oh my goodness that was **exceedingly hard!**
 > add_dependencies(your_program ${catkin_EXPORTED_TARGETS})
 > add_dependencies(your_library ${catkin_EXPORTED_TARGETS})
 > ```
+> 
+>
+> If you're confused, just check the minimal msg_example package in resources and starter code.
 
 
 
@@ -377,32 +367,48 @@ Oh my goodness that was **exceedingly hard!**
 
 A ROS service is a special kind of topic that allows for two-way communication between nodes. (Specifically, request-response communication.)
 
-A service is used by two types of nodes:
-
-- The service server advertises the service, and listens for messages sent to the service
-  - It then computes the response, and publishes its response to the service!
-- The service client publishes to the service, calling it
-  - Then, it subscribes to the service and waits for the response
-
-The message types available for use with services are based off of the eligible .msg types, as shown in the previous section of this tutorial.
-
-But the service messages are defined in a special type of file called a .srv file.
-
-![3.1](./Images/3.1.png)
+![3.1](Images/3.1.png)
 
 (Image source: ETHz)
 
 
 
-### 3.2 Services  <a name="3.2"></a>
+#### **Service Servers and Clients**
+
+A service is facillitated by two types of nodes:
+
+- The service **server** advertises the service, and listens for messages sent to the service
+  - It then computes the response (*carrying out any required tasks along the way*), and publishes its response to the service!
+- The service **client** publishes to the service, calling it
+  - Then, it subscribes to the service and waits for the response, **stopping you from doing anything else on the terminal the service is called with.** (Services are synchronous! As opposed to actions, which are asynchronous and allow you to execute more instructions while the action is running.)
+
+
+
+### 3.2 Service Files  <a name="3.2"></a>
 
 [go to top](#top)
+
+The message types available for use with services are based off of the eligible .msg types, as shown in the previous section of this tutorial.
+
+But the service messages are defined in a special type of file called a .srv file.
+
+
 
 #### **Eligible Service Field Types**
 
 Exactly the same as messages!
 
 Service files are just two message files 'smushed' into one!
+
+> Eligible message field types
+>
+> - int8, int16, int32, int64 (plus uint*)
+> - float32, float64
+> - string
+> - time, duration
+> - other msg files
+> - variable-length array[] and fixed-length array[C]
+> - the special Header type
 
 
 
@@ -417,7 +423,9 @@ Recall the example .msg file:
   geometry_msgs/TwistWithCovariance twist
 ```
 
-A .srv file is **similar** (it's just two message files smushed into one, one request, one response)
+A .srv file is **similar** (it's just two message files smushed into one, one request, one response.)
+
+The sections are separated by three dashes. It has to be done this way.
 
 ```
 request
@@ -457,7 +465,7 @@ $ rosservice call /service_name <argument_1> <argument_2> ...
 
 
 
-### 3.4 Creating Services <a name="3.4"></a>
+### 3.4 Creating Service Files <a name="3.4"></a>
 
 [go to top](#top)
 
@@ -537,7 +545,7 @@ $ catkin_make # or catkin_make install, see what works
 
 
 
-### 3.5 Using Custom Services <a name="3.5"></a>
+### 3.5 Writing Service Nodes <a name="3.5"></a>
 
 [go to top](#top)
 
@@ -558,7 +566,7 @@ Which should have generated a header file called AddTwoInts.h on build.
 
 
 
-#### **rospy server**
+#### **rospy server** <a name="3.5.1"></a>
 
 >  Note: You import from your PACKAGE_NAME.srv !
 
@@ -634,7 +642,7 @@ if __name__ == "__main__":
 
 
 
-#### **roscpp server**
+#### **roscpp server **<a name="3.5.2"></a>
 
 ```c++
 #include <ros/ros.h>
@@ -743,1068 +751,186 @@ SO. This is why you see calls to sys.argv[1], sys.argv[2] for the 2 argument ser
 
 
 
-### 1.5 Services <a name="1.5"></a>
+## 4. Actions <a name="4"></a>
+
+### 4.1 Introduction <a name="4.1"></a>
 
 [go to top](#top)
 
+A ROS action is just like a ROS service, a special kind of topic that allows for two-way communication between nodes. But with some valuable, and notable differences.
 
+If services have request-response behaviour, actions have **goal, result, feedback** behaviour. This behaviour is non-blocking, as opposed to services. Which means that the program continues to flow as the action is being executed!
 
-### 1.5 Services <a name="1.5"></a>
+![3.2](Images/3.2.png)
 
-[go to top](#top)
+(Image source: ETHz)
 
 
 
-### 1.5 Services <a name="1.5"></a>
+#### **Action Topics**
 
-[go to top](#top)
+The Action topic is special, because it consists of 5 topics under its namespace:
 
+- **/goal**
+  - You send the desired goal to trigger the action here
+- **/cancel**
+  - You send a cancel signal to stop the action execution
+- **/status**
+  - Shows the status of the action server
+- **/result**
+  - Shows any end state messages from action execution
+- **/feedback**
+  - Shows any running messages during action execution
 
 
-### 1.5 Services <a name="1.5"></a>
 
-[go to top](#top)
+#### **Action Servers and Clients**
 
+An action is facillitated by two types of nodes:
 
+- The action **server** advertises the action topic, and listens for messages sent to the /goal or /cancel
+  - When a valid goal is sent to /goal, it triggers the action server to execute the action it is programmed to carry out, changing its status
+  - In the midst of executing that action, it constantly publishes to /feedback, giving information of the proceedings
+  - Upon completion, error, or a stop command (pre-empt) (eg. a command sent to /cancel, which clears the goal on /goal), the action concludes, and publishes to /result the appropriate result message
+- The action **client** publishes to the action topic
+  - Then, it can poll the /feedback, /status, and /goal topics to get information of the proceedings of the action execution.
+  - The client is able to continue with its program flow because action calls are not blocking (action calls are asynchronous), as opposed to service calls which are blocking.
 
 
 
+#### **Goal, Feedback, and Result**
 
-
-
-
-
-
-
-
-## 2. Basics of Writing Nodes <a name="2"></a>
-
-### 2.1 Introduction <a name="2.1"></a>
-
-[go to top](#top)
-
-It's time to begin!
-
-There are two commonly used client libraries/APIs for ROS.
-
-- **rospy** for Python
-- **roscpp** for C++
-
-Python is generally slower, but easier to write for than C++. You can mix nodes of the two different types, but mixing languages within a node is a little harder.
-
-
-
-### 2.2 rospy <a name="2.2"></a>
-
-[go to top](#top)
-
-(ros - pee, ros_py!!)
-
-Adapted from: http://wiki.ros.org/rospy_tutorials/Tutorials/WritingPublisherSubscriber
-
->  Minimal projects can be found in the tutorial folder.
-
-Remember that we're writing nodes here! So the hello world for this will be a 'hello world node', so to speak.
-
-Ensure the following:
-
-- You've created the workspace and sourced it
-- These scripts are in your package's **src** directory
-- You've built the scripts (read down for the tutorial for that)
-
-
-
-### 2.3 rospy: hello_world <a name="2.3"></a>
-
-[go to top](#top)
-
-(You don't need a .py, the first line solves that issue)
-
-```python
-#!/usr/bin/env python
-# The above line is MANDATORY
-
-import rospy # Here's rospy!
-from std_msgs.msg import String # This is how we import message types
-
-def logger():
-	
-    # Initialise the node, call it logger
-    # Anonymous means the node gets created as talker_serialnumber
-    # (That prevents namespace clashes)
-    # If there's a clash, the existing node will be booted off and forced to shutdown
-    rospy.init_node('logger', anonymous = True)
-    
-    rate = rospy.Rate(10) # 10hz
-    
-    # As long as the node is not shutdown, keep running this
-    while not rospy.is_shutdown():
-        log_str = "HELLO WORLD"
-        
-        # ROS log is usually shown on the Terminal screen
-        rospy.loginfo(log_str)
-        rate.sleep()
-        
-if __name__ == '__main__':
-    try:
-        logger()
-    except rospy.ROSInterruptException:
-        pass    
-```
-
-
-
-### 2.4 rospy: Basic Publisher <a name="2.4"></a>
-
-[go to top](#top)
-
-```python
-#!/usr/bin/env python
-
-import rospy
-from std_msgs.msg import String
-
-def talker():
-    # Create a publisher object
-    # It publishes String messages to the topic 'chatter'
-    pub = rospy.Publisher('chatter', String, queue_size = 10)
-    
-    rospy.init_node('talker', anonymous = True)
-    rate = rospy.Rate(10) # 10hz
-    
-    while not rospy.is_shutdown():
-        hello_str = "hello world %s" % rospy.get_time()
-        rospy.loginfo(hello_str)
-        
-        pub.publish(hello_str)
-        rate.sleep()
-
-if __name__ == '__main__':
-    try:
-        talker()
-    except rospy.ROSInterruptException:
-        pass    
-```
-
-
-
-### 2.5 rospy: Basic Subscriber <a name="2.5"></a>
-
-[go to top](#top)
-
-```python
-#!/usr/bin/env python
-
-import rospy
-from std_msgs.msg import String
-
-def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-    
-def listener():
-    rospy.init_node('listener', anonymous = True)
-    
-    # Callback function gets run each time a message is received
-    rospy.Subscriber("chatter", String, callback)
-
-    # spin() keeps Python from exiting until this node is stopped
-    rospy.spin()
-
-if __name__ == '__main__':
-    listener()
-```
-
-
-
-### 2.6 rospy: Parameters <a name="2.6"></a>
-
-[go to top](#top)
-
-Source: http://wiki.ros.org/rospy/Overview/Parameter%20Server
-
-**Get parameters** (`get_param`)
-
-Dictionaries are returned
-
-```python
-global_name = rospy.get_param("/global_name/etc")
-relative_name = rospy.get_param("relative_name/etc")
-private_param = rospy.get_param('~private_name/etc')    
-default_param = rospy.get_param('default_param/etc', 'default_value')
-
-# Fetch a group (dictionary) of parameters
-gains = rospy.get_param('gains')
-p, i, d = gains['P'], gains['I'], gains['D']
-```
-
-**Set parameters** (`set_param`, `set_param_raw`)
-
-```python
-# Using yaml strings
-rospy.set_param('a_string', 'baz')
-rospy.set_param('~private_int', '2')
-rospy.set_param('list_of_floats', "[1., 2., 3., 4.]")
-rospy.set_param('bool_True', "true")
-rospy.set_param('gains', "{'p': 1, 'i': 2, 'd': 3}")
-
-# Using raw python objects
-rospy.set_param_raw('a_string', 'baz')
-rospy.set_param_raw('~private_int', 2)
-rospy.set_param_raw('list_of_floats', [1., 2., 3., 4.])
-rospy.set_param_raw('bool_True', True)
-rospy.set_param_raw('gains', {'p': 1, 'i': 2, 'd': 3})
-
-rospy.get_param('gains/P') #should return 1
-```
-
-**Check parameter existance** (`has_param`)
-
-```python
-if rospy.has_param('to_delete'):
-    rospy.delete_param('to_delete')
-```
-
-**Delete parameter** (`delete_param`)
-
-```python
-try:
-    rospy.delete_param('to_delete')
-except KeyError:
-    print "value not set"
-```
-
-**Search parameters** (`search_param`)
-
-```python
-# This gets us the closest matching parameter in terms of the namespace
-# But the name has to match, of course
-param_name = rospy.search_param('global_example')
-
-v = rospy.get_param(param_name)
-```
-
-
-
-### 2.7 Making and building the rospy package <a name="2.7"></a>
-
-[go to top](#top)
-
-Pre-requisites:
-
-- You have to have **created** and **sourced** your catkin workspace!
-
-  - Create some workspace (example_ws)
-
-  - Create a src directory inside that workspace
-
-  - Go to the root of the workspace, and use `$ catkin_make`
-
-  - Then `$ source devel/setup.bash`
-
-**1. Initialise your package**
-
-```shell
-$ cd <your_workspace_directory>/src
-$ catkin_create_pkg package_name rospy <any other dependencies, including standard ones!>
-
-# Eg. catkin_create_pkg basic_pub_sub rospy std_msgs
-```
-
-**2. Populate src with your rospy scripts**
-
-Or, if you want to go modular, put them in sub-directories!
-
-> **Example folder structure:**
+> ![3.3.png](Images/3.3.png)
 >
-> my_catkin_ws
+> **Goal**
+> To accomplish tasks using actions, we introduce the notion of a goal that can be sent to an ActionServer by an ActionClient. In the case of moving the base, the goal would be a PoseStamped message that contains information about where the robot should move to in the world. For controlling the tilting laser scanner, the goal would contain the scan parameters (min angle, max angle, speed, etc).
 >
-> - src
->   - CMakeLists.txt
->   - **YOUR ROSPY PACKAGE**
->     - CMakeLists.txt (This is the one you edit)
->     - package.xml (This too!)
->     - **setup.py**
->     - src
->       - **PUT YOUR PYTHON SCRIPTS HERE**
-
-**3. Create setup.py**
-
-#### **Setup.py**
-
-^ Super important! Put it in the **root** of your **package**!
-
-Example setup.py:
-
-```python
-#!/usr/bin/env python
-
-from distutils.core import setup
-from catkin_pkg.python_setup import generate_distutils_setup
-
-setup_args = generate_distutils_setup(
-    
-    # State your package directories within /src here
-    packages = ['package_1', 'package_2'],
-    
-    # Script locations
-    scripts = ['scripts/script_name'],
-    
-    # root/src, basically
-    package_dir = {'': 'src'},
-    
-    # Your Python dependencies (eg. 'serial')
-    install_requires = ['python_module_1', 'python_module_2']
-)
-
-setup(**setup_args)
-```
-
-**4. Write your package description (package.xml)**
-
-For more info, read the **catkin tutorial**
-
-Example package.xml:
-
->  **NOTE:** Python dependencies are defined using the `<exec_depend>` tags. But using the name from the rosdistro_list!
+> **Feedback**
+> Feedback provides server implementers a way to tell an ActionClient about the incremental progress of a goal. For moving the base, this might be the robot's current pose along the path. For controlling the tilting laser scanner, this might be the time left until the scan completes.
 >
-> In so doing, it's slightly different from declaring Python dependencies in setup.py.
+> **Result**
+> A result is sent from the ActionServer to the ActionClient upon completion of the goal. This is different than feedback, since it is sent exactly once. This is extremely useful when the purpose of the action is to provide some sort of information. For move base, the result isn't very important, but it might contain the final pose of the robot. For controlling the tilting laser scanner, the result might contain a point cloud generated from the requested scan.
 >
-> Writing it this way allows catkin to install it for other people when they install via catkin
-
-```python
-<?xml version="1.0"?>
-<package format="2">
-  <name>basic_pub_sub</name>
-  <version>0.0.0</version>
-  <description>A minimal rospy basic pub-sub package!</description>
-
-  <author email="methyldragon@gmail.com">methylDragon</author>
-  <maintainer email="methyldragon@gmail.com">methylDragon</maintainer>
-  <url type="website">http://github.com/methylDragon</url>
-
-  <license>MIT</license>
-
-  <buildtool_depend>catkin</buildtool_depend>
-
-  <build_depend>rospy</build_depend>
-  <build_depend>std_msgs</build_depend>
-
-  <build_export_depend>rospy</build_export_depend>
-  <build_export_depend>std_msgs</build_export_depend>
-
-  <exec_depend>rospy</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  
-</package>
-```
-
-**5. Configure the build (CMakeLists.txt)**
-
-For more info, read the **catkin tutorial**
-
-Example CMakeLists.txt:
-
-```cmake
-cmake_minimum_required(VERSION 2.8.3)
-project(<package_name>)
-
-find_package(catkin REQUIRED COMPONENTS
-  rospy
-  <other_dependencies>
-)
-
-# Enable python building
-catkin_python_setup()
-
-# Initialise the export variables
-# Giving no arguments still initialises the variables (eg. CATKIN_PACKAGE_BIN_DESTINATION)
-catkin_package()
-
-# This is for installing SCRIPTS into the Install space
-# Note: ONLY INSTALL THE EXECUTABLES YOU WANT TO BE ABLE TO ROSRUN!!
-install(PROGRAMS
-  <YOUR SOURCE_CODE DIRS HERE>
-  <folders/SOURCE_CODE>
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-```
-
-**6. Build the package**
-
-- Go to the root of your workspace
-- Run `catkin_make` and ensure no errors occured
-- Source your workspace again `source devel/setup.bash`
-
-**7. Verify the package**
-
-Start a ROS master
-
-```shell
-$ roscore
-```
-
-Run your nodes
-
-```shell
-$ rosrun your_package_name node_name
-```
+> (Source: http://wiki.ros.org/actionlib)
 
 
 
-#### **False Failures**
-
-> You might find that the first time you run your package, the command will not autocomplete, because ROS takes awhile to find the package.
->
-> To speed it along, either manually type out the rosrun command, or use `rospack profile` to rebuild the package tree.
-
-
-
-### 2.8 Extra rospy tips <a name="2.8"></a>
+### 4.2 Action Files <a name="4.2"></a>
 
 [go to top](#top)
 
-#### **Modularisation**
+The message types available for use with actions are based off of the eligible .msg types, just like servces are.
 
-Read more: http://www.artificialhumancompanions.com/structure-python-based-ros-package/
+But the action messages are defined in a special type of file called a .action file.
 
-> Minimal projects can be found in the tutorial folder.
 
-It's always a good thing to **modularise** your code.
 
-> Actually you can just name the folders whatever you want, but nodes and scripts is clear enough
+#### **Eligible Action Field Types**
+
+Exactly the same as messages!
+
+Action files are just three message files 'smushed' into one! (As opposed to service files' two.)
+
+> Eligible message field types
 >
-> (Sometimes /nodes is called /bin)
->
-> Nodes: Something you expect ROS to rosrun with
->
-> Scripts: Any other kinds of scripts
+> - int8, int16, int32, int64 (plus uint*)
+> - float32, float64
+> - string
+> - time, duration
+> - other msg files
+> - variable-length array[] and fixed-length array[C]
+> - the special Header type
 
+
+
+#### **Example .action file**
+
+Recall the example .msg file:
+
+```
+  Header header
+  string child_frame_id
+  geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/TwistWithCovariance twist
+```
+
+An .action file is **similar** (it's just three message files smushed into one, goal, result, feedback)
+
+Again, the sections are separated by three dashes!
+
+```
+goal
 ---
-
-> **Example folder structure:**
->
-> - my_catkin_ws
->   - CMakeLists.txt
->   - src
->     - **YOUR_ROSPY_PACKAGE**
->       - CMakeLists.txt
->       - package.xml
->       - setup.py
->       - nodes
->         - node_1
->       - scripts
->         - script_1
->       - src
->         - python_package_1
->           - \_\_init\_\_.py
->           - node_source.py
->           - python_sub_package_1
->             - \_\_init\_\_.py
->             - node_sub_source_1.py
->             - node_sub_source_2.py
-
-NOTE: Conventionally, the python package will be called the same name as the ROS package
-> You must also use (and configure!) setup.py, which is the macro that will help Catkin locate the relevant Python files you'll want to use, as well as add your package to PYTHONPATH.
-
-Where:
-
-**python_package_1/\_\_init\_\_.py**
-
-```python
-#!/usr/bin/env python
-
-from node_source import main
-```
-
-**node_1** (the executable node)
-
-```python
-#!/usr/bin/env python
-
-# You can do this because of the __init__.py in my_pkg
-from python_package_1 import main
-
-if __name__== '__main__':
-     main()
-```
-
-**node_source** (the code implementing the node)
-
-```python
-#!/usr/bin/env python
-
-from python_sub_package_1 import node_sub_source_1
-
-# Your implementing source code
-# etc. etc.
-```
-
-(or, if you added an import statement in the sub_package's \_\_init\_\_.py,)
-
-```python
-#!/usr/bin/env python
-
-from python_sub_package_1 import some_function
-
-# + other source code
-```
-
-**setup.py**
-
-```python
-#!/usr/bin/env python
-
-from distutils.core import setup
-from catkin_pkg.python_setup import generate_distutils_setup
-
-# No Python dependencies in this example
-
-setup_args = generate_distutils_setup(
-    packages=['my_pkg'],
-    package_dir={'': 'src'},
-)
-
-
-setup(**setup_args)
-```
-
-**CMakeLists.txt**
-
-```cmake
-cmake_minimum_required(VERSION 2.8.3)
-project(my_pkg)
-
-find_package(catkin REQUIRED COMPONENTS
-  rospy
-)
-
-catkin_package()
-catkin_python_setup()
-
-install(PROGRAMS
-  nodes/node_1
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-```
-
-
-
-#### **More info about \_\_init\_\_.py**
-
-Read here: https://timothybramlett.com/How_to_create_a_Python_Package_with___init__py.html
-
-Or read the advanced section of the Python tutorial!
-
-
-
-#### **A better way to publish**
-
-Source: http://wiki.ros.org/rospy_tutorials/Tutorials/AdvancedPublishing
-
-As we know, when you're trying to publish something
-
-```python
-pub.publish(some_string) # rospy knows to create a std_msg.msg.String
-```
-
-But what if the message takes in multiple arguments?
-
-```shell
-$ rosmsg show std_msgs/ColorRGBA
-float32 r
-float32 g
-float32 b
-float32 a
-```
-
-Then you have to write it like this
-
-```python
-pub.publish(0.1, 0.2, 0.3, 0.4)
-
-# But this is (in the words of the tutorial) kind of brittle!
-# A better way is to actually use kwargs
-
-pub.publish(a = 1.0)
-
-# The rest will default to 0
-```
-
-
-
-### 2.9 roscpp  <a name="2.9"></a>
-
-[go to top](#top)
-
-Time to get started with C++!
-
->  Minimal projects can be found in the tutorial folder.
-
-Remember that we're writing nodes here! So the hello world for this will be a 'hello world node', so to speak.
-
-Ensure the following:
-
-- You've created the workspace and sourced it
-- These scripts are in your package's **src** directory
-- You've built the scripts (read down for the tutorial for that)
-
-
-
-### 2.10 roscpp: Concepts  <a name="2.10"></a>
-
-[go to top](#top)
-
-We'll be dealing with a bit more this time around than what we did in the rospy tutorial.
-
-roscpp goes a tiny bit deeper!
-
-
-
-#### **Node Handles**
-
-Read more: http://wiki.ros.org/roscpp/Overview/NodeHandles
-
-Node handles do several things:
-
-- Handle **initialisation** and **shutdown**
-- Handle communication with ROS (topics, services, parameters, etc.)
-
-
-
-These node handles can exist in several types of namespaces:
-
-- Public (default)
-  - Eg: `nh_ = ros::NodeHandle();` (or `ros::NodeHandle nh_;`)
-  - When looking for topics, resolves to: /namespace/topic
-- Private
-  - Eg: `nh_private_ = ros::NodeHandle("~");`
-  - When looking for topics, resolves to: /namespace/node/topic
-- Namespaced
-  - Eg: `nh_rawr_ = ros::NodeHandle("rawr");`
-  - When looking for topics, resolves to: /namespace/specific_name/topic
-- Global
-  - Eg: `nh_global_ = ros::NodeHandle("/");`
-  - When looking for topics, resolves to: /topic
-
-
-
-### 2.11 roscpp: hello_world  <a name="2.11"></a>
-
-[go to top](#top)
-
-```C++
-#include <ros/ros.h> // Include the ROS main header file
-
-int main(int argc, char** argv)
-{
-    ros::init(argc, argv, "rawrer", ros::init_options::AnonymousName);
-    // Initialise a node named rawrer, make it anonymous
-    // Check the rospy hello_world for what anonymous means
-
-    ros::NodeHandle node_handle; // This HANDLES all communications with ROS
-    // Topics, services, parameters, etc
-
-    ros::Rate loopRate(10); // Hz
-
-    // Let's just have a nice incrementer here
-    unsigned int count = 0;
-
-    // As long as ROS is running, keep running
-    while (ros::ok())
-    { // ros::ok() checks for the status of ROS
-        ROS_INFO_STREAM("Rawr " << count); // Log it!
-        // Notice how we aren't using cout here! Use ROS_INFO and ROS_INFO_STREAM!
-
-        ros::spinOnce(); // Calls all callbacks waiting to be called-back
-        loopRate.sleep(); // Sleep according to the loopRate
-        count++; // Aaaand increment our counter
-    }
-
-    return 0;
-}
-```
-
-
-
-### 2.12 roscpp: Basic Publisher  <a name="2.12"></a>
-
-[go to top](#top)
-
-```c++
-#include <ros/ros.h>
-#include <std_msgs/String.h>
-#include <sstream>
-
-int main(int argc, char **argv)
-{
-    // New node called talker
-    ros::init(argc, argv, "talker");
-    ros::NodeHandle nh;
-
-    // Publish onto the "chatter" topic with a queue size of 1
-    ros::Publisher chatter_publisher = nh.advertise<std_msgs::String>("chatter", 1);
-
-    ros::Rate loopRate(10);
-
-    unsigned int count = 0;
-
-    while (ros::ok())
-    {
-        std_msgs::String message; // Make a new message object
-        std::ostringstream string_count;
-        string_count << count;
-
-        message.data = "Rawr " + string_count.str(); // Write to it
-        ROS_INFO_STREAM(message.data);
-
-        chatter_publisher.publish(message);
-
-        ros::spinOnce();
-        loopRate.sleep();
-        count++;
-    }
-
-    return 0;
-}
-```
-
-
-
-
-
-### 2.13 roscpp: Basic Subscriber  <a name="2.13"></a>
-
-[go to top](#top)
-
-```c++
-#include <ros/ros.h> // Include the ROS main header file
-
-int main(int argc, char** argv)
-{
-    ros::init(argc, argv, "rawrer", ros::init_options::AnonymousName);
-    // Initialise a node named rawrer, make it anonymous
-    // Check the rospy hello_world for what anonymous means
-
-    ros::NodeHandle node_handle; // This HANDLES all communications with ROS
-    // Topics, services, parameters, etc
-
-    ros::Rate loopRate(10); // Hz
-
-    // Let's just have a nice incrementer here
-    unsigned int count = 0;
-
-    // As long as ROS is running, keep running
-    while (ros::ok())
-    { // ros::ok() checks for the status of ROS
-        ROS_INFO_STREAM("Rawr " << count); // Log it!
-        // Notice how we aren't using cout here! Use ROS_INFO and ROS_INFO_STREAM!
-
-        ros::spinOnce(); // Calls all callbacks waiting to be called-back
-        loopRate.sleep(); // Sleep according to the loopRate
-        count++; // Aaaand increment our counter
-    }
-
-    return 0;
-}
-```
-
-
-
-### 2.14 roscpp: Parameters  <a name="2.14"></a>
-
-[go to top](#top)
-
-First make a nodehandle: 
-
-`ros::NodeHandle nh("~");` (For parameters, the nodehandle to use is normally **private**)
-
-
-
-**Get parameters** (`getParam()`, `param()`)
-
-`getParam()` returns a Boolean, but stores in the variable in the second argument
-
-Returns **True** if a value was fetched
-
-Returns **False** otherwise
-
-`param()` works the same way, but if the parameter can't be retrieved, you can set a default value for it in that case.
-
-```c++
-std::string s;
-int i;
-
-// getParam()
-// The param_name's fetched parameter value is stored in s!
-nh.getParam("param_name", s);
-
-// param()
-nh.param("param_name_2", i, 42); // Default value is now 42
-
-nh.param<std::string>("param_name_2", s, "default_val")
-// Sometimes you need to include a hint
-```
-
-**Set parameters** (`setParam()`)
-
-```c++
-nh.setParam("param_name", "rawr");
-```
-
-**Check parameter existance** (`hasParam()`)
-
-```c++
-if (!nh.hasParam("my_param"))
-{
-	ROS_INFO("No param named 'my_param'");
-}
-```
-
-**Delete parameter** (`deleteParam()`)
-
-```python
-nh.deleteParam("param_name");
-```
-
-**Search parameters** (`searchParam()`)
-
-```c++
-std::string param_name;
-if (nh.searchParam("b", param_name))
-{
-	// If we found it, we can now query it using param_name
-	int i = 0;
-
-    nh.getParam(param_name, i);
-}
-
-else
-{
-	ROS_INFO("No param 'b' found in an upward search");
-}
-```
-
-
-
-### 2.15 Making and building the roscpp package  <a name="2.15"></a>
-
-[go to top](#top)
-
-Pre-requisites:
-
-- You have to have **created** and **sourced** your catkin workspace!
-  - Create some workspace (example_ws)
-  - Create a src directory inside that workspace
-  - Go to the root of the workspace, and use `$ catkin_make`
-  - Then `$ source devel/setup.bash`
-
-**1. Initialise your package**
-
-```shell
-$ cd <your_workspace_directory>/src
-$ catkin_create_pkg package_name roscpp <any other dependencies, including standard ones!>
-
-# Eg. catkin_create_pkg basic_pub_sub roscpp std_msgs
-```
-
-**2. Populate src with your roscpp scripts**
-
-Or, if you want to go modular, put them in sub-directories!
-
-> **Example folder structure:**
->
-> - my_catkin_ws
->   - src
->     - CMakeLists.txt
->     - **YOUR ROSCPP PACKAGE**
->       - CMakeLists.txt (This is the one you edit)
->       - package.xml (This too!)
->       - src
->         - **PUT YOUR C++ SCRIPTS HERE**
-
-**3. Write your package description (package.xml)**
-
-For more info, read the **catkin tutorial**
-
-Example package.xml:
-
-```python
-<?xml version="1.0"?>
-<package format="2">
-  <name>basic_pub_sub</name>
-  <version>0.0.0</version>
-  <description>A minimal roscpp basic pub-sub package!</description>
-
-  <author email="methyldragon@gmail.com">methylDragon</author>
-  <maintainer email="methyldragon@gmail.com">methylDragon</maintainer>
-  <url type="website">http://github.com/methylDragon</url>
-
-  <license>MIT</license>
-
-  <buildtool_depend>catkin</buildtool_depend>
-
-  <build_depend>roscpp</build_depend>
-  <build_depend>std_msgs</build_depend>
-
-  <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>std_msgs</build_export_depend>
-
-  <exec_depend>roscpp</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  
-</package>
-```
-
-**4. Configure the build (CMakeLists.txt)**
-
-For more info, read the **catkin tutorial**
-
-Example CMakeLists.txt:
-
-```cmake
-cmake_minimum_required(VERSION 2.8.3)
-project(basic_pub_sub)
-
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  std_msgs
-)
-
-# Initialise the export variables
-catkin_package(
-  INCLUDE_DIRS src
-  # LIBRARIES blah
-  CATKIN_DEPENDS roscpp std_msgs 
-  DEPENDS system_lib
-)
-
-# THIS IS SUPER IMPORTANT!
-# You need this to let catkin find ROS
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
-
-# One per executable!
-add_executable(basic_pub src/basic_pub.cpp)
-target_link_libraries(basic_pub ${catkin_LIBRARIES})
-
-add_executable(basic_sub src/basic_sub.cpp)
-target_link_libraries(basic_sub ${catkin_LIBRARIES})
-
-add_executable(hello_world src/hello_world.cpp)
-target_link_libraries(hello_world ${catkin_LIBRARIES})
-
-install(DIRECTORY launch
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-```
-
-**6. Build the package**
-
-- Go to the root of your workspace
-- Run `catkin_make` and ensure no errors occured
-- Source your workspace again `source devel/setup.bash`
-
-**7. Verify the package**
-
-Start a ROS master
-
-```shell
-$ roscore
-```
-
-Run your nodes
-
-```shell
-$ rosrun your_package_name node_name
-```
-
-
-
-#### **False Failures**
-
-> You might find that the first time you run your package, the command will not autocomplete, because ROS takes awhile to find the package.
->
-> To speed it along, either manually type out the rosrun command, or use `rospack profile` to rebuild the package tree.
-
-
-
-### 2.16 Extra roscpp tips  <a name="2.16"></a>
-
-[go to top](#top)
-
-#### **Modularisation and OOP**
-
-Adapted from: https://github.com/ethz-asl/ros_best_practices
-
+result
 ---
+feedback
+```
 
-**Pre-Requisites:**
+Eg:
 
-- Proficient in C++ OOP (read the C++ crash course OOP section!)
-- This is a wiiiild ride...
-
-Read the rospy modularisation section first to get an idea of what's going on!
-
+```
+int64 A
+int64 B
 ---
+int64 Sum
+```
 
-![2.2](images/2.2.png)
 
-Source: ETHz
 
->  **Example folder structure:**
->
-> - my_catkin_ws
->   - CMakeLists.txt
->   - src
->     - **YOUR_ROSCPP_PACKAGE**
->       - CMakeLists.txt
->       - package.xml
->       - config
->         - default.yaml
->       - launch
->         - launch_Node.launch
->       - include
->         - **PACKAGE_HEADERS**
->           - algorithm.hpp
->           - nodeClassInterface.hpp
->       - src
->         - algorithm.cpp
->         - nodeClassInterface.cpp
->         - Node.cpp
->
-> Note: Names files in the package /launch,  /src, and /include don't matter as long as you import the stuff properly
+### 4.3 rostopic for Actions <a name="4.3"></a>
 
-Where:
+[go to top](#top)
 
->  Since the code is way too long due to all the header files and imports and stuff, refer to the GitHub source link or the minimal project for examples
+ROS has no special command line interface for interacting with actions. Do it via `rostopic`
 
-- **Node.cpp** (Starts the node)
+```shell
+# List available actions
+# Look for the /goal, /cancel, /status, /result, /feedback pattern
+$ rostopic list
 
-  
+# Show the type of the service (what messages it takes)
+$ rostopic type /action_topic
 
-- **nodeClassInterface** (Node interface)
+# Call a service
+# Just publish the goal!
+$ rostopic pub /action_topic/goal goal_msg_type [CONTENT]
+```
 
-  - .hpp (header file) (Interface)
-  - .cpp (source code) (Implementation)
 
-- **algorithm** (Algorithmic part of the node) (Can be separated into a ROS-independent library) 
 
-  - .hpp (header file) (Interface)
+#### **Actionlib Ax GUI Tools**
 
-  - .cpp (source code) (Implementation)
+There's a handy GUI client if you really want to use it. But using rostopic is probably better...
 
-    
+```shell
+# Client
+$ rosrun actionlib axclient.py
 
-- **default.yaml** (For loading parameters)
+# Server
+$ rosrun actionlib axserver.py
+```
 
-- **launch_Node.launch** (For loading parameters on node start)
 
-  
 
-- **package.xml** (Good old 'friends')
+### 4.4 Creating Action Files <a name="4.4"></a>
 
-- **CMakeLists.txt** (Make sure you configure this properly)
+[go to top](#top)
+
+
+
+### 4.5 Writing Action Nodes <a name="4.5"></a>
+
+[go to top](#top)
+
+
+
+## 5. Concluding Comparison <a name="5"></a>
+
+[go to top](#top)
+
+![3.4](Images/3.4.png)
+
+(Image source: ETHz)
 
 
 
