@@ -66,7 +66,7 @@ In MySQL, data is stored in **Tables** that are grouped within **Databases**. It
 
 Within each table, each entry of data is stored in a **row** (also known as records), whereas each property that is being stored (eg. Name, Telephone Number, Index Number) define the **columns** (also known as fields.)
 
-![MySQL Table](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\MySQL\Images\01 Images\MySQL Table.png)
+![MySQL Table](E:\coding-notes\MySQL\assets/MySQL Table.png)
 
 
 
@@ -119,7 +119,11 @@ It's good practice to write your commands and keywords in upper-case. It's not r
 
 It's good practice to draw out your intended data input to see how you can design the schemas and tables.
 
-![Student Table](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\MySQL\Images\01 Images\Student Table.PNG)Then eventually this will allow you to more easily see how to design your tables!![Student Schemas](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\MySQL\Images\01 Images\Student Schemas.PNG) 
+![Student Table](E:\coding-notes\MySQL\assets/Student Table.PNG)
+
+Then eventually this will allow you to more easily see how to design your tables!
+
+![Student Schemas](E:\coding-notes\MySQL\assets/Student Schemas.PNG)
 
 A nice way to design your databases is using the concept of **Atomic Tables** and **Table Templating**. You want to keep things organised so you can perform queries really quickly using your database.
 
@@ -508,3 +512,9 @@ https://www.w3schools.com/sql/sql_ref_mysql.asp (Function list)
 https://www.w3schools.com/sql/sql_datatypes.asp (Data type list)  
 https://www.techonthenet.com/mysql/datatypes.php (Also a data type list)  
 https://www.sitepoint.com/understanding-sql-joins-mysql-database/ (Join list)
+
+
+
+------
+
+ [![Yeah! Buy the DRAGON a COFFEE!](E:/coding-notes/_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)

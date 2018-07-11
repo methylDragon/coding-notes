@@ -1,9 +1,9 @@
-# Writing ROS Nodes (WIP)
+# Writing ROS Nodes
 
 Author: methylDragon  
 Fairly comprehensive ROS crash course!  
 I'll be adapting it from the ROS Tutorials:http://wiki.ros.org/ROS/Tutorials    
-and ETHz https://www.youtube.com/watch?v=0BxVPCInS3M&list=PLE-BQwvVGf8HOvwXPgtDfWoxd4Cc6ghiP    
+and ETHz http://www.rsl.ethz.ch/education-students/lectures/ros.html    
 
 ------
 
@@ -38,16 +38,6 @@ and ETHz https://www.youtube.com/watch?v=0BxVPCInS3M&list=PLE-BQwvVGf8HOvwXPgtDf
    2.13 [roscpp: Basic Subscriber](#2.13)    
    2.14 [roscpp: Parameters](#2.14)    
    2.15 [Making and building the roscpp package](#2.15)    
-3. [STILL WORKING ON THIS](#3)    
-   3.1   [ROS Workspaces](#3.1)    
-   3.2   [rosbash](#3.2)    
-   3.3   [roscore (ROS Master)](#3.3)    
-   3.4   [Using ROS](#3.4)    
-   3.5   [A Simple ROS Example](#3.5)    
-   3.6   [Visualising the ROS Graph](#3.6)    
-   3.7   [roslaunch](#3.7)    
-   3.8   [Launch Files](#3.8)    
-   3.9   [Gazebo (Simulation)](#3.9)     
 
 
 
@@ -95,7 +85,7 @@ Packages can contain:
 
 - **Separate message definition packages from other packages**, because including messages in your executable packages tends to break stuff.
 
-  ![2.1](./Images/2.1.png)
+  ![2.1](./assets/2.1.png)
 
 
 
@@ -171,6 +161,22 @@ They're either **defined in launch files**, or referenced from **YAML files** wi
 
 
 
+#### **Loading Parameters**
+
+Normally parameters are loaded using launch files. Use `rosparam`
+
+```xml
+<launch>
+
+    <node pkg="my_package" type="node_name" name="custom_identifier" output="screen">
+        <rosparam command="load" file="$(find my_package)/config/default.yaml" />
+    </node>
+
+</launch>
+```
+
+
+
 #### **Useful ROS terminal commands**
 
 ```shell
@@ -209,7 +215,7 @@ Python is generally slower, but easier to write for than C++. You can mix nodes 
 
 [go to top](#top)
 
-(ros - pee, ros_py!!)
+(ros - pi, ros_py!!)
 
 Adapted from: http://wiki.ros.org/rospy_tutorials/Tutorials/WritingPublisherSubscriber
 
@@ -229,7 +235,7 @@ Ensure the following:
 
 [go to top](#top)
 
-(You don't need a .py, the first line solves that issue)
+(You don't need a .py in the script name, the first line solves that issue)
 
 ```python
 #!/usr/bin/env python
@@ -425,17 +431,18 @@ $ catkin_create_pkg package_name rospy <any other dependencies, including standa
 
 Or, if you want to go modular, put them in sub-directories!
 
-**Example folder structure:**
-
-- my_catkin_ws
-  - src
-    - CMakeLists.txt
-    - **YOUR ROSPY PACKAGE**
-      - CMakeLists.txt (This is the one you edit)
-      - package.xml (This too!)
-      - **setup.py**
-      - src
-        - **PUT YOUR PYTHON SCRIPTS HERE**
+> **Example folder structure:**
+>
+> my_catkin_ws
+>
+> - src
+>   - CMakeLists.txt
+>   - **YOUR ROSPY PACKAGE**
+>     - CMakeLists.txt (This is the one you edit)
+>     - package.xml (This too!)
+>     - **setup.py**
+>     - src
+>       - **PUT YOUR PYTHON SCRIPTS HERE**
 
 **3. Create setup.py**
 
@@ -567,6 +574,8 @@ $ rosrun your_package_name node_name
 >
 > To speed it along, either manually type out the rosrun command, or use `rospack profile` to rebuild the package tree.
 
+
+
 ### 2.8 Extra rospy tips <a name="2.8"></a>
 
 [go to top](#top)
@@ -587,29 +596,32 @@ It's always a good thing to **modularise** your code.
 >
 > Scripts: Any other kinds of scripts
 
-**Example folder structure:**
+---
 
-- my_catkin_ws
-  - CMakeLists.txt
-  - src
-    - **YOUR_ROSPY_PACKAGE**
-      - CMakeLists.txt
-      - package.xml
-      - setup.py
-      - nodes
-        - node_1
-      - scripts
-        - script_1
-      - src
-        - python_package_1
-          - \_\_init\_\_.py
-          - node_source.py
-          - python_sub_package_1
-            - \_\_init\_\_.py
-            - node_sub_source_1.py
-            - node_sub_source_2.py
+> **Example folder structure:**
+>
+> - my_catkin_ws
+>   - CMakeLists.txt
+>   - src
+>     - **YOUR_ROSPY_PACKAGE**
+>       - CMakeLists.txt
+>       - package.xml
+>       - setup.py
+>       - nodes
+>         - node_1
+>       - scripts
+>         - script_1
+>       - src
+>         - python_package_1
+>           - \_\_init\_\_.py
+>           - node_source.py
+>           - python_sub_package_1
+>             - \_\_init\_\_.py
+>             - node_sub_source_1.py
+>             - node_sub_source_2.py
 
-> #### NOTE: Conventionally, the python package will be called the same name as the ROS package
+NOTE: Conventionally, the python package will be called the same name as the ROS package
+> You must also use (and configure!) setup.py, which is the macro that will help Catkin locate the relevant Python files you'll want to use, as well as add your package to PYTHONPATH.
 
 Where:
 
@@ -621,7 +633,7 @@ Where:
 from node_source import main
 ```
 
-**node_1**
+**node_1** (the executable node)
 
 ```python
 #!/usr/bin/env python
@@ -633,24 +645,25 @@ if __name__== '__main__':
      main()
 ```
 
-**node_source**
+**node_source** (the code implementing the node)
 
 ```python
 #!/usr/bin/env python
 
 from python_sub_package_1 import node_sub_source_1
 
-# Some random code
+# Your implementing source code
 # etc. etc.
 ```
+
+(or, if you added an import statement in the sub_package's \_\_init\_\_.py,)
 
 ```python
 #!/usr/bin/env python
 
-# Alteranatively, if you added an import statement in
-# the sub_package's __init__.py, then,
-
 from python_sub_package_1 import some_function
+
+# + other source code
 ```
 
 **setup.py**
@@ -696,6 +709,8 @@ install(PROGRAMS
 #### **More info about \_\_init\_\_.py**
 
 Read here: https://timothybramlett.com/How_to_create_a_Python_Package_with___init__py.html
+
+Or read the advanced section of the Python tutorial!
 
 
 
@@ -760,6 +775,8 @@ We'll be dealing with a bit more this time around than what we did in the rospy 
 
 roscpp goes a tiny bit deeper!
 
+
+
 #### **Node Handles**
 
 Read more: http://wiki.ros.org/roscpp/Overview/NodeHandles
@@ -768,6 +785,8 @@ Node handles do several things:
 
 - Handle **initialisation** and **shutdown**
 - Handle communication with ROS (topics, services, parameters, etc.)
+
+
 
 These node handles can exist in several types of namespaces:
 
@@ -906,8 +925,6 @@ int main(int argc, char** argv)
 }
 ```
 
-r
-
 
 
 ### 2.14 roscpp: Parameters  <a name="2.14"></a>
@@ -935,7 +952,7 @@ std::string s;
 int i;
 
 // getParam()
-// The parameter's value is stored in s!
+// The param_name's fetched parameter value is stored in s!
 nh.getParam("param_name", s);
 
 // param()
@@ -1011,16 +1028,16 @@ $ catkin_create_pkg package_name roscpp <any other dependencies, including stand
 
 Or, if you want to go modular, put them in sub-directories!
 
-**Example folder structure:**
-
-- my_catkin_ws
-  - src
-    - CMakeLists.txt
-    - **YOUR ROSCPP PACKAGE**
-      - CMakeLists.txt (This is the one you edit)
-      - package.xml (This too!)
-      - src
-        - **PUT YOUR C++ SCRIPTS HERE**
+> **Example folder structure:**
+>
+> - my_catkin_ws
+>   - src
+>     - CMakeLists.txt
+>     - **YOUR ROSCPP PACKAGE**
+>       - CMakeLists.txt (This is the one you edit)
+>       - package.xml (This too!)
+>       - src
+>         - **PUT YOUR C++ SCRIPTS HERE**
 
 **3. Write your package description (package.xml)**
 
@@ -1132,9 +1149,78 @@ $ rosrun your_package_name node_name
 
 [go to top](#top)
 
-TO-DO: MODULARISATION (this one is actually cancerous)
+#### **Modularisation and OOP**
 
+Adapted from: https://github.com/ethz-asl/ros_best_practices
 
+---
+
+**Pre-Requisites:**
+
+- Proficient in C++ OOP (read the C++ crash course OOP section!)
+- This is a wiiiild ride...
+
+Read the rospy modularisation section first to get an idea of what's going on!
+
+---
+
+![2.2](assets/2.2.png)
+
+Source: ETHz
+
+>  **Example folder structure:**
+>
+> - my_catkin_ws
+>   - CMakeLists.txt
+>   - src
+>     - **YOUR_ROSCPP_PACKAGE**
+>       - CMakeLists.txt
+>       - package.xml
+>       - config
+>         - default.yaml
+>       - launch
+>         - launch_Node.launch
+>       - include
+>         - **PACKAGE_HEADERS**
+>           - algorithm.hpp
+>           - nodeClassInterface.hpp
+>       - src
+>         - algorithm.cpp
+>         - nodeClassInterface.cpp
+>         - Node.cpp
+>
+> Note: Names files in the package /launch,  /src, and /include don't matter as long as you import the stuff properly
+
+Where:
+
+>  Since the code is way too long due to all the header files and imports and stuff, refer to the GitHub source link or the minimal project for examples
+
+- **Node.cpp** (Starts the node)
+
+  
+
+- **nodeClassInterface** (Node interface)
+
+  - .hpp (header file) (Interface)
+  - .cpp (source code) (Implementation)
+
+- **algorithm** (Algorithmic part of the node) (Can be separated into a ROS-independent library) 
+
+  - .hpp (header file) (Interface)
+
+  - .cpp (source code) (Implementation)
+
+    
+
+- **default.yaml** (For loading parameters)
+
+- **launch_Node.launch** (For loading parameters on node start)
+
+  
+
+- **package.xml** (Good old 'friends')
+
+- **CMakeLists.txt** (Make sure you configure this properly)
 
 
 

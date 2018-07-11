@@ -30,6 +30,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.3   [Classes](#2.3)    
    2.4   [Child Class Declaration](#2.4)    
    2.5   [Virtual Methods and Polymorphisms](#2.5)    
+   2.6   [Friendship](#2.6)    
 
 
 
@@ -161,7 +162,7 @@ public:
 // Public methods and attributes can be accessed and changed by:
 // - any class
 
-private:
+private: // DEFAULT!
 // Private methods and attributes can only be accessed and changed by:
 // - the same class that declared it
 
@@ -255,7 +256,7 @@ Objects can also be categorised! So in OOP, objects can be created as instances 
 
 using namespace std;
 
-class Animal{
+class Animal {
 	private:
   		int height;
   		int weight;
@@ -266,22 +267,26 @@ class Animal{
   		// They are usually properties of groups, not individuals!
   
   	public: // The way this has been done is called encapsulation! It increases security.
-  		int getHeight(){ return height; }
+  		
+    	// Getter methods
+    	int getHeight(){ return height; }
   		int getWeight(){ return weight; }
   		string getName(){ return name; }
-  		void setHeight(int cm){ height = cm; } 
+  		
+    	// Setter methods
+    	void setHeight(int cm){ height = cm; } 
   		// You can use a conditional here to keep things sensible
   		void setWeight(int kg){ height = kg; }
   		void setName (string animalName){ name = animalName; }
   
   		void setAll(int, int, string);
   
-  		Animal(int, int, string); 
   		// This is our constructor! Constructors are named the same name as the class
-  		Animal();
-  		// Overloading example here
+    	Animal(int, int, string); 
+    	Animal(); // Or an overloaded function call
+  		
+    	// Destructor here
   		~Animal();
-		// Destructor here!
   
   		static int getNumOfAnimals() { return numOfAnimals; }
 		// Static methods are attached to classes and not objects
@@ -297,6 +302,9 @@ class Animal{
 int Animal::numOfAnimals = 0;
 
 void Animal::setAll(int height, int weight, string name){
+    // Note, we only need to use this -> if the variable names clash
+    // If the constructor had (int i_height) for example, then it's
+    // totally fine to do height = i_height
 	this -> height = height;
 	this -> weight = weight;
 	this -> name = name;
@@ -340,6 +348,69 @@ int main(){
 
 
 
+#### **A better way to initialise (initialisation lists)**
+
+Remember how we wrote the constructor?
+
+```c++
+Animal::Animal(int height, int weight, string name){
+	this -> height = height;
+	this -> weight = weight;
+	this -> name = name;
+	Animal::numOfAnimals++;
+}
+```
+
+Remember **direct initialisation** in part 1 of this crash course?
+
+No? Just recall that it's more efficient than assignment, since assignment createanother object in memory. So it's generally always better to do direct initialisation.
+
+How do we do it for multiple variables at a time? Use **initialisation lists**
+
+```c++
+Animal::Animal(int init_height, int init_weight, string init_name)
+    // Here's the init list! It's a little long, so we put it on the next line, indented
+    : height(init_height), weight(init_weight), name(init_name)
+    {
+        // Aaand then whatever other code we want to run!
+        // (Since the constructor IS a function)
+    }
+        
+        
+    // Note: We didn't use this -> since the argument names were changed to init_<foo>
+```
+
+So just remember that the next time you see a random `:` where it doesn't seem like there should be one!
+
+
+
+#### **Structs** (Data Structures)
+
+Read more: http://www.cplusplus.com/doc/tutorial/structures/
+
+They're just like classes! Except that their default member visibility is public.
+
+That means you can also write a constructor into them!
+
+```c++
+struct my_struct {
+    int a;
+    auto b;
+    
+    // Constructor with member initialisation
+    my_struct(int a_, auto b_)
+        : a(a_), b(b_) {}
+};
+
+// Make the structure object
+my_struct structure(1, 2);
+
+// Change its properties
+structure.a = 2
+```
+
+
+
 ### 2.4 Child Class Declaration <a name="2.4"></a>
 
 [go to top](#top)
@@ -361,7 +432,11 @@ Note: https://stackoverflow.com/questions/860339/difference-between-private-publ
 ```c++
 // Let's make a new class that inherits from Animal!
 
-class Dragon : public Animal { // So this is saying it inherits everything inheritable from Animal
+// So this is saying it inherits everything inheritable from Animal, and those inherited members become public
+
+// If, however, it was class Dragon : private Animal
+// Then all the inherited members become private for Dragons
+class Dragon : public Animal { 
   
 	private:
   		string sound = "Rawr"; // Heh. I mean. Rawr.
@@ -406,6 +481,20 @@ tom.toString();
 // etc. etc. etc.
 ```
 
+> Note: It is possible for a class to be a child class of multiple classes! This is called **multiple inheritance.**
+>
+> Just state it as such
+>
+> ```c++
+> class Child : public Parent_1, public Parent_2{
+> 
+> // so on and so forth
+> 
+> };
+> ```
+>
+> 
+
 
 
 ### 2.5 Virtual Methods and Polymorphisms <a name="2.5"></a>
@@ -440,8 +529,14 @@ void whatClassAreYou(Animal *animal){
 
 ```c++
 int main(){
-  Animal *animal = new Animal; // The 'new' keyword generates a pointer (a memory address to
-  Dragon *dragon = new Dragon; // be stored)
+  Animal *animal = new Animal; // The 'new' keyword generates a pointer (a memory address
+  Dragon *dragon = new Dragon; // to be stored)
+    
+  // Using new is just an option, it's not recommended unless you absolutely have to
+  // In this case you don't (just change the whatClassAreYou function arguments)
+  // But I just wanted to show it
+    
+  // https://stackoverflow.com/questions/655065/when-should-i-use-the-new-keyword-in-c
   
   animal->getClass(); // Prints: I'm an Animal
   dragon->getClass(); // Prints: I'm a Dragon!
@@ -462,9 +557,64 @@ int main(){
 
 
 
+### 2.6 Friendship <a name="2.6"></a>
+
+[go to top](#top)
+
+Read more: http://www.cplusplus.com/doc/tutorial/inheritance/
+
+Yes yes. It's a cute name. Let's move on.
+
+**Friends** of a class (be they **classes** or **functions**) are able to access the private and protected members of a class even if they are outside the class or the child classes!
+
+You do this by using the `friend` keyword.
+
+```c++
+// Let's do an example
+
+class Dragon {
+    // The default visibility is private
+    // So there's technically no need to state private:
+    int happiness;
+    int hunger;
+    
+  public:
+    // "Friendly"
+    friend int friendly_dragon_happiness_detector(const Dragon&);
+
+    // Here's our constructor
+    Dragon(int init_happiness, int init_hunger)
+        : happiness(init_happiness), hunger(init_hunger) {}
+    
+  // Some people say kobolds have an indepth insight into the state of their dragon
+  // I don't have any kobolds though. Kind of a stereotype.
+  friend class Kobold; // Kobolds are (allegedly) friends of dragons!
+}
+
+// Here we list the dragon friends!
+
+class Kobold {
+    // Some implementation
+}
+
+int friendly_dragon_happiness_detector(const Dragon& dragon){
+    return dragon.happiness // Boom. It'll work because it's 'friendly'
+    // But the folks really need to respect dragon privacy. Tsktsk.
+}
+```
+
+
+
+
+
 ```
                             .     .
                          .  |\-^-/|  .    
                         /| } O.=.O { |\     
 ```
 
+​    
+
+------
+
+ [![Yeah! Buy the DRAGON a COFFEE!](E:/coding-notes/_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)

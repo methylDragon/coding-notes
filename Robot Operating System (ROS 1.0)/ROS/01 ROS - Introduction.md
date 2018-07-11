@@ -3,7 +3,7 @@
 Author: methylDragon  
 Fairly comprehensive ROS crash course!  
 I'll be adapting it from the ROS Tutorials: http://wiki.ros.org/ROS/Tutorials    
-and ETHz: https://www.youtube.com/watch?v=0BxVPCInS3M&list=PLE-BQwvVGf8HOvwXPgtDfWoxd4Cc6ghiP
+and ETHz: http://www.rsl.ethz.ch/education-students/lectures/ros.html
 
 ------
 
@@ -89,7 +89,7 @@ The ROS communication graph is made of ROS nodes (which can run robotics applica
 - **Subscribers** subscribe to **topics**, and receive **messages** as they are published
 - All this activity is facilitated by the **ROS Master** (in the analogy, treat it as the forum site itself that hosts the nodes and topics, and mediates the messages!)
 
-![1.1](./Images/1.1.png)
+![1.1](./assets/1.1.png)
 
 (Image source: clearpathrobotics.com)
 
@@ -97,7 +97,7 @@ So for a practical example. Consider a simple image processing system implemente
 
 You have a camera node that **publishes** to an image_data **topic**, which is **subscribed** to by an image processing node and image display node.
 
-![1.2](./Images/1.2.png)
+![1.2](./assets/1.2.png)
 
 (Image source: clearpathrobotics.com)
 

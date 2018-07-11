@@ -666,4 +666,9 @@ RENAME newtablename
 https://www.youtube.com/watch?v=7TF00hJI78Y (Heavily adapted)  
 https://www.cheatography.com/guslong/cheat-sheets/php-syntax-for-beginners/ (Oh look a cheatsheet for PHP!)  
 http://www.dummies.com/programming/php/php-mysql-for-dummies-cheat-sheet/ (PHP-MySQL cheatsheet)  
-http://www.createafreewebsite.net/phpmysql/alter.html (Alter cheatsheet)
+http://www.createafreewebsite.net/phpmysql/alter.html (Alter cheatsheet)    
+    
+
+------
+
+ [![Yeah! Buy the DRAGON a COFFEE!](E:/coding-notes/_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)
