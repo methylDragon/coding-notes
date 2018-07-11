@@ -8,7 +8,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
 
 
 
-So far, I've covered:
+## So far, I've covered: <a name="top"></a>
 
 - [C++](#C++)
 - [OpenSplice DDS](#OpenSplice%20DDS)
@@ -28,16 +28,20 @@ So far, I've covered:
 
 ### C++ <a name="C++"></a>
 
+[go to top](#top)
+
 - [Introduction and Basic Syntax](./C++/01%20C++%20-%20Introduction.md)
 - [Functions and File IO](./C++/02%20C++%20-%20Functions%20and%20File%20IO.md)
 - [Pointers](./C++/03%20C++%20-%20Pointers.md)
 - [Object-Oriented Syntax](./C++/04%20C++%20-%20Object-Oriented%20Syntax.md)
-- [Tips and Tricks](./C++/05 C++%20-%20Tips%20and%20Tricks.md)
-- [(Bonus) Headers](./C++/Bonus Notes/BONUS%20C++%20-%20Headers.md)
+- [Tips and Tricks](./C++/05%20C++%20-%20Tips%20and%20Tricks.md)
+- [(Bonus) Headers](./C++/Bonus%20Notes/BONUS%20C++%20-%20Headers.md)
 
 
 
 ### OpenSplice DDS <a name="OpenSplice DDS"></a>
+
+[go to top](#top)
 
 - [Introduction and Basic Syntax](./DDS/OpenSplice%20DDS%20(C++%20API)/01%20DDS%20-%20Introduction.md)
 
@@ -45,11 +49,15 @@ So far, I've covered:
 
 ### MySQL <a name="MySQL"></a>
 
+[go to top](#top)
+
 - [Introduction and Basic Syntax](./MySQL/01%20MySQL%20-%20Introduction.md)
 
 
 
 ### PHP <a name="PHP"></a>
+
+[go to top](#top)
 
 - [Syntax and Database Interactions](./PHP/01%20PHP%20-%20Syntax%20and%20DB%20Interactions)
 - [Object-Oriented Syntax](./PHP/02%20PHP%20-%20Object-Oriented%20Syntax)
@@ -57,6 +65,8 @@ So far, I've covered:
 
 
 ### Python 3 <a name="Python 3"></a>
+
+[go to top](#top)
 
 - [Introduction and Basic Syntax](./Python%203/01%20Python%203%20-%20Introduction.md)
 - [Functions and File IO](./Python%203/02%20Python%203%20-%20Functions%20and%20File%20IO.md)
@@ -69,9 +79,13 @@ So far, I've covered:
 
 #### Catkin <a name="Catkin"></a>
 
+[go to top](#top)
+
 - [Catkin Reference](./Robot%20Operating%20System%20(ROS)/Catkin/01%20Catkin%20Reference.md)
 
 #### ROS <a name="ROS"></a>
+
+[go to top](#top)
 
 - [Introduction and Concepts](./Robot%20Operating%20System%20(ROS)/ROS/01%20ROS%20-%20Introduction.md)
 - [Writing Nodes (Publishers and Subscribers)](./Robot%20Operating%20System%20(ROS)/ROS/02%20ROS%20-%20Writing%20Nodes%20(Pub-Sub).md)
@@ -81,6 +95,8 @@ So far, I've covered:
 
 
 ### WordPress <a name="WordPress"></a>
+
+[go to top](#top)
 
 - [Introduction and Basic Syntax](./WordPress/01%20WordPress%20-%20Introduction.md)
 

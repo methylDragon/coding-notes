@@ -46,7 +46,7 @@ Since it was started as a blogging platform, WordPress sites are organized into 
 
 # 2. Plugin Development <a name="2"></a>
 
-## 2.1 Introduction <a name="2.1"></a>
+### 2.1 Introduction <a name="2.1"></a>
 
 [go to top](#top)
 
@@ -54,7 +54,7 @@ The main bulk of plugin development will deal with introducing new **actions** a
 
 
 
-## 2.2 Boilerplate Code <a name="2.2"></a>
+### 2.2 Boilerplate Code <a name="2.2"></a>
 
 [go to top](#top)
 
