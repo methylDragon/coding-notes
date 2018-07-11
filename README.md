@@ -6,13 +6,15 @@ I've compiled a whole bunch of tutorials and references for different **coding l
 
 Most of these can be read through in under an hour, and they're pitched at the beginner to intermediate level. But most importantly, they're **<u>designed to be CTRL-F-able!</u>**
 
-​    
+  
 
 ## Support my efforts!
 
- [![Yeah! Buy the DRAGON a COFFEE!](./_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon) | [Or leave a tip! ヾ(°∇°*)](https://www.paypal.me/methylDragon)
+ [![Yeah! Buy the DRAGON a COFFEE!](./_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)
 
-​    
+[Or leave a tip! ヾ(°∇°*)](https://www.paypal.me/methylDragon)
+
+  
 
 ## So far, I've covered: <a name="top"></a>
 
@@ -26,7 +28,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
   - [Catkin](#Catkin)
 - [WordPress](#WordPress)
 
-​    
+​  
 
 ## Tutorial Directory
 
