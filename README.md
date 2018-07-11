@@ -11,11 +11,11 @@ Most of these can be read through in under an hour, and they're pitched at the b
 So far, I've covered:
 
 - [C++](#C++)
-- [OpenSplice DDS](#OpenSplice\ DDS)
+- [OpenSplice DDS](#OpenSplice%20DDS)
 - [MySQL](#MySQL)
 - [PHP](#PHP)
-- [Python 3](#Python 3)
-- [Robot Operating System](#Robot\ Operating\ System)
+- [Python 3](#Python%203)
+- [Robot Operating System](#Robot%20Operating%20System)
   - [ROS](#ROS)
   - [Catkin](#Catkin)
 - [WordPress](#WordPress)
@@ -28,40 +28,40 @@ So far, I've covered:
 
 ### C++ <a name="C++"></a>
 
-- [Introduction and Basic Syntax](./C++/01 C++ - Introduction.md)
-- [Functions and File IO](./C++/02 C++ - Functions and File IO.md)
-- [Pointers](./C++/03 C++ - Pointers.md)
-- [Object-Oriented Syntax](./C++/04 C++ - Object-Oriented Syntax.md)
-- [Tips and Tricks](./C++/05 C++ - Tips and Tricks.md)
-- [(Bonus) Headers](./C++/Bonus Notes/BONUS C++ - Headers.md)
+- [Introduction and Basic Syntax](./C++/01%20C++%20-%20Introduction.md)
+- [Functions and File IO](./C++/02%20C++%20-%20Functions%20and%20File%20IO.md)
+- [Pointers](./C++/03%20C++%20-%20Pointers.md)
+- [Object-Oriented Syntax](./C++/04%20C++%20-%20Object-Oriented%20Syntax.md)
+- [Tips and Tricks](./C++/05 C++%20-%20Tips%20and%20Tricks.md)
+- [(Bonus) Headers](./C++/Bonus Notes/BONUS%20C++%20-%20Headers.md)
 
 
 
 ### OpenSplice DDS <a name="OpenSplice DDS"></a>
 
-- [Introduction and Basic Syntax](./DDS/OpenSplice DDS (C++ API)/01 DDS - Introduction.md)
+- [Introduction and Basic Syntax](./DDS/OpenSplice%20DDS%20(C++%20API)/01%20DDS%20-%20Introduction.md)
 
 
 
 ### MySQL <a name="MySQL"></a>
 
-- [Introduction and Basic Syntax](./MySQL/01 MySQL - Introduction.md)
+- [Introduction and Basic Syntax](./MySQL/01%20MySQL%20-%20Introduction.md)
 
 
 
 ### PHP <a name="PHP"></a>
 
-- [Syntax and Database Interactions](./PHP/01 PHP - Syntax and DB Interactions)
-- [Object-Oriented Syntax](./PHP/02 PHP - Object-Oriented Syntax)
+- [Syntax and Database Interactions](./PHP/01%20PHP%20-%20Syntax%20and%20DB%20Interactions)
+- [Object-Oriented Syntax](./PHP/02%20PHP%20-%20Object-Oriented%20Syntax)
 
 
 
 ### Python 3 <a name="Python 3"></a>
 
-- [Introduction and Basic Syntax](./Python 3/01 Python 3 - Introduction.md)
-- [Functions and File IO](./Python 3/02 Python 3 - Functions and File IO.md)
-- [Object-Oriented Syntax](./Python 3/03 Python 3 - Object-Oriented Syntax.md)
-- [Advanced Concepts](./Python 3/04 Python 3 - Advanced Concepts.md)
+- [Introduction and Basic Syntax](./Python%203/01%20Python%203%20-%20Introduction.md)
+- [Functions and File IO](./Python%203/02%20Python%203%20-%20Functions%20and%20File%20IO.md)
+- [Object-Oriented Syntax](./Python%203/03%20Python%203%20-%20Object-Oriented%20Syntax.md)
+- [Advanced Concepts](./Python%203/04%20Python%203%20-%20Advanced%20Concepts.md)
 
 
 
@@ -69,20 +69,20 @@ So far, I've covered:
 
 #### Catkin <a name="Catkin"></a>
 
-- [Catkin Reference](./Robot Operating System (ROS)/Catkin/01 Catkin Reference.md)
+- [Catkin Reference](./Robot%20Operating%20System%20(ROS)/Catkin/01%20Catkin%20Reference.md)
 
 #### ROS <a name="ROS"></a>
 
-- [Introduction and Concepts](./Robot Operating System (ROS)/ROS/01 ROS - Introduction.md)
-- [Writing Nodes (Publishers and Subscribers)](./Robot Operating System (ROS)/ROS/02 ROS - Writing Nodes (Pub-Sub).md)
-- [Messages, Services, and Actions](./Robot Operating System (ROS)/ROS/03 ROS - Messages, Services, and Actions.md)
-- [(Resource) ROS Starter Code and Resources](./Robot Operating System (ROS)/ROS/Starter Code and Resources)
+- [Introduction and Concepts](./Robot%20Operating%20System%20(ROS)/ROS/01%20ROS%20-%20Introduction.md)
+- [Writing Nodes (Publishers and Subscribers)](./Robot%20Operating%20System%20(ROS)/ROS/02%20ROS%20-%20Writing%20Nodes%20(Pub-Sub).md)
+- [Messages, Services, and Actions](./Robot%20Operating%20System%20(ROS)/ROS/03%20ROS%20-%20Messages,%20Services,%20and%20Actions.md)
+- [(Resource) ROS Starter Code and Resources](./Robot%20Operating%20System%20(ROS)/ROS/Starter%20Code%20and%20Resources)
 
 
 
 ### WordPress <a name="WordPress"></a>
 
-- [Introduction and Basic Syntax](./WordPress/01 WordPress - Introduction.md)
+- [Introduction and Basic Syntax](./WordPress/01%20WordPress%20-%20Introduction.md)
 
 
 
