@@ -11,11 +11,11 @@ Most of these can be read through in under an hour, and they're pitched at the b
 So far, I've covered:
 
 - [C++](#C++)
-- [OpenSplice DDS](#OpenSplice DDS)
+- [OpenSplice DDS](#OpenSplice\ DDS)
 - [MySQL](#MySQL)
 - [PHP](#PHP)
 - [Python 3](#Python 3)
-- [Robot Operating System](#Robot Operating System)
+- [Robot Operating System](#Robot\ Operating\ System)
   - [ROS](#ROS)
   - [Catkin](#Catkin)
 - [WordPress](#WordPress)
