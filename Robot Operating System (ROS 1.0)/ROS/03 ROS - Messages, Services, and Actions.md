@@ -236,8 +236,6 @@ Now I'll show you how to use them to include/import custom messages!
 > uint8 dragon_rating
 > ```
 
-
-
 #### **rospy** <a name="2.5.1"></a>
 
 Including the message
@@ -842,8 +840,8 @@ An action is facillitated by two types of nodes:
 
 #### **Goal, Feedback, and Result**
 
-> ![3.3.png](assets/3.3.png)
->
+![3.3.png](assets/3.3.png)
+
 > **Goal**
 > To accomplish tasks using actions, we introduce the notion of a goal that can be sent to an ActionServer by an ActionClient. In the case of moving the base, the goal would be a PoseStamped message that contains information about where the robot should move to in the world. For controlling the tilting laser scanner, the goal would contain the scan parameters (min angle, max angle, speed, etc).
 >
