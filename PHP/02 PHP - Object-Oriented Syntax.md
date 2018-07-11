@@ -521,8 +521,8 @@ Abstract classes cannot be instantiated, but it **forces** classes that implemen
 https://www.youtube.com/watch?v=5YaF8xTmxs4 (Heavily adapted)  
 http://www.logicbig.com/tutorials/misc/php/php-oop-cheat-sheet/ (Oh look! A more in-depth cheat sheet!)  
 
-
+​    
 
 ------
 
- [![Yeah! Buy the DRAGON a COFFEE!](E:/coding-notes/_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)
+ [![Yeah! Buy the DRAGON a COFFEE!](../_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)

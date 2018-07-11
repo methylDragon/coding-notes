@@ -513,8 +513,8 @@ https://www.w3schools.com/sql/sql_datatypes.asp (Data type list)
 https://www.techonthenet.com/mysql/datatypes.php (Also a data type list)  
 https://www.sitepoint.com/understanding-sql-joins-mysql-database/ (Join list)
 
-
+​    
 
 ------
 
- [![Yeah! Buy the DRAGON a COFFEE!](E:/coding-notes/_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)
+[![Yeah! Buy the DRAGON a COFFEE!](../_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)

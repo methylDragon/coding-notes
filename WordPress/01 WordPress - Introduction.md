@@ -42,6 +42,8 @@ WordPress (WP) is a content management system that uses PHP to dynamically gener
 
 Since it was started as a blogging platform, WordPress sites are organized into **pages** (eg. activity, about page, etc.) and **posts** (blog posts.) WP provides an easy backend console to deal with this and create pages and posts, but its true value comes in its extendibility with plugins and customization with code.
 
+
+
 # 2. Plugin Development <a name="2"></a>
 
 ## 2.1 Introduction <a name="2.1"></a>
@@ -330,3 +332,9 @@ https://codex.wordpress.org/Plugin_API
 https://www.youtube.com/watch?v=AQrXcsc4CIw (Actions, Filters, and Hooks)  
 https://www.youtube.com/watch?v=w257tYZtL8Y (WordPress Plugin Development)  
 https://wordpress.stackexchange.com/questions/1007/difference-between-filter-and-action-hooks (Filters vs Actions)
+
+​    
+
+------
+
+[![Yeah! Buy the DRAGON a COFFEE!](../_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)

@@ -943,3 +943,8 @@ Now you have the power!
                         /| } O.=.O { |\     
 ```
 
+​    
+
+------
+
+ [![Yeah! Buy the DRAGON a COFFEE!](../_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)
