@@ -15,7 +15,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [MySQL](#MySQL)
 - [PHP](#PHP)
 - [Python 3](#Python%203)
-- [Robot Operating System](#Robot%20Operating%20System)
+- [Robot Operating System](#Robot%20Operating%20System%20)
   - [ROS](#ROS)
   - [Catkin](#Catkin)
 - [WordPress](#WordPress)
@@ -59,8 +59,8 @@ Most of these can be read through in under an hour, and they're pitched at the b
 
 [go to top](#top)
 
-- [Syntax and Database Interactions](./PHP/01%20PHP%20-%20Syntax%20and%20DB%20Interactions)
-- [Object-Oriented Syntax](./PHP/02%20PHP%20-%20Object-Oriented%20Syntax)
+- [Syntax and Database Interactions](./PHP/01%20PHP%20-%20Syntax%20and%20DB%20Interactions.md)
+- [Object-Oriented Syntax](./PHP/02%20PHP%20-%20Object-Oriented%20Syntax.md)
 
 
 
@@ -75,7 +75,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
 
 
 
-### Robot Operating System (ROS) <a name="Robot Operating System (ROS)"></a>
+### Robot Operating System (ROS) <a name="Robot Operating System"></a>
 
 #### Catkin <a name="Catkin"></a>
 
