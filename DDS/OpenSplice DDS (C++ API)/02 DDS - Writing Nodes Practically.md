@@ -18,13 +18,9 @@ Compiling my notes from a whole variety of sources (mainly https://www.slideshar
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
-2. [OpenSplice DDS In A Nutshell](#2)    
-   2.1   [Architecture](#2.1)    
-   2.2   [Domain Participants](#2.2)    
-   2.3   [Topics](#2.3)    
-   2.4   [A Basic DDS Application](#2.4)    
-   2.5   [Reading and Writing Data (Alternate Example)](#2.5)    
-3. [Reference Links](#3)  
+2. [Writing OpenSplice DDS Nodes](#2)    
+   2.1   [Minimal Version (Not Recommended)](#2.1)    
+   2.2   [Abstracted Version (Recommended)](#2.2)    
 
 
 

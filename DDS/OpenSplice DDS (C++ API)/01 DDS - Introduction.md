@@ -24,7 +24,6 @@ Compiling my notes from a whole variety of sources (mainly https://www.slideshar
    2.3   [Topics](#2.3)    
    2.4   [A Basic DDS Application](#2.4)    
    2.5   [Reading and Writing Data (Alternate Example)](#2.5)    
-3. [Reference Links](#3)  
 
 
 

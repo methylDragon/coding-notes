@@ -1059,7 +1059,7 @@ Source: http://wiki.ros.org/actionlib_tutorials/Tutorials (With some additions f
 
 Check the minimal packages for implementation.
 
-#### **rospy server**
+#### **rospy server **<a name="4.5.1"></a>
 
 ```python
 #! /usr/bin/env python
@@ -1177,7 +1177,7 @@ if __name__ == '__main__':
 
 
 
-#### **roscpp server**
+#### **roscpp server** <a name="4.5.2"></a>
 
 ```c++
 #include <ros/ros.h>
@@ -1409,7 +1409,7 @@ Source: http://wiki.ros.org/actionlib_tutorials/Tutorials (With some additions f
 
 
 
-### 4.7 Writing hhh a Goal Callback <a name="4.7"></a>
+### 4.7 Writing a Goal Callback <a name="4.7"></a>
 
 [go to top](#top)
 
@@ -1418,10 +1418,6 @@ Source: http://wiki.ros.org/actionlib_tutorials/Tutorials (With some additions f
 
 
 
-
-
-
-## 
 
 
 
