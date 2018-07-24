@@ -70,6 +70,8 @@ Here's the Python 3 style guide: https://www.python.org/dev/peps/pep-0008/#funct
 
 [go to top](#top)
 
+Comments are meant to increase readability for programmers, and will be ignored by computers!
+
 ```python
 # this is a comment
 
@@ -1482,3 +1484,4 @@ Ever wondered how this works? Python implements this using Iterables and Iterato
 ------
 
  [![Yeah! Buy the DRAGON a COFFEE!](../_assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)
+
