@@ -578,7 +578,7 @@ catkin_package(
 **5. Then go back to your workspace root, and rebuild!**
 
 ```shell
-$ roscd example_service_package
+$ roscd srv_example
 $ cd ../..
 $ catkin_make # or catkin_make install, see what works
 ```
@@ -588,6 +588,8 @@ $ catkin_make # or catkin_make install, see what works
 ### 3.5 Writing Service Nodes <a name="3.5"></a>
 
 [go to top](#top)
+
+Source: http://wiki.ros.org/actionlib_tutorials/Tutorials
 
 This one is a little more involved than just including the messages like we did in the previous part.
 
@@ -909,10 +911,14 @@ feedback
 Eg:
 
 ```
-int64 A
-int64 B
+#goal definition
+int32 order
 ---
-int64 Sum
+#result definition
+int32[] sequence
+---
+#feedback
+int32[] sequence
 ```
 
 
@@ -956,11 +962,466 @@ $ rosrun actionlib axserver.py
 
 [go to top](#top)
 
+Source: http://wiki.ros.org/actionlib_tutorials/Tutorials
+
+Ok, you know the drill. Let's get to writing an action file.
+
+Create a package called `simple_action_example`. We'll make more later on, but for now let's just run this through for the simple example! We're going to do a fibonacci number calculator!
+
+**1. Go to your package directory**
+
+```shell
+$ roscd simple_action_example
+$ mkdir action # Make a srv folder to keep your service files
+
+$ cd action
+$ touch Fibonacci.action # Capitalising the first letter is the convention!
+```
+
+**2. Then open that .msg file in your favourite text editor** and HAVE AT IT! (Write your data types and names)
+
+Make the Fibonacci action!
+
+```
+#goal definition
+int32 order
+---
+#result definition
+int32[] sequence
+---
+#feedback
+int32[] sequence
+```
+
+**3. Then go to package.xml** and **append these two lines**
+
+```xml
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+```
+
+**4. Then say hello to our ~~nemesis~~ good old friend CMakeLists.txt**
+
+Ensure these lines are present (**IN ORDER!**)
+
+> Note: This is if you want to generate action messages. But if you want to use actionlib, check the appropriate section in 4.5
+
+```cmake
+find_package(catkin REQUIRED COMPONENTS
+   roscpp
+   rospy
+   actionlib_msgs # <-- Add this
+   # Notice there's no message_generation, this is because it's implied by actionlib_msgs
+)
+
+# Uncomment this block
+add_action_files(
+  DIRECTORY action
+  FILES Fibonacci.action
+)
+
+# Uncomment this block (even though you're generating services)
+generate_messages(
+  DEPENDENCIES
+  actionlib_msgs
+  std_msgs # And any other message packages you're using
+)
+
+catkin_package(
+  CATKIN_DEPENDS roscpp actionlib_msgs <and your other catkin dependencies> # <-- Add this 
+)
+```
+
+**5. Then go back to your workspace root, and rebuild!**
+
+```shell
+$ roscd simple_action_example
+$ cd ../..
+$ catkin_make # or catkin_make install, see what works
+```
+
+If you built this, you should find that in devel/include/simple_action_example, that there are 10 files that were created.
+
+```
+FibonacciActionFeedback.h  FibonacciAction.h        FibonacciFeedback.h  FibonacciResult.h
+FibonacciActionGoal.h      FibonacciActionResult.h  FibonacciGoal.h
+```
+
+Pretty cool eh!
 
 
-### 4.5 Writing Action Nodes <a name="4.5"></a>
+
+### 4.5 Writing Simple Action Nodes <a name="4.5"></a>
 
 [go to top](#top)
+
+Source: http://wiki.ros.org/actionlib_tutorials/Tutorials (With some additions from me)
+
+Check the minimal packages for implementation.
+
+#### **rospy server**
+
+```python
+#! /usr/bin/env python
+
+import rospy
+import actionlib
+import simple_action_example.msg
+
+# Create the action server as a class
+# The object is just in-case Python 2 is being used to interpret this
+# https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python
+class FibonacciAction(object):
+    # Create the Feedback and Result messages
+    _feedback = actionlib_tutorials.msg.FibonacciFeedback()
+    _result = actionlib_tutorials.msg.FibonacciResult()
+
+    # Constructor
+    def __init__(self, name):
+        self._action_name = name
+        
+        # Hook callbacks
+        self._as = actionlib.SimpleActionServer(self._action_name, 
+                                                actionlib_tutorials.msg.FibonacciAction, 
+                                                execute_cb=self.execute_cb, 
+                                                auto_start = False)
+        
+        # Start the action server
+        self._as.start()
+
+    # Goal execution callback
+    def execute_cb(self, goal):
+        # helper variables
+        r = rospy.Rate(1)
+        success = True
+        
+        # append the seeds for the fibonacci sequence
+        self._feedback.sequence = []
+        self._feedback.sequence.append(0)
+        self._feedback.sequence.append(1)
+        
+        # Publish info
+        rospy.loginfo('%s: Executing, creating fibonacci sequence of order %i with seeds %i, %i' % (self._action_name, goal.order, self._feedback.sequence[0], self._feedback.sequence[1]))
+        
+        # Execute the action
+        for i in range(1, goal.order):
+            # Check that preempt has not been requested by the client
+            # If yes, kill the action
+            if self._as.is_preempt_requested():
+                rospy.loginfo('%s: Preempted' % self._action_name)
+                self._as.set_preempted()
+                success = False
+                break
+                
+            self._feedback.sequence.append(self._feedback.sequence[i] + self._feedback.sequence[i-1])
+            
+            # publish the feedback
+            self._as.publish_feedback(self._feedback)
+            
+            # this step is not necessary, the sequence is computed at 1 Hz for demonstration purposes
+            r.sleep()
+          
+        if success:
+            self._result.sequence = self._feedback.sequence
+            rospy.loginfo('%s: Succeeded' % self._action_name)
+            self._as.set_succeeded(self._result)
+        
+if __name__ == '__main__':
+    rospy.init_node('fibonacci')
+    server = FibonacciAction(rospy.get_name())
+    rospy.spin()
+```
+
+#### **rospy client**
+
+```python
+#! /usr/bin/env python
+
+import rospy
+from __future__ import print_function # Lets you print like Python 3
+import actionlib
+import actionlib_tutorials.msg
+
+def fibonacci_client():
+    # SimpleActionClient consruction, targeting the fibonacci topic of type Fibonacci
+    client = actionlib.SimpleActionClient('fibonacci', 
+                                          actionlib_tutorials.msg.FibonacciAction)
+
+    # Waits until the action server has started up and started
+    # listening for goals. (So the goals aren't ignored.)
+    client.wait_for_server()
+
+    # Creates a goal to send to the action server.
+    goal = actionlib_tutorials.msg.FibonacciGoal(order=20)
+
+    # Sends the goal to the action server.
+    client.send_goal(goal)
+
+    # Waits for the server to finish performing the action.
+    client.wait_for_result()
+
+    # Prints out the result of executing the action
+    return client.get_result()  # A FibonacciResult
+
+if __name__ == '__main__':
+    try:
+        # Initializes a rospy node so that the SimpleActionClient can
+        # publish and subscribe over ROS.
+        rospy.init_node('fibonacci_client_py')
+        result = fibonacci_client()
+        
+        print("Result:", ', '.join([str(n) for n in result.sequence]))
+    except rospy.ROSInterruptException:
+        print("program interrupted before completion", file=sys.stderr)
+```
+
+
+
+#### **roscpp server**
+
+```c++
+#include <ros/ros.h>
+#include <actionlib/server/simple_action_server.h>
+#include <actionlib_tutorials/FibonacciAction.h>
+
+class FibonacciAction
+{
+protected:
+
+  ros::NodeHandle nh_;
+
+  // NodeHandle instance must be created before this line. Otherwise strange error occurs.
+  actionlib::SimpleActionServer<actionlib_tutorials::FibonacciAction> as_;
+  std::string action_name_;
+
+  // create messages that are used to published feedback/result
+  actionlib_tutorials::FibonacciFeedback feedback_;
+  actionlib_tutorials::FibonacciResult result_;
+
+public:
+
+  // Our constructor (with a cool initialisation list!)
+  // https://stackoverflow.com/questions/2785612/c-what-does-the-colon-after-a-constructor-mean
+  FibonacciAction(std::string name) :
+    // Bind the callback to the action server. False is for thread spinning
+    as_(nh_, name, boost::bind(&FibonacciAction::executeCB, this, _1), false),
+    action_name_(name)
+  {
+    // Start the action server
+    as_.start();
+  }
+
+  // Destructor
+  ~FibonacciAction(void)
+  {
+  }
+
+  // Execute action callback (passing the goal via reference)
+  void executeCB(const actionlib_tutorials::FibonacciGoalConstPtr &goal)
+  {
+    // helper variables
+    ros::Rate r(1);
+    bool success = true;
+
+    // push_back the seeds for the fibonacci sequence
+    feedback_.sequence.clear();
+    feedback_.sequence.push_back(0);
+    feedback_.sequence.push_back(1);
+
+    // publish info to the console for the user
+    ROS_INFO("%s: Executing, creating fibonacci sequence of order %i with seeds %i, %i", action_name_.c_str(), goal->order, feedback_.sequence[0], feedback_.sequence[1]);
+
+    // start executing the action (i <= goal->order, as goal is a pointer)
+    for(int i=1; i<=goal->order; i++)
+    {
+      // check that preempt has not been requested by the client
+      if (as_.isPreemptRequested() || !ros::ok())
+      {
+        ROS_INFO("%s: Preempted", action_name_.c_str());
+        // set the action state to preempted
+        as_.setPreempted();
+        success = false;
+        break;
+      }
+
+      // Add the number to the feedback to be fed back
+      feedback_.sequence.push_back(feedback_.sequence[i] + feedback_.sequence[i-1]);
+      // publish the feedback
+      as_.publishFeedback(feedback_);
+      // this sleep is not necessary, the sequence is computed at 1 Hz for demonstration purposes
+      r.sleep();
+    }
+
+    if(success)
+    {
+      result_.sequence = feedback_.sequence;
+      ROS_INFO("%s: Succeeded", action_name_.c_str());
+      // set the action state to succeeded
+      as_.setSucceeded(result_);
+    }
+  }
+};
+
+
+int main(int argc, char** argv)
+{
+  ros::init(argc, argv, "fibonacci");
+
+  // Create an action server object and spin ROS
+  FibonacciAction fibonacci("fibonacci");
+  ros::spin();
+
+  return 0;
+}
+```
+
+#### **roscpp client**
+
+```c++
+#include <ros/ros.h>
+#include <actionlib/client/simple_action_client.h>
+#include <actionlib/client/terminal_state.h>
+#include <simple_action_example/FibonacciAction.h>
+
+int main (int argc, char **argv)
+{
+  // Init ROS node called test_fibonacci
+  ros::init(argc, argv, "test_fibonacci");
+
+  // create the action client
+  // true causes the client to spin its own thread
+  actionlib::SimpleActionClient<simple_action_example::FibonacciAction> ac("fibonacci", true);
+
+  ROS_INFO("Waiting for action server to start.");
+  // wait for the action server to start
+  ac.waitForServer(); //will wait for infinite time
+
+  ROS_INFO("Action server started, sending goal.");
+  // send a goal to the action
+  simple_action_example::FibonacciGoal goal;
+  goal.order = 20;
+  ac.sendGoal(goal);
+
+  //wait for the action to return
+  bool finished_before_timeout = ac.waitForResult(ros::Duration(30.0));
+
+  if (finished_before_timeout)
+  {
+    actionlib::SimpleClientGoalState state = ac.getState();
+    ROS_INFO("Action finished: %s",state.toString().c_str());
+  }
+  else
+    ROS_INFO("Action did not finish before the time out.");
+
+  //exit
+  return 0;
+}
+```
+
+
+
+#### **roscpp CMakelists setup**
+
+Example minimal file from the tutorials:
+
+```python
+cmake_minimum_required(VERSION 2.8.3)
+project(simple_action_example)
+
+find_package(catkin REQUIRED COMPONENTS roscpp actionlib actionlib_msgs)
+
+# Since we added Boost
+find_package(Boost REQUIRED COMPONENTS system)
+
+add_action_files(
+  DIRECTORY action
+  FILES Fibonacci.action
+)
+
+generate_messages(
+  DEPENDENCIES actionlib_msgs std_msgs
+)
+
+catkin_package(
+  CATKIN_DEPENDS actionlib_msgs
+)
+
+include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+
+# Link the node
+add_executable(fibonacci_server src/fibonacci_server.cpp)
+
+target_link_libraries(
+  fibonacci_server
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(
+  fibonacci_server
+  # The one below is the name of your package!!
+  ${simple_action_example_EXPORTED_TARGETS}
+)
+
+# Link the node
+add_executable(fibonacci_client src/fibonacci_client.cpp)
+
+target_link_libraries(
+  fibonacci_client
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(
+  fibonacci_client
+  # The one below is the name of your package!!
+  ${simple_action_example_EXPORTED_TARGETS}
+)
+```
+
+
+
+#### **Testing your action**
+
+Easy! But remember that **you will need to echo the /feedback topic to see anything worthwhile!**
+
+If you want to self-publish a goal, remember to send it with a header and goal ID!
+
+```bash
+# Terminal 1
+$ roscore
+
+# Terminal 2
+$ rosrun simple_action_example fibonacci_server
+
+# Terminal 3
+$ rosrun simple_action_example fibonacci_client
+
+# Then just echo the topics using rostopic echo /fibonacci/???
+# And view the graph (using rqt_graph) if you want to!
+```
+
+
+
+### 4.6 Writing an Action Server with a Goal Callback <a name="4.6"></a>
+
+[go to top](#top)
+
+Source: http://wiki.ros.org/actionlib_tutorials/Tutorials (With some additions from me)
+
+
+
+### 4.7 Writing hhh a Goal Callback <a name="4.7"></a>
+
+[go to top](#top)
+
+Source: http://wiki.ros.org/actionlib_tutorials/Tutorials (With some additions from me)
+
+
+
+
+
+
+
+## 
 
 
 

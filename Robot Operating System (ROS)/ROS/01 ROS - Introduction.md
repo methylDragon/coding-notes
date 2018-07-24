@@ -32,7 +32,7 @@ and ETHz: http://www.rsl.ethz.ch/education-students/lectures/ros.html
    3.6   [Visualising the ROS Graph](#3.6)    
    3.7   [roslaunch](#3.7)    
    3.8   [Launch Files](#3.8)    
-   3.9   [RViz](#3.9)
+   3.9   [RViz](#3.9)    
    3.10 [Gazebo (Simulation)](#3.10)     
 
 

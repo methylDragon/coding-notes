@@ -52,7 +52,8 @@ Most of the notes will be adapted from: http://wiki.ros.org/catkin/Tutorials
    4.10 [Specify Build Targets (and more!)](#4.10)    
    4.11 [Add Unit Test Handlers (Optional)](#4.11)    
    4.12 [Specify Installable Targets (and Python Scripts!)](#4.12)    
-   ​
+   4.13 [Use a Custom Compiler Version)](#4.13)    
+   
 
 ## 1. Introduction
 
@@ -803,6 +804,20 @@ install(DIRECTORY launch/
 ```
 
 ​    
+
+### 4.13 Use a Custom Compiler Version <a name="4.13"></a>
+
+[go to top](#top)
+
+Sometimes you might want ROS to compile with a different compiler version to leverage certain features of that compiler.
+
+This one sets the compiler to use to C++11! (Which allows one to use list initialisation! Super useful for making maps.)
+
+```python
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+```
+
+
 
 ------
 

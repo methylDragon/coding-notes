@@ -161,6 +161,44 @@ They're either **defined in launch files**, or referenced from **YAML files** wi
 
 
 
+#### **Eligible Types**
+
+http://wiki.ros.org/Parameter%20Server#Parameter_Types
+
+> The Parameter Server uses XMLRPC data types for parameter values, which include:
+>
+> - 32-bit integers
+> - booleans
+> - strings
+> - doubles
+> - iso8601 dates
+> - lists
+> - base64-encoded binary data
+
+
+
+#### **Storing Dictionaries as Parameters**
+
+> You can also store dictionaries (i.e. structs) on the Parameter Server, though they have special meaning. The Parameter Server represents ROS namespaces as dictionaries. For example, imagine you set the following three parameters:
+>
+> ```
+> /gains/P = 10.0
+> /gains/I = 1.0
+> /gains/D = 0.1
+> ```
+>
+> You can either read them back separately, i.e. retrieving `/gains/P` would return 10.0, or you can retrieving `/gains`, which would return a dictionary:
+>
+> ```
+> { 'P': 10.0, 'I': 1.0, 'D' : 0.1 }
+> ```
+>
+> Just like the ROS naming hierarchy, you can nest dictionaries within dictionaries to represent child namespaces.
+
+You deal with these dictionaries the same way you'd deal with them in C++ and Python.
+
+
+
 #### **Loading Parameters**
 
 Normally parameters are loaded using launch files. Use `rosparam`
@@ -1000,6 +1038,53 @@ else
 	ROS_INFO("No param 'b' found in an upward search");
 }
 ```
+
+
+
+#### Getting arrays/dictionaries of parameters
+
+In Python doing this is less of an issue because of auto-typing, but in C+ you need to pay a bit more attention.
+
+You're allowed to store the arrays and dicts in `std::vector` and `std::map`s respectively. With the following types:
+
+- bool
+- int
+- float
+- double
+- string
+
+
+
+Then you can mess with them as per normal!
+
+```c++
+// Code source: http://wiki.ros.org/roscpp/Overview/Parameter%20Server
+
+// Create a ROS node handle
+ros::NodeHandle nh;
+
+// Construct a map of strings
+std::map<std::string,std::string> map_s, map_s2;
+map_s["a"] = "foo";
+map_s["b"] = "bar";
+map_s["c"] = "baz";
+
+// Set and get a map of strings
+nh.setParam("my_string_map", map_s);
+nh.getParam("my_string_map", map_s2);
+
+// Sum a list of doubles from the parameter server
+std::vector<double> my_double_list;
+double sum = 0;
+nh.getParam("my_double_list", my_double_list);
+for(unsigned i=0; i < my_double_list.size(); i++) {
+  sum += my_double_list[i];
+}
+```
+
+Note: You'll have to use a for loop to populate a message with array/dict values, you can't do a direct cast, sadly.
+
+
 
 
 
