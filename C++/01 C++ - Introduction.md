@@ -93,7 +93,7 @@ line comment! */
 
 [go to top](#top)
 
-`#include <NAME>`
+`#include <NAME>` or `#include "NAME"` !!
 
 common ones are
 
@@ -101,6 +101,22 @@ common ones are
 `<vector> ` for vectors
 `<string>`  for strings
 `<fstream>`  for file input outputs
+
+
+
+> Note on `< >` vs `" "`:
+>
+> The type of symbol you use when importing libraries affects how the compiler prioritises which library to import in the event of a clashing name.
+>
+> 
+>
+> `< >`: Search for the library/file in the include path list first    
+>
+> `" "`: Search for the library/file in the current directory of your source code
+>
+> 
+>
+> Generally, the convention is to always use `< >` for standard libraries, and `" "` otherwise.
 
 
 
