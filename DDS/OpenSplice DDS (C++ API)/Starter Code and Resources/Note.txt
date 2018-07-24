@@ -1,0 +1,5 @@
+These packages are slightly edited versions of the following:
+https://github.com/grassjelly/opensplice_minimal
+https://github.com/grassjelly/opensplice_boilerplate
+
+CH3EERS!

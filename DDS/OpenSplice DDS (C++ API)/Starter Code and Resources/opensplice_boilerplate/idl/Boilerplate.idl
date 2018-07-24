@@ -1,0 +1,14 @@
+struct Template
+{
+    long userID;
+    string message;
+};
+#pragma keylist Template userID
+
+struct Sensor
+{
+    long userID;
+    string message;
+};
+#pragma keylist Sensor userID
+

@@ -1,0 +1,14 @@
+#/usr/bin/env bash
+
+if [ "$(ls -A gen)" ]; then
+    rm gen/*.cpp
+    rm gen/*.h
+    rm gen/*.hpp
+fi
+
+#idlpp -S -l c++ -I $OSPL_HOME/etc/idl -d src idl/*.idl 
+
+#$OSPL_HOME/bin/./idlpp -l isoc++2 -I$OSPL_HOME/etc/idlpp -d gen idl/*.idl 
+
+$OSPL_HOME/bin/./idlpp -S -l cpp -d gen idl/*.idl 
+

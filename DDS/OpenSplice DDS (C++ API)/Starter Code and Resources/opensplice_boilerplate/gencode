@@ -1,0 +1,40 @@
+#/usr/bin/env bash
+
+if [ "$(ls -A gen)" ]; then
+    rm gen/*.cpp
+    rm gen/*.h
+fi
+
+$OSPL_HOME/bin/./idlpp -S -l cpp -d gen idl/*.idl 
+
+IDL=idl/*.idl
+IDL_NAME=$(basename $IDL .idl)
+
+rm -rf lib/boilerplate/types
+mkdir -p lib/boilerplate/types
+TYPES=($(awk '{for(i=1;i<=NF;i++) if ($i=="struct") print $(i+1)}' $IDL));
+for i in ${TYPES[@]}
+do
+    :
+    MSG_LIBRARY=lib/boilerplate/types/$i
+    mkdir -p $MSG_LIBRARY
+
+    cp lib/boilerplate/template/Boilerplate.cpp $MSG_LIBRARY
+    cp lib/boilerplate/template/Boilerplate.h $MSG_LIBRARY
+    cp lib/boilerplate/template/CMakeLists.txt $MSG_LIBRARY
+
+    perl -pi -e "s/Template/$i/g" $MSG_LIBRARY/Boilerplate.cpp
+    perl -pi -e "s/Template/$i/g" $MSG_LIBRARY/Boilerplate.h
+
+    perl -pi -e "s/Boilerplate/$i/g" $MSG_LIBRARY/Boilerplate.cpp
+    perl -pi -e "s/Boilerplate/$i/g" $MSG_LIBRARY/Boilerplate.h
+    perl -pi -e "s/BOILERPLATE_H/$i"_H"/g" $MSG_LIBRARY/Boilerplate.h
+    perl -pi -e "s/"ccpp_"$i/"ccpp_"$IDL_NAME/g" $MSG_LIBRARY/Boilerplate.h
+
+    perl -pi -e "s/Template/$i/g" $MSG_LIBRARY/CMakeLists.txt
+
+    mv $MSG_LIBRARY/Boilerplate.cpp $MSG_LIBRARY/$i.cpp
+    mv $MSG_LIBRARY/Boilerplate.h $MSG_LIBRARY/$i.h
+
+    echo $i Boilerplate Done!
+done

@@ -1,0 +1,24 @@
+sudo: required
+dist: trusty
+language: generic
+
+compiler:
+  - gcc
+
+install: 
+  - cd $HOME
+  - git clone https://github.com/grassjelly/opensplice-install
+  - cd opensplice-install
+  - ./install
+  
+script: 
+  - source $HOME/opensplice/install/HDE/x86_64.linux-dev/release.com
+  - cd $HOME
+  - git clone https://github.com/grassjelly/opensplice_boilerplate
+  - cd opensplice_boilerplate
+  - ./gencode
+  - ./compile
+
+notifications:
+  email:
+    - jimenojmm@gmail.com

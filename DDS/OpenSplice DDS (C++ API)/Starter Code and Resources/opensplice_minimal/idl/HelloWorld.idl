@@ -1,0 +1,12 @@
+/** Modules mean that the Msg will be put into a corresponding namespace when the message header is generated */
+module HelloWorld
+{
+   struct Msg
+   {
+      /** User ID */
+      long userID;
+      /**  message */
+      string message;
+   };
+   #pragma keylist Msg userID
+};
