@@ -1,3 +1,6 @@
 [submodule "VBA"]
 	path = VBA
 	url = https://github.com/09x09/VBA-crash-course
+[submodule "VBA-crash-course"]
+	path = VBA-crash-course
+	url = https://github.com/09x09/VBA-crash-course
