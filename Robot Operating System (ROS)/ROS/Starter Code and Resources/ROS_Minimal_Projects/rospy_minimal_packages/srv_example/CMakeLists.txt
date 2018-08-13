@@ -22,9 +22,3 @@ generate_messages(
 catkin_package(CATKIN_DEPENDS
   message_runtime # <-- Add this 
 )
-
-install(PROGRAMS
-  src/srv_example/srv_example_server
-  src/srv_example/srv_example_client
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)

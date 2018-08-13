@@ -8,25 +8,3 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_package()
 catkin_python_setup()
-
-install(PROGRAMS
-  nodes/modular_pub
-  nodes/modular_sub
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-#install(DIRECTORY launch
-#    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-#)
-
-#install(DIRECTORY param
-#    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-#)
-
-#install(DIRECTORY maps
-#    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-#)
-
-#install(DIRECTORY rviz
-#    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-#)

@@ -8,8 +8,3 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_package()
 catkin_python_setup()
-
-install(PROGRAMS
-  src/param_example/param_example
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
