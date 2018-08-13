@@ -41,7 +41,7 @@ and ETHz: http://www.rsl.ethz.ch/education-students/lectures/ros.html
 
 ROS stands for Robot Operating System. And true to its name, it's for working with robots!
 
-ROS
+ROS:
 
 - Is a **publisher-subscriber framework** (pub-sub) for running independent programs on robots (across different system architectures)
 - Has a **rich ecosystem of open-source packages and tools** written by its active community
@@ -70,6 +70,12 @@ Make sure you **read** the tutorials! Don't just blindly copy terminal commands!
 Dualbooting Ubuntu 16.04: https://www.tecmint.com/install-ubuntu-16-04-alongside-with-windows-10-or-8-in-dual-boot/
 
 Installing ROS: http://wiki.ros.org/kinetic/Installation/Ubuntu
+
+
+
+> Here's a handy set of quick install scripts to get ROS set up!
+>
+> https://github.com/methylDragon/quick-install-scripts
 
 
 
@@ -125,6 +131,17 @@ Or, building from source otherwise
 $ cd <workspace_directory>/catkin_ws
 $ catkin_make
 ```
+
+
+
+> Please go ahead and install the tutorials package!
+>
+> ```bash
+> # Replace <distro> with your ROS distribution (it should be kinetic)
+> $ sudo apt-get install ros-<distro>-ros-tutorials
+> ```
+>
+> 
 
 
 
@@ -224,6 +241,7 @@ Example:
 $ roscd <package>[/subdir]
 $ rosrun <package> <node>
 
+# Read the next section before running this! :)
 $ rosrun roscpp_tutorials talker
 ```
 
@@ -245,14 +263,14 @@ In order to help it along, you **MUST** specify the IP address of the ROS master
 
 ```shell
 # On the machine with the ROS master
-$ export ROS_HOSTNAME = localhost
-$ export ROS_MASTER_URI = http://localhost:11311
+$ export ROS_HOSTNAME=localhost
+$ export ROS_MASTER_URI=http://localhost:11311
 ```
 
 ```shell
 # On any other machine
-$ export ROS_HOSTNAME = <MACHINE_IP_ADDRESS>
-$ export ROS_MASTER_URI = <MASTER_MACHINE_IP_ADDRESS>
+$ export ROS_HOSTNAME=<MACHINE_IP_ADDRESS>
+$ export ROS_MASTER_URI=<MASTER_MACHINE_IP_ADDRESS>
 ```
 
 I'd highly suggest you append these commands into ~/.bashrc so you don't have to keep typing it!
@@ -603,6 +621,13 @@ But some uses for it are:
 Gazebo is one of the more popular simulation suites that is used with ROS. We're going to try using it with the Turtlebot3 simulator so we can get started writing code without having a hardware robot to play with! This way we can learn and practice the software side of things even without a huge budget!
 
 Let's install the Turtlebot3 simulator!
+
+> **If Gazebo doesn't work:**
+>
+> - Install the desktop version of the Linorobot using the [ros_lino_base_install script](https://github.com/methylDragon/quick-install-scripts/blob/master/Linux/ros_lino_base_install) (Courtesy of [Linorobot.org](http://linorobot.org))
+> - And the Linorobot [simulator](https://github.com/grassjelly/robot_playground)! (Follow the instructions on the repo!)
+
+
 
 ```shell
 $ sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers
