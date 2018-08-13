@@ -1059,7 +1059,7 @@ Source: http://wiki.ros.org/actionlib_tutorials/Tutorials (With some additions f
 
 Check the minimal packages for implementation.
 
-#### **rospy server **<a name="4.5.1"></a>
+#### **rospy server** <a name="4.5.1"></a>
 
 ```python
 #! /usr/bin/env python
