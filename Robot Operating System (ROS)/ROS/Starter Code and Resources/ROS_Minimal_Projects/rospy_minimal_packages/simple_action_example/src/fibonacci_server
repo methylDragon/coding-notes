@@ -9,8 +9,8 @@ import simple_action_example.msg
 # https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python
 class FibonacciAction(object):
     # Create the Feedback and Result messages
-    _feedback = actionlib_tutorials.msg.FibonacciFeedback()
-    _result = actionlib_tutorials.msg.FibonacciResult()
+    _feedback = simple_action_example.msg.FibonacciFeedback()
+    _result = simple_action_example.msg.FibonacciResult()
 
     # Constructor
     def __init__(self, name):
@@ -18,7 +18,7 @@ class FibonacciAction(object):
         
         # Hook callbacks
         self._as = actionlib.SimpleActionServer(self._action_name, 
-                                                actionlib_tutorials.msg.FibonacciAction, 
+                                                simple_action_example.msg.FibonacciAction, 
                                                 execute_cb=self.execute_cb, 
                                                 auto_start = False)
         

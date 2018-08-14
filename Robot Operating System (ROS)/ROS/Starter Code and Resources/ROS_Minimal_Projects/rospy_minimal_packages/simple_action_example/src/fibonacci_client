@@ -3,19 +3,19 @@
 from __future__ import print_function # Lets you print like Python 3
 import rospy
 import actionlib
-import actionlib_tutorials.msg
+import simple_action_example.msg
 
 def fibonacci_client():
     # SimpleActionClient consruction, targeting the fibonacci topic of type Fibonacci
     client = actionlib.SimpleActionClient('fibonacci', 
-                                          actionlib_tutorials.msg.FibonacciAction)
+                                          simple_action_example.msg.FibonacciAction)
 
     # Waits until the action server has started up and started
     # listening for goals. (So the goals aren't ignored.)
     client.wait_for_server()
 
     # Creates a goal to send to the action server.
-    goal = actionlib_tutorials.msg.FibonacciGoal(order=20)
+    goal = simple_action_example.msg.FibonacciGoal(order=20)
 
     # Sends the goal to the action server.
     client.send_goal(goal)

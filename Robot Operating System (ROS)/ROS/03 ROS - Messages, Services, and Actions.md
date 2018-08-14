@@ -1073,8 +1073,8 @@ import simple_action_example.msg
 # https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python
 class FibonacciAction(object):
     # Create the Feedback and Result messages
-    _feedback = actionlib_tutorials.msg.FibonacciFeedback()
-    _result = actionlib_tutorials.msg.FibonacciResult()
+    _feedback = simple_action_example.msg.FibonacciFeedback()
+    _result = simple_action_example.msg.FibonacciResult()
 
     # Constructor
     def __init__(self, name):
@@ -1082,7 +1082,7 @@ class FibonacciAction(object):
         
         # Hook callbacks
         self._as = actionlib.SimpleActionServer(self._action_name, 
-                                                actionlib_tutorials.msg.FibonacciAction, 
+                                                simple_action_example.msg.FibonacciAction, 
                                                 execute_cb=self.execute_cb, 
                                                 auto_start = False)
         
@@ -1137,22 +1137,22 @@ if __name__ == '__main__':
 ```python
 #! /usr/bin/env python
 
-import rospy
 from __future__ import print_function # Lets you print like Python 3
+import rospy
 import actionlib
-import actionlib_tutorials.msg
+import simple_action_example.msg
 
 def fibonacci_client():
     # SimpleActionClient consruction, targeting the fibonacci topic of type Fibonacci
     client = actionlib.SimpleActionClient('fibonacci', 
-                                          actionlib_tutorials.msg.FibonacciAction)
+                                          simple_action_example.msg.FibonacciAction)
 
     # Waits until the action server has started up and started
     # listening for goals. (So the goals aren't ignored.)
     client.wait_for_server()
 
     # Creates a goal to send to the action server.
-    goal = actionlib_tutorials.msg.FibonacciGoal(order=20)
+    goal = simple_action_example.msg.FibonacciGoal(order=20)
 
     # Sends the goal to the action server.
     client.send_goal(goal)
@@ -1182,7 +1182,7 @@ if __name__ == '__main__':
 ```c++
 #include <ros/ros.h>
 #include <actionlib/server/simple_action_server.h>
-#include <actionlib_tutorials/FibonacciAction.h>
+#include <simple_action_example/FibonacciAction.h>
 
 class FibonacciAction
 {
@@ -1191,12 +1191,12 @@ protected:
   ros::NodeHandle nh_;
 
   // NodeHandle instance must be created before this line. Otherwise strange error occurs.
-  actionlib::SimpleActionServer<actionlib_tutorials::FibonacciAction> as_;
+  actionlib::SimpleActionServer<simple_action_example::FibonacciAction> as_;
   std::string action_name_;
 
   // create messages that are used to published feedback/result
-  actionlib_tutorials::FibonacciFeedback feedback_;
-  actionlib_tutorials::FibonacciResult result_;
+  simple_action_example::FibonacciFeedback feedback_;
+  simple_action_example::FibonacciResult result_;
 
 public:
 
@@ -1217,7 +1217,7 @@ public:
   }
 
   // Execute action callback (passing the goal via reference)
-  void executeCB(const actionlib_tutorials::FibonacciGoalConstPtr &goal)
+  void executeCB(const simple_action_example::FibonacciGoalConstPtr &goal)
   {
     // helper variables
     ros::Rate r(1);

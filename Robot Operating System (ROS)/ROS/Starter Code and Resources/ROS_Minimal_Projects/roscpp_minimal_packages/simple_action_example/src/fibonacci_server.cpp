@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 #include <actionlib/server/simple_action_server.h>
-#include <actionlib_tutorials/FibonacciAction.h>
+#include <simple_action_example/FibonacciAction.h>
 
 class FibonacciAction
 {
@@ -9,12 +9,12 @@ protected:
   ros::NodeHandle nh_;
 
   // NodeHandle instance must be created before this line. Otherwise strange error occurs.
-  actionlib::SimpleActionServer<actionlib_tutorials::FibonacciAction> as_;
+  actionlib::SimpleActionServer<simple_action_example::FibonacciAction> as_;
   std::string action_name_;
 
   // create messages that are used to published feedback/result
-  actionlib_tutorials::FibonacciFeedback feedback_;
-  actionlib_tutorials::FibonacciResult result_;
+  simple_action_example::FibonacciFeedback feedback_;
+  simple_action_example::FibonacciResult result_;
 
 public:
 
@@ -35,7 +35,7 @@ public:
   }
 
   // Execute action callback (passing the goal via reference)
-  void executeCB(const actionlib_tutorials::FibonacciGoalConstPtr &goal)
+  void executeCB(const simple_action_example::FibonacciGoalConstPtr &goal)
   {
     // helper variables
     ros::Rate r(1);
