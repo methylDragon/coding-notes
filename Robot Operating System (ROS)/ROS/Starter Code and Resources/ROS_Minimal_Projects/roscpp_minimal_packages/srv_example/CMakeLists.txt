@@ -28,7 +28,18 @@ include_directories(
 )
 
 add_executable(srv_example_server src/srv_example_server)
+add_dependencies(
+  srv_example_server
+  ${catkin_EXPORTED_TARGETS}
+)
+
 target_link_libraries(srv_example_server ${catkin_LIBRARIES})
 
 add_executable(srv_example_client src/srv_example_client)
+add_dependencies(
+  srv_example_client
+  ${catkin_EXPORTED_TARGETS}
+)
+
+
 target_link_libraries(srv_example_client ${catkin_LIBRARIES})
