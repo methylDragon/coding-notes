@@ -1,3 +1,5 @@
+
+
 # ROS Crash Course
 
 Author: methylDragon  
@@ -593,6 +595,29 @@ $ roslaunch launch_file_name.launch arg_name:=value
 
 
 
+#### **Remapping nodes**
+
+This means changing the **name** of the topic that a node is configured to subscribe or publish to!
+
+```xml
+<launch>
+    <node pkg="roscpp_tutorials" type="talker" name="talker_node">
+      <!-- Tell the node to publish to /jabber instead of /chatter -->
+      <remap from="/chatter" to="/jabber" />
+    </node>
+    
+    
+    <node pkg="roscpp_tutorials" type="listener" name="listener">
+      <!-- Tell the node to subscribe to /jabber instead of /chatter -->
+      <remap from="/chatter" to="/jabber" />
+    </node>
+</launch>
+```
+
+Hooray we've remapped the topics!!
+
+
+
 ### 3.9 RViz <a name="3.9"></a>
 
 [go to top](#top)
@@ -620,49 +645,40 @@ But some uses for it are:
 
 Gazebo is one of the more popular simulation suites that is used with ROS. We're going to try using it with the Turtlebot3 simulator so we can get started writing code without having a hardware robot to play with! This way we can learn and practice the software side of things even without a huge budget!
 
-Let's install the Turtlebot3 simulator!
+Because the Turtlebot3 simulator is finicky, we're going to install the Linorobot simulator!
 
-> **If Gazebo doesn't work:**
+> **Please follow these steps!**
 >
 > - Install the desktop version of the Linorobot using the [ros_lino_base_install script](https://github.com/methylDragon/quick-install-scripts/blob/master/Linux/ros_lino_base_install) (Courtesy of [Linorobot.org](http://linorobot.org))
 > - And the Linorobot [simulator](https://github.com/grassjelly/robot_playground)! (Follow the instructions on the repo!)
 
 
 
-```shell
-$ sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers
+Ok! Let's try simulating the Linorobot! Run these commands in **SEPARATE TERMINALS.**
 
-$ sudo chmod -R 777 ~/catkin_ws
-$ cd ~/catkin_ws/src/
-$ sudo git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-$ sudo git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
-$ cd ~/catkin_ws && catkin_make
-
-$ echo "" >> ~/.bashrc
-$ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-$ echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
-```
-
-Ok! Let's try simulating the turtlebot in rviz first!
+Ensure that running `$ echo $ROS_PACKAGE_PATH` displays a linorobot_ws and a catkin_ws!
 
 ```shell
-$ roslaunch turtlebot3_fake turtlebot3_fake.launch
+# Start the Gazebo simulation of the Linorobot
+# (The first run will take awhile, be patient)
+$ roslaunch robot_playground bringup_sim.launch
 
 # Run this in a separate terminal, you know the drill
+# teleop_twist_keyboard lets you move the robot around!
 $ rosrun teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-And now, let's try it in Gazebo! (Run the commands in separate terminals each)
+Let's try autonomous navigation!
 
 ```shell
-# Give this about 5 minutes to load the first time around
-$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+# Start the navigation stack
+$ roslaunch linorobot navigate.launch
 
-# This one will drive the turtlebot autonomously and avoid obstacles
-$ roslaunch turtlebot3_gazebo turtlebot3_simulation.launch
+# Aaaand start RViz with the navigation configurations!
+$ roscd linorobot/rviz
+$ rviz -d navigate.rviz
 
-# And this one will visualise the simulated laser data
-$ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
+# Play around with it by using the 2D Pose Estimate and 2D Goal!
 ```
 
 
