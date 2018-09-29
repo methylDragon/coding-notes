@@ -15,7 +15,7 @@ def add_two_ints_client(x, y):
         # AddTwoInts is the service type/file
         add_two_ints = rospy.ServiceProxy('add_two_ints', AddTwoInts)
         resp1 = add_two_ints(x, y)
-        return resp1.sum
+        return resp1.Sum
 
     except rospy.ServiceException, e:
         print("Service call failed: %s" %  e)
