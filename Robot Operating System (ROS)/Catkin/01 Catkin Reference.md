@@ -57,7 +57,7 @@ Most of the notes will be adapted from: http://wiki.ros.org/catkin/Tutorials
 
 ## 1. Introduction
 
-Long story short, when you're making packaghttp://catkin-tools.readthedocs.io/en/latest/verbs/catkin_build.htmles for a huge ecosystem such as ROS, you're bound to end up with a lot of problems managing nested dependencies in its many packages.
+Long story short, when you're making packages for a huge ecosystem such as ROS, you're bound to end up with a lot of problems managing nested dependencies in its many packages.
 
 Catkin is the next generation of the original answer to that problem (rosbuild.) It helps you manage dependencies, manage workspaces (environments), build ROS packages, and more!
 
