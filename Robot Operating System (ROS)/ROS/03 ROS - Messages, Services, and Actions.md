@@ -696,7 +696,7 @@ bool add(srv_example::AddTwoInts::Request &request,
 {
   response.Sum = request.A + request.B;
   
-  ROS_INFO("request: x=%ld, y=%ld", (long int)request.B, (long int)request.B);
+  ROS_INFO("request: x=%ld, y=%ld", (long int)request.A, (long int)request.B);
   
   ROS_INFO(" sending back response: [%ld]", (long int)response.Sum);
   
