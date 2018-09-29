@@ -733,24 +733,24 @@ int main(int argc, char **argv) {
   if (argc != 3) {
     ROS_INFO("Usage: %s [x y]", argv[0]);
     return 1;
-}
+  }
 
-ros::NodeHandle nh;
-ros::ServiceClient client = nh.serviceClient<srv_example::AddTwoInts>("add_two_ints");
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<srv_example::AddTwoInts>("add_two_ints");
 
-srv_example::AddTwoInts service;
-service.request.A = atoi(argv[1]);
-service.request.B = atoi(argv[2]);
+  srv_example::AddTwoInts service;
+  service.request.A = atoi(argv[1]);
+  service.request.B = atoi(argv[2]);
 
-// Service callback function
-// client.call(service) calls the client!
-if (client.call(service)) {
-  ROS_INFO("Sum: %ld", (long int)service.response.Sum);
-}
-else {
-  ROS_ERROR("Failed to call service add_two_ints");
-  return 1;
-}
+  // Service callback function
+  // client.call(service) calls the client!
+  if (client.call(service)) {
+    ROS_INFO("Sum: %ld", (long int)service.response.Sum);
+  }
+  else {
+    ROS_ERROR("Failed to call service add_two_ints");
+    return 1;
+  }
 
   return 0;
 } 
@@ -1143,7 +1143,7 @@ import actionlib
 import simple_action_example.msg
 
 def fibonacci_client():
-    # SimpleActionClient consruction, targeting the fibonacci topic of type Fibonacci
+    # SimpleActionClient construction, targeting the fibonacci topic of type Fibonacci
     client = actionlib.SimpleActionClient('fibonacci', 
                                           simple_action_example.msg.FibonacciAction)
 
