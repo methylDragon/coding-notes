@@ -67,7 +67,7 @@ Catkin is the next generation of the original answer to that problem (rosbuild.)
 
 ### 2.1 Workflow Introduction <a name="2.1"></a>
 
-[<a name="2.2"></a>go to top](#top)
+[go to top](#top)
 
 Now that we're ready to go, let's get some context!
 
@@ -147,7 +147,7 @@ my_package/
   package.xml
 ```
 
-So the corresponding workspace folder will look like this<a name="2.2"></a>
+So the corresponding workspace folder will look like this
 
 ```
 workspace_folder/        -- WORKSPACE
@@ -730,7 +730,7 @@ add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SRCS})
 Then you link your libraries to your executables!
 
 ```python
-target_link_libraries(<executableTargetName>, <lib1>, <lib2>, ... <libN>)
+target_link_libraries(<executableTargetName> <lib1> <lib2> ... <libN>)
 ```
 
 

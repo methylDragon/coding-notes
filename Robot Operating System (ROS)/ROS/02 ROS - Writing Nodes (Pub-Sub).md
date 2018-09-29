@@ -932,33 +932,24 @@ int main(int argc, char **argv)
 [go to top](#top)
 
 ```c++
-#include <ros/ros.h> // Include the ROS main header file
+#include "ros/ros.h"
+#include "std_msgs/String.h"
 
-int main(int argc, char** argv)
+void chatter_callback(const std_msgs::String& msg)
 {
-    ros::init(argc, argv, "rawrer", ros::init_options::AnonymousName);
-    // Initialise a node named rawrer, make it anonymous
-    // Check the rospy hello_world for what anonymous means
+	ROS_INFO("I heard: [%s]", msg.data.c_str());
+}
 
-    ros::NodeHandle node_handle; // This HANDLES all communications with ROS
-    // Topics, services, parameters, etc
-
-    ros::Rate loopRate(10); // Hz
-
-    // Let's just have a nice incrementer here
-    unsigned int count = 0;
-
-    // As long as ROS is running, keep running
-    while (ros::ok())
-    { // ros::ok() checks for the status of ROS
-        ROS_INFO_STREAM("Rawr " << count); // Log it!
-        // Notice how we aren't using cout here! Use ROS_INFO and ROS_INFO_STREAM!
-
-        ros::spinOnce(); // Calls all callbacks waiting to be called-back
-        loopRate.sleep(); // Sleep according to the loopRate
-        count++; // Aaaand increment our counter
-    }
-
+int main(int argc, char **argv)
+{
+    // New node called listener
+    ros::init(argc, argv, "listener");
+    ros::NodeHandle nh;
+    
+    // Subscribe to chatter with a queue size of 10 and callback
+    ros::Subscriber chatter_subscriber = nh.subscribe("chatter", 10, chatter_callback);
+    ros::spin(); // Keep running until the node is killed
+    
     return 0;
 }
 ```
@@ -1282,8 +1273,6 @@ Where:
 
 - **Node.cpp** (Starts the node)
 
-  
-
 - **nodeClassInterface** (Node interface)
 
   - .hpp (header file) (Interface)
@@ -1295,13 +1284,9 @@ Where:
 
   - .cpp (source code) (Implementation)
 
-    
-
 - **default.yaml** (For loading parameters)
 
 - **launch_Node.launch** (For loading parameters on node start)
-
-  
 
 - **package.xml** (Good old 'friends')
 
