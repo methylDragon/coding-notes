@@ -93,13 +93,35 @@ Now we'll see how they can be used to create arbitrary anonymous functions
 ```python
 # Define a function creates an anomymous function, and returns the output
 def multiply_by(n):
-    return lambda x : x + n
+    return lambda x : x * n
 
 multiply_eight = multiply_by(8) # The function that is created multiplies the input by 8
 multiply_six = multiply_by(6) # The function that is created multiplies the input by 6
 
 multiply_eight(2) # Returns 16 (i.e. 2 * 8)
 multiply_six(2) # Returns 12 (i.e. 2 * 6)
+```
+
+And even pair them with recursive functions!
+
+```python
+def makeTriangle(sign):
+    def triangle(n):
+        if n == 1:
+            return sign+'\n'
+        else:
+            return triangle(n-1)+sign*n+'\n'
+    return lambda x: triangle(x)
+
+# Now you can do this!
+print(makeTriangle("*")(5))
+
+# Output:
+# *
+# **
+# ***
+# ****
+# *****
 ```
 
 However, the TRUE utility of lambda expressions comes when you pair them with map, filter, reduce!
