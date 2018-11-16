@@ -1034,7 +1034,7 @@ else
 
 #### Getting arrays/dictionaries of parameters
 
-In Python doing this is less of an issue because of auto-typing, but in C+ you need to pay a bit more attention.
+In Python doing this is less of an issue because of auto-typing, but in C++ you need to pay a bit more attention.
 
 You're allowed to store the arrays and dicts in `std::vector` and `std::map`s respectively. With the following types:
 

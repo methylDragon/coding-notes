@@ -441,9 +441,9 @@ State your dependencies here! For either catkin or system dependencies, there ar
 **For dependencies you need for testing only**
 
 ```xml
-  <test_depend>roscpp</exec_depend>
-  <test_depend>rospy</exec_depend>
-  <test_depend>std_msgs</exec_depend>
+  <test_depend>roscpp</test_depend>
+  <test_depend>rospy</test_depend>
+  <test_depend>std_msgs</test_depend>
 ```
 
 
