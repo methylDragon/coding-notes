@@ -573,6 +573,13 @@ $ roslaunch launch_file_name.launch arg_name:=value
     <group if="$(arg use_sim_time)">
         <param name="/use_sim_time" value="true" />
     </group>
+    
+    <!-- Or evaluate them! -->
+    <node if="$(eval arg physics == 'ode')" 
+          name="control"
+          pkg="controller_manager"
+          type="spawner"
+          args="physics_controller" /> 
 
 </launch>
 ```
