@@ -164,7 +164,8 @@ Means: "RUN RAWR.cpp" (a.out stands for Assembler Output. That is, the last thin
 
 **Variables are like containers for data**
 
-Variables must start off with a letter, but can contain numbers, or underscores. (But they MUST start off with a letter.)
+Variables' name can contain any letters(a-z & A-Z), underscore(_) or numbers(0-9) but they MUST not start off with a number.
+(If you start off writing your variable's name with number, your compiler will acknowledge that you're trying to write a number, not the variable's number!)
 
 Let's make a constant variable of type double (which means it's a decimal number that can store more numbers than the float type)
 
