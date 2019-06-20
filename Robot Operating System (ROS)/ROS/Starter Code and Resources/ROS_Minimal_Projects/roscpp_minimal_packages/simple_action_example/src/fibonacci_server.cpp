@@ -27,6 +27,8 @@ public:
   {
     // Start the action server
     as_.start();
+
+    ROS_INFO("Fibonacci action server started!");
   }
 
   // Destructor

@@ -25,6 +25,8 @@ class FibonacciAction(object):
         # Start the action server
         self._as.start()
 
+        rospy.loginfo("Fibonacci action server started!")
+
     # Goal execution callback
     def execute_cb(self, goal):
         # helper variables
