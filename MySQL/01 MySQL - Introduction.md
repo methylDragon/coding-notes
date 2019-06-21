@@ -50,7 +50,29 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 We're going to learn how to interface with, and alter MySQL databases in this reference! You can do so
 
 - Via **Terminal**
+
 - Via **PHP** using said terminal commands (referred to as Queries!)
+
+- Via **Python** using the mySQL.connector plugin or sqlite3
+
+  - For python, a cursor object has to be initialized, after which the commands can be passed to it as is:
+
+    ```python
+    import mysql.connector
+    
+    # Create database connection
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="username",
+      passwd="passwd"
+      database="mydatabase"
+    )
+    
+    mycursor = mydb.cursor() # Creates the cursor
+    mycursor.execute("INSERT SQL COMMANDS HERE") # execute desired SQL terminal commands
+    ```
+
+    
 
 If you want a GUI program to access your database, use https://www.mysql.com/products/workbench/
 
@@ -117,13 +139,7 @@ It's good practice to write your commands and keywords in upper-case. It's not r
 
 [go to top](#top)
 
-It's good practice to draw out your intended data input to see how you can design the schemas and tables.
-
-![Student Table](E:\coding-notes\MySQL\assets/Student Table.PNG)
-
-Then eventually this will allow you to more easily see how to design your tables!
-
-![Student Schemas](E:\coding-notes\MySQL\assets/Student Schemas.PNG)
+It's good practice to draw out your intended data input to see how you can design the schemas and tables - this will allow you to more easily see how to design your tables!
 
 A nice way to design your databases is using the concept of **Atomic Tables** and **Table Templating**. You want to keep things organised so you can perform queries really quickly using your database.
 
@@ -170,7 +186,12 @@ We've run through database commands
 # Notice: The semicolon ; appeared at the end of the ENTIRE statement!
 ```
 
+In some instances, the backtick \` symbol might be used for table and/or column names. There are a few reasons why this is a good idea:
 
+- The desired table name goes against mySQL naming conventions (tables start with numbers, etc)
+- The desired table name contains symbols that can be [misinterpreted by the parser](https://stackoverflow.com/questions/7395062/mysql-insert-do-field-names-require-backtick-accent-delimination) as operators such as `-` symbols - in these cases the backtick ensures that the names are treated correctly
+
+Do take note that this would require the backtick symbol to be used when calling the table and/or columns.
 
 ### 2.5 Data Types <a name="2.5"></a>
 
@@ -266,6 +287,7 @@ It's a good way to ensure something exists, since multiple tables will reference
 -> ('methylDragon', 'methylDragon@gmail.com', 37771466666, 'Y', NULL); # Make sure you enter the values according to how the table is templated!
 # You can add multiple entires also, using the ','!
 # Like this: (.., ..), (..,..), (..,..);
+# Do note that the values to be added must ALWAYS be in tuple format - this means that if you are adding one value, it must be in the format (..,)
 
 # NULL is there for the primary key, it'll be auto-filled in since the primary key is set as AUTO_INCREMENT
 
@@ -300,7 +322,7 @@ It's a good way to ensure something exists, since multiple tables will reference
 
 ```mysql
 ############################
-# DISPALYING AND FILTERING #
+# DISPLAYING AND FILTERING #
 ############################
 
 # Display all properties
@@ -499,8 +521,6 @@ You have to find commonalities between tables in order to join them though!
 ```
 
 Confused? No worries, someone wrote a better tutorial: https://www.sitepoint.com/understanding-sql-joins-mysql-database/
-
-
 
 ## Reference Links <a name="3"></a>
 
