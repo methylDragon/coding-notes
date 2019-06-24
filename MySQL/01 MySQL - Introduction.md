@@ -88,9 +88,7 @@ In MySQL, data is stored in **Tables** that are grouped within **Databases**. It
 
 Within each table, each entry of data is stored in a **row** (also known as records), whereas each property that is being stored (eg. Name, Telephone Number, Index Number) define the **columns** (also known as fields.)
 
-![MySQL Table](E:\coding-notes\MySQL\assets/MySQL Table.png)
-
-
+![MySQL Table](assets/MySQL Table.png)
 
 ## 2. Basic Syntax Reference <a name="2"></a>
 
@@ -139,7 +137,13 @@ It's good practice to write your commands and keywords in upper-case. It's not r
 
 [go to top](#top)
 
-It's good practice to draw out your intended data input to see how you can design the schemas and tables - this will allow you to more easily see how to design your tables!
+It's good practice to draw out your intended data input to see how you can design the schemas and tables.
+
+![Student Table](assets/Student Table.PNG)
+
+Then eventually this will allow you to more easily see how to design your tables!
+
+![Student Schemas](assets/Student Schemas.PNG)
 
 A nice way to design your databases is using the concept of **Atomic Tables** and **Table Templating**. You want to keep things organised so you can perform queries really quickly using your database.
 
