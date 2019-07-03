@@ -9,7 +9,6 @@ find_package(catkin REQUIRED COMPONENTS
 # Initialise the export variables
 catkin_package(
   INCLUDE_DIRS src
-  # LIBRARIES blah
   CATKIN_DEPENDS roscpp std_msgs 
   DEPENDS system_lib
 )
