@@ -240,7 +240,7 @@ int variable(525); // Now stores 5
 // Note: variable() will not work! You can't initialise an empty variable that way
 ```
 
-**Copy Initialisation** (Lowest priority, try to avoid)
+**Copy Initialisation** (Lowest priority, try to avoid. Because this first generates the value, then copies it into the variable. It's a two step process that uses usually twice the memory and takes longer.)
 
 ```c++
 // We've seen this before

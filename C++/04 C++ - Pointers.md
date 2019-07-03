@@ -29,6 +29,7 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.6   [Indirection (Pointers of Pointers)](#2.6)    
    2.7   [When to use Pointers and when to use References](#2.7)    
    2.8   [Memory Management](#2.8)    
+   2.9   [Smart Pointers](#2.9)    
 
 
 
@@ -120,7 +121,7 @@ The concepts needed to understand them will be explained in the next section
 
 ```c++
 // Via pointers (a)
-void myMultiplicationFunction(int *x) // Pass this function addresses (&parameter)
+void myMultiplicationFunction(int* x) // Pass this function addresses (&parameter)
 {
   *x = x * 2;
 }
@@ -191,6 +192,8 @@ i = 6
 
 [go to top](#top)
 
+#### **Concepts**
+
 Pointers are **variables** in and of themselves, that **STORE MEMORY ADDRESSES**. In effect, they act as signposts that POINT to memory addresses!
 
 > A pointer `x` that points to variable `y` will have its own memory address, but will store the memory address that y is the alias for.
@@ -242,6 +245,78 @@ Pointers STORE the memory addresses. When you increment a pointer, you are incre
 > This is a nice analogy because it's easy to extend:
 >
 > You want to look up a specific topic in a book so you open it and find the index. The index says the glossary is on page 200. In the glossary you find that the phrase "intermediate value theorem" is referenced on page 106, and 110. Pointers to pointers!
+
+#### **Important Notes**
+
+**Assigning to pointers**
+
+This is a very important intuition to have regarding pointers.
+
+Take this example.
+
+```c++
+// This WILL NOT COMPILE PROPERLY
+int* myPointer = 2;
+```
+
+This doesn't work because:
+
+- myPointer is of type `int*` (that is, an integer pointer)
+- 2 is of type `int`
+- They're incompatible!
+
+When one assigns to a pointer, they are assigning a memory address that that pointer points to. **Not the value stored in that memory address.**
+
+In more code related terms:
+
+```c++
+// This segment:
+int* myPointer = 2;
+
+// Does NOT do this
+int* myPointer;
+*myPointer = 2;
+
+// It instead does this
+int* myPointer;
+myPointer = 2; // This line is erroneous because of the type mismatch
+```
+
+**`int* var` vs `int *var`**
+
+There's actually no difference between these two. It's more a question of style. I like to use `int*` because it's more clear that the type that I'm declaring is a pointer type.
+
+**Memory Leaks**
+
+Pointers of this kind:
+
+```c++
+int* myPointer;
+```
+
+Are known as **raw pointers** which are provisioned for in native C++. It's very important to take note that when you delete a pointer, the **memory referenced to that pointer is not released!** In other words, the memory will clog up space in your RAM with no way to delete it if you've lost the address to that memory. This is known as a **memory leak** which is a very bad thing.
+
+**Junk Data**
+
+Additionally, if you initialise a raw pointer but don't assign it anything, it **points to a random address in memory.**
+
+```c++
+int* myPointer;
+```
+
+It's even worse if you create a struct and create a pointer of its type. Because the members inside that pointer will still point to jibberish.
+
+Since this address assignment is random, you could potentially break a lot of things in your program if you're not careful and use the pointer when it hasn't been properly initialised yet!
+
+Because of this, it is more useful to initialise the pointer as a `nullptr` pointer, or better, to use **smart pointers** (which we'll go through later on.)
+
+```c++
+int* myPointer = nullptr;
+```
+
+
+
+> **TL;DR** Be very careful when using raw pointers. And actually, so careful you'll probably favour smart pointers over raw pointers. More on that in the later section
 
 
 
@@ -342,7 +417,7 @@ General maxim: `Use reference wherever you can, pointers wherever you must.`
 
 Use pointers if you don't want to initialise it at point of declaration. (Declaring an object means you create it. Initialise means you assign a value to it as well as creating it.) 
 
-You HAVE to initialise a reference when you create it because a reference cannot be an alias for nothing/NULL, but pointers CAN!!
+You HAVE to initialise a reference when you create it because a reference cannot be an alias for nothing/nullptr, but pointers CAN!!
 
 Pointers can also be altered to point to other memory addresses! But references are stuck with being an immutable alias for only ONE object!
 
@@ -412,6 +487,131 @@ if (bar == nullptr) { // Check to see if bar was assigned a null pointer
   // error assigning memory. Take measures.
 }
 ```
+
+
+
+#### **Moving and Copying**
+
+When you move something, you merely reassign the pointer that points to that object. When you copy something, you copy the entire memory block that the pointer points to.
+
+**This is important if what you're trying to move is large.** Moving is usually more efficient and faster than copying because of this.
+
+To be more technical, copying an object uses the copied object's copy constructor, whereas moving an object uses the object's move constructor.
+
+
+
+**Copy**
+
+![copy](assets/copy.jpg)
+
+Image source: <https://www.modernescpp.com/index.php/copy-versus-move-semantic-a-few-numbers>
+
+```c++
+std::string("ABCDEF");
+std::string str2;
+str2 = str1;
+```
+
+
+
+**Move**
+
+![move](assets/move.jpg)
+
+Image source: <https://www.modernescpp.com/index.php/copy-versus-move-semantic-a-few-numbers>
+
+```c++
+std::string("ABCDEF");
+std::string str3;
+str2 = std::move(str1);
+```
+
+
+
+
+
+### 2.9 Smart Pointers <a name="2.9"></a>
+
+[go to top](#top)
+
+#### **Concepts**
+
+You know how in the section for **raw pointers** it was mentioned that raw pointers don't do memory management (that is, they don't delete the memory they refer to once the pointers get unassigned or the pointer goes out of scope, which can lead to memory leaks and a whole bunch of other problems?)
+
+There's a whole type of pointers called **smart pointers** that, at the cost of a tiny overhead, does this management for you! You'll no longer have to explicitly destroy objects!
+
+> These smart pointers **wrap** raw pointers to allow for more functionality and memory integrity.
+
+There are three main types of smart pointers provisioned for in the C++ `std` library (they used to be in boost, and still are, but it's more recommended nowadays to use the `std` library ones.) There are a bunch more outside of `std`, but these should be more than sufficient to do what you need to do.
+
+> **All smart pointers destroy their wrapped pointers and the underlying data those pointers contain once they go out of scope.**
+>
+> By destroy, I mean that the smart pointer calls the destructor of the pointer or object that is passed to the smart pointer.
+
+| Pointer Type   | Init Signature        | Description                                                  |
+| -------------- | --------------------- | ------------------------------------------------------------ |
+| Unique Pointer | std::unique_ptr<TYPE> | A unique pointer is always the unique owner of its associated raw pointer. This means that its underlying raw pointer can't be copied, only moved. When the unique pointer's associated raw pointer is reassigned or reset, the associated raw pointer and the memory it points to is released. |
+| Shared Pointer | std::shared_ptr<TYPE> | A shared pointer allows multiple owners to be assigned to its associated raw pointer. You can copy shared pointers as well as move them. This works because the shared pointer counts how many owners the associated raw pointer has, and only deletes the associated raw pointer when it has no more owners. |
+| Weak Pointer   | std::weak_ptr<TYPE>   | A weak pointer is something like a shared pointer, and can **only be used in conjunction with shared pointers.** They allow you to access an object without counting towards the owner count of the shared pointer. This allows access to the object without forcing you to keep the object alive. |
+
+
+
+#### **Example Syntax**
+
+```c++
+// Initialisation
+std::unique_ptr<someType> uniqueptr;
+std::shared_ptr<someType> sharedptr;
+std::weak_ptr<someType> weakptr;
+
+// Best practice initialisation (notice that this uses direct initialisation!)
+// You won't be able to use copy initialisation for the uniqueptr
+std::unique_ptr<someType> uniqueptr(new someType("VALUE/VALUES"));
+std::shared_ptr<someType> sharedptr(new someType("VALUE/VALUES"));
+std::weak_ptr<someType> weakptr(new someType("VALUE/VALUES"));
+
+// Deleting the pointer
+smart_pointer.reset();
+
+// Releasing and then initialising
+smart_pointer.reset(new someType("VALUE/VALUES"));
+
+// Access member variables
+smart_pointer->member_name;
+
+// Reference passing
+passByReferenceToMe(*smart_pointer);
+
+// Check if smart pointer is empty or is null/uninitialised
+// Two ways
+if(!smart_pointer){}
+if(smart_pointer == nullptr){}
+```
+
+#### **Copying Smart Pointers**
+
+```c++
+// This will work on everything EXCEPT for a unique pointer
+smart_pointer2 = smart_pointer1;
+
+// For more clarity
+// Suppose smart_pointer1 is a unique_ptr
+// This will NOT WORK!
+std::unique_ptr<someType> smart_pointer2 = smart_pointer1;
+```
+
+#### **Moving Smart Pointers**
+
+```c++
+// Just use the standard move semantics!
+smart_pointer2 = std::move(smart_pointer1);
+
+// This will work with unique pointers!
+// But do take note that this will cause smart_pointer1 to contain a nullptr
+std::unique_ptr<someType> smart_pointer2 = std::move(smart_pointer1);
+```
+
+
 
 
 
