@@ -20,6 +20,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
 
 - [C++](#C++)
 - [OpenSplice DDS](#OpenSplice%20DDS)
+- [MATLAB](#MATLAB)
 - [MySQL](#MySQL)
 - [PHP](#PHP)
 - [Python 3](#Python%203)
@@ -28,7 +29,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
   - [Catkin](#Catkin)
 - [WordPress](#WordPress)
 
-​  
+  
 
 ## Tutorial Directory
 
@@ -38,8 +39,8 @@ Most of these can be read through in under an hour, and they're pitched at the b
 
 - [Introduction and Basic Syntax](./C++/01%20C++%20-%20Introduction.md)
 - [Functions and File IO](./C++/02%20C++%20-%20Functions%20and%20File%20IO.md)
-- [Pointers](./C++/03%20C++%20-%20Pointers.md)
-- [Object-Oriented Syntax](./C++/04%20C++%20-%20Object-Oriented%20Syntax.md)
+- [Object-Oriented Syntax](./C++/03%20C++%20-%20Object-Oriented%20Syntax.md)
+- [Pointers](./C++/04%20C++%20-%20Pointers.md)
 - [Tips and Tricks](./C++/05%20C++%20-%20Tips%20and%20Tricks.md)
 - [(Bonus) Headers](./C++/Bonus%20Notes/BONUS%20C++%20-%20Headers.md)
 
@@ -50,6 +51,14 @@ Most of these can be read through in under an hour, and they're pitched at the b
 [go to top](#top)
 
 - [Introduction and Basic Syntax](./DDS/OpenSplice%20DDS%20(C++%20API)/01%20DDS%20-%20Introduction.md)
+
+
+
+### MATLAB <a name="MATLAB"></a>
+
+[go to top](#top)
+
+- [Crash Course](./MATLAB/MATLAB%20Crash%20Course.md)
 
 
 
@@ -83,13 +92,13 @@ Most of these can be read through in under an hour, and they're pitched at the b
 
 ### Robot Operating System (ROS) <a name="Robot Operating System"></a>
 
-#### Catkin <a name="Catkin"></a>
+#### **Catkin** <a name="Catkin"></a>
 
 [go to top](#top)
 
 - [Catkin Reference](./Robot%20Operating%20System%20(ROS)/Catkin/01%20Catkin%20Reference.md)
 
-#### ROS <a name="ROS"></a>
+#### **ROS** <a name="ROS"></a>
 
 [go to top](#top)
 
