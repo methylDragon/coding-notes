@@ -548,11 +548,11 @@ There are three main types of smart pointers provisioned for in the C++ `std` li
 >
 > By destroy, I mean that the smart pointer calls the destructor of the pointer or object that is passed to the smart pointer.
 
-| Pointer Type   | Init Signature        | Description                                                  |
-| -------------- | --------------------- | ------------------------------------------------------------ |
-| Unique Pointer | std::unique_ptr<TYPE> | A unique pointer is always the unique owner of its associated raw pointer. This means that its underlying raw pointer can't be copied, only moved. When the unique pointer's associated raw pointer is reassigned or reset, the associated raw pointer and the memory it points to is released. |
-| Shared Pointer | std::shared_ptr<TYPE> | A shared pointer allows multiple owners to be assigned to its associated raw pointer. You can copy shared pointers as well as move them. This works because the shared pointer counts how many owners the associated raw pointer has, and only deletes the associated raw pointer when it has no more owners. |
-| Weak Pointer   | std::weak_ptr<TYPE>   | A weak pointer is something like a shared pointer, and can **only be used in conjunction with shared pointers.** They allow you to access an object without counting towards the owner count of the shared pointer. This allows access to the object without forcing you to keep the object alive. |
+| Pointer Type   | Init Signature         | Description                                                  |
+| -------------- | ---------------------- | ------------------------------------------------------------ |
+| Unique Pointer | std::unique_ptr\<TYPE> | A unique pointer is always the unique owner of its associated raw pointer. This means that its underlying raw pointer can't be copied, only moved. When the unique pointer's associated raw pointer is reassigned or reset, the associated raw pointer and the memory it points to is released. |
+| Shared Pointer | std::shared_ptr\<TYPE> | A shared pointer allows multiple owners to be assigned to its associated raw pointer. You can copy shared pointers as well as move them. This works because the shared pointer counts how many owners the associated raw pointer has, and only deletes the associated raw pointer when it has no more owners. |
+| Weak Pointer   | std::weak_ptr\<TYPE>   | A weak pointer is something like a shared pointer, and can **only be used in conjunction with shared pointers.** They allow you to access an object without counting towards the owner count of the shared pointer. This allows access to the object without forcing you to keep the object alive. |
 
 
 
