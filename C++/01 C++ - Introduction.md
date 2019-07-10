@@ -186,6 +186,17 @@ Also, constants are usually declared with all caps
 `unsigned int` (Same size as signed version)
 `long double` (Not less than double)
 
+#### **decltype**
+
+Declared type. You may be able to get the type of a variable by calling decltype on it. No promises though!
+
+```c++
+int n = 10;
+decltype(n);
+```
+
+
+
 **Example Variable Initialisation:**
 
 ```c++
@@ -201,6 +212,14 @@ char myChar = 'a';
 // You can also initialise multiple variables OF THE SAME TYPE on the same line
 int x = 6, y = 2;
 ```
+
+> You can also use the `auto` keyword if you're not sure which type to use, or if the types might vary. Do note that this sometimes involves some overhead.
+>
+> It does type deduction, which can sometimes avoid implicit type conversions.
+>
+> ```c++
+> auto my_auto = 1;
+> ```
 
 
 
@@ -847,9 +866,7 @@ rawr
 
 [go to top](#top)
 
-LITERALLY THE BEST THING EVER
-
-THIS IS PART OF WHAT WON ME THE GOOGLE HACKATHON. DEBUGGING LOVE.
+LITERALLY THE BEST THING EVER. DEBUGGING LOVE.
 
 ```c++
 try{ // Try this. If it doesn't work, then it's fine.
@@ -898,10 +915,6 @@ int main()
 
 int b = a; // Error: name 'a' is not in scope
 ```
-
-
-
-
 
 
 
