@@ -25,6 +25,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.2   [Function Overloading](#2.2)    
    2.3   [Recursive Functions](#2.3)    
    2.4   [File I/O](#2.4)    
+   2.5   [Lambda Functions](#2.5)    
+   2.6   [Inline Functions](#2.6)    
 
 
 
@@ -160,8 +162,6 @@ int main()
 
 
 
-
-
 ### 2.2 Function Overloading <a name="2.2"></a>
 
 [go to top](#top)
@@ -275,6 +275,191 @@ if(! writer2) { //Check to see if the filestream is open
 	
 	cout << endl;
 	reader.close();
+}
+```
+
+
+
+### 2.5 Lambda Functions <a name="2.5"></a>
+
+Lambda functions are great for creating anonymous functions that are not meant for reuse.
+
+Lambdas help to replace **functors.** That is, classes where `operator()` is hidden. So you can call the classes just like normal functions. They're normal classes that override operator, so they can be called like so `someFunctor(SOME_VALUES_IF_THE_FUNCTOR_TAKES_THEM);`
+
+So before we can meaningfully go through lambdas, we need to go through functors.
+
+**Functor**
+
+So for example, this is an example of a functor class.
+
+```c++
+// Source: https://dev.to/sandordargo/lambda-expressions-in-c-4pj4
+class IsBetweenZeroAndTen {
+  public:
+  bool operator()(int value) {
+    return 0 < value && value < 10;
+  }
+};
+
+// Usage
+IsBetweenZeroAndTen some_functor;
+some_functor(10); // This should return false
+```
+
+Some methods or functions take in functors, which forces you to define these. But it can get a little messy, but luckily with lambdas there is a better way!
+
+#### **Lambda Syntax**
+
+```c++
+// This is the barebones lambda expression
+[]() {}
+
+// Whereas this is the full one
+[]() mutable -> T { }
+
+// Example
+auto lambda = []() { cout << "Rawr" << endl; };
+lambda(); // This prints Rawr
+```
+
+Where:
+
+- `[ ]` is the capture list
+- `( )` is the argument list
+- `{ }` is the function body
+
+#### **Capture List**
+
+The capture list allows for the capture of variables (by reference or value) outside the actual lambda, and which are not passed in to the function that is defined!
+
+```c++
+// Capture nothing
+[]
+
+// Capture by value
+[some_referenced_value]
+
+// Capture by reference
+[&some_referenced_value]
+
+// Capture all variables in scope by value
+[=]
+
+// Capture all variables in scope by reference, with exclusions
+[=, &but_me_by_reference, &me_too]
+
+// Capture all variables in scope by reference
+[&]
+
+// Capture all variables in scope by reference, with exclusions
+[&, but_me_by_value, me_too]
+
+// Capture the surrounding object
+[this]
+```
+
+#### **Argument List and Function Body**
+
+Argument lists work exactly like standard C++ function argument lists. They define what variables are passed into the actual function body of the lambda.
+
+Same thing for the function body.
+
+#### **Return Type**
+
+Specify the return type of the lambda by using the `->` operator.
+
+You normally can omit this if there is only one return statement, since it's implicitly inferred. But if not, leave it in.
+
+```c++
+// So we can see that this lambda returns an int
+[]() -> int {}
+```
+
+#### **Mutable**
+
+If a lambda is marked `mutable`, it is able to mutate the values that are passed in by value.
+
+#### **Putting Some Of It Together**
+
+```c++
+auto upperBound = 42;
+[upperBound](int value) -> bool {
+  return 0 < value && value < upperBound;
+}
+```
+
+#### **Example Lambda Usage**
+
+A particularly good usage of lambdas is in iteration.
+
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+vector<int> numbers {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+for_each(numbers.begin(),
+         numbers.end(), 
+         [] (int y)
+         {
+             cout << y << endl;
+         });
+```
+
+Here's another example. Here we define the lambda and immediately use it.
+
+```c++
+int x = 4;
+auto y = [&r = x, x = x+1]()->int {
+            r += 2;
+            return x+2;
+         }();  // Updates x to 6, and initializes y to 7.
+```
+
+
+
+### 2.6 Inline Functions <a name="2.6"></a>
+
+Inline functions help to avoid the overhead of function calls. When you compile the code, the entire call to an inline function is instead replaced with the code inside the function call itself.
+
+They're especially good if used on small functions (usually one-liner function bodies.)
+
+In order to define an inline function, just write `inline` in front of your function definition.
+
+```c++
+// Source https://www.geeksforgeeks.org/inline-functions-cpp/
+
+#include <iostream> 
+using namespace std; 
+inline int cube(int s) 
+{ 
+    return s*s*s; 
+} 
+int main() 
+{ 
+    cout << "The cube of 3 is: " << cube(3) << "\n"; 
+    return 0; 
+} //Output: The cube of 3 is: 27 
+
+// The inline function makes the function call line equivalent to
+cout << "The cube of 3 is: " << 3 * 3 * 3 << "\n";
+```
+
+> Note, all functions defined inside a class body are inline functions. If you need the function to be explicitly inline, define the function prototype in the class, then declare the actual function definition outside the class with an inline.
+
+```c++
+// Source: https://www.geeksforgeeks.org/inline-functions-cpp/
+
+class S 
+{ 
+public: 
+    int square(int s); // declare the function 
+}; 
+  
+inline int S::square(int s) // use inline prefix 
+{ 
+  
 }
 ```
 
