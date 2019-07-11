@@ -281,6 +281,37 @@ varName = 8;
 So you initialised varName as an integer containing 5
 Then you changed the data stored in it to 8 instead.
 
+#### **Defining Custom Types**
+
+You can define a type alias by using the `typedef` keyword!
+
+```c++
+// Simple typedef
+typedef unsigned long ulong;
+ulong 5; // So now we can declare an unsigned long using this type alias!
+
+// Pointer typedef
+typedef int* int_ptr;
+
+int a = 5;
+int_ptr b = &a;
+
+// Struct typedef
+typedef struct
+{
+    int a;
+    int b;
+    int c;
+} my_struct;
+
+my_struct haha;
+haha.a = 1;
+haha.b = 2;
+haha.c = 3;
+```
+
+
+
 
 
 ### 2.6 Outputting Variables and Variable Info <a name="2.6"></a>
