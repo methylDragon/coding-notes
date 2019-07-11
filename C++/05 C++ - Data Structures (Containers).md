@@ -1,8 +1,8 @@
-# Advanced C++ Crash Course (Data Structures)
+# Advanced C++ Crash Course (Data Structures (Containers))
 
 Author: methylDragon  
 Contains an advanced syntax reference for C++  
-This time, we'll be going through some basic Data Structures!   
+This time, we'll be going through some basic Data Structures and Iterators!    
 
 ------
 
@@ -47,7 +47,7 @@ It might be a bit confusing, so we might perhaps use the term that C++ uses, and
 
 This will not be an exhaustive list.
 
-### Containers
+### Container Concept
 
 Standard containers in the C++ STL and standard library wraps different abstract and non-abstract data structures in a nice neat interface.
 
@@ -214,10 +214,10 @@ Most containers have a standard interface with `.begin`, `.end`, and most of the
 int main()
 {
   // Declaring forward list 
-  std::list<int> list1; 
+  std::list<int> list1{1, 2, 3}; 
 
   // Declaring another forward list 
-  std::list<int> list2; 
+  std::list<int> list2{4, 5, 6}; 
 
   // Assigning values using assign() 
   list1.assign({1, 2, 3}); 
@@ -238,10 +238,10 @@ int main()
 int main()
 {
   // Declaring forward list 
-  std::forward_list<int> flist1; 
+  std::forward_list<int> flist1{1, 2, 3}; 
 
   // Declaring another forward list 
-  std::forward_list<int> flist2; 
+  std::forward_list<int> flist2{4, 5, 6}; 
 
   // Assigning values using assign() 
   flist1.assign({1, 2, 3}); 
@@ -751,7 +751,286 @@ map.bucket(); // Locate element's bucket
 
 
 
-### Iterators
+## C++ Iterator Reference
+
+### Iterator Concept
+
+[Reference](<http://www.cplusplus.com/reference/iterator/>)
+
+An iterator is an object that points to an element inside a container. So you can use them to move through the contents of a container! They're not pointers per se, they're more of an abstract object, but act a lot like pointers.
+
+There are five kinds of iterators provisioned for in the STL, each with increasingly more functionality.
+
+So you'll usually see this kind of image floating around in the net:
+
+![img](assets/C_Iterator.jpg)
+
+[Image Source](<https://www.geeksforgeeks.org/introduction-iterators-c/>)
+
+And you'd think that it indicates some sort of class hierarchy, **but actually no.** This diagram is just a statement of which iterator has more functionality than the other.
+
+| Iterator Type | Functionality                               |
+| ------------- | ------------------------------------------- |
+| Input         | Read only, forward moving                   |
+| Output        | Can write only once, forward moving         |
+| Forward       | Read and write, forward moving              |
+| Bidirectional | Read and write, forward and backward moving |
+| Random Access | Read and write, with random access          |
+
+So as you can see, random access iterators have the most functionality.
+
+![1562814980420](assets/1562814980420.png)
+
+[Image Source](<https://www.geeksforgeeks.org/introduction-iterators-c/>)
+
+
+
+### Iterator-Container Compatibility
+
+Of course, since we just went through containers above, and iterators are used to traverse containers, it's best to talk about which containers support which iterators. We'll mention the highest level of available iterator to use for each container.
+
+| Container      | Iterator      |
+| -------------- | ------------- |
+| Vector         | Random Access |
+| List           | Bidirectional |
+| Deque          | Random Access |
+| Map            | Bidirectional |
+| Multimap       | Bidirectional |
+| Set            | Bidirectional |
+| Multiset       | Bidirectional |
+| Stack          | -             |
+| Queue          | -             |
+| Priority-Queue | -             |
+
+
+
+### Basic Iterator Usage
+
+Iterators help to simplify your code and increase its re-usability, since they provide a **common interface** for traversing standard library and STL containers.
+
+#### **Container Methods**
+
+```c++
+// Here we define an iterator for a vector
+vector<int> v = {1, 2, 3};
+vector<int>::iterator i; 
+
+// Accessing the elements using iterators 
+for (i = v.begin(); i != v.end(); ++i) 
+{ 
+  cout << *i << " "; 
+}
+
+// Adding and Deleting Elements
+v.push_back(4);
+v.erase(4);
+
+// Get beginning and end positions of container
+v.begin();
+v.end();
+```
+
+#### **Iterator Operations**
+
+```c++
+// Get current position of the iterator
+*i;
+
+// Increment the iterator (now we operate on the iterator!)
+std::advance(i, 3); // Advance the iterator 3 positions
+
+// Return new iterator at new position
+// Of course, prev can't be used for forward only iterators
+auto it_1 = std::next(i, 3); // New iterator that is 3 positions ahead of i
+auto it_2 = std::prev(i, 3); // New iterator that is 3 positions behind i
+```
+
+**Inserters**
+
+Pass in two iterators that define a range of values to insert from a container.
+
+Then an inserter function that takes in the container to be operated on, and an iterator that points where to operate.
+
+```c++
+std::list<int> foo{1, 2, 3, 7, 8};
+std::list<int> bar{4, 5, 6};
+
+std::list<int>::iterator it = foo.begin();
+advance (it, 3);
+
+std::copy(bar.begin(),bar.end(),std::inserter(foo,it));
+
+// Foo now contains {1, 2, 3, 4, 5, 6, 7, 8}
+
+// You can also use front_inserter and back_inserter, which are essentially
+// Equivalent calls to inserter(foo, foo.begin()) and inserter(foo, foo.end()) respectively
+std::copy (bar.begin(),bar.end(),front_inserter(foo)); // Inserts at front of container
+std::copy (bar.begin(),bar.end(),back_inserter(foo)); // Inserts at back of container
+```
+
+> Notice that the inserter inserts the values **before** the current position
+
+
+
+### Iterator Overview Preface
+
+So again, remember that iterators are abstract objects that help you remember what they can do. Creating an iterator for a particular object creates an iterator with method implementations that are provisioned for by the type of iterator that object supports.
+
+Eg. Creating a vector iterator automatically creates a random access iterator, which supports all the methods that a random access iterator supports.
+
+So when going through these, I'll just add the functionalities **incrementally.** To avoid repeating stuff.
+
+For some of these functions, you'll have to include the `<algorithm>` library.
+
+
+
+### Input Iterators
+
+Useful for single pass algorithms.
+
+You can't decrement them, and you can't **assign** with them.
+
+You also can't do more complex relational operations with them like >, <, <=, >=.
+
+```c++
+// Suppose we have two input iterators
+// input_it_1 and input_it_2
+
+// Comparisons
+input_it_1 == input_it_2; // Checks if the iterators are pointing to the same position
+input_it_1 != input_it_2; // Checks if the iterators are not pointing to the same position
+
+// Dereferencing
+auto a = *input_it_1; // Get the value pointed at
+auto a = input_it_1 -> m; // Get member m of the element pointed at
+
+// Incrementing (Moves the position forward)
+input_it_1++;
+++input_it_1;
+```
+
+**Supported Methods**
+
+> Note:
+>
+> `equal_range()` requires forward iterators and is **not supported.**
+
+```c++
+// You can swap the values pointed at by two input iterators, even if you can't insert directly!
+std::swap(input_it_1, input_it_2);
+
+// Find elements
+std::find(input_it_1, input_it_2, val);
+
+// Compare elements within a range with another range
+std::equal(input_it_1, input_it_2, start_of_sequence_to_compare);
+
+// Copy a range into another range
+std::copy(input_it_1, input_it_2, some_output_iterator);
+```
+
+
+
+### Output Iterators
+
+Useful for single pass algorithms.
+
+You can't decrement them, and you can't **access** with them.
+
+You also can't do comparisons with them!
+
+```c++
+// Suppose we have two output iterators
+// output_it_1 and output_it_2
+
+// Dereferencing
+*output_it_1 = a; // Get the value pointed at
+output_it_1 -> m = a; // Get member m of the element pointed at
+
+// Incrementing (Moves the position forward)
+output_it_1++;
+++output_it_1;
+```
+
+**Supported Methods**
+
+```c++
+// You can swap the values pointed at by two input iterators, even if you can't insert directly!
+std::swap(output_it_1, output_it_2);
+
+// Copy a range into another range
+std::copy(input_it_1, input_it_2, some_output_iterator);
+
+// Move a range into another range
+std::move(input_it_1, input_it_2, some_output_iterator);
+```
+
+
+
+### Forward Iterators
+
+Combine the powers of input and output iterators and you get the forward iterator!
+
+Note that you still can't decrement them! Or do more arithmetic than simple incrementing.
+
+I'm not going to repeat the functionalities for input and output ones. But the cool thing is that forward iterators become more than the sum of their parts! So we get some new functions that we can use.
+
+**Supported Methods**
+
+```c++
+// Return the bounds of the subrange the includes all elements equal to some value
+std::equal_range(forward_it_first, forward_it_last, val);
+
+// Replace all values equal to a certain value
+std::replace(forward_it_first, forward_it_last, old_val, new_val);
+```
+
+
+
+### Bidirectional Iterators
+
+Just like forward iterators, except you can decrement them! Which again, unlocks more cool functions.
+
+Still can't randomly access them though. Sadly.
+
+You can use them for multi-pass algorithms though!
+
+```c++
+// Finally you can decrement!
+bidirectional_it--;
+--bidirectional_it;
+```
+
+**Supported Methods**
+
+```c++
+// Create a new container, but with elements reversed
+std::reverse_copy(bidirectional_it_first, bidirectional_it_last, output_it_result);
+```
+
+
+
+### Random Access Iterators
+
+And finally we get to the all encompassing iterator. The random access iterator that allows for offset access and stronger comparisons like <, >, >=, <=.
+
+```c++
+// You can do nicer comparsions now!
+random_access_it_1 <= random_access_it_1; // Checks if it_1 is before or at it_2
+
+// And you can jump positions!
+random_access_it_1 + 2;
+
+// And do offset dereferencing!
+random_access_it[3];
+```
+
+**Supported Methods**
+
+```c++
+// Random shuffle!
+std::random_shuffle(random_access_first, random_access_last, random_number_generator);
+```
 
 
 
