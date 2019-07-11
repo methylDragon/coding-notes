@@ -241,6 +241,19 @@ void fun<int>(int a) // This second <> is known as the template argument list
 }
 ```
 
+Template parameters are used to first decide which template to even use.
+
+Then the arguments serve as a way to further declare explicitly the expected types of the arguments. (Which could use the template argument types.)
+
+```c++
+// Example
+template <typename T> 
+T maximise<T>(T x, T y) 
+{ 
+   return (x > y) ? x : y; // Return the maximum 
+} 
+```
+
 
 
 ### 3.2 Template Specialisation <a name="3.2"></a>
@@ -515,7 +528,7 @@ template <typename Type>
 func<int>10;
 ```
 
-When the compiler tries to substitute the templates on a call like `func<int>10`. If it stumbles upon template A, there will be a substitution error due the fact that ints don't have a `type` member. So the compiler **passes over the template resolution and moves on to the next candidate template, which resolves properly!**
+When the compiler tries to substitute the templates on a call like `func<int>10`. If it stumbles upon template A, there will be a substitution error due the fact that ints don't have a `type` member. So the compiler **passes over the template resolution and moves on to the next candidate template (B), which resolves properly!**
 
 
 
@@ -524,6 +537,8 @@ When the compiler tries to substitute the templates on a call like `func<int>10`
 Before we can really move on, I should first write about a nifty trick that one can use in any C++ implementation which supports `decltype`.
 
 And before we can even talk about that, we should talk about a fairly obscure use of the comma `,` operator.
+
+**Comma Operator**
 
 So normally when you're calling functions you're able to use the comma as a separator of arguments.
 
@@ -542,6 +557,8 @@ int j = (f_1(), f_2()); // j will equal the return value of f_2()
 
 // Note that if f_1() is invalid/fails, program compilation or execution will fail!
 ```
+
+**Templates with decltype**
 
 This is super useful because you can basically use it with SFINAE (the later section), once you combine it with `decltype`.
 
