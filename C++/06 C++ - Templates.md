@@ -16,11 +16,29 @@ This time, we'll be going through C++ templates!!
 
 
 
-## Table Of Contents
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)    
+2. [C++ Templates Reference](#2)    
+   2.1 [Template Concept](#2.1)    
+   2.2 [Function Templates](#2.2)    
+   2.3 [Class Templates](#2.3)    
+   2.4 [Template Variables](#2.4)    
+   2.5 [Multiple Arguments](#2.5)    
+   2.6 [Default Arguments](#2.6)    
+   2.7 [Some Notes](#2.7)    
+3. [Template Metaprogramming](#3)    
+   3.1 [Template Parameters vs Template Arguments](#3.1)    
+   3.2 [Template Specialisation](#3.2)    
+   3.3 [Partial Specialisation](#3.3)    
+   3.4 [Non-Type Template Arguments](#3.4)    
+   3.5 [Template Argument Deduction](#3.5)    
+   3.6 [SFINAE (Substitution Failure Is Not An Error)](#3.6)    
 
 
 
-## Introduction
+
+## 1. Introduction <a name="1"></a>
 
 So we spent the previous section talking about a couple of uses of the STL library. But have you ever wondered what templates are?
 
@@ -28,9 +46,11 @@ So we spent the previous section talking about a couple of uses of the STL libra
 
 
 
-## C++ Templates Reference
+## 2. C++ Templates Reference <a name="2"></a>
 
-### Template Concept
+### 2.1 Template Concept <a name="2.1"></a>
+[go to top](#top)
+
 
 The idea of templates is a very powerful one. It allows you to wrap C++ with a type of 'metalanguage' that allows you to write generic functions that can deal with a multitude of data types.
 
@@ -42,7 +62,9 @@ The idea of templates is a very powerful one. It allows you to wrap C++ with a t
 
 
 
-### Function Templates
+### 2.2 Function Templates <a name="2.2"></a>
+[go to top](#top)
+
 
 Let's look at a simple example for defining function templates!
 
@@ -72,7 +94,9 @@ T maximise(T x, T y)
 
 
 
-### Class Templates
+### 2.3 Class Templates <a name="2.3"></a>
+[go to top](#top)
+
 
 You can template into classes too!
 
@@ -122,7 +146,9 @@ int main() {
 
 
 
-### Template Variables
+### 2.4 Template Variables <a name="2.4"></a>
+[go to top](#top)
+
 
 You can even declare variables as templates!
 
@@ -138,7 +164,9 @@ pi<long>; // So on and so forth
 
 
 
-### Multiple Arguments
+### 2.5 Multiple Arguments <a name="2.5"></a>
+[go to top](#top)
+
 
 You can pass multiple arguments to templates! Just add on more stuff.
 
@@ -153,7 +181,9 @@ T maximise(T x, U y)
 
 
 
-### Default Arguments
+### 2.6 Default Arguments <a name="2.6"></a>
+[go to top](#top)
+
 
 ```c++
 template <typename T, typename U = int> 
@@ -166,7 +196,9 @@ T maximise(T x, U y)
 
 
 
-### Some Notes
+### 2.7 Some Notes <a name="2.7"></a>
+[go to top](#top)
+
 
 > **What is the difference between function overloading and templates?**
 > Both function overloading and templates are examples of polymorphism feature of OOP. Function overloading is used when multiple functions do similar operations, templates are used when multiple functions do identical operations.
@@ -182,7 +214,7 @@ So the reason you have multiple static members is because the templates actually
 
 
 
-## Template Metaprogramming
+## 3. Template Metaprogramming <a name="3"></a>
 
 ![giphy](assets/giphy.gif)
 
@@ -194,7 +226,9 @@ But the main benefit of using templates to such a degree is greater generality o
 
 
 
-### Template Parameters vs Template Arguments
+### 3.1 Template Parameters vs Template Arguments <a name="3.1"></a>
+[go to top](#top)
+
 
 > Example: `template <PARAMETER_LIST> struct <ARGUMENT_LIST>`
 
@@ -209,7 +243,9 @@ void fun<int>(int a) // This second <> is known as the template argument list
 
 
 
-### Template Specialisation
+### 3.2 Template Specialisation <a name="3.2"></a>
+[go to top](#top)
+
 
 Suppose you have a generic function, but you realise that one particular possible input type can be treated in a far, far more efficient way.
 
@@ -306,7 +342,9 @@ public:
 
 
 
-### Partial Specialisation
+### 3.3 Partial Specialisation <a name="3.3"></a>
+[go to top](#top)
+
 
 Partial specialisation works for structs and classes.
 
@@ -359,7 +397,9 @@ int main() {
 
 
 
-### Non-Type Template Arguments
+### 3.4 Non-Type Template Arguments <a name="3.4"></a>
+[go to top](#top)
+
 
 They're like another way to include arguments!
 
@@ -387,7 +427,9 @@ arrMin<int, 100>(arr1, n1);
 
 
 
-### Template Argument Deduction
+### 3.5 Template Argument Deduction <a name="3.5"></a>
+[go to top](#top)
+
 
 This diagram shows how the final template is resolved if there are specialisations or multiple declarations of templates involved. **Note again that only base templates are overloaded for function templates!** 
 
@@ -412,7 +454,9 @@ If there is generally an exact match for the template arguments after passing th
 
 
 
-### SFINAE (Substitution Failure Is Not An Error)
+### 3.6 SFINAE (Substitution Failure Is Not An Error) <a name="3.6"></a>
+[go to top](#top)
+
 
 ![giphy](assets/giphy-1562828095877.gif)
 
