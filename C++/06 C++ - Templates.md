@@ -44,6 +44,10 @@ So we spent the previous section talking about a couple of uses of the STL libra
 
 >  **Templates** are powerful features of **C++** which allows you to write generic programs. In simple terms, you can create a single function or a class to work with different data types using **templates**. **Templates** are often used in larger codebase for the purpose of code reusability and flexibility of the programs.
 
+- **Functions** operate on **values and references**!
+
+- **Metafunctions** (like those for templates) operate on **types** in addition to **values and references**!
+
 
 
 ## 2. C++ Templates Reference <a name="2"></a>
