@@ -499,9 +499,21 @@ Launch files are written in XML. So get to learning it! It's not that hard!
 ```xml
 <launch>
   <!-- This is how you specify nodes to be launched -->
-  <node name="talker" pkg="rospy_tutorials" type="talker" output="screen" />
+  <node name="my_talker" pkg="rospy_tutorials" type="talker" output="screen" />
 </launch>
 ```
+
+> **PLEASE NOTE:**
+>
+> The `type` argument in the node specification refers to the type of node that is being launched.
+>
+> So for example, if you run the node using rosrun, it goes like this:
+>
+> ```shell
+> rosrun PKG TYPE
+> ```
+>
+> The name of the node is merely what it looks like on the rosgraph, which you can see using `rosnode list` or  `rosrun rqt_graph rqt_graph`
 
 
 
