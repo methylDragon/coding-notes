@@ -16,11 +16,39 @@ This time, we'll be going through some basic Data Structures and Iterators!
 
 
 
-## Table Of Contents
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)    
+2. [C++ Container Reference](#2)    
+   2.1 [Container Concept](#2.1)    
+   2.2 [Arrays](#2.2)    
+   2.3 [Dynamic Arrays](#2.3)    
+   2.4 [Linked Lists](#2.4)    
+   2.5 [Pairs](#2.5)    
+   2.6 [Tuples](#2.6)    
+   2.7 [Queues](#2.7)    
+   2.8 [Priority Queues](#2.8)    
+   2.9 [Stacks](#2.9)    
+   2.10 [Trees](#2.10)    
+   2.11 [Sets](#2.11)    
+   2.12 [Maps](#2.12)    
+   2.13 [Unordered Sets/HashSets](#2.13)    
+   2.14 [Unordered Maps/HashMaps](#2.14)    
+3. [C++ Iterator Reference](#3)    
+   3.1 [Iterator Concept](#3.1)    
+   3.2 [Iterator-Container Compatibility](#3.2)    
+   3.3 [Basic Iterator Usage](#3.3)    
+   3.4 [Iterator Overview Preface](#3.4)    
+   3.5 [Input Iterators](#3.5)    
+   3.6 [Output Iterators](#3.6)    
+   3.7 [Forward Iterators](#3.7)    
+   3.8 [Bidirectional Iterators](#3.8)    
+   3.9 [Random Access Iterators](#3.9)    
 
 
 
-## Introduction
+
+## 1. Introduction <a name="1"></a>
 
 Time to dive into some more super useful functionalities that the standard C++ library offers - data structures that can be used for solving lots of different computer science problems!
 
@@ -43,11 +71,13 @@ It might be a bit confusing, so we might perhaps use the term that C++ uses, and
 
 
 
-## C++ Container Reference
+## 2. C++ Container Reference <a name="2"></a>
 
 This will not be an exhaustive list.
 
-### Container Concept
+### 2.1 Container Concept <a name="2.1"></a>
+[go to top](#top)
+
 
 Standard containers in the C++ STL and standard library wraps different abstract and non-abstract data structures in a nice neat interface.
 
@@ -64,7 +94,9 @@ Threaded reads are fine, but any operation that modifies the container (in a way
 
 
 
-### Arrays
+### 2.2 Arrays <a name="2.2"></a>
+[go to top](#top)
+
 
 ![Array](assets/array.png)
 
@@ -109,7 +141,9 @@ array.data();
 
 
 
-### Dynamic Arrays
+### 2.3 Dynamic Arrays <a name="2.3"></a>
+[go to top](#top)
+
 
 Just like normal arrays, except that they can be resized as they are **dynamically allocated.**
 
@@ -175,7 +209,9 @@ vector.emplace_back();
 
 
 
-### Linked Lists
+### 2.4 Linked Lists <a name="2.4"></a>
+[go to top](#top)
+
 
 ![img](assets/Linkedlist.png)(Singly Linked List)
 
@@ -254,7 +290,9 @@ int main()
 
 
 
-### Pairs
+### 2.5 Pairs <a name="2.5"></a>
+[go to top](#top)
+
 
 They're pairs. Of objects. In twos.
 
@@ -280,7 +318,9 @@ pair.second = 'w';
 
 
 
-### Tuples
+### 2.6 Tuples <a name="2.6"></a>
+[go to top](#top)
+
 
 They're like arrays, but can be heterogeneous. Pairs are technically tuples that are limited to size 2.
 
@@ -315,7 +355,9 @@ tuple_1.get(1);
 
 
 
-### Queues
+### 2.7 Queues <a name="2.7"></a>
+[go to top](#top)
+
 
 ![queue](assets/queue.png)
 
@@ -398,7 +440,9 @@ deque.at(1);
 
 
 
-### Priority Queues
+### 2.8 Priority Queues <a name="2.8"></a>
+[go to top](#top)
+
 
 ![priority_queue](assets/priority_queue.png)
 
@@ -437,7 +481,9 @@ q.pop();
 
 
 
-### Stacks
+### 2.9 Stacks <a name="2.9"></a>
+[go to top](#top)
+
 
 ![Image result for stack](assets/stack.jpg)
 
@@ -479,7 +525,9 @@ s.pop();
 
 
 
-### Trees
+### 2.10 Trees <a name="2.10"></a>
+[go to top](#top)
+
 
 ![img](assets/192px-Binary_tree.svg.png)
 
@@ -495,7 +543,9 @@ They can sometimes be implemented in array or vector form as well, but we'll not
 
 
 
-### Sets
+### 2.11 Sets <a name="2.11"></a>
+[go to top](#top)
+
 
 A set is an abstract data type that stores sorted, unique values. You can insert or delete elements from them but those elements can't be modified.
 
@@ -554,7 +604,9 @@ s.empty();
 
 
 
-### Maps
+### 2.12 Maps <a name="2.12"></a>
+[go to top](#top)
+
 
 A map is an abstract data type that stores sorted key-value pairs. You can insert or delete keys, but you can't modify the keys. You can modify the values though!
 
@@ -615,7 +667,9 @@ map.empty();
 
 
 
-### Unordered Sets/HashSets
+### 2.13 Unordered Sets/HashSets <a name="2.13"></a>
+[go to top](#top)
+
 
 They're like sets. But they're unordered. Because they're implemented using hashes! These use more memory but with the benefit of faster accesses if the sets are large.
 
@@ -679,7 +733,9 @@ s.bucket(); // Locate element's bucket
 
 
 
-### Unordered Maps/HashMaps
+### 2.14 Unordered Maps/HashMaps <a name="2.14"></a>
+[go to top](#top)
+
 
 ![Image result for hash c++](assets/1_FH2BzH1l5D7C18Fd7U0JVQ.png)
 
@@ -751,9 +807,11 @@ map.bucket(); // Locate element's bucket
 
 
 
-## C++ Iterator Reference
+## 3. C++ Iterator Reference <a name="3"></a>
 
-### Iterator Concept
+### 3.1 Iterator Concept <a name="3.1"></a>
+[go to top](#top)
+
 
 [Reference](<http://www.cplusplus.com/reference/iterator/>)
 
@@ -785,7 +843,9 @@ So as you can see, random access iterators have the most functionality.
 
 
 
-### Iterator-Container Compatibility
+### 3.2 Iterator-Container Compatibility <a name="3.2"></a>
+[go to top](#top)
+
 
 Of course, since we just went through containers above, and iterators are used to traverse containers, it's best to talk about which containers support which iterators. We'll mention the highest level of available iterator to use for each container.
 
@@ -804,7 +864,9 @@ Of course, since we just went through containers above, and iterators are used t
 
 
 
-### Basic Iterator Usage
+### 3.3 Basic Iterator Usage <a name="3.3"></a>
+[go to top](#top)
+
 
 Iterators help to simplify your code and increase its re-usability, since they provide a **common interface** for traversing standard library and STL containers.
 
@@ -872,7 +934,9 @@ std::copy (bar.begin(),bar.end(),back_inserter(foo)); // Inserts at back of cont
 
 
 
-### Iterator Overview Preface
+### 3.4 Iterator Overview Preface <a name="3.4"></a>
+[go to top](#top)
+
 
 So again, remember that iterators are abstract objects that help you remember what they can do. Creating an iterator for a particular object creates an iterator with method implementations that are provisioned for by the type of iterator that object supports.
 
@@ -884,7 +948,9 @@ For some of these functions, you'll have to include the `<algorithm>` library.
 
 
 
-### Input Iterators
+### 3.5 Input Iterators <a name="3.5"></a>
+[go to top](#top)
+
 
 Useful for single pass algorithms.
 
@@ -931,7 +997,9 @@ std::copy(input_it_1, input_it_2, some_output_iterator);
 
 
 
-### Output Iterators
+### 3.6 Output Iterators <a name="3.6"></a>
+[go to top](#top)
+
 
 Useful for single pass algorithms.
 
@@ -967,7 +1035,9 @@ std::move(input_it_1, input_it_2, some_output_iterator);
 
 
 
-### Forward Iterators
+### 3.7 Forward Iterators <a name="3.7"></a>
+[go to top](#top)
+
 
 Combine the powers of input and output iterators and you get the forward iterator!
 
@@ -987,7 +1057,9 @@ std::replace(forward_it_first, forward_it_last, old_val, new_val);
 
 
 
-### Bidirectional Iterators
+### 3.8 Bidirectional Iterators <a name="3.8"></a>
+[go to top](#top)
+
 
 Just like forward iterators, except you can decrement them! Which again, unlocks more cool functions.
 
@@ -1010,7 +1082,9 @@ std::reverse_copy(bidirectional_it_first, bidirectional_it_last, output_it_resul
 
 
 
-### Random Access Iterators
+### 3.9 Random Access Iterators <a name="3.9"></a>
+[go to top](#top)
+
 
 And finally we get to the all encompassing iterator. The random access iterator that allows for offset access and stronger comparisons like <, >, >=, <=.
 
