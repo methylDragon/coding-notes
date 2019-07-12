@@ -1,4 +1,4 @@
-# Advanced C++ Crash Course (Pointers)
+# Advanced C++ Crash Course (Pointers and Memory)
 
 Author: methylDragon  
 Contains an advanced syntax reference for C++  
@@ -28,8 +28,10 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.5   [Arrays with Pointers](#2.5)    
    2.6   [Indirection (Pointers of Pointers)](#2.6)    
    2.7   [When to use Pointers and when to use References](#2.7)    
-   2.8   [Memory Management](#2.8)    
-   2.9   [Smart Pointers](#2.9)    
+   2.8   [Memory in C++](#2.8)    
+   2.8   [Heap and Stack](#2.9)    
+   2.10   [Memory Management](#2.10)    
+   2.11   [Smart Pointers](#2.11)    
 
 
 
@@ -193,6 +195,10 @@ i = 6
 [go to top](#top)
 
 #### **Concepts**
+
+![Image result for c++ memory](assets/pointers-in-c.jpg)
+
+[Image Source](<https://simplesnippets.tech/cpp-pointers-concept-with-example/>)
 
 Pointers are **variables** in and of themselves, that **STORE MEMORY ADDRESSES**. In effect, they act as signposts that POINT to memory addresses!
 
@@ -423,7 +429,193 @@ Pointers can also be altered to point to other memory addresses! But references 
 
 
 
-### 2.8 Memory Management <a name="2.8"></a>
+### 2.8 Memory in C++ <a name="2.8"></a>
+
+[go to top](#top)
+
+#### **Introduction**
+
+Before we move on we should talk about how memory is stored in C++.
+
+There are several main sections of memory used in any C++ program. They are ordered as follows. (Generally speaking. It's usually platform dependent.)
+
+![img](assets/memoryLayoutC.jpg)
+
+[Image Source](<https://www.geeksforgeeks.org/memory-layout-of-c-program/>)
+
+Or in terms of the read-write capabilities of each block of memory,
+
+![Image result for c++ memory](assets/main-qimg-0b429780923c55f6a803405694c5b7af.webp)
+
+[Image Source](<https://www.quora.com/Is-it-a-design-fault-that-C++-itself-has-no-garbage-collection>)
+
+We'll start from the bottom, following the first image.
+
+If you're trying to interpret the second image in terms of the first, just take it that literals and static data are stored in the `unitialised` and `initialised data` segments, depending on whether they are initialised or not. `int i;` vs `int i = 5;`
+
+#### **Text Segment**
+
+The text segment is where the actual executable code instructions are stored. It's placed below the heap and stack to prevent any overflows from either from overwriting it.
+
+Pretty smart.
+
+#### **Initialised Data/Data Segment**
+
+This is where all the data that is initialised with non-zero data at compile time is stored.
+
+- The **read-only** section of this segment will go to **literals**, like strings. Eg: `char s[] = "rawr"`
+- The **read-write** section of this segment will go to static or global variables. Eg: `global int wow = 1;`
+
+#### **Uninitialised Data/bss Segment**
+
+(bss stands for "block started by symbol".)
+
+All data here is initialised with 0. And it contains **all static or global data that is either explicitly initialised to 0 or does not have explicit initialisation in the source code.**
+
+Some examples of stuff that's stored in the bss segment:
+
+```c++
+static int a;
+global int b;
+
+// This one will NOT be in the bss! Since it's local to main, and will actually go to the stack.
+int main(){
+  int c = 0;
+  return 0;
+}
+```
+
+#### **Stack and Heap**
+
+The stack and heap actually share the same segment, and typically grow in opposite directions from opposite ends of the segment. Though some optimisations and compilers might break this guideline.
+
+![Image result for stack](assets/stack-1562909159143.jpg)
+
+[Image Source](<http://bluegalaxy.info/codewalk/2018/08/12/python-how-to-implement-a-lifo-stack/>)
+
+The stack follows last-in, first-out (LIFO) structure.
+
+The top of the stack and heap are tracked using pointers. Once the two pointers meet, you've run out of memory. If you don't catch this, you'll get overflows, which will mean you're going to have a **bad time.**
+
+Each time you call a function, a stack frame containing function variables, and information relating to the function caller's environments, return address, some machine registers, and other function-call related info are pushed to the stack. If you have a recursive function each recursive call actually generates a new stack frame on the stack.
+
+> - The stack grows and shrinks as functions push and pop local variables
+> - There is no need to manage the memory yourself, variables are allocated and freed automatically
+> - The stack has size limits
+> - Stack variables only exist while the function that created them, is running
+>   - This includes the main() function!!
+>
+> <https://www.gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html>
+
+#### **Heap**
+
+The heap is where dynamic memory allocation typically happens.
+
+You manage it by using `malloc`, `realloc`, `free` (C functions), or the newer `new`, `new[]`, `delete`, and `delete[]` C++ operators, which are better and almost always better to use.
+
+Every thread, library, or module in a single program process has access to this data segment, since they're essentially global.
+
+It's **normally slower to access heap data than stack data since you need to use pointers to access them.**
+
+
+
+### 2.9 Heap and Stack <a name="2.9"></a>
+
+[go to top](#top)
+
+There's actually more to go through for the heap and stack, since they're the two data segments that you'll encounter most often.
+
+> ## Stack vs Heap Pros and Cons
+>
+> ### Stack
+>
+> - Very fast access
+> - Don't have to explicitly de-allocate variables
+> - Space is managed efficiently by CPU, memory will not become fragmented
+> - Local variables only
+> - Limit on stack size (OS-dependent)
+> - Variables cannot be resized
+>
+> ### Heap
+>
+> - Variables can be accessed globally
+> - No limit on memory size
+> - (Relatively) slower access
+> - No guaranteed efficient use of space, memory may become fragmented over time as blocks of memory are allocated, then freed
+> - You must manage memory (you're in charge of allocating and freeing variables)
+> - Variables can be resized using `realloc()`
+>
+> ## When to use the Heap?
+>
+> When should you use the heap, and when should you use the stack?
+>
+> If you need to allocate a **large block of memory** (e.g. a large array, or a big struct), and you need to **keep that variable around a long time** (like a global), then you should **allocate it on the heap**.
+>
+> If you are dealing with **relatively small variables that only need to persist as long as the function using them is alive**, then you should **use the stack**, it's easier and faster.
+>
+> If you need variables like arrays and structs that can **change size dynamically** (e.g. arrays that can grow or shrink as needed) then you will likely need to **allocate them on the heap**, and use dynamic memory allocation functions like `malloc()`, `calloc()`, `realloc()` and `free()` to manage that memory "by hand".
+>
+> <https://www.gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html>
+
+#### **Allocating to Stack**
+
+It's fairly simple to allocate stuff to the stack. Just make sure that they're specifically **local variables** in a function (which can be main()!)
+
+These variables are **automatically allocated**.
+
+```c++
+int main(){
+  int c = 0;
+  return 0;
+}
+
+void foo(){
+  int a = 1;
+}
+
+// The variables are deallocated automatically once the functions go out of scope
+```
+
+#### **Allocating to Heap**
+
+You **can't declare variables on the heap.** You can only create variables anonymously, then point to them with a named **pointer**.
+
+So, allocating to the heap is trickier. You need to **explicitly allocate** the memory as a pointer.
+
+The variables pointed at by the pointer are on the heap, and are **dynamically allocated.**
+
+**Allocation**
+```c++
+int* ptr = new int; // ptr is assigned 4 bytes in the heap
+int* array = new int[10]; // array is assigned 40 bytes in the heap
+
+// Or later, when we go through smart pointers (which are better than raw pointers)
+std::unique_ptr<someType> uniqueptr(new int(1));
+```
+
+**Deallocation**
+```c++
+// You'll need to manually deallocate them if using raw pointers to free memory
+// Otherwise you'll get a memory leak!
+*ex= new Example();
+delete ex;
+ex = nullptr; // Remember to reassign the pointer to NULL so the pointer won't dangle
+
+// With a smart pointer you can just call .reset
+uniqueptr.reset();
+```
+
+**Dangling Pointers**
+
+![Memory Management](assets/memory-management-in-cpp-2.png)
+
+[Image Source](<https://www.studytonight.com/cpp/memory-management-in-cpp.php>)
+
+You don't want this. This is a dangling pointer and what happens if you don't reassign the pointer to `nullptr`.
+
+
+
+### 2.10 Memory Management <a name="2.10"></a>
 
 [go to top](#top)
 
@@ -432,6 +624,8 @@ Read more: http://www.cplusplus.com/doc/tutorial/dynamic/
 I have to say it here, since we've covered pointers. The reason why C++ is so powerful (and hard), is because you have to control how memory is managed in the program. This means cleaning up after yourself if you want to no longer use variables, controlling the memory flow, assigning pointers, and all the like. It goes really, really deep.
 
 So here's a small primer! For **dynamic (runtime) memory management.**
+
+(We will not be going through the old `malloc`, `free`, `realloc` and related C functions, since the operators C++ provisions for are way better.)
 
 
 
@@ -528,9 +722,7 @@ str2 = std::move(str1);
 
 
 
-
-
-### 2.9 Smart Pointers <a name="2.9"></a>
+### 2.11 Smart Pointers <a name="2.11"></a>
 
 [go to top](#top)
 

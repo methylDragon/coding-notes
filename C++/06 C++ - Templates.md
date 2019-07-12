@@ -2,7 +2,7 @@
 
 Author: methylDragon  
 Contains an advanced syntax reference for C++  
-This time, we'll be going through C++ templates!!   
+This time, we'll be going through C++ templates and template metaprogramming!    
 
 ------
 

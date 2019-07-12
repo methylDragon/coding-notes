@@ -40,10 +40,10 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [Introduction and Basic Syntax](./C++/01%20C++%20-%20Introduction.md)
 - [Functions and File IO](./C++/02%20C++%20-%20Functions%20and%20File%20IO.md)
 - [Object-Oriented Syntax](./C++/03%20C++%20-%20Object-Oriented%20Syntax.md)
-- [Pointers](./C++/04%20C++%20-%20Pointers.md)
+- [Pointers and Memory](./C++/04%20C++%20-%20Pointers%20and%20Memory.md)
 - [Data Structures (Containers)](./C++/05%20C++%20-%20Data%20Structures%20(Containers).md)
 - [Templates](./C++/06%20C++%20-%20Templates.md)
-- [Threading](./C++/07%20C++%20-%20Threading.md)
+- [Threading](./C++/07%20C++%20-%20Concurrency.md)
 - [Tips and Tricks](./C++/08%20C++%20-%20Tips%20and%20Tricks.md)
 - [(Bonus) Headers](./C++/Bonus%20Notes/BONUS%20C++%20-%20Headers.md)
 
