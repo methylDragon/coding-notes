@@ -43,7 +43,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [Pointers and Memory](./C++/04%20C++%20-%20Pointers%20and%20Memory.md)
 - [Data Structures (Containers)](./C++/05%20C++%20-%20Data%20Structures%20(Containers).md)
 - [Templates](./C++/06%20C++%20-%20Templates.md)
-- [Threading](./C++/07%20C++%20-%20Concurrency.md)
+- [Threading and Concurrency](./C++/07%20C++%20-%20Threading%20and%20Concurrency.md)
 - [Tips and Tricks](./C++/08%20C++%20-%20Tips%20and%20Tricks.md)
 - [(Bonus) Headers](./C++/Bonus%20Notes/BONUS%20C++%20-%20Headers.md)
 
