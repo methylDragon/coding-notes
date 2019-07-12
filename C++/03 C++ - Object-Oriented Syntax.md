@@ -31,6 +31,8 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.4   [Child Class Declaration](#2.4)    
    2.5   [Virtual Methods and Polymorphisms](#2.5)    
    2.6   [Friendship](#2.6)    
+   2.7   [Operator Overloading](#2.7)    
+   2.8   [Rules for Object Management](#2.8)    
 
 
 
@@ -604,6 +606,163 @@ int friendly_dragon_happiness_detector(const Dragon& dragon){
 ```
 
 
+
+### 2.7 Operator Overloading <a name="2.7"></a>
+
+[go to top](#top)
+
+You can redefine what an operator does to a class!
+
+So you can change what the `+` operator does, for example.
+
+All you need to do, is use the `operator` keyword, followed by the operator that you want to redefine. (Do this inside a class, of course.)
+
+```c++
+public:
+  MyClass operator + (MyClass const &MyClassObj)
+  {
+    // Do some stuff
+    return something;
+  }
+```
+
+You can also overload conversion operators!
+
+```c++
+class Wow
+{
+public:
+  Wow() {} // Some contructor
+
+  operator float()
+  {
+    // Do some float calculation stuff
+    return float_conversion_result;
+  }    
+}
+
+// Our new overloaded float conversion operator will be usable like so!
+a = Wow();
+float b = a; // Wow!
+```
+
+**Example**
+
+```c++
+// Source: https://www.geeksforgeeks.org/operator-overloading-c/
+
+#include<iostream> 
+using namespace std; 
+  
+class Complex { 
+private: 
+    int real, imag; 
+public: 
+    Complex(int r = 0, int i =0)  {real = r;   imag = i;} 
+      
+    // This is automatically called when '+' is used with 
+    // between two Complex objects 
+    Complex operator + (Complex const &obj) { 
+         Complex res;
+         res.real = real + obj.real; 
+         res.imag = imag + obj.imag; 
+         return res; 
+    } 
+    void print() { cout << real << " + i" << imag << endl; } 
+}; 
+  
+int main() 
+{ 
+    Complex c1(10, 5), c2(2, 4); 
+    Complex c3 = c1 + c2; // An example call to "operator+" 
+    c3.print(); 
+} 
+```
+
+#### **Caveats**
+
+Almost every operator can be overloaded, except for...
+
+- `.`
+- `::`
+- `?:`
+- `sizeof`
+
+[Reasons being...](<http://www.stroustrup.com/bs_faq2.html#overload-dot>)
+
+
+
+### 2.8 Rules for Object Management <a name="2.8"></a>
+
+[go to top](#top)
+
+#### **Introduction**
+
+C++ provides 6 special functions that are called default operations that deal with managing an object's lifecycle.
+
+|      Operation      |       Signature       |
+| :-----------------: | :-------------------: |
+| Default constructor |         `X()`         |
+|  Copy constructor   |     `X(const X&)`     |
+|   Copy assignment   | `operator=(const X&)` |
+|  Move constructor   |       `X(X&&)`        |
+|   Move assignment   |   `operator=(X&&)`    |
+|     Destructor      |        `~X()`         |
+
+You can explicitly define them, delete them, or lean on the compiler's default.
+
+```c++
+X() {}; // Default constructor, explicitly defined
+X() = default; // Default constructor, defaulting to compiler implementation
+X() = delete; // Explicitly deleted default constructor. There will be no implementation
+```
+
+The rules for object management help to keep your programs running as expected. You can treat the rules like boilerplate, but just keep them in mind.
+
+
+
+#### **Rule of Zero**
+
+This one is fairly simple. Since it keeps things simple.
+
+>  **If you can avoid redefining any default operations, do.**
+
+
+
+#### **Rule of Three**
+
+> **If you redefine at least one of the following operations: Destructor, Copy Constructor, Copy Assignment, explicitly redefine all three.**
+
+Example:
+
+- Suppose we have a class with a redefined destructor `~X()`
+- When the default copy assignment `operator=(const X&)` or copy constructor `X(const X&)` is used, it copies all class members, including the redefined destructor, and **any declared local pointers without reallocating extra memory for those copied local pointers**.
+  - In other words, using the default copy assignment and copy constructor operations, all pointers local to each class instance point to the same piece of memory!
+- So when the program goes out of scope, for the same destructor is called for all copies of the object, the same address pointed to by all pointers in instances of the class are deleted multiple times, crashing the program.
+
+Similar logic can be used for the other two operations. If you only define one copy operation, the other gets used as the default and will really mess up your memory management.
+
+
+
+#### **Rule of Five**
+
+Actually all six operations are intimately linked. So the rule of five (it's the rule of six if you count the default constructor) exists to remind you that...
+
+> **If you redefine or =delete any default operation, define or =delete them all.**
+
+If you don't follow the rule, your objects might behave weirdly.
+
+Furthermore, when you actually define them, make sure you use **consistent semantics**. (Example: If you use shallow copies (copying of pointers) in a single copy operation, do not use deep copies (copying pointers and pointed data) for the other copy operator))
+
+(You'll generally want to use deep copies usually anyway...)
+
+```c++
+// Shallow copy
+p = a.p;
+
+// Deep copy
+p= new int(*(a.p))
+```
 
 
 
