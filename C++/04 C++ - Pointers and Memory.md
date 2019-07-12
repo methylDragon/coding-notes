@@ -106,6 +106,7 @@ Well, actually, not really. The key understanding is that there are **TWO** ways
 > Passing by **Value**: You pass a COPY of the value stored inside a variable
 >
 > - This means the original value stored in the variable **DOESN'T CHANGE**
+> - This accrues copying overhead
 
 > Passing by **Reference**: You pass the variable itself! (By passing the reference TO the variable)
 >
@@ -133,14 +134,22 @@ void myMultiplicationFunction(int* x) // Pass this function addresses (&paramete
 // myMultiplicationFunction(&a);
 
 // Via references (b)
-void myMultiplicationFunction(int &x) // Pass this function variables! (parameter) it'll find the address itself!
+void myMultiplicationFunction(int &x) // Pass this function variables as normal parameters it'll find the address itself!
 {
   x = x * 2;
 }
 
-// Example call: 
+// Example calls
 // int a = 2;
 // myMultiplicationFunction(a);
+
+// You can also pass by const reference!
+// Doing this passes in the object directly, while avoiding copying the input
+// But you're not allowed to change the passed in argument
+void myMultiplicationFunction(const int &x)
+{
+  x = x * 2; // This is invalid and will fail since the passed in parameter is const
+}
 ```
 
 
