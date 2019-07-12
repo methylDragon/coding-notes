@@ -82,7 +82,7 @@ T maximise(T x, T y)
 } 
 
 // Now you can call it!
-std::cout << maximise<int>(3, 7) << endl;
+std::cout << maximise<int>(3, 7) << std::endl;
 std::cout << maximise<double>(3.0, 7.0);
 
 // You can also use the 'class' keyword as opposed to typename
@@ -136,7 +136,7 @@ template <typename T>
 void Array<T>::print() { 
     for (int i = 0; i < size; i++) 
         std::cout << " " << *(ptr + i); 
-    std::cout << endl; 
+    std::cout << std::endl; 
 }
 
 // Usage
@@ -178,8 +178,8 @@ You can pass multiple arguments to templates! Just add on more stuff.
 template <typename T, typename U> 
 T maximise(T x, U y) 
 { 
-  std::cout << x << endl;
-  std::cout << y << endl;
+  std::cout << x << std::endl;
+  std::cout << y << std::endl;
 } 
 ```
 
@@ -193,8 +193,8 @@ T maximise(T x, U y)
 template <typename T, typename U = int> 
 T maximise(T x, U y) 
 { 
-  std::cout << x << endl;
-  std::cout << y << endl;
+  std::cout << x << std::endl;
+  std::cout << y << std::endl;
 } 
 ```
 
@@ -241,7 +241,7 @@ template<> // This first <> is known as the template parameter list
 void fun<int>(int a) // This second <> is known as the template argument list
 { 
   std::cout << "Specialized Template for int type: "
-            << a << endl; 
+            << a << std::endl; 
 }
 ```
 
@@ -288,7 +288,7 @@ template <class T> // This first <> is known as the template parameter list
 void fun(T a) 
 { 
   std::cout << "The main template fun(): " 
-            << a << endl; 
+            << a << std::endl; 
 } 
 
 // Explicit specialisation
@@ -296,7 +296,7 @@ template<>
 void fun<int>(int a) // This second <> is known as the template argument list
 { 
   std::cout << "Specialized Template for int type: "
-            << a << endl; 
+            << a << std::endl; 
 }
 
 // You might be able to do this instead also, but it's probably preferable to include the explicit template argument
@@ -304,7 +304,7 @@ template<>
 void fun(int a) 
 { 
   std::cout << "Specialized Template for int type: "
-            << a << endl; 
+            << a << std::endl; 
 }
 ```
 
@@ -372,22 +372,22 @@ Partial specialisation works for structs and classes.
 using namespace std;
 
 template<class T, class U, int I> struct X
-  { void f() { cout << "Primary template" << endl; } };
+  { void f() { cout << "Primary template" << std::endl; } };
 
 template<class T, int I> struct X<T, T*, I>
-  { void f() { cout << "Partial specialization 1" << endl;
+  { void f() { cout << "Partial specialization 1" << std::endl;
   } };
 
 template<class T, class U, int I> struct X<T*, U, I>
-  { void f() { cout << "Partial specialization 2" << endl;
+  { void f() { cout << "Partial specialization 2" << std::endl;
   } };
 
 template<class T> struct X<int, T*, 10>
-  { void f() { cout << "Partial specialization 3" << endl;
+  { void f() { cout << "Partial specialization 3" << std::endl;
   } };
 
 template<class T, class U, int I> struct X<T, U*, I>
-  { void f() { cout << "Partial specialization 4" << endl;
+  { void f() { cout << "Partial specialization 4" << std::endl;
   } };
 
 int main() {
