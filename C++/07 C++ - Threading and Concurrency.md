@@ -689,13 +689,13 @@ Use **tasks** if:
 
 [Image Source](<https://www.slideshare.net/cppfrug/async-await-in-c>)
 
-**Header:**
+#### **Header**
 
 ```c++
 #include <future>
 ```
 
-**Futures**
+#### **Futures**
 
 A [std::future](<https://en.cppreference.com/w/cpp/thread/future>) is a class template that stores a value that will be assigned in the future, and provides a way to access that value (with `get()`). If its value is accessed before the value is assigned, it will block until the value resolves.
 
@@ -705,15 +705,49 @@ Futures are the objects that are **returned** by asynchronous operations (from `
 
 A [std::shared_future](<https://en.cppreference.com/w/cpp/thread/shared_future>) works the same way, except it is copyable. Which means that multiple threads are allowed to wait for the same shared state.
 
-**Promises**
+#### **Promises**
 
 A [std::promise](<https://en.cppreference.com/w/cpp/thread/promise>) provides a facility to store a value that is later acquired asynchronously via the future **that the promise creates**.
 
 Every promise **is associated with a future**! And a promise **sets** the value of that future. Other objects can then access the future for the value that the promise stores.
 
+#### **A dumb analogy**
+
+> **Today is a Gift. That is why it is called Present.**
+>
+> You're a parent trying to get a gift for your child.
+>
+> You give your kid a box, and **promise** them that the gift is inside. The gift is the **future** you are promising. But you tell them to only to check in the future.
+>
+> If your kid tries to check, you panic, take the box away and, **block** them from checking, until you **fulfill your promise and fill the box** with the gift, then you can give it back and your kid can continue his day having gotten their gift.
+
+#### **A slightly better analogy**
+
+> **Food Analogy**
+>
+> Let's say you're an office worker. You make an order for lunch from a store across the street via your phone app.
+>
+> The store owner receives your order, and by the powers of the social contract, makes a **promise** to fulfill your order. He issues you a receipt that is associated with this **promise**, guaranteeing you that you will be able to collect your order in the **future** if he ever fulfills his promise.
+>
+> You **block** off some time, stop your work at the office, and head down to the store.
+>
+> But OH NO! The store owner hasn't fulfilled your order yet. And as long as you're waiting to **get()** your order, you can't do any work. Some might even say your **waiting to get your order in the future is blocking your ability to work.**
+>
+> Once the store owner **sets()** your order down, and lets you **get()** it from his counter though, you're able to **stop getting blocked** and go back to the office to work.
+
+![mindblow](assets/mindblow.gif)
+
 
 
 ### A Simple Promise-Future Example
+
+![std::promise and std::future](assets/promise.png)
+
+[Image Source](<https://thispointer.com//c11-multithreading-part-8-stdfuture-stdpromise-and-returning-values-from-thread/>)
+
+**Note:** If your promise object is destroyed before you set its value, the `get()` method for its associated future will throw an exception.
+
+**Also note:** Each future's `get()` method can only be called once. If you want a future that can be accessed multiple times, use a shared_future instead. Otherwise, **initialise a different promise future pair.**
 
 ```c++
 // Create a promise
@@ -721,6 +755,9 @@ std::promise<int> promise;
 
 // And get its future
 std::future<int> future = promise.get_future();
+
+// You can also get a shared future this way, by the way! (Choose one please)
+std::shared_future<int> shared_future = promise.get_future();
 
 // Now suppose we passed promise to a separate thread.
 // And in the main thread we call...
@@ -735,9 +772,90 @@ std::cout << val << std::endl;
 // Output: 10
 ```
 
+Or, more completely
+
+```c++
+// Source: https://thispointer.com//c11-multithreading-part-8-stdfuture-stdpromise-and-returning-values-from-thread/
+
+#include <iostream>
+#include <thread>
+#include <future>
+ 
+void initiazer(std::promise<int> * promObj)
+{
+    std::cout<<"Inside Thread"<<std::endl;     promObj->set_value(35);
+}
+ 
+int main()
+{
+    std::promise<int> promiseObj;
+    std::future<int> futureObj = promiseObj.get_future();
+    std::thread th(initiazer, &promiseObj);
+    std::cout<<futureObj.get()<<std::endl;
+    th.join();
+    return 0;
+}
+```
 
 
 
+### Async
+
+[std::async](<https://en.cppreference.com/w/cpp/thread/async>)
+
+Now that we've talked about futures and promises we can finally actually get to the real asynchronous coding library.
+
+Async is a function template allows you to spawn threads to do work, then collect the results from them via the **future** mechanism. In fact, calls to `std::async` return a `std::future` object!
+
+**Do note that async does support parallelism, just that the default constructor manages threads for you and may possibly not run the passed functions in a thread. You'll have to explicitly tell it to run the function in a new thread.**
+
+Also, since Linux threads run sequentially by default, it's especially important to force the functions to run in separate threads. We'll see how to do that later.
+
+The simplest call to async is to just pass in a callback function as an argument, and let the system handle it for you.
+
+```c++
+auto future = std::async(some_function, arg_1, arg_2);
+```
+
+
+
+### Async Launch Policies
+
+You can do better though!
+
+There are three ways to launch an async task:
+
+- `std::launch::async` : Guarantees launch in a separate thread
+- `std::launch::deferred`: Function will only be called on `get()`
+- `std::launch::async | std::launch::deferred`: Default behaviour. Defer to system.
+
+I like to run async tasks with the `std::launch::async` profile so I can have some semblance of control over the threads. Just **add it in as the first argument!**
+
+```c++
+auto future = std::async(std::launch::async, some_function, arg_1, arg_2);
+```
+
+
+
+### Different Ways to Call Async
+
+```c++
+// Pass in function pointer
+auto future = std::async(std::launch::async, some_function, arg_1, arg_2);
+
+// Pass in function reference
+auto future = std::async(std::launch::async, &some_function, arg_1, arg_2);
+
+// Pass in function object
+struct SomeFunctionObject
+{
+	void operator() (int arg_1){}
+};
+auto future = std::async(std::launch::async, SomeFunctionObject(), arg_1);
+
+// Lambda function
+auto future = std::async(std::launch::async, [](){});
+```
 
 
 
