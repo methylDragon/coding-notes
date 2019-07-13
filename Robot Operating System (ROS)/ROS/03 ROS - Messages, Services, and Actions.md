@@ -205,7 +205,7 @@ catkin_package(CATKIN_DEPENDS
 > When you are compiling a package that requires message files from a separate message package, be sure to add
 >
 > ```cmake
-> add_dependencies(CURRENT_PACKAGE MESSAGE_PACKAGE_generate_messages_cpp)
+> add_dependencies(EXECUTABLE_NAME MESSAGE_PACKAGE_generate_messages_cpp)
 > ```
 >
 > Otherwise it **will** fail!
