@@ -90,6 +90,7 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [Functions and File IO](./Python%203/02%20Python%203%20-%20Functions%20and%20File%20IO.md)
 - [Object-Oriented Syntax](./Python%203/03%20Python%203%20-%20Object-Oriented%20Syntax.md)
 - [Advanced Concepts](./Python%203/04%20Python%203%20-%20Advanced%20Concepts.md)
+- [Data Structures](./Python%203/05%20Python%203%20-%20Data%20Structures.md)
 
 
 
