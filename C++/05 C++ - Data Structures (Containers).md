@@ -450,6 +450,8 @@ deque.at(1);
 
 Just like queues, except FIFO isn't adhered to. Only the 'top' element will be shoved to the front of the queue to be popped next.
 
+What 'top' means depends on the specific implementation. Top could mean things like highest or lowest value depending on some value determining function.
+
 > C++ container: **[Priority Queue](<https://en.cppreference.com/w/cpp/container/priority_queue>)**
 >
 > Example: `std::priority_queue<int> q;`

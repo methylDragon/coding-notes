@@ -30,6 +30,8 @@ Contains a reference of commonly used data structures in Python 3
 
 Data structures are a core computer science topic that allows one to effectively organise and manage data for efficient access and modification. Python has a couple of nice implementations of many common data structures, and we'll go through them, as well as their relevant Python implementations in this tutorial!
 
+**This will not be an exhaustive list!**
+
 
 
 ## Python Data Structures Reference
@@ -66,7 +68,15 @@ x = [1]
 y = [1]
 ```
 
-Lists are mutable, so the names will reference separate objects.
+Lists are mutable, so the names will **reference separate objects**.
+
+Here have a nice flow chart. (Though with the caveat that strings will behave a bit differently, and will be talked about in a later section on **String Interning**)
+
+![img](assets/1_YUMW7F-pm3bXmSnr1owcMg.png)
+
+[Image Source](<https://medium.com/@bdov_/https-medium-com-bdov-python-this-is-an-object-that-is-an-object-everything-is-an-object-fff50429cd4b>)
+
+
 
 #### **Python Objects, Reference Counts, and Garbage Collection**
 
@@ -94,6 +104,386 @@ You can see that 2337's refcount is decreased (to 0, which means it will be garb
 Pretty nifty eh!
 
 
+
+### Built-In Lists
+
+![Image result for python list memory](assets/memory-management-in-python-the-basics-75-638.jpg)
+
+[Image Source](<https://www.slideshare.net/nnja/memory-management-in-python-the-basics>)
+
+[Reference](<https://docs.python.org/3.6/library/stdtypes.html#lists>)
+
+Python lists are **variable length, heterogeneous arrays** of PyObjects. The **actual list stores references that will eventually point to the PyObjects**. Whenever you append an object, a new reference is inserted into the list.
+
+If there is already space the list doesn't have to be resized, but if it does have to be resized, a clever implementation detail allocates extra space so you won't have to resize it until a few more appends later.
+
+Since the Python list is in actuality a **variable length array**, it is very efficient ( *O(1)* ) to pop or append values at the end of the array, but quite costly ( *O(n)* ) to do so anywhere else (since all the elements need to be shifted.)
+
+If you need to pop elements from the left size of the array, it's probably better to use some other data structure, like a deque.
+
+Some example methods:
+
+```python
+# List instantiation
+nums = [-10, -9, -9]
+[x for x in range(9)] # List comprehension
+
+
+# End append or pop
+nums.append(1)
+nums.pop()
+
+# Indexing
+nums[0]
+
+# Insert (inefficient)
+nums.insert(0, 9) # Inserts 9 at the front of the list
+
+# Pop at index
+nums.pop(0) # Removes the element at the front of the list
+
+# Count elements
+nums.count(1) # Gets you zero since there's no 1 in nums
+```
+
+
+
+### Built-In Tuples
+
+[Reference](<https://docs.python.org/3.6/library/stdtypes.html#tuples>)
+
+Tuples are **just like lists**, except they're **immutable**, and so, once instantiated, are treated as fixed size.
+
+Do note that they **can point to mutable objects**! But the overarching reference array will be immutable.
+
+There are some [cool implementation details](<https://stackoverflow.com/questions/14135542/how-is-tuple-implemented-in-cpython>) about neat optimisations that you can read at your leisure.
+
+```python
+# Instantiation
+some_tuple = (1, 2, 3)
+tuple(x for x in range(3)) # Tuple comprehension
+
+# Indexing
+some_tuple[0]
+
+# Count elements
+some_tuple.count(1) # Gets you 1 since there's one 1 in the tuple
+```
+
+
+
+### Built-In Dicts
+
+![Image result for dict python memory](assets/probing.png)
+
+[Image Source](<https://www.laurentluce.com/posts/python-dictionary-implementation/>)
+
+[Reference](<https://docs.python.org/3.6/library/stdtypes.html#dict>)
+
+Dictionaries in Python are built using hash tables. (Hash tables are different from hash maps in that they don't allow null values as keys.)
+
+Indexing into them is *O(1)*, unless there's a collision, then it's *O(n)*.
+
+The keys of the dictionary are supposed to be immutable objects that can be fed into a hash function. The hash is then used to point to objects in a hash table.
+
+```python
+# Instantiation
+a = {'a': 1, 'b': 2}
+
+# Indexing
+a['a'] # Gets you 1
+
+# Nifty addition trick
+try:
+    a['c'] += 1
+except KeyError:
+    a['c'] = 1
+```
+
+
+
+### Built-In Sets
+
+[Reference](<https://docs.python.org/3.6/library/stdtypes.html#set>)
+
+Sets are like dictionaries, except they don't have values. Python implements them using dummy values.
+
+Each element is actually a key!
+
+Membership checking is done in *O(1)*, unless there are collisions, then it's *O(n)*, just like in dictionaries.
+
+```python
+# Instantiation
+set([1, 2, 3])
+
+# Adding to set
+set.add(4)
+set.add(3) # Duplicates won't be added
+```
+
+An immutable variant called a **frozenset** exists too!
+
+```python
+frozenset([1, 2, 3])
+```
+
+
+
+### Arrays/Dynamic Arrays
+
+![1563125439057](assets/1563125439057.png)
+
+[Image Source](<https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data-types.html>)
+
+An array is a contiguous and continuous collection of **homogeneous** elements that can be accessed by index. The index is the displacement from the start of the array. **It normally can't be resized. But dynamic arrays can provision methods to allocate new memory to resize them.**
+
+Indexing into an array is constant time *O(1)*. Appending and popping at an array end is also constant time *O(1)*, just like with lists (since lists are actually just arrays of references.)
+
+Similarly, removing or inserting an element anywhere else in the array will incur *O(n)* complexity. Since all elements after the insertion index have to shift.
+
+Types of arrays in Python include:
+
+- [list](<https://docs.python.org/3.6/library/stdtypes.html#lists>)
+- [tuple](<https://docs.python.org/3/library/stdtypes.html#tuple>)
+- [array.array](<https://docs.python.org/3/library/array.html>)
+- [str](<https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str>)
+- [bytes](<https://docs.python.org/3/library/stdtypes.html#bytes-objects>) (immutable array of single bytes)
+- [bytearray](<https://docs.python.org/3/library/functions.html#func-bytearray>) (mutable array of single bytes)
+- [numpy.array](<https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html>)
+  - Highly recommended! These are blazingly fast for numeric data
+
+
+
+### Stacks
+
+![img](assets/stack.jpg)
+
+[Image Source](<http://bluegalaxy.info/codewalk/2018/08/12/python-how-to-implement-a-lifo-stack/>)
+
+Abstract data structure that contains elements. Adheres to LIFO (Last In, First Out.)
+
+You could implement your own in Python, **or** you could use a pre-existing data structure.
+
+- [list](<https://docs.python.org/3/tutorial/datastructures.html#using-lists-as-stacks>)
+
+  - Make sure you don't accidentally pop or insert anywhere other than at the end! Otherwise you'll break the stack behaviour and also go from *O(1)* complexity to *O(n)*
+
+- [collections.deque](<https://docs.python.org/3/library/collections.html#collections.deque>)
+
+  - **Recommended** linked-list implementation of a double-ended queue, which can be used as a stack if you just append and pop from the right side! The behaviour of the deque actually prevents you from accidentally breaking the stack behaviour. These also support **thread-safe behaviour!**
+
+    ```python
+    collections.deque([1, 2, 3])
+    ```
+
+- [queue.LifoQueue](<https://docs.python.org/3/library/queue.html>)
+
+  - Also good for threaded use. It implements all the locking semantics.
+
+    ```python
+    # Instantiate
+    a = queue.LifoQueue()
+    
+    a.put(1)
+    a.get()
+    ```
+
+
+
+### Queues
+
+![queue](./assets/queue.png)
+
+[Image Source](<https://www.fluentcpp.com/2018/03/20/heaps-and-priority-queues-in-c-part-3-queues-and-priority-queues/>)
+
+Abstract data structure that contains elements. Adheres to FIFO (First In, First Out.)
+
+You can also have a double ended variant called a deque!
+
+- [collections.deque](<https://docs.python.org/3/library/collections.html#collections.deque>)
+
+  - **Recommended**! Implemented using linked lists (explained later)
+    
+    ```python
+    a = collections.deque([1, 2, 3])
+    
+    a.append(1)
+    a.appendleft(2)
+    
+    a.pop()
+    a.popleft()
+    ```
+  
+- [queue.queue](<https://docs.python.org/3/library/queue.html>)
+
+- [multiprocessing.Queue](<https://docs.python.org/3/library/multiprocessing.html#multiprocessing.Queue>)
+
+  - Good for cross process information sharing
+
+
+
+### Priority Queues
+
+![priority_queue](./assets/priority_queue.png)
+
+[Image Source](<https://www.fluentcpp.com/2018/03/20/heaps-and-priority-queues-in-c-part-3-queues-and-priority-queues/>)
+
+Just like queues, except FIFO isn't adhered to. Only the 'top' element will be shoved to the front of the queue to be popped next. They're an **abstract data type**.
+
+What 'top' means depends on the specific implementation. Top could mean things like highest or lowest value depending on some value determining function.
+
+The common modules used to implementing priority queues implement them using [heaps](<https://www.youtube.com/watch?v=t0Cq6tVNRBA>). Which can be implemented using lists!
+
+- [heapq](<https://docs.python.org/3/library/heapq.html>)
+
+  - ```python
+    import heapq
+    
+    # Instantiate a new heap
+    q = []
+    
+    # Or create a heap from a pre-existing list!
+    a = [1, 4, 12, 531, 2, 314]
+    heapq.heapify(a)
+    
+    heapq.heappush(q, 1)
+    heapq.heappush(q, 2)
+    heapq.heappush(q, 3)
+    
+    # Get the smallest item
+    heapq.heappop(q)
+    ```
+
+  - Note that the **default** heap format for heapq is the **min heap.** That is, all top values will be the smallest. For **max heap**, you can multiply your keys by `-1` or...
+
+    ```python
+    heapq.nlargest(3, q) # Get the top 3 values
+    ```
+
+    There are [some other ways to get around this](<https://stackoverflow.com/questions/2501457/what-do-i-use-for-a-max-heap-implementation-in-python>)
+
+- [queue.PriorityQueue](<https://docs.python.org/3/library/queue.html#queue.PriorityQueue>)
+
+  - This one wraps heapq with a nicer interface. Still uses a **min heap** though!
+
+    ```python
+    from queue import PriorityQueue
+    
+    q = PriorityQueue()
+    
+    q.put((2, 'code'))
+    q.put((1, 'eat'))
+    q.put((3, 'sleep'))
+    
+    next_item = q.get() # (1, 'eat')
+    ```
+
+
+
+## WIP WIP WIP
+
+### More Tuples
+
+### More Dictionaries
+
+### LinkedLists
+
+
+
+## Some Gotchas
+
+### is vs ==
+
+The `is` operator checks for the equivalency of the `id`s of objects being checked.
+
+```python
+a is b
+
+# Is equivalent to
+id(a) == id(b)
+```
+
+As such, you are advised **not to use the is operator** on anything other than singletons, like `None`, or if you explicitly want to check for the equality of object addresses.
+
+For anything else, please use `==` unless you want weird behaviour, some of the reason for which we'll go through in the next few sections.
+
+
+
+### Integer Interning
+
+```python
+a = 256
+b = 256
+
+a == b # True
+a is b # True
+
+c = 10000
+d = 10000
+
+c == d # True
+c is d # False (Wait what?)
+```
+
+The reason for this is because Python actually interns small integers (what this means depends on the distribution, but in the case of Python 3, it interns all integers between -5 and 256.)
+
+What this means is that at compilation time, Python actually instantiates a list of PyObjects representing all the numbers from -5 to 256. So when you use those numbers you will immediately just reference the numbers in that list.
+
+This is why the `a is b` expression evaluates to `True`. Since the objects being referenced to are truly the same.
+
+In the case for `c` and `d`, however, new, unique objects are being instantiated. And hence their ids point to different objects. So even though the values are the same, the `is` operator causes an evaluation to `False`.
+
+
+
+### String Interning
+
+![img](assets/1_kvOnNBfiEn-WdiQbcElpEA.png)
+
+[Image Source](<https://medium.com/@bdov_/https-medium-com-bdov-python-objects-part-iii-string-interning-625d3c7319de>)
+
+**ahem**. Since strings are widely used as identifiers, Python has an optimisation trick called **string interning** to try to save space and re-instantiation time.
+
+What this means is that **certain strings are actually interned, and saved in a list, and any future instantiations of those strings simply create a reference to the stored string, as opposed to instantiating a new object**!
+
+This is bad news for anyone who isn't aware of this and abuses the `is` operator. But now you know.
+
+For what **specifically counts as a suitable string for interning, check out this flowchart!**
+
+![img](../Python%203/assets/1_PTC18sgXqar4aS-_C_uzRQ.png)
+
+[Image Source](<https://medium.com/@bdov_/https-medium-com-bdov-python-objects-part-iii-string-interning-625d3c7319de>)
+
+Let's check out some examples.
+
+```python
+a = "methylDragon"
+b = "methylDragon"
+
+a is b # True, since both are interned
+
+c = "methylDragon"
+d = str(["m", "e", "t", "h", "y", "l", "D", "r", "a", "g", "o", "n"])
+
+c is d # False! D is not compile-time constant
+
+e = "a!"
+f = "a!"
+
+e is f # False! They have non-ascii characters and are longer than length 1
+```
+
+This last one is a doozy though
+
+```python
+f = "" + "a"
+g = "a"
+
+f is g # True! Empty strings are interned.
+```
+
+**Bottom line, just use equality operators `==` instead of `is` to save yourself the headache...**
+
+**CH3EERS!**
 
 
 
