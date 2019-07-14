@@ -474,6 +474,45 @@ def __eq__(self, other):
 
 
 
+#### **\_\_slots\_\_**
+
+This particular magic method is pretty nifty for defining classes that are meant to be used as objects.
+
+Suppose we created a cartesian point class.
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+```
+
+Since Python stores class attributes as dictionaries by default (base dictionaries have 288 bytes allocated to them), there's a pretty significant optimisation we can do. And this is done by using slots to change the way Python tracks the attributes to using tuples (48 bytes), or something else, like a list.
+
+**This stops you from dynamically creating attributes**, but saves a ton of space, which is very important if you intend on instantiating a lot of instances of this class.
+
+```python
+# Set slots as tuple
+# Makes reassigning x and y impossible
+class Point:
+    __slots__ = ('x', 'y')
+    
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        
+# Set slots as list
+# More overhead, but mutable
+class Point:
+    __slots__ = ['x', 'y']
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+```
+
+
+
 ### 2.6 Generating Multiple Objects at a Time <a name="2.6"></a>
 
 [go to top](#top)
