@@ -288,6 +288,8 @@ You could implement your own in Python, **or** you could use a pre-existing data
     a.get()
     ```
 
+> **Note**: Though the collections.deque implementation uses a linked list, you can't treat it like a linked list since the ability for you to insert items in the middle of the linked list is abstracted away by the deque implementation.
+
 
 
 ### Queues
@@ -380,13 +382,354 @@ The common modules used to implementing priority queues implement them using [he
 
 
 
-## WIP WIP WIP
+### NamedTuple
 
-### More Tuples
+Just like tuples, but with named arguments for easier maintainability!
+
+- [collections.namedtuple](<https://docs.python.org/3/library/collections.html#collections.namedtuple>)
+
+  - ```python
+    from collections import namedtuple
+    
+    some_tuple = namedtuple('name_of_the_tuple', 'a b c')
+    
+    tuple_instance_1 = some_tuple(1, 2, 3)
+    
+    # Now tuple_instance_1 is...
+    # name_of_tuple(a=1, b=2, c=3)
+    
+    # You can index into it
+    tuple_instance_1[0]
+    
+    # Or by member!
+    tuple_instance_1.a
+    ```
+
+
 
 ### More Dictionaries
 
+Yep.
+
+- [collections.OrderedDict](<https://docs.python.org/3/library/collections.html#collections.OrderedDict>)
+
+  - This dictionary remembers insertion order. This becomes a language feature from Python 3.6 onwards, but for backwards compatibility you can still use this explicitly.
+
+    ```python
+    import collections
+    
+    a = collections.OrderedDict()
+    a['a'] = 2 # Insert key-value
+    a[1] = 1 # Same thing here
+    
+    # They're all ordered!
+    a # OrderedDict([('a', 2), (1,1)])
+    
+    # To retrieve the stuff in order, you can just use list()
+    # This one returns a list of keys
+    list(a)
+    
+    # For items,
+    list(a.items())
+    
+    # And for values
+    list(a.values())
+    ```
+
+- [collections.defaultdict](<https://docs.python.org/3/library/collections.html#collections.defaultdict>)
+
+  - Explicitly set what default values are set when a dictionary key that doesn't exist is indexed into
+
+    ```python
+    from collections import defaultdict
+    a = defaultdict(list)
+    
+    a['a'].append(1)
+    
+    # Now a is defaultdict(list, {'a': [1]})
+    # Wow!
+    
+    # The alternative would be to do this instead with the native dictionary
+    b = {}
+    
+    try:
+        b['a'].append(1)
+    except KeyError:
+        b['a'] = [1]
+    ```
+
+- [collections.ChainMap](<https://docs.python.org/3/library/collections.html#collections.ChainMap>)
+
+  - Combine dictionaries wrt. indexing. But when adding new keys, it only affects the first dictionary.
+
+    ```python
+    from collections import ChainMap
+    
+    dict_1 = {'one': 1, 'two': 2}
+    dict_2 = {'three': 3, 'four': 4}
+    chain = ChainMap(dict_1, dict_2)
+    
+    chain["three"] # 3
+    
+    # Natively, you can merge dictionaries just by doing this
+    a = {}
+    a.update(dict_1)
+    a.update(dict_2)
+    ```
+
+
+
+### Multisets
+
+There's a multiset (a set that can have duplicate keys, so the keys aren't unique) implementation in the collections module.
+
+- [collections.Counter](<https://docs.python.org/3/library/collections.html#collections.Counter>)
+
+  - ```python
+    from collections import Counter
+    
+    a = Counter()
+    a.update({'a': 1})
+    a.update({'a': 1})
+    
+    a # Counter({'a': 2})
+    
+    # The native Python method would be to initialise the key, then increment it if it exists
+    ```
+
+Coolio.
+
+
+
 ### LinkedLists
+
+![Image result for linked list](../Python%203/assets/singly-ll.png)
+
+[Image Source](<https://www.interviewbit.com/courses/programming/topics/linked-lists/>)
+
+A linked list is not actually a Python list like structure. Instead it's a collection of linked list nodes that contain values, and the memory address of the next node in the sequence.
+
+Sometimes they also contain the memory address of the previous node, and that variant is called a **doubly linked list**.
+
+Because of this structure, removals and insertions anywhere are *O(1)*, but iterating through them are *O(n)*.
+
+So you'd use this or a hash map instead when you need lots of insertions and deletions in the middle or start of the sequence.
+
+There's no native inbuilt linked list class that grants the full features of linked lists in Python. But we can define our own.
+
+**Singly Linked List**
+
+```python
+# Source: https://dbader.org/blog/python-linked-list
+
+class ListNode:
+    """
+    A node in a singly-linked list.
+    """
+    def __init__(self, data=None, next=None):
+        self.data = data
+        self.next = next
+
+    def __repr__(self):
+        return repr(self.data)
+
+
+class SinglyLinkedList:
+    def __init__(self):
+        """
+        Create a new singly-linked list.
+        Takes O(1) time.
+        """
+        self.head = None
+
+    def __repr__(self):
+        """
+        Return a string representation of the list.
+        Takes O(n) time.
+        """
+        nodes = []
+        curr = self.head
+        while curr:
+            nodes.append(repr(curr))
+            curr = curr.next
+        return '[' + ', '.join(nodes) + ']'
+
+    def prepend(self, data):
+        """
+        Insert a new element at the beginning of the list.
+        Takes O(1) time.
+        """
+        self.head = ListNode(data=data, next=self.head)
+
+    def append(self, data):
+        """
+        Insert a new element at the end of the list.
+        Takes O(n) time.
+        """
+        if not self.head:
+            self.head = ListNode(data=data)
+            return
+        curr = self.head
+        while curr.next:
+            curr = curr.next
+        curr.next = ListNode(data=data)
+
+    def find(self, key):
+        """
+        Search for the first element with `data` matching
+        `key`. Return the element or `None` if not found.
+        Takes O(n) time.
+        """
+        curr = self.head
+        while curr and curr.data != key:
+            curr = curr.next
+        return curr  # Will be None if not found
+
+    def remove(self, key):
+        """
+        Remove the first occurrence of `key` in the list.
+        Takes O(n) time.
+        """
+        # Find the element and keep a
+        # reference to the element preceding it
+        curr = self.head
+        prev = None
+        while curr and curr.data != key:
+            prev = curr
+            curr = curr.next
+        # Unlink it from the list
+        if prev is None:
+            self.head = curr.next
+        elif curr:
+            prev.next = curr.next
+            curr.next = None
+
+    def reverse(self):
+        """
+        Reverse the list in-place.
+        Takes O(n) time.
+        """
+        curr = self.head
+        prev_node = None
+        next_node = None
+        while curr:
+            next_node = curr.next
+            curr.next = prev_node
+            prev_node = curr
+            curr = next_node
+        self.head = prev_node
+```
+
+**Doubly Linked List**
+
+```python
+# Source: https://dbader.org/blog/python-linked-list
+
+class DListNode:
+    """
+    A node in a doubly-linked list.
+    """
+    def __init__(self, data=None, prev=None, next=None):
+        self.data = data
+        self.prev = prev
+        self.next = next
+
+    def __repr__(self):
+        return repr(self.data)
+
+
+class DoublyLinkedList:
+    def __init__(self):
+        """
+        Create a new doubly linked list.
+        Takes O(1) time.
+        """
+        self.head = None
+
+    def __repr__(self):
+        """
+        Return a string representation of the list.
+        Takes O(n) time.
+        """
+        nodes = []
+        curr = self.head
+        while curr:
+            nodes.append(repr(curr))
+            curr = curr.next
+        return '[' + ', '.join(nodes) + ']'
+
+    def prepend(self, data):
+        """
+        Insert a new element at the beginning of the list.
+        Takes O(1) time.
+        """
+        new_head = DListNode(data=data, next=self.head)
+        if self.head:
+            self.head.prev = new_head
+        self.head = new_head
+
+    def append(self, data):
+        """
+        Insert a new element at the end of the list.
+        Takes O(n) time.
+        """
+        if not self.head:
+            self.head = DListNode(data=data)
+            return
+        curr = self.head
+        while curr.next:
+            curr = curr.next
+        curr.next = DListNode(data=data, prev=curr)
+
+    def find(self, key):
+        """
+        Search for the first element with `data` matching
+        `key`. Return the element or `None` if not found.
+        Takes O(n) time.
+        """
+        curr = self.head
+        while curr and curr.data != key:
+            curr = curr.next
+        return curr  # Will be None if not found
+
+    def remove_elem(self, node):
+        """
+        Unlink an element from the list.
+        Takes O(1) time.
+        """
+        if node.prev:
+            node.prev.next = node.next
+        if node.next:
+            node.next.prev = node.prev
+        if node is self.head:
+            self.head = node.next
+        node.prev = None
+        node.next = None
+
+    def remove(self, key):
+        """
+        Remove the first occurrence of `key` in the list.
+        Takes O(n) time.
+        """
+        elem = self.find(key)
+        if not elem:
+            return
+        self.remove_elem(elem)
+
+    def reverse(self):
+        """
+        Reverse the list in-place.
+        Takes O(n) time.
+        """
+        curr = self.head
+        prev_node = None
+        while curr:
+            prev_node = curr.prev
+            curr.prev = curr.next
+            curr.next = prev_node
+            curr = curr.prev
+        self.head = prev_node.prev
+```
 
 
 
