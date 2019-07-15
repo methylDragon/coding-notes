@@ -22,11 +22,32 @@ Contains a reference of commonly used data structures in Python 3
 
 
 
-## Table Of Contents
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)    
+2. [Python Data Structures Reference](#2)    
+   2.1 [The Python Data Model](#2.1)    
+   2.2 [Built-In Lists](#2.2)    
+   2.3 [Built-In Tuples](#2.3)    
+   2.4 [Built-In Dicts](#2.4)    
+   2.5 [Built-In Sets](#2.5)    
+   2.6 [Arrays/Dynamic Arrays](#2.6)    
+   2.7 [Stacks](#2.7)    
+   2.8 [Queues](#2.8)    
+   2.9 [Priority Queues](#2.9)    
+   2.10 [NamedTuple](#2.10)    
+   2.11 [More Dictionaries](#2.11)    
+   2.12 [Multisets](#2.12)    
+   2.13 [LinkedLists](#2.13)    
+3. [Some Gotchas](#3)    
+   3.1 [is vs ==](#3.1)    
+   3.2 [Integer Interning](#3.2)    
+   3.3 [String Interning](#3.3)    
 
 
 
-## Introduction
+
+## 1. Introduction <a name="1"></a>
 
 Data structures are a core computer science topic that allows one to effectively organise and manage data for efficient access and modification. Python has a couple of nice implementations of many common data structures, and we'll go through them, as well as their relevant Python implementations in this tutorial!
 
@@ -34,9 +55,11 @@ Data structures are a core computer science topic that allows one to effectively
 
 
 
-## Python Data Structures Reference
+## 2. Python Data Structures Reference <a name="2"></a>
 
-### The Python Data Model
+### 2.1 The Python Data Model <a name="2.1"></a>
+[go to top](#top)
+
 
 > *Objects* are Python’s abstraction for data. All data in a Python program is represented by objects or by relations between objects. (In a sense, and in conformance to Von Neumann’s model of a “stored program computer,” code is also represented by objects.)
 >
@@ -105,7 +128,9 @@ Pretty nifty eh!
 
 
 
-### Built-In Lists
+### 2.2 Built-In Lists <a name="2.2"></a>
+[go to top](#top)
+
 
 ![Image result for python list memory](assets/memory-management-in-python-the-basics-75-638.jpg)
 
@@ -148,7 +173,9 @@ nums.count(1) # Gets you zero since there's no 1 in nums
 
 
 
-### Built-In Tuples
+### 2.3 Built-In Tuples <a name="2.3"></a>
+[go to top](#top)
+
 
 [Reference](<https://docs.python.org/3.6/library/stdtypes.html#tuples>)
 
@@ -172,7 +199,9 @@ some_tuple.count(1) # Gets you 1 since there's one 1 in the tuple
 
 
 
-### Built-In Dicts
+### 2.4 Built-In Dicts <a name="2.4"></a>
+[go to top](#top)
+
 
 ![Image result for dict python memory](assets/probing.png)
 
@@ -202,7 +231,9 @@ except KeyError:
 
 
 
-### Built-In Sets
+### 2.5 Built-In Sets <a name="2.5"></a>
+[go to top](#top)
+
 
 [Reference](<https://docs.python.org/3.6/library/stdtypes.html#set>)
 
@@ -229,7 +260,9 @@ frozenset([1, 2, 3])
 
 
 
-### Arrays/Dynamic Arrays
+### 2.6 Arrays/Dynamic Arrays <a name="2.6"></a>
+[go to top](#top)
+
 
 ![1563125439057](assets/1563125439057.png)
 
@@ -254,7 +287,9 @@ Types of arrays in Python include:
 
 
 
-### Stacks
+### 2.7 Stacks <a name="2.7"></a>
+[go to top](#top)
+
 
 ![img](assets/stack.jpg)
 
@@ -292,7 +327,9 @@ You could implement your own in Python, **or** you could use a pre-existing data
 
 
 
-### Queues
+### 2.8 Queues <a name="2.8"></a>
+[go to top](#top)
+
 
 ![queue](./assets/queue.png)
 
@@ -324,7 +361,9 @@ You can also have a double ended variant called a deque!
 
 
 
-### Priority Queues
+### 2.9 Priority Queues <a name="2.9"></a>
+[go to top](#top)
+
 
 ![priority_queue](./assets/priority_queue.png)
 
@@ -382,7 +421,9 @@ The common modules used to implementing priority queues implement them using [he
 
 
 
-### NamedTuple
+### 2.10 NamedTuple <a name="2.10"></a>
+[go to top](#top)
+
 
 Just like tuples, but with named arguments for easier maintainability!
 
@@ -407,7 +448,9 @@ Just like tuples, but with named arguments for easier maintainability!
 
 
 
-### More Dictionaries
+### 2.11 More Dictionaries <a name="2.11"></a>
+[go to top](#top)
+
 
 Yep.
 
@@ -479,7 +522,9 @@ Yep.
 
 
 
-### Multisets
+### 2.12 Multisets <a name="2.12"></a>
+[go to top](#top)
+
 
 There's a multiset (a set that can have duplicate keys, so the keys aren't unique) implementation in the collections module.
 
@@ -501,7 +546,9 @@ Coolio.
 
 
 
-### LinkedLists
+### 2.13 LinkedLists <a name="2.13"></a>
+[go to top](#top)
+
 
 ![Image result for linked list](../Python%203/assets/singly-ll.png)
 
@@ -733,9 +780,11 @@ class DoublyLinkedList:
 
 
 
-## Some Gotchas
+## 3. Some Gotchas <a name="3"></a>
 
-### is vs ==
+### 3.1 is vs == <a name="3.1"></a>
+[go to top](#top)
+
 
 The `is` operator checks for the equivalency of the `id`s of objects being checked.
 
@@ -752,7 +801,9 @@ For anything else, please use `==` unless you want weird behaviour, some of the 
 
 
 
-### Integer Interning
+### 3.2 Integer Interning <a name="3.2"></a>
+[go to top](#top)
+
 
 ```python
 a = 256
@@ -778,7 +829,9 @@ In the case for `c` and `d`, however, new, unique objects are being instantiated
 
 
 
-### String Interning
+### 3.3 String Interning <a name="3.3"></a>
+[go to top](#top)
+
 
 ![img](assets/1_kvOnNBfiEn-WdiQbcElpEA.png)
 
