@@ -23,19 +23,19 @@ and ETHz http://www.rsl.ethz.ch/education-students/lectures/ros.html
    2.2   [Message Files](#2.2)    
    2.3   [rosmsg](#2.3)    
    2.4   [Creating Message Files](#2.4)    
-   2.5   [Using Custom Messages](#2.5) ([rospy](2.5.1)) ([roscpp](2.5.2)) ([Nested Messages](2.5.3))    
+   2.5   [Using Custom Messages](#2.5) ([rospy](#2.5.1)) ([roscpp](#2.5.2)) ([Nested Messages](#2.5.3))    
 3. [Services](#3)    
    3.1   [Introduction](#3.1)    
    3.2   [Service Files](#3.2)    
    3.3   [rosservice](#3.3)    
    3.4   [Creating Service Files](#3.4)    
-   3.5   [Writing Service Nodes](#3.5) ([rospy](3.5.1)) ([roscpp](3.5.2))    
+   3.5   [Writing Service Nodes](#3.5) ([rospy](#3.5.1)) ([roscpp](#3.5.2))    
 4. [Actions](#4)    
    4.1   [Introduction](#4.1)    
    4.2   [Action Files](#4.2)    
    4.3   [rostopic for Actions](#4.3)    
    4.4   [Creating Action Files](#4.4)    
-   4.5   [Writing Action Nodes](#4.5) ([rospy](4.5.1)) ([roscpp](4.5.2))    
+   4.5   [Writing Action Nodes](#4.5) ([rospy](#4.5.1)) ([roscpp](#4.5.2))    
 5. [Concluding Comparison](#5)    
 
 ## 1. Introduction <a name="1"></a>
@@ -684,7 +684,7 @@ if __name__ == "__main__":
 
 
 
-#### **roscpp server **<a name="3.5.2"></a>
+#### **roscpp server** <a name="3.5.2"></a>
 
 ```c++
 #include <ros/ros.h>
