@@ -1,4 +1,0 @@
-To use these, put the package you want to test in the /src of a workspace, then run catkin_make in the root of that workspace!
-
-Then, make sure you source the setup.bash in the /devel space of that workspace
-And then run rospack profile to make sure that ROS has captured the package in its tree

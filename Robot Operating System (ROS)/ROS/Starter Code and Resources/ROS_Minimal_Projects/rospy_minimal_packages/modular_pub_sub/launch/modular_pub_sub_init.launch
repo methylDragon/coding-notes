@@ -1,4 +1,0 @@
-<launch>
-	<node name="talker" pkg="modular_pub_sub" type="modular_pub" output="screen" />
-	<node name="listener" pkg="modular_pub_sub" type="modular_sub" output="screen" /> 	
-</launch>

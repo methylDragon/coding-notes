@@ -1,4 +1,0 @@
-Don't forget to enable execution of your Python scripts!
-
-
-$ chmod +x <exectuable_file>

@@ -24,9 +24,6 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [MySQL](#MySQL)
 - [PHP](#PHP)
 - [Python 3](#Python%203)
-- [Robot Operating System](#Robot%20Operating%20System%20)
-  - [ROS](#ROS)
-  - [Catkin](#Catkin)
 - [WordPress](#WordPress)
 
   
@@ -91,25 +88,6 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [Object-Oriented Syntax](./Python%203/03%20Python%203%20-%20Object-Oriented%20Syntax.md)
 - [Advanced Concepts](./Python%203/04%20Python%203%20-%20Advanced%20Concepts.md)
 - [Data Structures](./Python%203/05%20Python%203%20-%20Data%20Structures.md)
-
-
-
-### Robot Operating System (ROS) <a name="Robot Operating System"></a>
-
-#### **Catkin** <a name="Catkin"></a>
-
-[go to top](#top)
-
-- [Catkin Reference](./Robot%20Operating%20System%20(ROS)/Catkin/01%20Catkin%20Reference.md)
-
-#### **ROS** <a name="ROS"></a>
-
-[go to top](#top)
-
-- [Introduction and Concepts](./Robot%20Operating%20System%20(ROS)/ROS/01%20ROS%20-%20Introduction.md)
-- [Writing Nodes (Publishers and Subscribers)](./Robot%20Operating%20System%20(ROS)/ROS/02%20ROS%20-%20Writing%20Nodes%20(Pub-Sub).md)
-- [Messages, Services, and Actions](./Robot%20Operating%20System%20(ROS)/ROS/03%20ROS%20-%20Messages,%20Services,%20and%20Actions.md)
-- [(Resource) ROS Starter Code and Resources](./Robot%20Operating%20System%20(ROS)/ROS/Starter%20Code%20and%20Resources)
 
 
 

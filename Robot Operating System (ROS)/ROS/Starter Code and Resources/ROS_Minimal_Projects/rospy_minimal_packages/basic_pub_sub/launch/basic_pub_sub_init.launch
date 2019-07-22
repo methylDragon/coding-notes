@@ -1,4 +1,0 @@
-<launch>
-	<node name="talker" pkg="basic_pub_sub" type="basic_pub" output="screen" />
-	<node name="listener" pkg="basic_pub_sub" type="basic_sub" output="screen" /> 	
-</launch>

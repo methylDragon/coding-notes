@@ -1,8 +1,0 @@
-<launch>
-
-  <!-- Launch Node -->
-  <node pkg="modular_pub_sub" type="modular_pub_sub" name="Node_identifier" output="screen">
-    <rosparam command="load" file="$(find modular_pub_sub)/config/default.yaml" />
-  </node>
-
-</launch>
