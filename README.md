@@ -41,7 +41,8 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [Data Structures (Containers)](./C++/05%20C++%20-%20Data%20Structures%20(Containers).md)
 - [Templates](./C++/06%20C++%20-%20Templates.md)
 - [Threading and Concurrency](./C++/07%20C++%20-%20Threading%20and%20Concurrency.md)
-- [Tips and Tricks](./C++/08%20C++%20-%20Tips%20and%20Tricks.md)
+- [Linkages and Preprocessor Directives](./C++/08%20C++%20-%20Linkages%20and%20Preprocessor%20Directives.md)
+- [Tips and Tricks](./C++/09%20C++%20-%20Tips%20and%20Tricks.md)
 - [(Bonus) Headers](./C++/Bonus%20Notes/BONUS%20C++%20-%20Headers.md)
 
 
