@@ -47,7 +47,7 @@ Declare your functions **BEFORE** the main function!
 `int addNumbers(int firstNum, int secondNum = 0)`
 firstNum and secondNum are attributes. We set secondNum's default value if no value is given to be 0.
 
-int on the addNumbers function prototype is the RETURN datatype, in other words, the data type of the function's output.
+`int` on the `addNumbers` function is the RETURN value's datatype, in other words, the data type of the function's output.
 
 ```c++
 int addNumbers(int firstNum, int secondNum = 0) {
@@ -58,7 +58,7 @@ int addNumbers(int firstNum, int secondNum = 0) {
 }
 ```
 
-!! NOTE. combinedValue is not accessible anywhere else other than in addNumbers, as it is a **LOCAL** variable defined WITHIN a function.
+> **Note**: combinedValue is not accessible anywhere else other than in addNumbers, as it is a **LOCAL** variable defined WITHIN a function.
 
 **Calling Functions**
 
@@ -86,7 +86,7 @@ Read more + code source: https://www.geeksforgeeks.org/return-local-array-c-func
 
 Turns out you **can't return arrays** from functions just like that. It's not so simple.
 
-This is a little pre-mature since we have to go into OOP and/or pointers to do it.. but.. Here are the several ways to "return an array" from a function.
+This is a little premature since we have to go into OOP and/or pointers to do it.. but.. Here are the several ways to "return an array" from a function.
 
 **Return a dynamically allocated array pointer**
 

@@ -420,15 +420,15 @@ structure.a = 2
 Note: https://stackoverflow.com/questions/860339/difference-between-private-public-and-protected-inheritance
 
 > ```
-> Member in base class : Private   Protected   Public   
+> Member in base class :   Private   Protected   Public   
 > ```
 >
-> **Inheritance type**  :             **Object inherited as**:
+> ​        **Inheritance type**              :       **Object inherited as**
 >
 > ```
-> Private            :   Inaccessible   Private     Private   
-> Protected          :   Inaccessible   Protected   Protected  
-> Public             :   Inaccessible   Protected   Public
+> Private              :   Inaccessible   Private     Private   
+> Protected            :   Inaccessible   Protected   Protected  
+> Public               :   Inaccessible   Protected   Public
 > ```
 
 ```c++
@@ -495,7 +495,6 @@ tom.toString();
 > };
 > ```
 >
-> 
 
 
 
