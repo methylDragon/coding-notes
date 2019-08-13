@@ -1,3 +1,3 @@
-![Another Cheat Sheet](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\Regular Expressions\Another Cheat Sheet.png)
+![Another Cheat Sheet](assets/Another Cheat Sheet.png)
 
-![Cheat Sheet](C:\Users\methylDragon\Desktop\Work & Making\Github Repos\coding-notes\Regular Expressions\Cheat Sheet.jpg)
+![Cheat Sheet](assets/Cheat Sheet.jpg)
