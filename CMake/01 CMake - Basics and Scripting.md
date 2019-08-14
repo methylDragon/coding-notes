@@ -66,6 +66,8 @@ Additionally, **CMake** is more generally used nowadays due to its convenience a
 
 Also note, **this tutorial will not serve to be an exhaustive guide on everything CMake**, but is designed to be just enough to get you up to speed and able to work somewhat effectively on projects.
 
+Additionally, since CMake is mostly used with C or C++, this tutorial will focus on use of CMake with those languages.
+
 **In this section, we'll go through some concepts, the command line interface, and scripting basics.**
 
 
