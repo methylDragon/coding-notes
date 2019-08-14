@@ -472,8 +472,12 @@ set(NUM_LIST 1 2)
 set(EQUIVALENT_NUM_LIST 1;2)
 
 # Use variables
-message("WOW_NUM: " ${WOW_NUM})
-message("EQUIVALENT_NUM_LIST: " ${EQUIVALENT_NUM_LIST})
+message("WOW_NUM: ${WOW_NUM}")
+message("EQUIVALENT_NUM_LIST: ${EQUIVALENT_NUM_LIST}")
+
+# And yes, variables can be called even within a string declaration!
+# Escape the characters if you don't want this to happen
+# Like so: message("EQUIVALENT_NUM_LIST: \${EQUIVALENT_NUM_LIST}")
 ```
 
 Output
@@ -685,7 +689,7 @@ cmake_minimum_required(VERSION 3.10)
 set(LIST_VAR 1 2 3)
 
 foreach(loop_var ${LIST_VAR})
-  message("CURRENT_LIST_ELEMENT: " ${loop_var})
+  message("CURRENT_LIST_ELEMENT: ${loop_var}")
 endforeach()
 ```
 
@@ -695,7 +699,7 @@ You can also pass in individual elements, of course! So, these two code snippets
 cmake_minimum_required(VERSION 3.10)
 
 foreach(loop_var 1 2 3)
-  message("CURRENT_LIST_ELEMENT: " ${loop_var})
+  message("CURRENT_LIST_ELEMENT: ${loop_var}")
 endforeach()
 ```
 
@@ -704,12 +708,12 @@ There's also alternate syntax, like so
 ```cmake
 cmake_minimum_required(VERSION 3.10)
 
-foreach(loop_var IN LISTS "1;2;3")
-  message("CURRENT_LIST_ELEMENT: " ${loop_var})
+set(LIST_VAR 1 2 3)
+
+foreach(loop_var IN LISTS LIST_VAR)
+  message("CURRENT_LIST_ELEMENT: ${loop_var}")
 endforeach()
 ```
-
-
 
 #### **For Loop over a Range**
 
@@ -719,7 +723,7 @@ endforeach()
 cmake_minimum_required(VERSION 3.10)
 
 foreach(loop_var RANGE 10)
-  message("CURRENT_LIST_ELEMENT: " ${loop_var})
+  message("CURRENT_LIST_ELEMENT: ${loop_var}")
 endforeach()
 ```
 
@@ -731,7 +735,7 @@ Or to have a specified start top and a step:
 cmake_minimum_required(VERSION 3.10)
 
 foreach(loop_var RANGE 10 20 2) # Start, stop, step
-  message("CURRENT_LIST_ELEMENT: " ${loop_var})
+  message("CURRENT_LIST_ELEMENT: ${loop_var}")
 endforeach()
 ```
 
@@ -762,7 +766,7 @@ cmake_minimum_required(VERSION 3.10)
 
 function(echo_stuff num_argument)
   foreach(i RANGE ${num_argument})
-    message("ECHOING: " ${i})
+    message("ECHOING: ${i}")
   endforeach()
 endfunction()
 
@@ -787,7 +791,7 @@ cmake_minimum_required(VERSION 3.10)
 macro(echo_stuff num_argument)
   set(n ${num_argument})
   foreach(i RANGE ${num_argument})
-    message("ECHOING: " ${i})
+    message("ECHOING: ${i}")
   endforeach()
 endmacro()
 
