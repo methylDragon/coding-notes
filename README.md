@@ -19,11 +19,19 @@ Most of these can be read through in under an hour, and they're pitched at the b
 ## So far, I've covered: <a name="top"></a>
 
 - [C++](#C++)
+
+- [CMake](#CMake)
+
 - [OpenSplice DDS](#OpenSplice%20DDS)
+
 - [MATLAB](#MATLAB)
+
 - [MySQL](#MySQL)
+
 - [PHP](#PHP)
+
 - [Python 3](#Python%203)
+
 - [WordPress](#WordPress)
 
   
@@ -44,6 +52,14 @@ Most of these can be read through in under an hour, and they're pitched at the b
 - [Linkages and Preprocessor Directives](./C++/08%20C++%20-%20Linkages%20and%20Preprocessor%20Directives.md)
 - [Tips and Tricks](./C++/09%20C++%20-%20Tips%20and%20Tricks.md)
 - [(Bonus) Headers](./C++/Bonus%20Notes/BONUS%20C++%20-%20Headers.md)
+
+
+
+### CMake <a name="CMake"></a>
+
+[go to top](#top)
+
+- [Basics and Scripting](./CMake/01%20CMake%20-%20Basics%20and%20Scripting.md)
 
 
 
