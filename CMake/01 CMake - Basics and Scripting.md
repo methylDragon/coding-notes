@@ -1,7 +1,7 @@
 # CMake Crash Course - Basics and Scripting
 
 Author: methylDragon  
-Contains a syntax reference for CMake    
+Contains a syntax reference for CMake. We'll be going through some concepts, the CLI, and scripting with CMake!    
 
 ------
 
@@ -34,13 +34,14 @@ Contains a syntax reference for CMake
    3.3 [Comments](#3.3)    
    3.4 [Printing](#3.4)    
    3.5 [Variables](#3.5)    
-   3.6 [Variable Scope](#3.6)    
-   3.7 [Cache Variables](#3.7)    
-   3.8 [Prefixes](#3.8)    
-   3.9 [Conditionals](#3.9)    
-   3.10 [Loops](#3.10)    
-   3.11 [Functions](#3.11)    
-   3.12 [Macros](#3.12)    
+   3.6 [Variable Scope and Directories](#3.6)    
+   3.7 [User Input: Cache Variables](#3.7)    
+   3.8 [User Input: Options](#3.8)    
+   3.9 [Prefixes](#3.9)    
+   3.10 [Conditionals](#3.10)    
+   3.11 [Loops](#3.11)    
+   3.12 [Functions](#3.12)    
+   3.13 [Macros](#3.13)    
 
 
 
@@ -211,6 +212,8 @@ cmake -DCMAKE_BUILD_TYPE=Release # Build optimised code with no debug flags
 cmake -D CMAKE_BUILD_TYPE=Release # This also works!
 ```
 
+> Additionally, do note that this is actually the **best practice for invoking CMake**
+
 
 
 #### **View Cached Variables**
@@ -322,7 +325,7 @@ The bare minimum CMakeLists that does meaningful work involves three things
 
 - CMake requirements
 - Project name
-- Build targets
+- Build **targets**
 
 > But actually, if you just want to test the basic programming stuff in CMake, you can have an empty `CMakeLists.txt` file with just the statements to test (in most cases!) It won't build anything, but it's good enough.
 >
@@ -471,6 +474,10 @@ set(EQUIVALENT_LIST "a;b") # These are the same!
 set(NUM_LIST 1 2)
 set(EQUIVALENT_NUM_LIST 1;2)
 
+# You can even append to the lists!
+set(NUM_LIST ${NUM_LIST} 3 4) # So-so way
+list(APPEND NUM_LIST 5 6) # Better way
+
 # Use variables
 message("WOW_NUM: ${WOW_NUM}")
 message("EQUIVALENT_NUM_LIST: ${EQUIVALENT_NUM_LIST}")
@@ -501,7 +508,7 @@ message($ENV{variable_name})
 
 
 
-### 3.6 Variable Scope <a name="3.6"></a>
+### 3.6 Variable Scope and Directories <a name="3.6"></a>
 [go to top](#top)
 
 
@@ -509,7 +516,13 @@ message($ENV{variable_name})
 
 [Image Source](<https://preshing.com/20170522/learn-cmakes-scripting-language-in-15-minutes/>)
 
-Variables are created in the scope they are set in. And scopes are defined by directories and functions. So just think of C++ scopes, and you should be fine.
+Variables are created in the scope they are set in. And scopes are defined by directories and functions.
+
+> **Directories!?**
+>
+> Yes! Directories! Since each `CMakeLists.txt` file governs its directory, so treat them modularly like that
+
+So just think of C++ scopes, and you should be fine.
 
 Luckily, there is a way to state that a variable is set in its parent scope, instead of its current scope.
 
@@ -520,13 +533,44 @@ set(PARENT_SCOPED_VAR 10 PARENT_SCOPE)
 
 
 
-### 3.7 Cache Variables <a name="3.7"></a>
+### 3.7 User Input: Cache Variables <a name="3.7"></a>
 [go to top](#top)
 
 
 CMake uses a cache, which is really just a text file called `CMakeCache.txt` to remember settings so you don't have to restate them when running CMake.
 
-Normal variables aren't placed in the cache unless you explicitly tell CMake to though! **Adding a variable as a cache variable also exposes them in the command line**.
+Normal variables aren't placed in the cache unless you explicitly tell CMake to though! **Adding a variable as a cache variable also exposes them in the command line**. If you don't set them in the command line, they'll use their default value, so it's a good way to create **settable variables with default values**!
+
+
+
+#### **Listing Cache Variables**
+
+You can list out all the available settable cache variables from the command line!
+
+Just use these commands:
+
+```shell
+cmake -L # List all non-advanced cache variables
+cmake -LA # List all cache varialbes (including advanced ones)
+cmake -LAH # List all cache variables, and also display help for them
+```
+
+
+
+#### **Setting Cache Variables in the Command Line**
+
+Same as setting variables in the command line.
+
+```shell
+cmake -DCACHE_VAR_NAME=rawr
+
+# Or with type hints
+cmake -DTYPED_CACHE_VAR_NAME:STRING=raa
+```
+
+
+
+#### **Setting Cache Variables**
 
 ```cmake
 # General call
@@ -573,7 +617,56 @@ set(FORCED_VAR 10 CACHE STRING FORCE)
 
 
 
-### 3.8 Prefixes <a name="3.8"></a>
+### 3.8 User Input: Options <a name="3.8"></a>
+
+[go to top](#top)
+
+These are just boolean cache variables that you can set ON or OFF in the command line.
+
+
+
+#### **Listing Options**
+
+If you want to use options, you can use the same cache variable interface.
+
+> You can list out all the available settable cache variables from the command line!
+>
+> Just use these commands:
+>
+> ```shell
+> cmake -L # List all non-advanced cache variables
+> cmake -LA # List all cache varialbes (including advanced ones)
+> cmake -LAH # List all cache variables, and also display help for them
+> ```
+
+
+
+#### **Setting Options in the Command Line**
+
+Same as setting variables in the command line.
+
+```shell
+cmake -DOPTION_NAME=ON
+```
+
+
+
+#### **Setting Options**
+
+```cmake
+option(OPTION_NAME "SOME_RANDOM_DOCSTRINGS" ON) # OPTION_NAME is default ON
+
+# You can also set a dependent option!
+# This one defaults to ON 
+# If and only if ON_ME_BEING_ON is ON and AND_ON_ME_BEING_OFF is OFF
+CMAKE_DEPENDENT_OPTION(DEP_OPTION "I'm dependent!!" ON
+                       "ON_ME_BEING_ON;NOT AND_ON_ME_BEING_OFF" OFF)
+```
+
+
+
+### 3.9 Prefixes <a name="3.9"></a>
+
 [go to top](#top)
 
 
@@ -594,7 +687,7 @@ set(${PREFIX}_C 3)
 
 
 
-### 3.9 Conditionals <a name="3.9"></a>
+### 3.10 Conditionals <a name="3.10"></a>
 [go to top](#top)
 
 
@@ -608,7 +701,9 @@ else()
 endif()
 ```
 
-Cool! You can control program flow depending on whether stuff evaluates `TRUE` or `FALSE`
+Cool! You can control program flow depending on whether stuff evaluates `TRUE` or `FALSE`.
+
+
 
 #### **Boolean Constants**
 
@@ -625,6 +720,8 @@ Named constants are case-insensitive.
 Additionally, the following are evaluated to false:
 
 `IGNORE`, `NOTFOUND`, an empty string, or strings that end with the suffix "-NOTFOUND"
+
+
 
 #### **Example Usage**
 
@@ -643,6 +740,8 @@ endif()
 >  **Wait a sec. Why wasn't VAR encapsulated by ${}?**
 >
 > The `if()` statement is a little weird in this regard, because it takes in both variables and constants! In this case, if we wrapped VAR and passed it in as `if(${VAR})`, the if statement evaluates it as the string "TRUE" as opposed to the boolean constant `TRUE`.
+
+
 
 #### **Logic**
 
@@ -673,7 +772,7 @@ if(<string> MATCHES regex) # Regex matching
 
 
 
-### 3.10 Loops <a name="3.10"></a>
+### 3.11 Loops <a name="3.11"></a>
 [go to top](#top)
 
 
@@ -715,6 +814,8 @@ foreach(loop_var IN LISTS LIST_VAR)
 endforeach()
 ```
 
+
+
 #### **For Loop over a Range**
 
 ![1565773727787](assets/1565773727787.png)
@@ -739,6 +840,8 @@ foreach(loop_var RANGE 10 20 2) # Start, stop, step
 endforeach()
 ```
 
+
+
 #### **While Loop**
 
 The while loop conditions are resolved in the same way the `if()` command resolves conditions.
@@ -751,7 +854,7 @@ endwhile()
 
 
 
-### 3.11 Functions <a name="3.11"></a>
+### 3.12 Functions <a name="3.12"></a>
 [go to top](#top)
 
 
@@ -777,7 +880,7 @@ Also note that any variables `set()` within a function is local to its function'
 
 
 
-### 3.12 Macros <a name="3.12"></a>
+### 3.13 Macros <a name="3.13"></a>
 [go to top](#top)
 
 
