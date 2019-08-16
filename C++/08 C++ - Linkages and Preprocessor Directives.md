@@ -476,6 +476,10 @@ Ok! Cool, now we have some understanding of linkages, we can go ahead and mess a
 
 We'll base some of this on [this tutorial](<https://www.math.utah.edu/docs/info/cpp_1.html>), but note that this tutorial will not serve as an exhaustive treatise on preprocessor invocations. Just good enough to help you tremendously with writing programs.
 
+>  **FAIR WARNING IS TO BE HAD**: It is important to not abuse C++ macros/preprocessor directives as it can make your code obnoxiously hard to debug, and has a very high chance of introducing bugs into your code.
+>
+> **If you can afford to not use them, you'd best not.** (Save for maybe the `#include` directive and a couple of other handy stuff like header guards.)
+
 
 
 ### 3.1 Concept <a name="3.1"></a>
