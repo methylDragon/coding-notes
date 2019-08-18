@@ -60,6 +60,8 @@ Most of these can be read through in under an hour, and they're pitched at the b
 [go to top](#top)
 
 - [Basics and Scripting](./CMake/01%20CMake%20-%20Basics%20and%20Scripting.md)
+- [Building with CMake](./CMake/02%20CMake%20-%20Building%20with%20CMake.md)
+- [Advanced Scripting and Modules](./CMake/03%20CMake%20-%20Advanced%20Scripting%20and%20Modules.md)
 
 
 
