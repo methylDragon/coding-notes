@@ -18,11 +18,35 @@ Contains a syntax reference for CMake. We'll be going through the use of CMake a
 
 
 
-## Table Of Contents
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)    
+2. [Building With CMake](#2)    
+   2.1 [Introduction and Refresher](#2.1)    
+   2.2 [Overview](#2.2)    
+   2.3 [Targets and Properties](#2.3)    
+   2.4 [Linkage Refresher](#2.4)    
+   2.5 [Project Settings](#2.5)    
+   2.6 [Setting CMake Version](#2.6)    
+   2.7 [Finding CMake Version](#2.7)    
+   2.8 [Check System Type](#2.8)    
+   2.9 [CMake Variables](#2.9)    
+   2.10 [Setting The C++ Standard](#2.10)    
+   2.11 [Configuring Build Flags](#2.11)    
+   2.12 [Compile Options](#2.12)    
+   2.13 [Including Other CMake Scripts](#2.13)    
+   2.14 [Checking if Packages are Found](#2.14)    
+   2.15 [Specifying Include Directories](#2.15)    
+   2.16 [Core Step: Specifying Targets](#2.16)    
+   2.17 [Target Properties](#2.17)    
+   2.18 [Getting and Setting Properties](#2.18)    
+   2.19 [Installing](#2.19)    
+   2.20 [Adding Tests](#2.20)    
 
 
 
-## Introduction
+
+## 1. Introduction <a name="1"></a>
 
 Now that we've gone through basic scripting, and some concepts related to CMake, we can finally move on with the meaty parts of CMake that deal with what it was designed for -- configuring builds!
 
@@ -30,9 +54,11 @@ This section is going to go through most of the commonly used CMake function cal
 
 
 
-## Building With CMake
+## 2. Building With CMake <a name="2"></a>
 
-### Introduction and Refresher
+### 2.1 Introduction and Refresher <a name="2.1"></a>
+[go to top](#top)
+
 
 Ok! Now that we're acquainted with the CMake scripting language, we can start learning the calls that actually build and link code into executables and libraries!
 
@@ -49,7 +75,9 @@ Ok! Now that we're acquainted with the CMake scripting language, we can start le
 
 
 
-### Overview
+### 2.2 Overview <a name="2.2"></a>
+[go to top](#top)
+
 
 So if you remember from the previous section of the tutorial, the **order** in which you write your CMake commands in the `CMakeLists.txt` file matters.
 
@@ -70,7 +98,9 @@ We will roughly be going through these in order in this tutorial.
 
 
 
-### Targets and Properties
+### 2.3 Targets and Properties <a name="2.3"></a>
+[go to top](#top)
+
 
 Modern CMake is all about **targets** and their **properties**. Targets have properties.
 
@@ -87,7 +117,9 @@ If you remember from the refresher in the introduction of this tutorial, you'd n
 
 
 
-### Linkage Refresher
+### 2.4 Linkage Refresher <a name="2.4"></a>
+[go to top](#top)
+
 
 Let's also remind ourselves how linkage works in the build process for a program (at least in C/C++ anyway.)
 
@@ -116,7 +148,9 @@ Nice!
 
 
 
-### Project Settings
+### 2.5 Project Settings <a name="2.5"></a>
+[go to top](#top)
+
 
 There's a few more arguments you can put in the `project()` call.
 
@@ -136,7 +170,9 @@ For version numbering standards [check out this guide]([https://semver.org](http
 
 
 
-### Setting CMake Version
+### 2.6 Setting CMake Version <a name="2.6"></a>
+[go to top](#top)
+
 
 You already saw this in the example
 
@@ -149,7 +185,9 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 
 
-### Finding CMake Version
+### 2.7 Finding CMake Version <a name="2.7"></a>
+[go to top](#top)
+
 
 This is handy to see if certain CMake functionalities are available.
 
@@ -168,7 +206,9 @@ message(
 
 
 
-### Check System Type
+### 2.8 Check System Type <a name="2.8"></a>
+[go to top](#top)
+
 
 This might be useful if you need to change some flags around depending on the system type.
 
@@ -185,7 +225,9 @@ endif()
 
 
 
-### CMake Variables
+### 2.9 CMake Variables <a name="2.9"></a>
+[go to top](#top)
+
 
 [Full](<https://cmake.org/cmake/help/latest/manual/cmake-env-variables.7.html>) [list](<https://cmake.org/cmake/help/latest/manual/cmake-variables.7.html>)
 
@@ -244,7 +286,9 @@ If versioning was vA.B.C as per [semver.org](<https://semver.org/>).
 
 
 
-### Setting The C++ Standard
+### 2.10 Setting The C++ Standard <a name="2.10"></a>
+[go to top](#top)
+
 
 You can do this by setting the global properties (less recommended, but more convenient)
 
@@ -286,7 +330,9 @@ message("Supported features = ${CMAKE_CXX_COMPILE_FEATURES}")
 
 
 
-### Configuring Build Flags
+### 2.11 Configuring Build Flags <a name="2.11"></a>
+[go to top](#top)
+
 
 You can set build flags to both the compiler and linker from within a `CMakeLists.txt` file by using several commands or changing the value of certain CMake variables or properties.
 
@@ -365,7 +411,9 @@ Or for the full list, check out the [GCC docs](<https://gcc.gnu.org/onlinedocs/g
 
 
 
-### Compile Options
+### 2.12 Compile Options <a name="2.12"></a>
+[go to top](#top)
+
 
 Alternatively, you can set **compile options**, which works much like setting the `CMAKE_CXX_FLAGS` CMake variable, but only for the directory and sub-directories, or for specific targets. 
 
@@ -408,7 +456,9 @@ target_compile_options(target_name -Wall -Wextra -Wpedantic -Werror)
 
 
 
-### Including Other CMake Scripts
+### 2.13 Including Other CMake Scripts <a name="2.13"></a>
+[go to top](#top)
+
 
 #### **CMake Scripts**
 
@@ -508,7 +558,9 @@ You can also get more information about [include](<https://cmake.org/cmake/help/
 
 
 
-### Checking if Packages are Found
+### 2.14 Checking if Packages are Found <a name="2.14"></a>
+[go to top](#top)
+
 
 This is really handy if you want optional features to build without any special user input!
 
@@ -529,7 +581,9 @@ endif()
 
 
 
-### Specifying Include Directories
+### 2.15 Specifying Include Directories <a name="2.15"></a>
+[go to top](#top)
+
 
 CMake needs to know where your headers are to be able to let whatever compiler you are using find relevant header files that are included inside your source files.
 
@@ -565,7 +619,9 @@ target_include_directories(some_target
 
 
 
-### Core Step: Specifying Targets
+### 2.16 Core Step: Specifying Targets <a name="2.16"></a>
+[go to top](#top)
+
 
 **This is one of the most important steps to do productive work with CMake!** It's kind of a shame it's so simple that the section can be missed easily, so I'm going to put a .gif here just to call attention to it.
 
@@ -613,7 +669,9 @@ add_library(SOME_LIB INTERFACE)
 
 
 
-### Target Properties
+### 2.17 Target Properties <a name="2.17"></a>
+[go to top](#top)
+
 
 There's [a lot of different properties](<https://cmake.org/cmake/help/latest/manual/cmake-properties.7.html#target-properties>) that you can set for targets. Let's go through a few ones that you can set using native CMake commands instead of interfacing directly with the property interfaces.
 
@@ -646,7 +704,9 @@ You may specify inheritance priority (public, private, interface) for most of th
 
 
 
-### Getting and Setting Properties
+### 2.18 Getting and Setting Properties <a name="2.18"></a>
+[go to top](#top)
+
 
 Once you've created a target, you can get and set properties related to that target! Here's a couple of examples.
 
@@ -665,7 +725,9 @@ Cool!
 
 
 
-### Installing
+### 2.19 Installing <a name="2.19"></a>
+[go to top](#top)
+
 
 #### **Introduction**
 
@@ -778,7 +840,9 @@ Do check out the relevant sections from this other tutorial by someone more prof
 
 
 
-### Adding Tests
+### 2.20 Adding Tests <a name="2.20"></a>
+[go to top](#top)
+
 
 [`add_test()` docs](<https://cmake.org/cmake/help/latest/command/add_test.html>)
 

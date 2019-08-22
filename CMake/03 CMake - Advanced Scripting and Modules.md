@@ -18,11 +18,30 @@ Contains a syntax reference for CMake. We'll be going through some more nifty st
 
 
 
-## Table Of Contents
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)    
+2. [CMake Advanced Scripting](#2)    
+   2.1 [Configuring Files](#2.1)    
+   2.2 [Reading Files](#2.2)    
+   2.3 [Parse Arguments](#2.3)    
+   2.4 [Calling Custom Terminal Commands](#2.4)    
+   2.5 [Generating Files and Triggering Build Events](#2.5)    
+   2.6 [Generator Expressions](#2.6)    
+   2.7 [Try Compile and Try Run](#2.7)    
+   2.8 [CMake Command Reference](#2.8)    
+3. [Useful CMake Modules](#3)    
+   3.1 [Source Introspection: `CheckFunctionExists`](#3.1)    
+   3.2 [Set Dependent Options: `CMakeDependentOption`](#3.2)    
+   3.3 [Print Helpers: `CMakePrintHelpers`](#3.3)    
+   3.4 [Check If Flags are Supported: `CheckCXXCompilerFlag`](#3.4)    
+   3.5 [Detect Features as Options and Generate Backward Compatibility Implementations: `WriteCompilerDetectionHeader`](#3.5)    
+   3.6 [Add and Print Feature Summaries: `FeatureSummary`](#3.6)    
 
 
 
-## Introduction
+
+## 1. Introduction <a name="1"></a>
 
 While the previous two sections of the tutorial should more or less give you enough to build and configure projects all on your own, the rabbit hole of CMake goes really deep. So here's a cursory foray into some of the powerful tools and tricks available to you!
 
@@ -32,9 +51,11 @@ A lot of this tutorial would not be possible without [this tutorial](<https://cl
 
 
 
-## CMake Advanced Scripting
+## 2. CMake Advanced Scripting <a name="2"></a>
 
-### Configuring Files
+### 2.1 Configuring Files <a name="2.1"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/v3.0/command/configure_file.html>)
 
@@ -106,7 +127,9 @@ Neat!
 
 
 
-### Reading Files
+### 2.2 Reading Files <a name="2.2"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/latest/command/file.html>)
 
@@ -134,7 +157,9 @@ project(My LANGUAGES CXX VERSION ${VERSION_STRING})
 
 
 
-### Parse Arguments
+### 2.3 Parse Arguments <a name="2.3"></a>
+[go to top](#top)
+
 
 Create named arguments for functions and macros in CMake!
 
@@ -167,7 +192,9 @@ Pretty neat!
 
 
 
-### Calling Custom Terminal Commands
+### 2.4 Calling Custom Terminal Commands <a name="2.4"></a>
+[go to top](#top)
+
 
 [Command Reference](<https://cmake.org/cmake/help/latest/command/add_custom_target.html>)
 
@@ -229,7 +256,9 @@ So with this, `custom_target_name` will be 'built' (that is, have its command ru
 
 
 
-### Generating Files and Triggering Build Events
+### 2.5 Generating Files and Triggering Build Events <a name="2.5"></a>
+[go to top](#top)
+
 
 [Command Reference](<https://cmake.org/cmake/help/latest/command/add_custom_command.html>)
 
@@ -308,7 +337,9 @@ You can also specify `PRE_LINK` or `POST_BUILD` to change the exact timing of th
 
 
 
-### Generator Expressions
+### 2.6 Generator Expressions <a name="2.6"></a>
+[go to top](#top)
+
 
 [Full List of Generator Expressions](<https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html>)
 
@@ -381,7 +412,9 @@ You should get an echo of the generator expression's output. In this case, `RAWR
 
 
 
-### Try Compile and Try Run
+### 2.7 Try Compile and Try Run <a name="2.7"></a>
+[go to top](#top)
+
 
 You can attempt to try to compile a target, and try to run some source files at configure time.
 
@@ -413,19 +446,23 @@ try_run(<run_result_var> <compile_result_var> <bindir> <srcfile>)
 
 
 
-### CMake Command Reference
+### 2.8 CMake Command Reference <a name="2.8"></a>
+[go to top](#top)
+
 
 Here's a [list of all CMake commands](<https://cmake.org/cmake/help/latest/manual/cmake-commands.7.html>) in case you want to see what I haven't covered here.
 
 
 
-## Useful CMake Modules
+## 3. Useful CMake Modules <a name="3"></a>
 
 There are [so many modules](<https://cmake.org/cmake/help/latest/manual/cmake-modules.7.html>)! Here's a selection of some of them, courtesy of [this tutorial](<https://cliutils.gitlab.io/modern-cmake/chapters/features/modules.html>) and [this tutorial](<https://cmake.org/cmake-tutorial/>).
 
 
 
-### Source Introspection: `CheckFunctionExists`
+### 3.1 Source Introspection: `CheckFunctionExists` <a name="3.1"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/latest/module/CheckFunctionExists.html>)
 
@@ -477,7 +514,9 @@ Pretty nifty!
 
 
 
-### Set Dependent Options: `CMakeDependentOption`
+### 3.2 Set Dependent Options: `CMakeDependentOption` <a name="3.2"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/latest/module/CMakeDependentOption.html>)
 
@@ -509,7 +548,9 @@ endif()
 
 
 
-### Print Helpers: `CMakePrintHelpers`
+### 3.3 Print Helpers: `CMakePrintHelpers` <a name="3.3"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/latest/module/CMakePrintHelpers.html>)
 
@@ -530,7 +571,9 @@ cmake_print_variables(var1 var2)
 
 
 
-### Check If Flags are Supported: `CheckCXXCompilerFlag`
+### 3.4 Check If Flags are Supported: `CheckCXXCompilerFlag` <a name="3.4"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/latest/module/CheckCXXCompilerFlag.html>)
 
@@ -543,7 +586,9 @@ check_cxx_compiler_flag(-someflag OUTPUT_VARIABLE)
 
 
 
-### Detect Features as Options and Generate Backward Compatibility Implementations: `WriteCompilerDetectionHeader`
+### 3.5 Detect Features as Options and Generate Backward Compatibility Implementations: `WriteCompilerDetectionHeader` <a name="3.5"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/latest/module/WriteCompilerDetectionHeader.html>)
 
@@ -599,7 +644,9 @@ So in this case, if the compiler does not support `constexpr`, `FOO_CONSTEXPR` w
 
 
 
-### Add and Print Feature Summaries: `FeatureSummary`
+### 3.6 Add and Print Feature Summaries: `FeatureSummary` <a name="3.6"></a>
+[go to top](#top)
+
 
 [Reference](<https://cmake.org/cmake/help/latest/module/FeatureSummary.html>)
 
