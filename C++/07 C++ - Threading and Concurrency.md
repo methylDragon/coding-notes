@@ -17,11 +17,36 @@ This time, we'll be going through C++ multithreading and concurrency related stu
 
 
 
-## Table Of Contents
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)    
+2. [C++ Threading Reference](#2)    
+   2.1 [Threads](#2.1)    
+   2.2 [Creating Threads](#2.2)    
+   2.3 [Thread Specific Functions](#2.3)    
+   2.4 [Sharing Data](#2.4)    
+   2.5 [Waiting, Killing, and Detaching](#2.5)    
+   2.6 [Race Conditions](#2.6)    
+   2.7 [Atomics](#2.7)    
+   2.8 [Mutex and Locks](#2.8)    
+   2.9 [A Better Way: Lock Guards](#2.9)    
+   2.10 [Lock Guard Types](#2.10)    
+   2.11 [Exclusive Locks vs Shared Locks](#2.11)    
+   2.12 [Mutex Types](#2.12)    
+   2.13 [Event Handling: Condition Variables](#2.13)    
+3. [C++ Concurrency Reference](#3)    
+   3.1 [Introduction](#3.1)    
+   3.2 [When to Use Threads or Tasks](#3.2)    
+   3.3 [Promises and Futures](#3.3)    
+   3.4 [A Simple Promise-Future Example](#3.4)    
+   3.5 [Async](#3.5)    
+   3.6 [Async Launch Policies](#3.6)    
+   3.7 [Different Ways to Call Async](#3.7)    
 
 
 
-## Introduction
+
+## 1. Introduction <a name="1"></a>
 
 ![_images/concurrency_vs_parallelism.png](assets/concurrency_vs_parallelism-1562918749730.png)
 
@@ -33,9 +58,11 @@ We're going to talk about the nice `std::thread` class that abstracts away the l
 
 
 
-## C++ Threading Reference
+## 2. C++ Threading Reference <a name="2"></a>
 
-### Threads
+### 2.1 Threads <a name="2.1"></a>
+[go to top](#top)
+
 
 ![img](assets/threads-as-control-flow.png)
 
@@ -61,7 +88,9 @@ unsigned int c = std::thread::hardware_concurrency();
 
 
 
-### Creating Threads
+### 2.2 Creating Threads <a name="2.2"></a>
+[go to top](#top)
+
 
 There are several ways to create a thread:
 
@@ -101,7 +130,9 @@ std::thread raa_thread(raa_class_object(), params);
 
 
 
-### Thread Specific Functions
+### 2.3 Thread Specific Functions <a name="2.3"></a>
+[go to top](#top)
+
 
 Use `std::this_thread` within threads to refer to the current thread!
 
@@ -130,7 +161,9 @@ std::this_thread::sleep_until(time_point);
 
 
 
-### Sharing Data
+### 2.4 Sharing Data <a name="2.4"></a>
+[go to top](#top)
+
 
 **Global Variables**
 
@@ -179,7 +212,9 @@ void method()
 
 
 
-### Waiting, Killing, and Detaching
+### 2.5 Waiting, Killing, and Detaching <a name="2.5"></a>
+[go to top](#top)
+
 
 #### **Waiting to Complete**
 
@@ -227,7 +262,9 @@ example_thread.detach();
 
 
 
-### Race Conditions
+### 2.6 Race Conditions <a name="2.6"></a>
+[go to top](#top)
+
 
 ![SharedMutable](assets/SharedMutable.png)
 
@@ -251,7 +288,9 @@ if (x == 5) // The "Check"
 
 
 
-### Atomics
+### 2.7 Atomics <a name="2.7"></a>
+[go to top](#top)
+
 
 So there are several ways to prevent race conditions. An `std::atomic` is just one way.
 
@@ -277,7 +316,9 @@ You can check the [Atomic Types Reference](<https://en.cppreference.com/w/cpp/at
 
 
 
-### Mutex and Locks
+### 2.8 Mutex and Locks <a name="2.8"></a>
+[go to top](#top)
+
 
 #### **Introduction**
 
@@ -331,7 +372,9 @@ thread_function()
 
 
 
-### A Better Way: Lock Guards
+### 2.9 A Better Way: Lock Guards <a name="2.9"></a>
+[go to top](#top)
+
 
 It's actually better to just use a lock guard, which manages the lifecycle of a mutex for you.
 
@@ -354,7 +397,9 @@ thread_function()
 
 
 
-### Lock Guard Types
+### 2.10 Lock Guard Types <a name="2.10"></a>
+[go to top](#top)
+
 
 So there are actually several lock guard types.
 
@@ -463,7 +508,9 @@ guard.try_lock_until(); // Only for timed_mutexes
 
 
 
-### Exclusive Locks vs Shared Locks
+### 2.11 Exclusive Locks vs Shared Locks <a name="2.11"></a>
+[go to top](#top)
+
 
 **Exclusive locks** (aka write locks) **inhibit all access** from other threads until the lock is released.
 
@@ -499,7 +546,9 @@ Basically:
 
 
 
-### Mutex Types
+### 2.12 Mutex Types <a name="2.12"></a>
+[go to top](#top)
+
 
 There are [several](<https://en.cppreference.com/w/cpp/thread/mutex>) [types](<https://en.cppreference.com/w/cpp/thread/recursive_mutex>) [of](<https://en.cppreference.com/w/cpp/thread/timed_mutex>) [mutex](<https://en.cppreference.com/w/cpp/thread/recursive_timed_mutex>).
 
@@ -546,7 +595,9 @@ std::lock(writer_guard, reader_guard);
 
 
 
-### Event Handling: Condition Variables
+### 2.13 Event Handling: Condition Variables <a name="2.13"></a>
+[go to top](#top)
+
 
 Sometimes you need to do some nice signal/event handling.
 
@@ -649,9 +700,11 @@ condition_var.wait(guard, [](){return condition == true;});
 
 
 
-## C++ Concurrency Reference
+## 3. C++ Concurrency Reference <a name="3"></a>
 
-### Introduction
+### 3.1 Introduction <a name="3.1"></a>
+[go to top](#top)
+
 
 We just went through manual thread handling in the previous section.
 
@@ -665,7 +718,9 @@ So instead of thinking of starting the threads yourself, you can only be concern
 
 
 
-### When to Use Threads or Tasks
+### 3.2 When to Use Threads or Tasks <a name="3.2"></a>
+[go to top](#top)
+
 
 Use **threads** if:
 
@@ -679,7 +734,9 @@ Use **tasks** if:
 
 
 
-### Promises and Futures
+### 3.3 Promises and Futures <a name="3.3"></a>
+[go to top](#top)
+
 
 ![1562934941151](assets/1562934941151.png)
 
@@ -739,7 +796,9 @@ Every promise **is associated with a future**! And a promise **sets** the value 
 
 
 
-### A Simple Promise-Future Example
+### 3.4 A Simple Promise-Future Example <a name="3.4"></a>
+[go to top](#top)
+
 
 ![std::promise and std::future](assets/promise.png)
 
@@ -799,7 +858,9 @@ int main()
 
 
 
-### Async
+### 3.5 Async <a name="3.5"></a>
+[go to top](#top)
+
 
 [std::async](<https://en.cppreference.com/w/cpp/thread/async>)
 
@@ -819,7 +880,9 @@ auto future = std::async(some_function, arg_1, arg_2);
 
 
 
-### Async Launch Policies
+### 3.6 Async Launch Policies <a name="3.6"></a>
+[go to top](#top)
+
 
 You can do better though!
 
@@ -837,7 +900,9 @@ auto future = std::async(std::launch::async, some_function, arg_1, arg_2);
 
 
 
-### Different Ways to Call Async
+### 3.7 Different Ways to Call Async <a name="3.7"></a>
+[go to top](#top)
+
 
 ```c++
 // Pass in function pointer
