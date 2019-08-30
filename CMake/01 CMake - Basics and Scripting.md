@@ -369,6 +369,10 @@ target_link_libraries(Example WOW)
 
 As we move on, you'll notice that more and more stuff will get added, but usually only after the `project()` call. **But just keep this basic structure in mind**.
 
+> Also, it is important to notice that in this case, we had to build the `WOW` library **before** linking it to the executable.
+>
+> This is another example of the importance of the **order of statements** inside a `CMakeLists.txt` file! So in this case it is **necessary to run `add_library()` before `add_executable()`**.
+
 
 
 ### 3.3 Comments <a name="3.3"></a>

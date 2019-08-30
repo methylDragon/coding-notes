@@ -146,6 +146,10 @@ We can see that the object code files for the translation units for `example.cpp
 
 Nice!
 
+> Again, it is important to notice that in this case, we had to build the `WOW` library **before** linking it to the executable.
+>
+> This is another example of the importance of the **order of statements** inside a `CMakeLists.txt` file! So in this case it is **necessary to run `add_library()` before `add_executable()`**.
+
 
 
 ### 2.5 Project Settings <a name="2.5"></a>
