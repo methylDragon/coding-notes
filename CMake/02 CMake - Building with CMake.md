@@ -144,7 +144,7 @@ target_link_libraries(Example WOW)
 
 We can see that the object code files for the translation units for `example.cpp` and `another_source.cpp` are linked together with the static library `WOW` that came from `somelib.cpp`.
 
-Nice!
+Nice! (ps: we should use `add_library` before `add_executable` so that the linker would work.!)
 
 
 
