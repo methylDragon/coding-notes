@@ -312,8 +312,6 @@ haha.c = 3;
 
 
 
-
-
 ### 2.6 Outputting Variables and Variable Info <a name="2.6"></a>
 
 [go to top](#top)
@@ -368,35 +366,33 @@ Example
 
 ```c++
 int five = 5;
-cout << "5++ =  " << five++ << endl; // Increment by 1
-cout << "++5 = " << ++five << endl; // Increment by 1
-cout << "5-- = " << five-- << endl; // Decrement by 1
-cout << "--5 = " << --five << endl; // Decrement by 1
+cout << "5++ gives  " << five++ << endl; // Increment by 1
+cout << "++5 gives " << ++five << endl; // Increment by 1
+cout << "5-- gives " << five-- << endl; // Decrement by 1
+cout << "--5 gives " << --five << endl; // Decrement by 1
 ```
 
 Returns
 
-```c++
-5++ = 5
-++5 = 7
-5-- = 7
---5 = 5
+```
+5++ gives 5
+++5 gives 7
+5-- gives 7
+--5 gives 5
 ```
 
-**That's so weird!**
+> **Wait a sec, weird behaviour!**
+>
+> The reason for this is because when you increment or decrement on the **RIGHT** side, it'll perform the action **AFTER** it gives the value.
+>
+> If you increment or decrement it on the **LEFT** side, it'll perform the action **BEFORE** it gives the value. The reason you have 7 is because 5++ incremented 5 to a 6, but sent 5 before it incremented, so when you have ++5, it took a 6 to begin with and incremented it to 7, then printed it.
+>
+> **Order of operations! Remember it!**
 
-The reason for this is because when you increment or decrement on the **RIGHT** side, it'll perform the action **AFTER** it gives the value.
-
-If you increment or decrement it on the **LEFT** side, it'll perform the action **BEFORE** it gives the value. The reason you have 7 is because 5++ incremented 5 to a 6, but sent 5 before it incremented, so when you have ++5, it took a 6 to begin with and incremented it to 7, then printed it.
-
-**Here's another shorthand!**
+**Another shorthand!**
 
 `five += 5; // five = five + 5;`
-`five -= 5; //five = five - 5;`
-
-**Order of operations**
-
-REMEMBER IT!
+`five -= 5; // five = five - 5;`
 
 
 
