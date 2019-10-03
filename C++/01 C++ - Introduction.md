@@ -254,7 +254,7 @@ std::map<int, std::string> map_var { {0, "zero"}, {1, "one"}, {2, "two"} }; // A
 **Direct Initialisation**
 
 ```c++
-int variable(525); // Now stores 5
+int variable(525); // Now stores 525
 
 // Note: variable() will not work! You can't initialise an empty variable that way
 ```
@@ -288,7 +288,7 @@ You can define a type alias by using the `typedef` keyword!
 ```c++
 // Simple typedef
 typedef unsigned long ulong;
-ulong 5; // So now we can declare an unsigned long using this type alias!
+ulong var_five{5}; // So now we can declare an unsigned long using this type alias!
 
 // Pointer typedef
 typedef int* int_ptr;
