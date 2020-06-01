@@ -345,13 +345,13 @@ The capture list allows for the capture of variables (by reference or value) out
 // Capture all variables in scope by value
 [=]
 
-// Capture all variables in scope by reference, with exclusions
+// Capture all variables in scope by value, but some by reference
 [=, &but_me_by_reference, &me_too]
 
 // Capture all variables in scope by reference
 [&]
 
-// Capture all variables in scope by reference, with exclusions
+// Capture all variables in scope by reference, but some by value
 [&, but_me_by_value, me_too]
 
 // Capture the surrounding object
