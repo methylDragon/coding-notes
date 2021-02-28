@@ -993,6 +993,8 @@ int found_index = Arrays.binarySearch(nums, 5); // Binary search!
 
 Arrays.equals(copied_nums, nums); // Array equality!
 Arrays.sort(nums); // In-place sort!
+
+Arrays.toString(nums); // Get string representation
 ```
 
  And lots more! Press `Ctrl-Space` in IntelliJ after typing `Arrays.` to see the list! Then you can use `Ctrl-Q` to see the relevant javadocs.
@@ -1127,7 +1129,100 @@ while (i < 5);
 
 
 
-### Methods (Functions)
+### Sleeping
+
+Delay your program flow!
+
+Simple use `Thread.sleep()`! But ensure that you append your method signature with `throws InterruptedException`!
+
+```java
+public class SleepMessages {
+    public static void main(String args[]) throws InterruptedException {
+        String theBreathOfSong[] = {
+            "Within a land of Wind and Sky",
+            "A Dragon spreads his wings",
+            "He flies on through strife-stricken Fields",
+            "Takes Pause",
+            "And soars to Dawn"
+        };
+
+        for (int i = 0; i < theBreathOfSong.length; i++) {
+            Thread.sleep(1000); // Pause for 1 second
+            System.out.println(importantInfo[i]);
+        }
+    }
+}
+```
+
+
+
+### Exception Handling
+
+In the previous section we saw that we said that the `main()` function could throw an `InterruptedException`. This section is all about handling exceptions such as that!
+
+**General Exception Handling with `try catch`**
+
+```java
+public class Main {
+  public static void main(String[ ] args) {
+    try {
+      int[] myNumbers = {1, 2, 3};
+      System.out.println(myNumbers[10]);
+    } catch (Exception e) {
+      System.out.println("Something went wrong.");
+    }
+  }
+}
+```
+
+You can also use `finally` to run things at the end even if an exception was caught!
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    try {
+      int[] myNumbers = {1, 2, 3};
+      System.out.println(myNumbers[10]);
+    } catch (Exception e) {
+      System.out.println("Something went wrong.");
+    } finally {
+      System.out.println("The 'try catch' is finished.");
+    }
+  }
+}
+```
+
+**Throw and Throws**
+
+Use `throw` to throw an exception.
+
+```java
+throw new ArithmeticException("/ by zero");
+```
+
+Use `throws` to indicate that the method it is attached to **might** throw some exception. The caller to the method has the responsibility of handling the exception in a `try catch` block.
+
+```java
+type method_name(parameters) throws exception_list {}
+
+// exception_list is a comma separated list of all the exceptions which a method might throw.
+```
+
+
+
+### Assertions
+
+Mandate that some statement evaluates to true, otherwise, throw an assertion error.
+
+This is usually used for test cases!
+
+```java
+assert assertion_expression : "printed string if false"
+```
+
+
+
+### Methods (Functions) [This should be moved to another function specific tutorial section]
 
 Methods are just functions within a class. But because everything in Java must be within a class, every Java function is a method.
 
@@ -1256,38 +1351,6 @@ void foo(String a, Integer b, Integer c) {
 
 foo("a", null, 2);
 ```
-
-
-
-### Java Handing
-
-
-
-2.1   [Comments](#2.1)    
-2.2   [Importing Libraries](#2.2)    
-2.3   [Hello World!](#2.3)    
-2.4   [Running Programs](#2.4)    
-2.5   [Variables and Data Types](#2.5)    
-2.6   [Ouputting Variables and Variable Info](#2.6)    
-2.7   [Casting (Type Conversion)](#2.7)    
-2.8   [Arithmetic Operations](#2.8)    
-2.9   [Conditionals](#2.9)    
-2.10 [Ternary Operators](#2.10)    
-2.11 [Switch Cases](#2.11)    
-2.12 [Arrays](#2.12)    
-2.13 [Multi-Dimensional Arrays](#2.13)    
-2.14 [Strings](#2.14)    
-2.15 [User Input](#2.15)    
-2.16 [For Loops](#2.16)    
-2.17 [While Loops](#2.17)    
-2.18 [Do While Loops](#2.18)    
-2.19 [Vectors](#2.19)    
-2.20 [Printf](#2.20)    
-2.21 [Argc and Argv](#2.21)    
-2.22 [Exception Handling](#2.22)    
-2.22 [Scopes](#2.23)    
-
-
 
 
 
