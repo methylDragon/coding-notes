@@ -102,8 +102,6 @@ common ones are
 `<string>`  for strings
 `<fstream>`  for file input outputs
 
-
-
 > Note on `< >` vs `" "`:
 >
 > The type of symbol you use when importing libraries affects how the compiler prioritises which library to import in the event of a clashing name.
