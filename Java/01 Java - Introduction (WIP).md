@@ -50,11 +50,41 @@ Recommended IDEs to use are:
 - Netbeans
 - Or any other IDEs you are used to
 
-I will be using [IntelliJ IDEA](https://www.youtube.com/watch?v=S764o0mAXhg)!
+I will be using [IntelliJ IDEA](https://www.youtube.com/watch?v=H_XxH66lm3U)!
+
+This introduction will go a little bit into setting up a project, adding dependencies, and the norms of how to package a project. I know I normally go into the syntax right away, but with Java, properly packaging a package is very important, so I'll go through that first..
 
 
 
-## Java Introduction
+### On IDEs
+
+Java is a language where using an IDE is more or less mandatory due to the extreme amount of convenience the IDE provides you for managing packages, classes, as well as compiling and running your Java projects!
+
+So please, PLEASE ensure you have an IDE installed.
+
+Furthermore, we'll using the [Maven package manager](https://maven.apache.org/) to manage our dependencies. It'll allow us to get dependencies by simply typing them down in some `XML` file. And it can help us do a lot of other stuff.
+
+Still not convinced on Maven? [Click here to find out.](https://wasiqb.github.io/blogs/mavenproject-vs-javaproject)
+
+Also... for IntelliJ, `Ctrl-J` (Intellisense) is cool.
+
+
+
+### On Compiling Code Using IntelliJ
+
+If you have multiple classes already, I find it more useful to directly right click on the class to make sure the proper compilating configuration profile is selected.
+
+You can also use `Ctrl-Shift-F10` to run the current source file you are on.
+
+
+
+### Javadoc
+
+Also when you're in doubt or need to read the documentation of any particular symbol, press `Ctrl-Q` to bring up the documentation using javadoc!
+
+
+
+## Basic Concept Primer
 
 ### How Java is Run
 
@@ -66,7 +96,7 @@ It makes sense to know what's actually going on with your code when you build it
 
 Java can be interpreted, or compiled. When you actually build your code, your source code gets initially compiled to an intermediary bytecode form. Following which, this bytecode is loaded and then executed by the Java Virtual Machine (JVM.)
 
-The JVM decides when to compile segments of frequently run code **at runtime**, automatically, which speeds up execution of that section. This is known as [Just-In-Time compilation (JIT)](https://www.reddit.com/r/explainlikeimfive/comments/580znf/eli5_what_does_just_in_time_compiling_mean_and/). This is because compiling stuff before runtime will take time, while interpreting code slows down execution speed because the instructions have to be interpreted.
+The JVM decides when to compile segments of frequently-run code **at runtime**, automatically, which speeds up execution of that section. This is known as [Just-In-Time compilation (JIT)](https://www.reddit.com/r/explainlikeimfive/comments/580znf/eli5_what_does_just_in_time_compiling_mean_and/). This is because compiling stuff before runtime will take time, while interpreting code slows down execution speed because the instructions have to be interpreted.
 
 It is because of this fact, that Java can be **faster or slower than programming languages like Python**. (The default implementation of Python, which is interpreted, that is.)
 
@@ -143,6 +173,8 @@ But the takeaway from this code snippet is to simply notice **that the function 
 
 ### Running Java Programs
 
+Just for your information...
+
 If you just have one class that doesn't depend on other classes defined in packages, then you can compile and run your Java code in the Linux terminal.
 
 ```shell
@@ -155,7 +187,141 @@ java ClassName # Not the file name!
 
 But for everything else, it is probably better to use an IDE.
 
-Since I'm using IntelliJ, I'll just throw a [neat tutorial](https://www.youtube.com/watch?v=S764o0mAXhg) here, then we can just move on.
+Remember that when you run a class, you will run the `main()` method of that class!
+
+
+
+## Packaging Projects
+
+### Packages
+
+[Source](https://docs.oracle.com/javase/tutorial/java/concepts/package.html)
+
+> A package is a namespace that organizes a set of related classes and interfaces. Conceptually you can think of packages as being similar to different folders on your computer. You might keep HTML pages in one folder, images in another, and scripts or applications in yet another. Because software written in the Java programming language can be composed of hundreds or *thousands* of individual classes, it makes sense to keep things organized by placing related classes and interfaces into packages.
+
+Again, while I don't like introducing non-code concepts like project packaging right at the start of a code reference, I have to do it for Java...
+
+
+
+### Adding Dependencies
+
+Remember that we're using Maven on IntelliJ. 
+
+You can add dependencies to Maven by adding dependencies to the `pom.xml` in your Java project's root. In this case you can see that I've added `junit`, which is the Java unit testing tool.
+
+> After adding your dependencies, simply click on the "Load Maven Changes" button that appears.
+>
+> ![image-20210224233948818](assets/01%20Java%20-%20Introduction%20(WIP)/image-20210224233948818.png)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>maven_testing</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
+```
+
+
+
+Since we're using Maven, we'll follow the standard [Maven directory structure](https://www.baeldung.com/maven-directory-structure), especially since this is what most of the open source Java projects out there are using. 
+
+It's structured like so:
+
+![image-20210224234856306](assets/01%20Java%20-%20Introduction%20(WIP)/image-20210224234856306.png)
+
+We mainly care about `pom.xml`, `src/main`, and `src/test`.
+
+Later on, when your code is compiled, it'll go into a `target` directory that we don't have to care about.
+
+
+
+### The `src/main` directory
+
+This is where your sources go! There's a couple of subdirectories:
+
+- `src/main/java`: Java source code
+- `src/main/resources`: Configuration files and other non-source files
+- `src/main/webapp`: For JavaScript, CSS, HTML, etc. for webapps
+- `src/main/filters`: For files that inject values into your config files
+
+You'll mostly be working in `src/main/java`
+
+
+
+### The `src/test` directory
+
+This is where your tests go. Its subdirectories are like `src/main`:
+
+- `src/test/java`
+- `src/test/resources`
+- `src/test/filters`
+
+
+
+### Package Naming
+
+[Source](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html)
+
+Package names must be:
+
+- All lowercase
+
+- The inverse of your domain name!
+
+  - Begin with your internet domain (like... `com`, or `org`), then your name, then the package, and then after that any subclasses
+
+  - >  For example, `com.example.mypackage` for a package named `mypackage` created by a programmer at `example.com`.
+    >
+    > [Source](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html)
+
+Notice then that `com` and `org` are literally just from the back of an internet domain! They don't really mean anything else super special...
+
+> Packages that are in the Java language itself begin with `java.` or `javax.`
+
+Additionally:
+
+- If there are hyphens, convert them to underscores
+- If any name begins with a non-alphabetical character, add an underscore before the name
+
+> ![image-20210224235651731](assets/01%20Java%20-%20Introduction%20(WIP)/image-20210224235651731.png)
+>
+> [Image Source](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html)
+
+
+
+### Packaging Classes
+
+Each class is its own source file within a package!
+
+Name your source files with the same name as the classes they represent!
+
+
+
+### Packaging Tests
+
+![image-20210224235752129](assets/01%20Java%20-%20Introduction%20(WIP)/image-20210224235752129.png)
+
+Just mirror the packaging!
 
 
 
@@ -163,824 +329,541 @@ Since I'm using IntelliJ, I'll just throw a [neat tutorial](https://www.youtube.
 
 ### Comments
 
+```java
+// this is a comment
 
+/* multi
+line comment! */
 
-### Have to talk about inheritance eventually (WIP)
-
-
-
-## 2. Basic Python 3 Syntax Reference <a name="2"></a>
-
-### 2.1 Comments <a name="2.1"></a>
-
-[go to top](#top)
-
-Comments are meant to increase readability for programmers, and will be ignored by computers!
-
-```python
-# this is a comment
-
-''' 
-multi
-line comment!
-'''
+/**
+ * JavaDoc comments look like this. Used to describe the Class or various
+ * attributes of a Class.
+ * Main attributes:
+ *
+ * @author         Name (and contact information such as email) of author(s).
+ * @version     Current version of the program.
+ * @since        When this part of the program was first added.
+ * @param         For describing the different parameters for a method.
+ * @return        For describing what the method returns.
+ * @deprecated  For showing the code is outdated or shouldn't be used.
+ * @see         Links to another part of documentation.
+*/
 ```
 
 
 
-### 2.2 Importing Libraries <a name="2.2"></a>
+### Printing
 
-[go to top](#top)
-
-```python
-import <MODULE_NAME>
-
-# If you make your own, say... my_module.py
-# This works too!
-
-import my_module
-```
-
-Sometimes you want to extend the functionalities of your Python installation by importing modules (libraries of functions other people have written.)
-
-Common useful modules from the standard library that comes installed with Python include:
-
-```python
-import math
-import decimal
-import datetime
-import time
-import re # Regular Expressions, check my tutorial
-import sympy
-import sys # For OS commands!
-
-# When you import using import, you invoke module methods like so
-math.pi
-math.e
-
-# When you import using from
-from math import e
-
-# The imported method fills the namespace and you call it without invoking the module name
-print(e)
-# Output: 2.718281828459045
-
-# Handy ones are stuff like
-from math import pi, e
-from sympy import diff # diff(expression, variable, order of derivative)
-```
-
-More module advice:
-
-https://stackoverflow.com/questions/1453952/most-useful-python-modules-from-the-standard-library
-
-https://wiki.python.org/moin/UsefulModules
-
-```python
-# If you're NOT SURE WHAT'S IN THE LIBRARY
-# Do
-
-dir(<library>)
-
-# It'll print out all the commands in the library for you to use!
+```java
+System.out.print("Hello world!");
+System.out.println("Hellp world!");  // Adds a newline after the print
 ```
 
 
 
-
-
-### 2.3 Print <a name="2.3"></a>
-
-[go to top](#top)
-
-You can display stuff on the console using print()
-
-And manipulate it in cool ways!
-
-```python
-print("Rawr")
-# Output: Rawr
-
-print("Rawr","Rar") # Comma appends with a space between each by default!
-# Output: Rawr Rar
-
-print("Rawr","Rar",sep=", ") # You can change this default though!
-# Output: Rawr, Rar
-
-print("Rawr\nRar") # \n is a newline character!
-''' Output:
-Rawr
-Rar
-'''
-
-print("a" * 5) # You can multiply!
-# Output: aaaaa
-```
-
-If you want formatted output, use % or f
-
-#### **Using %**
-
-```python
-# % example
-
-dragon = "methylDragon"
-print("%s %s %s" % ("Hi!", "I am", dragon))
-# Output: Hi! I am methylDragon
-# %.<decimals>f - Floating point numbers with a fixed amount of digits to the right of the dot.
-
-# With dictionaries
-my_dict = {"dragons":"Dragons", "are":"are", "the":"the", "best":"best! Yeah!"}
-print("%(dragons)s %(are)s %(the)s %(best)s" % (my_dict))
-# Output: Dragons are the best! Yeah!
-```
-
-
-#### **Using f-strings**
-
-```python
-# f-strings (Valid from Python 3.6 onwards)
-
-dragon = "methylDragon"
-stuff = "orchestral music"
-print(f"Hi! I am {dragon} and I make {stuff}!")
-# Output: Hi! I am methylDragon and I make orchestral music!
-
-# f-strings also support expressions! So you can do print(f{6*6})
-# Output: 36
-```
-
-
-#### **Using .format**
-
-```python
-# .format example
-
-dragon = "methylDragon"
-stuff = "orchestral music"
-number = 5
-
-print("{} makes {}!".format(dragon, stuff))
-# Output: methylDragon makes orchestral music
-
-# .format has other more specific uses though!
-
-# Custom indexing in your argument tuple!
-print("{1} makes {0}!".format(dragon, stuff))
-# Output: orchestral music makes methylDragon!
-
-# Formatting
-print("{:.1f}".format(number))
-# Output: 5.0
-# Notice the number decimal places is 1!
-
-# Expressions as arguments
-print("{}".format(5*5))
-# Output: 25
-
-# Named arguments
-print("{name}".format(name="methylDragon"))
-# Output: methylDragon
-
-# Dictionaries
-my_dict = {"dragons":"Dragons", "are":"are", "the":"the", "best":"best! Yeah!"}
-print("{dragons} {are} {the} {best}".format(**my_dict))
-# Output: Dragons are the best! Yeah!
-
-# Format options!
-# When you're using {}, you can also add :<stuff> to add extra formatting options!
-# {:<10} Left padding (align left)
-# {:>10} Right padding (align right)
-# {:^10} Centre padding (align centre)
-# {:.5} Truncate string
-# {:d} Int
-# {:f} Float
-# {:5d} Padded Int
-# {:.5f} Fixed Decimal Float
-# {:08b} Binary with 8 digits zero-padded on the left
-
-# {:+d} Sign Prefixed Number
-# Eg: {42:+d} : +42 , {-42:+d} : -42
-# {: d} Space Prefixed Number
-# {:=5d} Control the position of the sign relative to padding!
-# Eg: {42: d} : [space]42 , {-42: d} : -42
-
-```
-
-```python
-# Also note, each print statement automatically prints a newline
-
-print("Hi")
-print("Test")
-
-''' Output:
-Hi
-Test
-'''
-
-# If you want to not do that
-print("Hi", end="")
-print("Test")
-
-'''
-Output:
-HiTest
-'''
-
-# Basically, what end="" does, is replace the newline character with whatever you put in the quotes
-
-print("Rawr", end=" I'm a dragon")
-# Output: Rawr I'm a dragon
-```
-
-
-
-### 2.4 Variables <a name="2.4"></a>
-
-[go to top](#top)
+### Variables and Data Types
 
 **Variables are like containers for data**
 
-- Variables names must start off with a letter, but can contain numbers, or underscores. (But they MUST start off with a letter.)
-- They also cannot be keywords used in Python.
-- Names are CASE SENSITIVE
-- The Pythonic way of naming variables, is lowercase, separated by underscores. Or whatever the code was using. Keep it consistent and neat!
+Variable names can contain letters, underscores or numbers, but they **MUST NOT** start off with a number. You assign them values by using the `=` sign.
 
-```python
-# Assign variable values using =
-my_variable = "Hi"
-my_number = 6
+Let's make a variable of type double (which means it's a decimal number that can store more decimal numbers than the float type)
 
-# Imaginary numbers are possible too!!!
-my_imaginary_number = 6 + 6j # Use j!
+`double PI = 3.1415926535;` DON'T FORGET YOUR semicolons!
 
-my_float = 5.3
-my_string = "\"I decided I wanted to put a quote in here"
-# my_string has this weird thing \" because I wanted to put a quote in!
-# If printed, it reads: "I decided I wanted to put a quote in here
-# This is known as an escape character
-my_multiline_quote = ''' this also
-works wonders
-isn\'t it great?!'''
-
-# You don't have to declare your types! Python does it for you!
-# Data types are good to know though! Here's some common ones
-# string: Immutable array of characters
-# int: Integer
-# long: Integer with more 
-# float: Floating Point Number (Decimal)
-# double: Float with more memory space (More decimals)
-# bool: True/False
-# list: Mutable ordered Array of same type
-# tuple: Immutable Array of possibly different type
-# dictionary: Keyed Array
-
-# You can convert between types!
-num = 1.12345
-bin_num = 100
-int(num) # Returns 1
-int(str(bin_num), 2) # The optional base input tells int() what the input base is
+**Note**: When you declare variables inside of a function, **local** and can only be read by the function in question.
 
 
 
-# If you want to find out the type of a variable, use type()
-type(my_number) # Returns <class "int">
-# Note: You compare it using: type(my_number) == int
-# Returns True
+**Some other variable data types you have are**:
 
-# If you want to find its address, use id()
-id(my_number) # Returns my_number's address
+[Docs](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
+
+- `String`: (A string)
+- `char` (Stores a single character, a single byte)
+- `int`  (Whole numbers)
+- `float` (Decimals, accurate up to 6 .dp)
+- `boolean` (Contains TRUE or FALSE, i.e. 1 or 0)
+- `short` (Int of 16 bits)
+- `long` (int of 32 bits)
+
+
+
+#### **Type Casting**
+
+You can convert variable types into other types, if possible!
+
+There are two kinds of type casts:
+
+- Widening cast (happens automatically)
+  - When converting from a smaller type to a larger type
+  - E.g.: `byte` -> `short` -> `char` -> `int` -> `long` -> `float` -> `double`
+- Narrowing cast (called manually)
+  - When converting from a larger type to a smaller type
+  - E.g.: `int num = (int) someDouble;`
+
+
+
+#### **String Casting**
+
+To cast to `String`, if you have an `Object` (not a primitive), you can use `toString()`.
+
+```java
+Integer.toString(123);
 ```
 
-> Ok. I said variables are like containers for data, but that only helps beginners visualise it. In Python it's a little different. The variable names you define refer to objects that store values. But when you change the value, what happens is NOT that the value stored in the referred object changes, but rather, another object is created and the variable names becomes a reference to that new object.
+ Or build a String directly:
+
+```java
+// Either directly
+String.valueOf(5); // "5"
+
+// Or using StringBuffer or StringBuilder to do it iteratively
+Integer i = new Integer(123);
+StringBuilder sb = new StringBuilder(); // or StringBuffer
+sb.append(i);
+```
+
+
+
+#### **Parsing**
+
+Certain primitive wrappers have a `parseXXX()` method that you can use!
+
+```java
+// For example
+Integer.parseString("5");
+```
+
+
+
+#### **Primitives vs. Primitive Wrapper Classes**
+
+[Source](https://www.tutorialspoint.com/difference-between-an-integer-and-int-in-java)
+
+An `int` is not an `Integer`. The `int` is a primitive data type, while `Integer` is a class that is meant to wrap the `int` into an object.
+
+With the wrapper class you can very easily 
+
+
+
+#### **Get Types**
+
+Use `instanceof` or `getClass` to programmatically get the type of an **object**. For example:
+
+```java
+Integer a;
+(a instanceof Integer); // true
+a.getClass(); // java.lang.Integer
+a.getClass().getName(); // "java.lang.Integer"
+```
+
+You can resolve the type of a primitive by casting it to an object or by using `isInstance`!
+
+```java
+// Cast to Object
+((Object)x).getClass().getName(); // "java.lang.Integer"
+
+// Or use isInstance
+Integer.class.isInstance(a); // true
+```
+
+
+
+### Arithmetic
+
+```java
+a++; // Increment
+a--; // Decrement
+
++ // Add: 3 + 2 equals 5
+- // Subtract: 3 - 2 equals 1
+* // Multiply: 3 * 2 equals 6
+/ // Divide: 3 / 2 equals 1.5
+
+%  // Modulo: 3 % 2 equals 1 (Modulo returns the remainder!)
+```
+
+You can also do your operations and assign at the same time!
+
+```java
+// For example:
+int a = 5;
+
+a += 5; // Is the same as a = a + 5;
+
+// And so on for the other operators
+```
+
+
+
+### More Math
+
+```java
+Math.pow(); // Exponentiate: Math.pow(3, 2) equals 9
+Math.floorDiv(); // Floor Divide: Math.floorDiv(3, 2) equals 1 (Removes any decimals)
+Math.sqrt(); // Square root: Math.sqrt(4) equals 2
+Math.random(); // Get a random double between 0.0 and 1.0 (inclusive)
+```
+
+
+
+### Importing Packages and Classes
+
+[Source](https://learnxinyminutes.com/docs/java/)
+
+```java
+// Import specific class
+// In this case, import the ArrayList class inside of the java.util package
+import java.util.ArrayList;
+
+// Import all classes in a package
+// In this case, import all classes inside of the java.security package
+import java.security.*;
+```
+
+You do not need to import a class if it is in the same package as a class you are in!
+
+
+
+### Access Modifiers
+
+Java has 4 levels of access. We'll go through them from most permissive to least:
+
+- `public`
+- default (when you don't use any keyword)
+- `protected`
+- `private`
+
+Access modifiers do different things depending on whether you are using them on a **class** or something else! You can slap them on almost anything to control their access!
+
+```java
+// See how ModifierExample is a -public- class?
+public class ModifierExample {
+	private int a; // With a -private- variable!
+}
+```
+
+
+
+**For classes:**
+
+You can only use `public` or the default
+
+| Modifier | Example                        | Description                                              |
+| -------- | ------------------------------ | -------------------------------------------------------- |
+| `public` | `public class ModifierExample` | Class is accessible by any other class                   |
+| default  | `class ModifierExample`        | Class is only accessible by other classes in its package |
+
+
+
+**For anything else**: (e.g. attributes, methods, and constructors)
+
+| Modifier    | Example              | Description                                                  |
+| ----------- | -------------------- | ------------------------------------------------------------ |
+| `public`    | `public int var;`    | Accessible to all classes                                    |
+| default     | `int var;`           | Accessible to all classes in the same package                |
+| `protected` | `protected int var;` | Accessible to all classes in the same package, and **subclasses** outside the package |
+| `private`   | `private int var;`   | Only accessible within the same class                        |
+
+![Java Access Modifiers](assets/01%20Java%20-%20Introduction%20(WIP)/access-modifier.png)
+
+[Image Source](http://net-informations.com/java/basics/modifiers.htm)
+
+
+
+### Other Modifiers
+
+Beyond access modifiers, you can also slap on other modifiers. These are placed **after** the access modifier!
+
+Again, they mean different things depending on whether you use them on a class or something else.
+
+
+
+**For classes**:
+
+You can only use `final` and `abstract`.
+
+| Modifier   | Example                                 | Description                                                  |
+| ---------- | --------------------------------------- | ------------------------------------------------------------ |
+| `final`    | `public final class ModifierExample`    | Cannot be subclassed (cannot be inherited by other classes.) |
+| `abstract` | `public abstract class ModifierExample` | Cannot be instantiated as-is. Must be subclassed.            |
+
+Abstract classes can have non-abstract members! But they must be subclassed!
+
+
+
+**For anything else**: (e.g. attributes, methods, and constructors)
+
+| Modifier   | Example                    | Description                                                  |
+| ---------- | -------------------------- | ------------------------------------------------------------ |
+| `final`    | `public final int var;`    | Cannot be overridden or modified.                            |
+| `static`   | `public static int var;`   | Belongs to the class, not the object. (Class-wide.)          |
+| `abstract` | `public abstract int var;` | Can only be used on methods in an abstract class. Necessitates overriding. |
+
+
+
+> **More modifiers**
 >
-> The names are essentially rebound! (I'm guessing this might be why the performance is so meh)
+> There are some less common modifiers too!
 >
-> See: https://stackoverflow.com/questions/10262920/understanding-pythons-call-by-object-style-of-passing-function-arguments
-
-```python
-# Now, if you wanted to CHECK (in a conditional) what the type of a variable is
-# Use isinstance!
-methylDragon = "methylDragon"
-
-if isinstance(methylDragon, str):
-    print("Rawr!")
-elif isinstance(methylDragon, bool):
-    print("Orh")
-```
+> - `transient`: Skipped when serialising the object containing them. [See reference](https://www.geeksforgeeks.org/transient-keyword-java/)
+> - `synchronized`: Can only be accessed by a single thread at a time. [See reference](https://www.geeksforgeeks.org/synchronized-in-java/)
+> - `volatile`: Value is cached from 'main memory', not thread local. [See reference](https://www.geeksforgeeks.org/volatile-keyword-in-java/)
 
 
 
-
-
-### 2.5 Arithmetic <a name="2.5"></a>
-
-[go to top](#top)
-
-```python
-+ # Add: 3 + 2 equals 5
-- # Subtract: 3 - 2 equals 1
-* # Multiply: 3 * 2 equals 6
-/ # Divide: 3 / 2 equals 1.5
-
-** # Exponentiate: 3 ** 2 equals 9
-// # Floor Divide: 3 // 2 equals 1 (Removes any decimals)
-%  # Modulo: 3 % 2 equals 1 (Modulo returns the remainder!)
-```
-
-Arithmetic priority for the basic operators in Python is as follows:
-
-```python
-0. () # Like math!
-1. **
-2. * / % //
-3. + -
-
-# If operators are tied, go from left to right
-```
-
-There are others though!
-
-https://www.tutorialspoint.com/python/operators_precedence_example.htm
-
-
-
-### 2.6 More Arithmetic <a name="2.6"></a>
-
-[go to top](#top)
-
-```python
-# There are some shortcuts as well!
-
-my_int = 6
-my_int += 10 # Means my_int = 6 + 10, my_int now equals 16
-my_int -= 10 # Means my_int = 16 - 10
-'''
-You get the idea. Works for the other arithmetic operators too!
-%= /= //= -= += = *=
-'''
-
-# Also, you can do some arithmetic on strings!
-# It's called concatenation when you're joining them
-string_one = "Hi"
-string_two = "ya!"
-
-string = string_one + string_two
-# string now contains: Hiya!
-
-# Sqrt() does a square root
-sqrt(4) # Returns 2
-```
-
-> NOTE: The ++ and -- operators DO NOT WORK IN PYTHON!
-
-
-
-### 2.7 Lists <a name="2.7"></a>
-
-[go to top](#top)
-
-Lists store multiple values of the same datatype. They're like 'boxes in memory'.
-
-They are also ordered! Which means you can refer to elements inside them by index! (The index starts at 0)
-
-(They're called arrays in most other programming languages. FYI.)
-
-Example:
-
-```python
-# Define a list with []
-# methylDragon has original orcehstral music on the
-music_services = ["Spotify", "YouTube", "Google Play", "iTunes", "Deezer", "And More!"]
-
-# Index 0 is "Spotify"
-# Index 1 is "YouTube"
-# Index 2 is "Google Play"
-# So on and so forth
-
-# Printing from index
-print(music_services[0])
-# Output: Spotify
-
-# Printing from index from the back
-print(music_services[-1])
-# Output: And More!
-
-# Printing slices (Prints up to but not including the second number)
-# Slice syntax: list_name[startAt:endBefore:skip]
-print(music_services[0:2])
-# Output: ["Spotify", "YouTube"]
-
-# Reassinging values
-music_services[5] = "Rawr!"
-print(music_services[5])
-# Output: "Rawr!"
-
-# You can create lists of lists, by the way!
-
-numbers_a = [1, 2, 3]
-numbers_b = [4, 5, 6]
-numbers_c = [7, 8, 9]
-
-numbers_list = [numbers_a, numbers_b, numbers_c]
-# numbers_list is now [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-
-# Printing from nested lists
-numbers_list[0][1]
-# Output: 2
-# The way to read it is, from the outermost layer, read index 0 (So the first list)
-# Then, within that list, read index 1
-
-# Joining lists
-list_one = [1, 2]
-list_two = [3, 4]
-list_three = list_one + list_two
-# list_three now contains: [1, 2, 3, 4]
-
-# Empty list
-empty_list = []
-```
-
-#### **List Comprehensions** (More on this in the advanced section)
-
-```python
-# Just some examples for reference
-# [item for item in list if conditional]
-
-x_list = [x for i in range(10)]
-# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-
-x_y_list = [(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
-# [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-```
-
-
-
-> Some additional information:
+>  **Notes**:
 >
-> Lists are mutable types in python. That is...
+> - You can use **more than one of these other non-access modifiers**! E.g. `public static final int var;`
+> - `final` prevents modification of the **reference**! But if the variable points to some mutable type, the underlying internal state of the mutable type (like... an ArrayList), that state can be modified!
+
+
+
+#### **Declaring Constants**
+
+To declare constants, use `static final`, then name your variable in all caps by convention.
+
+```java
+static final double PI = 3.141592653589793
+```
+
+
+
+### Constructors and Class Instantiation (`new`)
+
+Instantiate your class! If you omit your constructor, you can still instantiate your class. The default constructor just does nothing.
+
+A constructor must have the **same name** as your class!
+
+Then, to instantiate your class, use the `new` keyword! This will call the constructor.
+
+```java
+public class Example {
+    public Example() {
+        System.out.println("Example Constructed!");
+    }
+
+    public static void main(String[] args) {
+        Example example = new Example(); // This calls the constructor
+    }
+}
+
+// Output: Example Constructed!
+```
+
+
+
+### Accessing Class Members
+
+#### **Direct Access**
+
+Access class-internal members using the `this` keyword.
+
+Then access class members using `.`
+
+```java
+public class AccessExample {
+    public int a;
+    
+    // Remember static variables are shared across all instances of the class!
+    public static int b;
+    
+    public Example(int a) {
+        this.a = a;
+        b = a + a;
+    }
+
+    public static void main(String[] args) {
+        AccessExample example = new AccessExample(5);
+        example.a; // This gets the instance variable a: 5
+    	AccessExample.b; // This gets the static variable b: 10 
+    }
+}
+```
+
+> **Note:** You can actually access static members by using the instance instead of the class. But this is not recommended since it obscures whether the static variable is actually an instance variable or static.
+
+#### **Getters and Setters**
+
+It's usually a good idea to write getters and setters instead of accessing members directly.
+
+The reason for this is because you might want to have implementation specific validation or data pre/post-processing! Abstracting away this means that instead of having to change every direct access, you just need to change the implementation of the getter and setter instead.
+
+This concept is known as **encapsulation**.
+
+Getters and setters are implemented like so.
+
+```java
+public class MyClass {
+    int field;
+
+    public int getField() {
+        return field;
+    }
+
+    public void setField(int field) {
+        this.field = field;
+    }
+}
+```
+
+Luckily, since we have an IDE, we can [generate them automatically](https://www.jetbrains.com/help/idea/generating-code.html#generate-tostring).
+
+
+
+### Inheritance
+
+#### **Overview**
+
+![Types of inheritance in Java](assets/01%20Java%20-%20Introduction%20(WIP)/typesofinheritance.jpg)
+
+[Image Source](https://www.javatpoint.com/inheritance-in-java#:~:text=Inheritance%20in%20Java%20is%20a,behaviors%20of%20a%20parent%20object.&text=The%20idea%20behind%20inheritance%20in,fields%20of%20the%20parent%20class.)
+
+Java supports three kinds of inheritance.
+
+> **Note:** In this case the arrows mean that the **source** inherits from the **destination**.
 >
-> ```python
-> a = 5
-> b = a
+> In other words, for Single inheritance, B is a subclass of A.
+
+If we want multiple or hybrid inheritance, we need to use **interfaces** with the `interface` keyword. These are **not supported** if you are just using classes instead of interfaces.
+
+![Multiple inheritance in Java](assets/01%20Java%20-%20Introduction%20(WIP)/multiple.jpg)
+
+[Image Source](https://www.javatpoint.com/inheritance-in-java#:~:text=Inheritance%20in%20Java%20is%20a,behaviors%20of%20a%20parent%20object.&text=The%20idea%20behind%20inheritance%20in,fields%20of%20the%20parent%20class.)
+
+
+
+#### **`Extends`**
+
+You can inherit from a superclass using the `extends` keyword!
+
+```java
+public class Animal {
+    public static final bool ISLIVING = true;
+    
+    protected String name;
+    protected int weight;
+    
+    protected static int numberOfAnimals = 0;
+
+	public Animal() {
+        numberOfAnimals++;
+        System.out.println("New Animal created");
+    }
+    
+    public void Sound() {
+        System.out.println("Sound: Animal");
+    }
+}
+```
+
+Now, in another file, we create a `Dragon` class. This is an example of single inheritance.
+
+```java
+// Now we inherit from Animal!
+// Note, this should be in a different file, since it is also public
+public class Dragon extends Animal {
+    @Override  // We can override methods using @Override
+    public void Sound() {
+        System.out.println("Sound: Dragon");
+    }
+    
+    public static void main(String[] args) {
+        Dragon dragon = new Dragon();
+    }
+}
+```
+
+When we run it, we get:
+
+```
+New Animal created
+```
+
+> **Note**: Using `@Override` is not mandatory, but it is highly recommended since it helps with code readability and extracts a warning from the compiler if you didn't actually override anything!
+
+
+
+#### **`super`**
+
+The `super` keyword when used in a subclass refers to the immediate parent/superclass. You can only use this from within a class though! So be careful!
+
+The way this works is when you instantiate a subclass, you also implicitly instantiate the superclass! So suppose we made a new constructor for the `Dragon` class...
+
+```java
+public Dragon(){
+    super(); // Call Animal's constructor
+    super.Sound(); // Then Animal's sound
+    Sound(); // Then Dragon's sound
+}
+```
+
+This outputs:
+
+```
+New Animal created
+Sound: Animal
+Sound: Dragon
+```
+
+> Actually if you didn't use the `super()` constructor call for the superclass, the compiler will put it as the first line anyway.
 >
-> b = 0
-> print(a)
-> # Output: 5
-> # Changing b DID NOT change a because the number referred to is NOT THE SAME OBJECT
+> ```java
+> // So if we do this, we ac
+> public Dragon(){
+>     // super(); // Call Animal's constructor
+>     super.Sound(); // Then Animal's sound
+>     Sound(); // Then Dragon's sound
+> }
 > ```
-> ```python
-> # BUT FOR LISTS...
-> a_list = [5]
-> b_list = a_list
+
+
+
+#### **`interface`**
+
+We can define interfaces as well! Interfaces are 'blueprints' for implementing a class. They cannot be used to implement any functionality. They also cannot be instantiated! You must implement them!
+
+They also can't contain any class-local variables, but they can contain `final static` (constant) variables!
+
+- Interface methods are by default: `abstract` and `public`
+- Interface attributes are by default: `public`, `static`, and `final`
+
+> **Interfaces vs Abstract Classes**
 >
-> b_list[0] = 0
-> print(a_list)
-> # Output: [0]
-> # Changing b changed a because the list referred to is the SAME OBJECT!
-> ```
+> An abstract class permits you to make functionality that subclasses can implement or override whereas an interface only permits you to state functionality but not to implement it. A class can extend only one abstract class while a class can implement multiple interfaces.
 >
-> If you really wanted to create a separate distinct list, USE LIST SLICES!
->
-> ```python
-> a_list = [5]
-> b_list = a_list[:]
-> ```
->
-> Or you can use the copy module! Check the advanced section! 
->
-> 
+> [Source](https://www.guru99.com/interface-vs-abstract-class-java.html)
 
-### 2.8 List Methods<a name="2.8"></a>
+Declare interfaces using the `interface` keyword! And declare implementations of said interface by using the `implements` keyword!
 
-[go to top](#top)
+```java
+// interface
+interface Animal {
+  public void animalSound(); // interface method (does not have a body)
+  public void run(); // interface method (does not have a body)
+}
 
-```python
-dragon_list = ["Rawr", "Rar", "Raa"]
-
-# Appending
-dragon_list.append("Rer")
-# dragon_list now contains: ["Rawr", "Rar", "Raa", "Rer"]
-dragon_list.append("Pop_Me")
-# dragon_list now contains: ["Rawr", "Rar", "Raa", "Rer", "Pop_Me"]
-
-# Extending
-number_list = [1, 2, 3]
-extend_list = [4, 5]
-# Ok. Now let's examine the differences! (Assume number_list is reinitialised between statements)
-number_list.append(extend_list) # [1, 2, 3, [4, 5]]
-number_list.extend(extend_list) # [1, 2, 3, 4, 5] Notice how the list is no longer nested!
-
-# Pop: Removes and returns the last element
-dragon_list.pop()
-# dragon_list now contains: ["Rawr", "Rar", "Raa", "Rer"]
-
-# Inserting into an index
-dragon_list.insert(1, "Rrr")
-# dragon_list now contains: ["Rawr", "Rrr", "Rar", "Raa", "Rer"]
-
-# Removing
-dragon_list.remove("Rrr")
-# dragon_list now contains: ["Rawr", "Rar", "Raa", "Rer"]
-
-# Delete an item
-del dragon_list[3]
-# dragon_list now contains: ["Rawr", "Rar", "Raa"]
-
-dragon_list.count("Rar") # Count the number of occurances of an element in a list!
-# Output: 1
-
-dragon_list.sort() # Sort!
-dragon_list.reverse() # Reverses order of list
-
-# So if you want a reverse sort, do two calls. One to sort() and one to reverse()
-
-# Return length of list
-len(dragon_list) # This will return 3
-
-# Return maximum (alphanumerically)
-max(dragon_list) # Returns Raa
-
-# Return minimum (alphanumerically)
-min(dragon_list) # Returns Rawr
-
-# Sum all values in the list
-sum(dragon_list) # This won't work unless the list elements are numbers though...
-
-# Return a set containing the unique elements of the list
-set([1,1,1,1,1,2]) # Returns {1, 2}
-
-# Find index of a list element
-dragon_list.index("Rawr")
-# Output: 1
-```
-
-#### **Bonus: Treating lists as queues**
-
-```python
-import collections
-
-# deque stands for double queue
-# All list methods work with queues, but we also get some extra features!
-numbers = collections.deque([1, 2, 3, 4])
-
-# Popleft: Removes and returns the first element
-numbers.popleft()
-# Now: [2, 3, 4]
+// Dragon "implements" the Animal interface
+class Pig implements Animal {
+  public void animalSound() {
+    // The body of animalSound() is provided here
+    System.out.println("The pig says: wee wee");
+  }
+  public void sleep() {
+    // The body of sleep() is provided here
+    System.out.println("Zzz");
+  }
+}
 ```
 
 
 
-### 2.9 Tuples <a name="2.9"></a>
+Now that we know how to create and run classes, we can finally get on to the rest of the syntax reference.
 
-[go to top](#top)
 
-So we've done lists. Now let's do Tuples!
 
-- Tuples can contain elements of different types
-- But they are immutable! You cannot reassign values once you've set them
-
-```python
-# Define a tuple using ()
-my_tuple = (1, 2, 3, 4)
-
-# Convert a tuple into a list using list()
-my_list = list(my_tuple)
-
-# And a list back into a tuple using tuple()
-my_tuple_again = tuple(my_list)
-
-# These work the same as with list
-len()
-max()
-min()
-```
-```python
-# Assigning variables using tuples!
-methyl_tuple = ("methyl","Dragon")
-
-whole_tuple = methyl_tuple
-# whole_tuple: ("methyl","Dragon")
-
-methyl_half, dragon_half = methyl_tuple
-# methyl_half: "methyl"
-# dragon_half: "Dragon"
-
-(methyl_half, dragon_half) = methyl_tuple
-# methyl_half: "methyl"
-# dragon_half: "Dragon"
-
-# Cool eh!
-```
-
-
-
-### 2.10 Dictionaries <a name="2.10"></a>
-
-[go to top](#top)
-
-A dictionary is made up of values with a **UNIQUE** key for each value! It's basically a keyed list.
-
-They're also called maps (don't be confused with map() though!)
-
-> You can't join them like you can with lists though!
-
-```python
-# Define a dictionary using {}
-species_dictionary = {"Bob" : "Human",
-                     "methylDragon" : "Dragon",
-                     "Jane" : "Snake"}
-# The things to the left of the colon are the keys, and the ones on the right are the values
-
-# To call an entry by key
-species_dictionary["methylDragon"] # Returns Dragon
-
-# To reassign values (Think lists, but with keys instead of indexes!)
-species_dictionary["Jane"] = "Human"
-
-# Empty dictionary
-empty_dictionary = {}
-```
-
-#### **Dictionary Comprehensions** (More on this in the advanced section)
-
-```python
-# Just some examples for reference
-# {key:value for item in list if conditional}
-
-name_list = ["a", "b", "c", "d", "e"]
-num_list = [1, 2, 3, 4, 5]
-
-dictionary = {x : y for x, y in zip(name_list, num_list)}
-```
-
-
-
-### 2.11 Dictionary Methods<a name="2.11"></a>
-
-[go to top](#top)
-
-```python
-# List functions work!
-del dictionary_name[<key>]
-len()
-pop(key)
-clear() # Empties the entire dictionary
-
-# Get values
-species_dictionary.get("methylDragon") # Returns Dragon
-# This works the same as [], except, if no value is found, it defaults to None as opposed to throwing an error
-
-# Get a list of key-value pairs
-species_dictionary.items()
-
-# Get a list of keys
-species_dictionary.keys()
-
-# Get a list of values
-species_dictionary.values()
-
-# Add a key (Update merges another dictionary!)
-species_dictionary.update({"Key":"Value"})
-
-# Add multiple keys (As above, update merges another dictionary)
-species_dictionary.update({"Key_1":"Value_1", "Key_2":"Value_2"})
-
-# Add a key (alternative) (Though it isn't an explicit method call...)
-species_dictionary["Smaug"] = "Dragon"
-
-# Set a default response to a particular key query if the key is not found
-species_dictionary.setdefault("methylDragon", "rad_dragon")
-species_dictionary.setdefault("Toothless", "dumb_dragon")
-
-species_dictionary["methylDragon"] # returns "Dragon" (as the key was found)
-species_dictionary["Toothless"] # returns "dumb_dragon"
-```
-
-Example: Putting it all together!
-
-```python
-# Return a list of numbers that appear most frequently in an input list
-# Show multiple if tied
-# Eg. Input: [1, 1, 2, 2, 3]
-# Output: [1, 2]
-
-def most_frequent(lst):
-    count_dict = {}
-    for i in lst:
-        if count_dict.get(i) == None:
-            count_dict.update({i : lst.count(i)})
-    return [x for x in count_dict.keys() if count_dict[x] == max(count_dict.values())]
-```
-
-
-
-### 2.12 Sets <a name="2.12"></a> 
-
-[go to top](#top)
-
-Read more: https://www.programiz.com/python-programming/set
-
-Sets are **unordered** collections of **unique items!** Adding a duplicate to a set will not add anything!
-
-Items added to a set must be immutable, but the set itself is mutable.
-
-```python
-# Define a set using {}
-unique_numbers = {1, 1, 2, 3}
-# unique_numbers : {1, 2, 3} Notice how the duplicate disappears!
-
-# Another way is to just cast to a set
-numbers = [4, 4, 5, 6]
-more_unique_numbers = set(numbers)
-
-# Empty set
-# You have to do it this way since {} will initialise a dictionary!
-unique_numbers = set()
-
-# Iterate through a set using loops!
-for i in unique_numbers:
-    pass
-```
-
-#### **Set Comprehensions**
-
-```python
-# Just some examples for reference
-# {item for item in list if conditional}
-
-some_set = {x for x in range(10)}
-```
-
-> Remember, since sets are unordered, and the values aren't keyed, you can't index into them.
-
-
-
-### 2.13 Set Methods <a name="2.13"></a>
-
-[go to top](#top)
-
-It's probably best to treat sets as completely distinct from lists and dictionaries
-
-Set operations work ala math as well!
-
-```python
-example_set = {1, 2, 3}
-
-# Add a value
-example_set.add(3) # Nothing gets added since 3 exists already
-example_set.add(4) # Now {1, 2, 3, 4}
-
-# Add multiple values (Update merges sets!)
-example_set.update([5, 6, 7]) # In this case it converts the list first
-
-# Add multiple values (alternative)
-example_set.update([5, 6, 7], {6, 7, 8}) # In case you wanted to merge a list and a set in too
-
-# Remove a value
-example_set.remove(8)
-
-# Remove a value (alternative)
-# Discard will not throw an error if the argument is not in the set
-# Remove will
-# It's like dictionary.get() vs dictionary[index]!
-example_set.discard(8)
-
-# Remove the last value
-example_set.pop() # This will also return the value
-
-# Clear the set
-example_set.clear()
-
-# There's a bunch more: https://www.programiz.com/python-programming/set
-```
-
-#### **Set Operations**
-
-```python
-a = {1, 2, 3}
-b = {"rawr", "raa", 3}
-
-# Union
-print(a | b) # {1, 2, 3, 'raa', 'rawr'}
-
-# Intersection
-print(a & b) # {3}
-
-# Difference (A - B)
-print(a - b) # {1, 2}
-print(b - q) # {'raa', 'rawr'}
-
-# Symmetric difference (Opposite of intersection)
-print(a ^ b) # {1, 2, 'raa', 'rawr'}
-```
-
-
-
-### 2.14 Conditionals <a name="2.14"></a>
-
-[go to top](#top)
+### Conditionals
 
 ```python
 == # equal to 
@@ -992,592 +875,419 @@ print(a ^ b) # {1, 2, 'raa', 'rawr'}
 
 is # Checks if something is the same object as something else
 # Eg.
-# 1 == True (Returns True)
-# 1 is True (Returns False, as 1 does not refer to the same object)
+# 1 == true (Returns true)
+# 1 is true (Returns false, as 1 does not refer to the same object)
 ```
 
-> NOTE. "==" IS **NOT** "="
+> **Note:** 
 >
-> == COMPARES
->
-> = ASSIGNS VALUES
+> `==` is **NOT** `=`, `==` compares, `=` assigns values
 
 #### **Logical Operators**
 
 ```python
-and # Eg: (a and b) is True
-or # Eg: (a or b) is True
-not # Eg: not(a and b) is False
+&& # Logical And. E.g.: (a && b) is True
+|| # Logical Or. E.g.: (a || b) is True
+! # Logical Not. E.g.: !(a && b) is False
+^ # Logical XOR. Returns true if and only if one operand is true and the other is false.
 ```
 
-#### **Example IF, ELIF, ELSE**
+#### **`if`, `else`, `else if`**
 
-```python
-dragon_rating = 10
-
-if dragon_rating < 10 : # If condition is fulfilled
-    print("NEEDS MORE DRAGONS") # Do this
-elif dragon_rating < 15 : # Else, If condition is fulfilled
-    print("Good, but needs MORE") # Do this instead
-else : # Else
-    print("EXCELLENT") # Do this otherwise
+```java
+if (condition1) {
+  // block of code to be executed if condition1 is true
+} else if (condition2) {
+  // block of code to be executed if the condition1 is false and condition2 is true
+} else {
+  // block of code to be executed if the condition1 is false and condition2 is false
+}
 ```
 
-```python
-# ONE MORE! Let's do it with logical operators now
+You can also do ternary operators!
 
-is_dragon = True
-dragon_rating = 10
-
-if (dragon_rating < 10 and is_dragon == True) :
-    print("Oh no! Dragons shouldn't hate themselves!")
-elif (dragon_rating < 10 and is_dragon != True) :
-    print("NEEDS MORE DRAGONS")
-else :
-    print("Well ok then. Raa.")
+```java
+variable = (condition) ? expressionIfTrue :  expressionIfFalse;
 ```
 
-**in**
+**switch**
 
-```python
-# The in keyword is a nice way to call an object's __contains__ method
-
-# It works as such
-num_list = [1, 2, 3, 4, 5]
-
-2 in num_list # Returns True
-6 in num_list # Returns False
-
-# Basically it's used to check if something is in an iterable (more on iterables later)!
+```java
+switch(expression) {
+  case x:  // If expression == x
+    // Run if expression == x
+    break;
+  case y:
+    // Run if expression == y
+    break;
+  default:
+    // Run otherwise
+}
 ```
 
-**any() and all()**
+Just a simple switch case! Selects which code block to execute depending on some expression.
 
-```python
-# Think of any() and all() as a series of 'or' and 'and' operators
+> **Note**: You must break if you intend for the cases to be mutually exclusive! Otherwise the program will continue to run the next line (which might be code meant for another case!)
 
-# any() returns True if at least one element is True
-# all() returns True if all elements are True
 
-# Example
-any([True, False, False]) # Returns True
-all([True, False, False]) # Returns False
-all([True, True, True]) # Returns True
 
-# Use it with a list comprehension!
-def is_prime(n):
-    return n > 1 and all(n % i for i in range(2,n))
+### User Input
 
-# Specifically, they are functions that take in ITERABLES
-# Iterables are anything that can be iterated over (strings, lists, tuples)
-# Example:
-any((1 == 2, 2 == 3, True)) # Returns True 
-all((1 == 2, 2 == 3, True)) # Returns False
-```
-```python
-# BONUS: Combine any and all with in!
-all(x in num_list for x in range(5)) # Returns False : x is 0, 1, 2, 3, 4
-all(x in num_list for x in range(1, 5)) # Returns True : x is 1, 2, 3, 4
+```java
+static Scanner userinput = new Scanner(system.in);
+
+System.out.println("Enter some input:");
+
+if(userInput.hasNextLine()) {
+    userInput.nextLine(); // Get the data entered!
+}
 ```
 
 
 
-### 2.15 Ternary Operators <a name="2.15"></a>
+### Arrays
 
-[go to top](#top)
+![Java Array](assets/01%20Java%20-%20Introduction%20(WIP)/java_array.jpg)
 
-Use these if you want to look cool!
+[Image source](https://www.tutorialspoint.com/java/java_arrays.htm#:~:text=Advertisements,variables%20of%20the%20same%20type.)
 
-Example
+Arrays store multiple values of the **same datatype**. They're like 'boxes in memory'. Values are stored contiguously in memory.
 
-```c++
-// a if condition else b
+You need to define how many boxes there are in the array in the beginning, and this can't be changed.
 
-print("True") if 5 == 5 else print("False")
+#### **Examples**
+
+```java
+int[] uninitialisedNums = new int[5]; // Create an array of ints with size 5
+int[] initialisedNums = {1, 2, 3, 4, 5}; // Or you can just directly initialise
+
+// In both cases you can get the length of the array like so
+initialisedNums.length; // 5
+
+// Index elements like so (the index starts at 0 and goes to length - 1)
+initialisedNums[3]; // 4
+
+// To pass an array to a method... (We'll cover methods later on)
+printArray(new int[]{3, 1, 2, 6, 4, 2});
 ```
 
-> I prefer C++'s way though... 
+> **Note:** You can technically also declare an array like `int myFavNums[]`, but this is not recommended.
 >
-> (condition) ? true : false;
+> Notably, this non-recommended way is the way C++ does its array declarations, and Java allows this to accommodate C++ developers (like me!)
+
+You can also make them multi-dimensional!
+
+```java
+int[][] twoDim = {{1}, {2}, {3}}; // This is a two-dimensional array: int[3][1]
+```
+
+
+
+#### **Array Utilities**
+
+`java.util.Arrays` has a bunch of handy utilities to manipulate arrays with!
+
+```java
+int[] copied_nums = Arrays.copyOf(nums); // Copy!
+int found_index = Arrays.binarySearch(nums, 5); // Binary search!
+
+Arrays.equals(copied_nums, nums); // Array equality!
+Arrays.sort(nums); // In-place sort!
+```
+
+ And lots more! Press `Ctrl-Space` in IntelliJ after typing `Arrays.` to see the list! Then you can use `Ctrl-Q` to see the relevant javadocs.
+
+
+
+### ArrayList and Vector
+
+There are also some helper classes that implement **resizable arrays**!
+
+`Vectors` are thread-safe and synchronised (which has some overhead), whereas `ArrayLists` are not. Usually Java developers use `ArrayList` because they can handle sychronisation themselves.
+
+The interface for `ArrayList` and `Vector` is very similar, so I'll just do an example for ArrayList.
+
+#### **Examples**
+
+```java
+import java.util.ArrayList;
+
+ArrayList<String> dragons = new ArrayList<String>();
+
+// Add elements
+dragons.add("Drogon");
+dragons.add("Smaug");
+dragons.add("methylDragon");
+dragons.add("Toothless"); // Some might say he doesn't count...
+System.out.println(dragons);
+
+// Get size
+dragons.size(); // 4
+
+// Access elements
+dragons.get(2); // You'll get me! methylDragon!
+
+// Reassign element
+dragons.set(3, "Saphira"); // Better...
+
+// Clear elements
+dragons.clear(); // Bye!
+```
+
+> There's also `LinkedList`, which is a [linked list](https://www.geeksforgeeks.org/data-structures/linked-list/). (Each element points to the next, so the memory is not contiguous.)
 >
-> But eh
+> These are good for heavy insertions in the middle of the list, but not so good for access, since we need to traverse the linked list each time we want to access an element.
 
 
 
-### 2.16 User Input <a name="2.16"></a>
+#### **Collections Utilities**
 
-[go to top](#top)
+Much like how arrays have the `java.util.Arrays` utilities, collections like `ArrayList` and `Vector` are served by `java.util.Collections`.
 
-```python
-# Use input() !!
-input_variable = input("Input here: ") # The console will display Input Here: 
+```java
+import java.util.Collections;
 
-# You can also convert the input to whatever you need!
-float_input = float(input("Put your float here: "))
-```
-
-```python
-# Example Input Validation
-while not userID or not password or " " in userID or " " in password:
-
-    userID = "1"
-    password = "1"
-
-    userID = str(input("Key In Your Username!:"))
-    password = str(input("Key In Your Password!:"))
-
-    if not userID or not password or " " in userID or " " in password:
-        print("Invalid input! Please enter again!\n")
-    else:
-        print()
+Collections.sort(dragons); // Cool
 ```
 
 
 
-> NOTE: DO NOT USE eval() UNLESS YOU KNOW WHAT YOU'RE DOING
->
-> It lets the user run code directly in your program. That's what eval() does-- run whatever was eval()'ed as if it were code!
+### For Loops
+
+> 1. Initialise an incrementer i
+> 2. **FOR** as long as (some condition relating to i), RUN the code block
+> 3. Each time you finish running the code block, INCREMENT according to your INCREMENTING statement
+
+```java
+for (int i = 1; i <= 10; i++) {
+	System.out.print(i);
+}
+// 12345678910
+
+for (int i = 1; i <= 10; i++) {
+	if (i == 5) { continue; } // Continue takes us to the next iteration!
+    System.out.print(i);
+}
+// 1234678910
+
+for (int i = 1; i <= 10; i++) {
+	if (i == 5) { break; } // Break takes us out of the loop!
+    System.out.print(i);
+}
+// 1234
+```
+
+You can also do this Pythonically! (For each loop.)
+
+```java
+int[] nums = {1, 2, 3, 4, 5};
+
+for (int num : nums) {
+    System.out.print(num);
+}
+
+// 12345
+```
+
+The for each loop has some caveats though! [Source](https://www.geeksforgeeks.org/for-each-loop-in-java/)
+
+- You shouldn't modify the array, otherwise weird things will happen
+- You can't keep track of index unless you implement a counter
+- You can only iterate through the array in single steps, forward
+- You cannot process two decision making statements at once
 
 
 
-### 2.17 For Loops <a name="2.17"></a>
+### While Loops
 
-[go to top](#top)
+This is like the `for` loop, but it runs indefinitely as long as some condition is true!
 
-Python does for loops in a way I don't really prefer... (I learnt them doing C++) But eh, I guess it can be a little more intuitive...?
+The condition is checked at the end of each iteration.
 
-If you really want to go advanced and ask about how the for loop really works, see:
+```java
+int i = 0;
+while (i < 5) {
+  System.out.print(i);
+  i++;
+}
+// 1234
+```
 
-https://www.codementor.io/sheena/python-generators-and-iterators-du1082iua
+If you need at least one run, use a **do-while** loop! The do-while loop executes the `do` block once, even if the condition is false, then continues like a normal `while` loop thereafter.
 
-```python
-# Iterate FOR each element in a list
-# Output: Rawr Rar Raa Rer
-my_list = ["Rawr", "Rar", "Raa", "Rer"]
-for roar in my_list:
-    print(roar, end=" ")
-
-# Iterate FOR some range of numbers
-# Output: 0 1 2 3 4 5 6 7 8 9
-for element in range(10): # You can call the element anything, some people even use _ !!
-    print(element, end=" ")
-    
-# You can use the iterations to do stuff with them!
-# Output: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-count = 0
-for _ in range(10):
-    count += 1
-    print(count, end=", ")
+```java
+int i = 0;
+do {
+  System.out.println(i);
+  i++;
+}
+while (i < 5);
+// 1234
 ```
 
 
 
-### 2.18 Handy For Loop Functions and Keywords <a name="2.18"></a>
+### Methods (Functions)
 
-[go to top](#top)
+Methods are just functions within a class. But because everything in Java must be within a class, every Java function is a method.
 
-#### **range()**
+Methods take in zero or more parameters, and return some type, or `void` (nothing).
 
-```python
-# range(start, non-inclusive end, steps)
-range(5) # Returns [0, 1, 2, 3, 4]
-range(3,6) # Returns [3, 4, 5]
-range(4,10,2) # Returns [4, 6, 8]
-range(0,-10,-2) # Returns [0, -2, -4, -8]
+> **Note**: Java does not let you specify default parameters! You **must** use either a [builder pattern](https://www.baeldung.com/java-builder-pattern-freebuilder#Builder%20java), or use [variable arguments, or Optionals, or handle null inputs](https://stackoverflow.com/questions/965690/java-optional-parameters).
 
-# If you want to turn a list's elements into a list of indexes
-list_name = ["rawr", "raa", "rer"]
-range(len(list_name)) # Returns [0, 1, 2]
+```java
+public int addNumbers(int firstNum, int secondNum) {
+	int combinedValue = firstNum + secondNum;	
+	return combinedValue;	
+}
 ```
 
-#### **Slicing**
+Then you can just simply call the method!
 
-```python
-# Remember that you can slice lists!
-# list_name[startAt:endBefore:skip]
-my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-for _ in my_list[::2]
-    print(_,end=" ")
-    
-# Output: 1 3 5 7 9
-```
-
-#### **enumerate()**
-
-```python
-rawr_list = ["Rawr", "Rar", "Rer", "Raa"]
-
-# Enumerate() returns a list of tuples, with an increasing counter
-# Output: 0 Rawr, 1 Rar, 2 Rer, 3 Raa,
-for num, rawr in enumerate(rawr_list):
-    print(num, rawr, end=", ")
-
-# You can also tweak the starting number!
-# Output: 5 Rawr, 6 Rar, 7 Rer, 8 Raa,
-for num, rawr in enumerate(rawr_list, 5):
-    print(num, rawr, end=", ")
-```
-
-#### **zip()**
-
-```python
-rawr_list = ["Rawr", "Rar", "Rer", "Raa"]
-num_list = [1, 2, 3, 4]
-
-# Zip() lets you iterate through multiple lists!
-# Output: Rawr 1, Rar 2, Rer 3, Raa 4,
-for x, y in zip(rawr_list, num_list):
-    print(x, y, end=", ")
-```
-
-#### **continue and break**
-
-```python
-num_list = [1, 2, 3, 4, 5]
-
-# Continue skips the rest of the execution for the current loop, but continues the loop
-# Output: 1 Check! 2 3 Check! 4 Check! 5 Check!
-for x in num_list:
-    print(x, end=" ")
-    if x == 2:
-        continue
-    print("Check!", end=" ")
-    
-# Break just ends the entire loop then and there
-# Output: 1 Check! 2
-for x in num_list:
-    print(x, end=" ")
-    if x == 2:
-        break
-    print("Check!", end=" ")
+```java
+addNumbers(1, 5);
 ```
 
 
 
-### 2.19 While loops <a name="2.19"></a> 
+**Method Overloading**
 
-[go to top](#top)
+You can have the same method name but with different parameter signatures! Java will resolve the method calls appropriately! This is known as **method overloading**.
 
-Use these when you don't know ahead of time when this loop is going to end. Note! The condition is checked right BEFORE each run through of the loop, NOT THROUGHOUT!
+The number of parameters need to be different, or if they are not, then the types of the parameters need to be different!
 
-```python
-import random
-
-random_num = random.randrange(0, 100) # Generate a random number between 0 and 100
-
-while(random_num != 15): # This while loop will stop once random_num becomes 15
-    print(random_num)
-    random_num = random.randrange(0, 100)
-```
-
-It'll print until the condition is no longer fulfilled! So in this case we'll print random numbers until random_num assumes the value 15.
-
-Here's another example!
-
-```python
-i = 0
-
-while(i <= 20): # This while loop will stop once i becomes 21
-    print(i)
-```
-
->  You can also use all the cool stuff listed in the previous section with while loops!
->
->  Even break and continue!
-
-```python
-# I didn't want to write a new section for a do-while loop
-# since Python doesn't explicitly support it
-# But... Here's an example implementation. It's good for state machines!
-
-do_check = True
-while do_check or <condition>:
-    do_check = False # This won't break the loop until condition is checked again!
-    do_stuff()
+```java
+void func() { ... }
+void func(int a) { ... }
+float func(double a) { ... }
+float func(int a, float b) { ... }
 ```
 
 
 
+### Handling Optional Parameters
 
+#### **The Builder Pattern**
 
-### 2.20 Strings <a name="2.20"></a>
+[Source](https://stackoverflow.com/questions/965690/java-optional-parameters)
 
-[go to top](#top)
+You iteratively build up your object
 
-Let's play around with strings!
+```java
+ class Foo {
+     private final String a; 
+     private final Integer b;
 
-```python
-rawr_string = "I am methylDragon, and while I can talk, I also rawr!"
+     Foo(String a, Integer b) {
+       this.a = a;
+       this.b = b;
+     }
+ }
 
-# Slice strings!
-rawr_string[0:4] # Returns first 4 characters! "I am"
-rawr_string[-5:] # Returns last 5 characters! "rawr!"
-rawr_string[:-5] # Returns everything UNTIL the last 5 characters!
+ class FooBuilder {
+   private String a = ""; 
+   private Integer b = 0;
 
-# Join strings
-rawr_string[:-5] + "roar!"
-# Output: I am metyhlDragon, and while I can talk, I also roar!
+   FooBuilder setA(String a) {
+     this.a = a;
+     return this;
+   }
+
+   FooBuilder setB(Integer b) {
+     this.b = b;
+     return this;
+   }
+
+   Foo build() {
+     return new Foo(a, b);
+   }
+ }
 ```
 
-#### **Formatted Strings** (repeated from print)
+Then you simply iteratively construct your object!
 
-```python
-# % example
-
-dragon = "methylDragon"
-print("%s %s %s" % ("Hi!", "I am", dragon))
-# Output: Hi! I am methylDragon
-
-# f example (Valid from Python 3.6 onwards)
-
-dragon = "methylDragon"
-stuff = "orchestral music"
-print(f"Hi! I am {dragon} and I make {stuff}!")
-# Output: Hi! I am methylDragon and I make orchestral music!
-
-# .format example
-
-dragon = "methylDragon"
-stuff = "orchestral music"
-print('{} makes {}!'.format(dragon, stuff))
-# Output: methylDragon makes orchestral music
-
-# Extra options
-# There are a lot more! https://pyformat.info/
-# When you're using {}, you can also add :<stuff> to add extra formatting options!
-# {:<10} Left padding (align left)
-# {:>10} Right padding (align right)
-# {:^10} Centre padding (align centre)
-# {:.5} Truncate string
-# {:d} Int
-# {:f} Float
-# {:5d} Padded Int
-
+```java
+ Foo foo = new FooBuilder()
+                 .setA("a")
+                 .build();
 ```
 
 
 
-### 2.21 String Functions <a name="2.21"></a>
+#### **Optionals**
 
-[go to top](#top)
+```java
+void foo(String a, Optional<Integer> bOpt) {
+    Integer b = bOpt.isPresent() ? bOpt.get() : 0;
+    //...
+}
 
-> **NOTE**: ALL THESE METHODS DO NOT CHANGE THE STRING. It's not like list append or extend!
->
-> If you want to change the string, reassign it!
-
-```python
-rawr_string = "I am methylDragon, and while I can talk, I also rawr!"
-
-# Capitalise the first letter of the string
-rawr_string.capitalize()
-
-# Return the index of a found string (Case-Sensitive)
-rawr_string.find("rawr") # Returns 48
-
-# Check to see if everything is alphabetical
-rawr_string.isalpha() # Returns False (we have punctuation!)
-
-# Check to see if everything is alphanumeric
-rawr_string.isalnum() # Returns False (because, of course, we have punctuations!)
-
-# Check to see if everything is numeric
-rawr_string.isdigit() # Returns False
-
-# Find length
-len(rawr_string)
-
-# Replace
-rawr_string.replace("methylDragon", "a dragon")
-# Let's undo that
-rawr_string.replace("a dragon", "methylDragon")
-
-# Strip away all trailing whitespaces
-rawr_string.strip()
-
-rawr_string = "I am methylDragon, and while I can talk, I also rawr!" # Let's reset
-
-# Split a string by some delimiter
-# Note, this does not change the string! You must reassign this!
-rawr_string.split(",")
-# Output: ['I am methylDragon', 'and while I can talk', ' I also rawr!']
-
-# split() if left without any arguments splits by a varying length of whitespace!
-space_string = "hello    \nthis is    great"
-space_string.split() # Returns ['hello', 'this', 'is', 'great']
-
-# Using strings to join lists of strings!
-# Remember to save!
-"|".join(["1", "2", "3", "4", "5"]) # Returns '1|2|3|4|5'
-
-# Pad with zeroes from the left
-"a".zfill(5) # "0000a" (4 zeroes)
+foo("a", Optional.of(2));
+foo("a", Optional.<Integer>absent());
 ```
 
 
 
-### 2.22 Exception Handling and Debugging <a name="2.22"></a>
+#### **Varargs**
 
-[go to top](#top)
+Variable argument numbers!
 
-By far the most important concept for debugging purposes! Try to always use them!
+```java
+void foo(String a, Integer... b) {
+    Integer b1 = b.length > 0 ? b[0] : 0;
+    Integer b2 = b.length > 1 ? b[1] : 0;
+    //...
+}
 
-Alternatively, if you know where a program might throw **exceptions** (i.e. errors), you can code in handlers for them if you know they can occur but it's either by design or because it might be user errors, etc. !
-
-#### **Try-Except**
-
-```python
-# Exception handling is done mostly with try-except blocks
-try:
-    # Some code
-except <error_one>:
-    # Run this code ONLY if an exception for <error_one> is thrown
-except <error_two> as err:
-    print(err) # Print the error ONLY if <error_two> is thrown
-except:
-    # Wildcard error. Run this code ONLY if an exception unaccounted for is thrown
-```
-
-
-#### **Else**
-
-```python
-# You can also use else in try-except blocks!
-try:
-    # Some code
-except:
-    # Wildcard error handler
-else:
-    # Run if no errors were thrown AFTER running the code protected by the try block
-```
-
-
-#### **Finally**
-
-```python
-# You use the keyword finally to run code regardless of whether an exception was thrown or not
-try:
-    # Some code
-except:
-    # Wildcard error handler
-else:
-    # Run if NO ERRORS were thrown
-finally:
-    # Run before exiting the entire try block, whether errors were thrown or not
-```
-
-#### **Raise**
-
-```python
-# You can raise an exception, forcing it occur
-raise NameError('some_string')
-
-# Let's say you do this in the try block
-# The first raise won't be thrown, so you can reraise it using just raise
-try:
-    raise NameError('some_string')
-except:
-    raise
-```
-
-#### **Assert**
-
-This of an assert like a raise-if-not statement
-
-```python
-# Raise an exception if the condition returns False
-assert (5 == 5), "5 is not equal to 5!" # This will just run properly
-assert (5 != 5), "5 is equal to 5!" # This will raise an error!
-
-# Specifically,
-# AssertionError: 5 is equal to 5!
-
-# Assertions are a good way to make your own checks, and raise your own exceptions
-```
-
-#### **With**
-
-```python
-# This isn't exactly exception handling, and I mention it again in file I/O
-# But... This is still useful
-
-with open("myfile.txt") as f:
-    # Some code
-    
-# Because the file was opened, an object was created
-# With ensures that the file will be closed and cleaned from memory when appropriate
+foo("a");
+foo("a", 1, 2);
 ```
 
 
 
-### 2.23 Iterations, Iterables, Iterators, and More! <a name="2.23"></a>
+#### **Nulls**
 
-[go to top](#top)
+```java
+void foo(String a, Integer b, Integer c) {
+    b = b != null ? b : 0;
+    c = c != null ? c : 0;
+    //...
+}
 
-We know more or less what Iterations are, since we went through the for and while loops.
+foo("a", null, 2);
+```
 
-An **iteration** is the process of going through a list, array, or set of elements **one at a time**.
 
-Ever wondered how this works? Python implements this using Iterables and Iterators!
 
-- **Iterables** are objects that can be iterated on
-  
-- Things that can be used in a for loop! List comprehensions, lists, strings, all that good stuff!
-  
-- There is a special kind of iterator called a **Generator**
-  
-  - ```python
-    # Unlike lists, you can't do a for loop over this more than once
-  my_generator = (x * x for x in range(3))
-  
-    # Generators can only be iterated over ONCE. They do not store values in memory,
-    # but instead generate them on the fly
-    ```
-  ```
-  
-  ```
-  
-- **Iterators** are objects that define how the iteration is done! (Specifically, what the next item to be iterated is.)
+### Java Handing
 
-  -  Think of them as text 'cursors' that point to objects in an iterable
 
-  - Iterators are iterables in their own right! It has an \_\_iter\_\_ and \_\_next\_\_ methods, which allow it to perform its function!
 
-  - Example execution
+2.1   [Comments](#2.1)    
+2.2   [Importing Libraries](#2.2)    
+2.3   [Hello World!](#2.3)    
+2.4   [Running Programs](#2.4)    
+2.5   [Variables and Data Types](#2.5)    
+2.6   [Ouputting Variables and Variable Info](#2.6)    
+2.7   [Casting (Type Conversion)](#2.7)    
+2.8   [Arithmetic Operations](#2.8)    
+2.9   [Conditionals](#2.9)    
+2.10 [Ternary Operators](#2.10)    
+2.11 [Switch Cases](#2.11)    
+2.12 [Arrays](#2.12)    
+2.13 [Multi-Dimensional Arrays](#2.13)    
+2.14 [Strings](#2.14)    
+2.15 [User Input](#2.15)    
+2.16 [For Loops](#2.16)    
+2.17 [While Loops](#2.17)    
+2.18 [Do While Loops](#2.18)    
+2.19 [Vectors](#2.19)    
+2.20 [Printf](#2.20)    
+2.21 [Argc and Argv](#2.21)    
+2.22 [Exception Handling](#2.22)    
+2.22 [Scopes](#2.23)    
 
-    ```python
-    >>> rawr = "rawr" # iterable
-    >>> b1 = iter(rawr) # iterator 1
-    >>> b2 = iter(rawr) # iterator 2, independent of b1
-    >>> next(b1)
-    'r'
-    >>> next(b1)
-    'a'
-    >>> next(b2) # start over, as it is the first call to b2. Independent iterator!
-    'r'
-    >>> next(b1)
-    'w'
-    >>> next(b1)
-    'r'
-    >>> next(b1)
-    Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-    StopIteration
-    >>> b1 = iter(a) # new one, start over
-    >>> next(b1)
-    'r'
-    ```
 
-#### **Intuition**
-
-> I don’t know if it helps anybody but I always like to visualize concepts in my head to better understand them. So as I have a little son I visualize iterable/iterator concept with bricks and white paper.
->
-> Suppose we are in the dark room and on the floor we have bricks for my son. Bricks of different size, color, does not matter now. Suppose we have 5 bricks like those. Those 5 bricks can be described as an **object** – let’s say a **bricks kit**. We can do many things with this bricks kit – can take one and then take second and then third, can change places of bricks, put first brick above the second. We can do many sorts of things with those. Therefore this bricks kit is an **iterable object** or **sequence** as we can go through each brick and do something with it. We can only do it like my little son – we can play with **one** brick **at a time**. So again I imagine myself this bricks kit to be an **iterable**.
->
-> Now remember that we are in the dark room. Or almost dark. The thing is that we don’t clearly see those bricks, what color they are, what shape etc. So even if we want to do something with them – aka **iterate through them** – we don’t really know what and how because it is too dark.
->
-> What we can do is near to first brick – as element of a bricks kit – we can put a piece of white fluorescent paper in order for us to see where the first brick-element is. And each time we take a brick from a kit, we replace the white piece of paper to a next brick in order to be able to see that in the dark room. This white piece of paper is nothing more than an **iterator**. It is an **object as well**. But an object that we can use to work and play with elements of our iterable object – the bricks kit.
->
-> (https://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols)
 
 
 
