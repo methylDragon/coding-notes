@@ -818,6 +818,10 @@ Sound: Dragon
 > }
 > ```
 
+> **Note**: Be very careful though! If your superclass' method calls another superclass method that happens to be overridden by your subclass, it will **call the overridden version**!
+>
+> If you do not want this to happen, compose your parent class instead and call the composed class' method instead.
+
 
 
 #### **`interface`**
