@@ -421,13 +421,13 @@ std::lock_guard<std::mutex> guard(my_mutex);
 
 [Reference](<https://en.cppreference.com/w/cpp/thread/scoped_lock>)
 
-This was introduced in C++17, and is the standard lock guard to use, over `std:;lock_guard<>`, which is included for compatibility.
+This was introduced in C++17, and is the standard lock guard to use, over `std::lock_guard<>`, which is included for compatibility.
 
 - It's just a lock guard
 - Except it can take **multiple mutexes**
 
 ```c++
-std::lock_guard<std::mutex, std::mutex> guard(mutex_1, mutex_2);
+std::scoped_lock<std::mutex, std::mutex> guard(mutex_1, mutex_2);
 ```
 
 #### **std::unique_lock<>**
