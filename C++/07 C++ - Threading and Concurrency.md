@@ -481,7 +481,8 @@ A shared lock is just like a unique lock, except the lock is a shared lock as op
 - You can also use **nifty lock methods!**
 
 ```c++
-std::shared_lock<std::mutex> guard(my_mutex);
+std::shared_lock my_mutex;
+std::shared_lock<std::shared_mutex> guard(my_mutex);
 
 // Check if guard owns lock (either works)
 guard.owns_lock();
@@ -498,7 +499,7 @@ If you defer the locks, you can use the **nifty lock methods!**
 
 ```c++
 // Initialise the lock guard, but don't actually lock yet
-std::shared_lock<std::mutex> guard(mutex_1, std::defer_lock);
+std::shared_lock<std::shared_mutex> guard(mutex_1, std::defer_lock);
 
 // Now you can do some of the following!
 guard.lock(); // Lock now!
