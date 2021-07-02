@@ -104,8 +104,8 @@ There are several ways to create a thread:
 #include <thread>
 
 // Define a function and start a thread that runs that function
-void rawr(param) {}
-std::thread rawr_thread(foo, params);
+void rawr(params) {}
+std::thread rawr_thread(rawr, params);
 ```
 **Lambda Function**
 ```c++
