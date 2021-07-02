@@ -180,7 +180,8 @@ Example:
 ```c++
 void ref_function(int &a, int b) {}
 
-std::thread ref_function_thread(ref_function, std::ref(1), 2);
+int val;
+std::thread ref_function_thread(ref_function, std::ref(val), 2);
 ```
 
 **Because the thread functions can't return anything, passing by reference is the only way to properly get data out of a thread without using global variables.** Ensure that your thread modifies the data passed in by reference and you should be good to go.
