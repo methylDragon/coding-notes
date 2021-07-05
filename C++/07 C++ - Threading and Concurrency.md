@@ -104,8 +104,8 @@ There are several ways to create a thread:
 #include <thread>
 
 // Define a function and start a thread that runs that function
-void rawr(param) {}
-std::thread rawr_thread(foo, params);
+void rawr(params) {}
+std::thread rawr_thread(rawr, params);
 ```
 **Lambda Function**
 ```c++
@@ -180,7 +180,8 @@ Example:
 ```c++
 void ref_function(int &a, int b) {}
 
-std::thread ref_function_thread(ref_function, std::ref(1), 2);
+int val;
+std::thread ref_function_thread(ref_function, std::ref(val), 2);
 ```
 
 **Because the thread functions can't return anything, passing by reference is the only way to properly get data out of a thread without using global variables.** Ensure that your thread modifies the data passed in by reference and you should be good to go.
@@ -480,7 +481,8 @@ A shared lock is just like a unique lock, except the lock is a shared lock as op
 - You can also use **nifty lock methods!**
 
 ```c++
-std::shared_lock<std::mutex> guard(my_mutex);
+std::shared_lock my_mutex;
+std::shared_lock<std::shared_mutex> guard(my_mutex);
 
 // Check if guard owns lock (either works)
 guard.owns_lock();
@@ -497,7 +499,7 @@ If you defer the locks, you can use the **nifty lock methods!**
 
 ```c++
 // Initialise the lock guard, but don't actually lock yet
-std::shared_lock<std::mutex> guard(mutex_1, std::defer_lock);
+std::shared_lock<std::shared_mutex> guard(mutex_1, std::defer_lock);
 
 // Now you can do some of the following!
 guard.lock(); // Lock now!
