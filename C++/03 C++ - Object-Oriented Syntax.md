@@ -259,42 +259,42 @@ Objects can also be categorised! So in OOP, objects can be created as instances 
 using namespace std;
 
 class Animal {
-	private:
-  		int height;
-  		int weight;
-  		string name;
-  
-  		static int numOfAnimals; // Static variables are shared by every object of the class
-  		// Static variables are normally attributes that the class object normally wouldn't have
-  		// They are usually properties of groups, not individuals!
-  
-  	public: // The way this has been done is called encapsulation! It increases security.
+ private:
+	int height;
+	int weight;
+	string name;
+
+	static int numOfAnimals; // Static variables are shared by every object of the class
+	// Static variables are normally attributes that the class object normally wouldn't have
+	// They are usually properties of groups, not individuals!
+
+ public: // The way this has been done is called encapsulation! It increases security.
   		
-    	// Getter methods
-    	int getHeight(){ return height; }
-  		int getWeight(){ return weight; }
-  		string getName(){ return name; }
-  		
-    	// Setter methods
-    	void setHeight(int cm){ height = cm; } 
-  		// You can use a conditional here to keep things sensible
-  		void setWeight(int kg){ height = kg; }
-  		void setName (string animalName){ name = animalName; }
-  
-  		void setAll(int, int, string);
-  
-  		// This is our constructor! Constructors are named the same name as the class
-    	Animal(int, int, string); 
-    	Animal(); // Or an overloaded function call
-  		
-    	// Destructor here
-  		~Animal();
-  
-  		static int getNumOfAnimals() { return numOfAnimals; }
-		// Static methods are attached to classes and not objects
-		// They can only access static variables!
-  
-  		void toString();
+	// Getter methods
+	int getHeight(){ return height; }
+	int getWeight(){ return weight; }
+	string getName(){ return name; }
+
+	// Setter methods
+	void setHeight(int cm){ height = cm; } 
+	// You can use a conditional here to keep things sensible
+	void setWeight(int kg){ height = kg; }
+	void setName (string animalName){ name = animalName; }
+
+	void setAll(int, int, string);
+
+	// This is our constructor! Constructors are named the same name as the class
+	Animal(int, int, string); 
+	Animal(); // Or an overloaded function call
+
+	// Destructor here
+	~Animal();
+
+	static int getNumOfAnimals() { return numOfAnimals; }
+	// Static methods are attached to classes and not objects
+	// They can only access static variables!
+
+	void toString();
 }; // This semi-colon is required!
 ```
 
@@ -321,6 +321,7 @@ Animal::Animal(int height, int weight, string name){
 }
 
 Animal::~Animal(){
+	Animal::numOfAnimals--;
 	cout << "Animal " << this -> name << " destroyed" << endl;
 }
 
@@ -365,7 +366,7 @@ Animal::Animal(int height, int weight, string name){
 
 Remember **direct initialisation** in part 1 of this crash course?
 
-No? Just recall that it's more efficient than assignment, since assignment createanother object in memory. So it's generally always better to do direct initialisation.
+No? Just recall that it's more efficient than assignment, since assignment create another object in memory. So it's generally always better to do direct initialisation.
 
 How do we do it for multiple variables at a time? Use **initialisation lists**
 
@@ -390,7 +391,7 @@ So just remember that the next time you see a random `:` where it doesn't seem l
 
 Read more: http://www.cplusplus.com/doc/tutorial/structures/
 
-They're just like classes! Except that their default member visibility is public.
+They're just like classes! Except that their default member visibility is **public**.
 
 That means you can also write a constructor into them!
 
@@ -497,14 +498,13 @@ tom.toString();
 >
 
 
-
 ### 2.5 Virtual Methods and Polymorphisms <a name="2.5"></a>
 
 [go to top](#top)
 
 Virtual methods are used when you know that the class you're defining will be a base class that may have the method be overridden by a child class!
 
-FYI: You can also create virtual **attributes** that can get overriden in the same way! I didn't write the example here, but it still works!
+**FYI**: You can also create virtual **attributes** that can get overriden in the same way! I didn't write the example here, but it still works!
 
 Polymorphisms are when subclasses implement different methods/functions differently from their base class!
 
@@ -514,18 +514,19 @@ Polymorphisms are when subclasses implement different methods/functions differen
 using namespace std;
 
 class Animal{
-  	public:
-  		void getFamily() { cout << "We are animals" << endl; }
-  		/*virtual*/ void getClass() { cout << "I'm an Animal" << endl; }
+	public:
+		void getFamily() { cout << "We are animals" << endl; }
+		/*virtual*/ void getClass() { cout << "I'm an Animal" << endl; }
 };
 
 class Dragon : public Animal{
-  	public: getClass() { cout << "I'm a Dragon!" << endl; } // Polymorphism here!
+	public:
+		void getClass() { cout << "I'm a Dragon!" << endl; } // Polymorphism here!
 };
 
 void whatClassAreYou(Animal *animal){
-  	animal -> getClass();
-};
+	animal -> getClass();
+}
 ```
 
 ```c++

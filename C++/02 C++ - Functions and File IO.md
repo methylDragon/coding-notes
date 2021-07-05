@@ -197,8 +197,10 @@ These are functions that call THEMSELVES. Trippy.
 ```c++
 int getFactorial(int number){
 	int sum;
-	if(number == 1) sum = 1; //Yeah you can do this
-	else sum = getFactorial(number - 1) * number;
+	if(number == 1)
+		sum = 1; //Yeah you can do this
+	else
+		sum = getFactorial(number - 1) * number;
 	return sum;
 )
 ```
@@ -227,12 +229,11 @@ if(! writer) { //Check to see if the filestream is open
 	cout << "Error opening file" << endl;
 	return -1; // Return -1 if failed
 
-	)	else {
+} else {
 
 	writer << dragonQuote << endl; // Write dragonQuote to writer, which causes dragonQuote.txt to contain only dragonQuote 
 	writer.close(); // Close the file
 
-	}
 }
 
 ofstream writer2("dragonQuote.txt", ios::app); //Create a writer object that appends to dragonQuote.txt
@@ -248,13 +249,14 @@ if(! writer2) { //Check to see if the filestream is open
 	cout << "Error opening file" << endl;
 	return -1; // Return -1 if failed
 
-	)	else {
+} else {
 
 	writer2 << "\n -methylDragon" << endl; // Append  "\n -methylDragon" 
 	writer2.close(); // Close the file
 
-	}
-	
+}
+
+{
 	char letter;
 	
 	ifstream reader("dragonQuote.txt"); // Open an input filestream that reads dragonQuote.txt
@@ -266,10 +268,10 @@ if(! writer2) { //Check to see if the filestream is open
 		
 	} else {
 		
-		for(int i = 0; ! reader.eof(); i++){ // Read until end of file
-		
-		reader.get(letter); // Get the next letter 
-		cout << letter; // And print it
+		for(int i = 0; ! reader.eof(); i++) { // Read until end of file
+			reader.get(letter); // Get the next letter
+			cout << letter; // And print it
+		}
 	
 	}
 	
