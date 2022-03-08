@@ -1,4 +1,4 @@
-# Functional C++ Crash Course
+# Function C++ Crash Course
 
 Author: methylDragon  
 Contains a syntax reference for C++  
@@ -15,12 +15,10 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
 - Gone through the all preceding parts of the tutorial
 
-
-
 ## Table Of Contents <a name="top"></a>
 
 1. [Introduction](#1)  
-2. [Functional C++ Syntax Reference](#2)    
+2. [Function C++ Syntax Reference](#2)    
    2.1   [Functions](#2.1)    
    2.2   [Function Overloading](#2.2)    
    2.3   [Recursive Functions](#2.3)    
@@ -28,15 +26,11 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
    2.5   [Lambda Functions](#2.5)    
    2.6   [Inline Functions](#2.6)    
 
-
-
 ## 1. Introduction <a name="1"></a>
 
 We've gone through the basics of C++. Now let's throw in some functions and file interactions!
 
-
-
-## 2. Functional C++ Syntax Reference <a name="2"></a>
+## 2. Function C++ Syntax Reference <a name="2"></a>
 
 ### 2.1 Functions <a name="2.1"></a>
 
@@ -51,10 +45,10 @@ firstNum and secondNum are attributes. We set secondNum's default value if no va
 
 ```c++
 int addNumbers(int firstNum, int secondNum = 0) {
-	int combinedValue = firstNum + secondNum;
-	
-	return combinedValue;
-	
+    int combinedValue = firstNum + secondNum;
+
+    return combinedValue;
+
 }
 ```
 
@@ -72,13 +66,11 @@ addNumbers(1, 2); // It'll return 3
 ```
 
 > **Note:**
->
+> 
 > - When you write the data-type infront of the function name, you're defining a new function **prototype**
 > - If you don't, you're calling it.
->
+> 
 > Remember the distinction! 
-
-
 
 #### **Returning arrays**
 
@@ -99,10 +91,10 @@ int *fun()
 
    arr[0] = 10;
    arr[1] = 20;
-    
+
    return arr; // Return the pointer to the array!
 }
- 
+
 int main()
 {
     int *ptr = fun();
@@ -122,10 +114,10 @@ int *fun()
 
    arr[0] = 10;
    arr[1] = 20;
-    
+
    return arr; // Return the pointer to the array!
 }
- 
+
 int main()
 {
     int *ptr = fun();
@@ -141,17 +133,17 @@ struct arrWrap
 {
    int arr[100];
 };
- 
+
 struct arrWrap fun() // Function returns the struct
 {
    struct arrWrap x;
- 
+
    x.arr[0] = 10;
    x.arr[1] = 20;
-    
+
    return x;
 }
- 
+
 int main()
 {
    struct arrWrap x = fun();
@@ -159,8 +151,6 @@ int main()
    return 0;
 }
 ```
-
-
 
 ### 2.2 Function Overloading <a name="2.2"></a>
 
@@ -186,8 +176,6 @@ void sameFunction(int a, float b){
 
 Functions can have the same name, but do DIFFERENT THINGS depending on what gets passed to them!
 
-
-
 ### 2.3 Recursive Functions <a name="2.3"></a>
 
 [go to top](#top)
@@ -196,20 +184,18 @@ These are functions that call THEMSELVES. Trippy.
 
 ```c++
 int getFactorial(int number){
-	int sum;
-	if(number == 1)
-		sum = 1; //Yeah you can do this
-	else
-		sum = getFactorial(number - 1) * number;
-	return sum;
+    int sum;
+    if(number == 1)
+        sum = 1; //Yeah you can do this
+    else
+        sum = getFactorial(number - 1) * number;
+    return sum;
 )
 ```
 
 This function returns the factorial of itself, and it keeps calling itself which results in it calling itself until it stops, then it resolves one by one till all are resolved.
 
 The last function calls to go on the stack are resolved first! USE THE STACK! Play some Magic!
-
-
 
 ### 2.4 File I/O <a name="2.4"></a>
 
@@ -226,13 +212,13 @@ ofstream writer("dragonQuote.txt");  //Open a .txt file called dragonQuote, this
 
 if(! writer) { //Check to see if the filestream is open
 
-	cout << "Error opening file" << endl;
-	return -1; // Return -1 if failed
+    cout << "Error opening file" << endl;
+    return -1; // Return -1 if failed
 
 } else {
 
-	writer << dragonQuote << endl; // Write dragonQuote to writer, which causes dragonQuote.txt to contain only dragonQuote 
-	writer.close(); // Close the file
+    writer << dragonQuote << endl; // Write dragonQuote to writer, which causes dragonQuote.txt to contain only dragonQuote 
+    writer.close(); // Close the file
 
 }
 
@@ -246,41 +232,39 @@ ofstream writer2("dragonQuote.txt", ios::app); //Create a writer object that app
 
 if(! writer2) { //Check to see if the filestream is open
 
-	cout << "Error opening file" << endl;
-	return -1; // Return -1 if failed
+    cout << "Error opening file" << endl;
+    return -1; // Return -1 if failed
 
 } else {
 
-	writer2 << "\n -methylDragon" << endl; // Append  "\n -methylDragon" 
-	writer2.close(); // Close the file
+    writer2 << "\n -methylDragon" << endl; // Append  "\n -methylDragon" 
+    writer2.close(); // Close the file
 
 }
 
 {
-	char letter;
-	
-	ifstream reader("dragonQuote.txt"); // Open an input filestream that reads dragonQuote.txt
-	
-	if(! reader){
-		
-		cout << "Error opening file" << endl;
-		return -1;
-		
-	} else {
-		
-		for(int i = 0; ! reader.eof(); i++) { // Read until end of file
-			reader.get(letter); // Get the next letter
-			cout << letter; // And print it
-		}
-	
-	}
-	
-	cout << endl;
-	reader.close();
+    char letter;
+
+    ifstream reader("dragonQuote.txt"); // Open an input filestream that reads dragonQuote.txt
+
+    if(! reader){
+
+        cout << "Error opening file" << endl;
+        return -1;
+
+    } else {
+
+        for(int i = 0; ! reader.eof(); i++) { // Read until end of file
+            reader.get(letter); // Get the next letter
+            cout << letter; // And print it
+        }
+
+    }
+
+    cout << endl;
+    reader.close();
 }
 ```
-
-
 
 ### 2.5 Lambda Functions <a name="2.5"></a>
 
@@ -419,8 +403,6 @@ auto y = [&r = x, x = x+1]()->int {
          }();  // Updates x to 6, and initializes y to 7.
 ```
 
-
-
 ### 2.6 Inline Functions <a name="2.6"></a>
 
 Inline functions help to avoid the overhead of function calls. When you compile the code, the entire call to an inline function is instead replaced with the code inside the function call itself.
@@ -458,14 +440,12 @@ class S
 public: 
     int square(int s); // declare the function 
 }; 
-  
+
 inline int S::square(int s) // use inline prefix 
 { 
-  
+
 }
 ```
-
-
 
 ```
                             .     .

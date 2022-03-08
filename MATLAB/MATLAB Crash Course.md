@@ -12,8 +12,6 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 - Systems
 
-
-
 ## 1. Introduction
 
 MATLAB stands for Matrix Laboratory. It's a very famous program used for working with matrices.
@@ -33,8 +31,6 @@ If you ever need to ask for help, either Google for it, or use the `help` functi
 help <function>
 ```
 
-
-
 ## 2. Command Line Interface
 
 ### 2.1  Path
@@ -42,8 +38,6 @@ help <function>
 Be sure to ensure that all scripts you want to write are in MATLAB **Path**, in other words, that they are accessible and visible to MATLAB.
 
 In the file explorer on the left, you may add folders and subfolders to your path by right clicking and selecting `Add To Path`. Alternatively, you may double click on a folder to focus it and add it to Path, since your Path also includes your current focused folder!
-
-
 
 ### 2.2 Clearing Data
 
@@ -57,33 +51,25 @@ clear all % Clear everything
 clear <variable> % Clear single variable
 ```
 
-
-
 ### 2.3 Configure Output
 
 ```matlab
 format compact % Keeps output compact!
 ```
 
-
-
 ### 2.4 Stop Execution
 
 Use `CTRL-c` to stop executing a particular command!
-
-
 
 ### 2.5 Precision
 
 Precision is set to 15 digits by default. But you can configure that!
 
-
-
-## 3. Basic MATLAB Syntax Reference <a name="2"></a>
+## 3. Basic MATLAB Syntax Reference
 
 Click on New Script to start creating a new script!
 
-### 3.1 Comments <a name="2.1"></a>
+### 3.1 Comments
 
 [go to top](#top)
 
@@ -98,8 +84,6 @@ Click on New Script to start creating a new script!
 ```
 
 You can also use `CTRL-r` to comment and `CTRL-t` to uncomment!
-
-
 
 ### 3.2 Variables
 
@@ -148,8 +132,6 @@ realmax
 realmax('single')
 ```
 
-
-
 ### 3.3 Basic Operations
 
 I really shouldn't need to explain this... You can use MATLAB like a calculator, and the results can go into variables!
@@ -167,8 +149,6 @@ mod(5, 4) % Mod (get remainder)
 % NOTE! MATLAB doesn't have increment and decrement operators. So you can't do stuff like a++, b--, etc.
 ```
 
-
-
 ### 3.4 Casting
 
 ```matlab
@@ -177,8 +157,6 @@ v3 = int8(v2) % Like so!
 ```
 
 Just write the appropriate class identifier and use it like a function!
-
-
 
 ### 3.5 Printing and Displaying
 
@@ -193,8 +171,6 @@ fprintf("Hello world!")
 sprintf('5 + 4 = %d\n', 5 + 4)
 % With the %d here, it transplants the next variable argument into the string!
 ```
-
-
 
 ### 3.6 User Input
 
@@ -222,8 +198,6 @@ vInput = input('Enter a vector : ');
 disp(vInput)
 ```
 
-
-
 ### 3.7 Useful Math Functions
 
 `help elfun` for a whole list of math functions
@@ -242,8 +216,6 @@ sqrt(100) % Square root
 deg2rad(90)
 rad2deg(3.14)
 ```
-
-
 
 ### 3.8 Conditionals
 
@@ -287,8 +259,6 @@ switch score
 end % REMEMBER TO END
 ```
 
-
-
 ### 3.9 Vectors
 
 They're one dimensional rows or columns!
@@ -331,8 +301,6 @@ a * b
 % 4 8 2
 ```
 
-
-
 ### 3.10 Vector Methods
 
 ```matlab
@@ -362,8 +330,6 @@ linspace(1, 20, 4) % Generates 4 numbers equally spaced between 1 and 20
 % Logspace
 logspace(1, 3, 3) % Like linspace, but the spacing is logarithmic
 ```
-
-
 
 ### 3.11 Matrices
 
@@ -401,8 +367,6 @@ a .* b % Take note of the period!
 a - b
 a + b
 ```
-
-
 
 ### 3.12 Matrix Methods
 
@@ -459,8 +423,6 @@ repmat(a, 2, 1) % Duplicate matrix into new matrix. Eg. If original matrix was 3
 repelem(m3, 2, 1) % Duplicates ELEMENTS, so in this case, each element is duplicated twice in terms of the row
 ```
 
-
-
 ### 3.13 For Loops
 
 For loops! It's pretty Pythonic. It iterates through a range.
@@ -488,8 +450,6 @@ for i = 1:length(b)
 end
 ```
 
-
-
 ### 3.14 While Loops
 
 ```matlab
@@ -501,15 +461,13 @@ while i < 20
         i = i + 1; % Semicolon suppresses the print
         continue
     end % This end is for i
-    
+
     i = i + 1;
     if i >= 10
         break
     end
 end
 ```
-
-
 
 ### 3.15 Cell Arrays
 
@@ -532,8 +490,6 @@ end
 a = ['A', 'BB', 'CCC']
 char_array = cellstr(a)
 ```
-
-
 
 ### 3.16 Strings
 
@@ -587,8 +543,6 @@ lower(str)
 upper(str)
 ```
 
-
-
 ### 3.17 Structures
 
 Custom data types! Think C++ structs! Or Python dictionaries/maps.
@@ -614,8 +568,6 @@ fieldnames(methyl_struct)
 % Store structures in vectors!
 a(1) = methyl_struct
 ```
-
-
 
 ### 3.18 Tables
 
@@ -644,8 +596,6 @@ test_table({'A', 'B'}, :) % This defaults to using the RowName as indexer
 a(ismember(test_table.b, {29, 42},:)
 ```
 
-
-
 ### 3.19 File IO
 
 ```matlab
@@ -666,8 +616,6 @@ a = 123
 save -append params a % This appends to the normal variable
 ```
 
-
-
 ### 3.20 Eval
 
 If you know Python you should know what this does already.
@@ -680,8 +628,6 @@ eval(toExecute) % Executes it as:
 % total = 5 + 4
 ```
 
-
-
 ### 3.21 Pausing
 
 You can pause in MATLAB too! Think of it like Arduino `delay()` or Python `time.sleep()`
@@ -692,8 +638,6 @@ pause(5) % Pause for 5 seconds
 pause off % Disable pause
 pause on % Enable pause
 ```
-
-
 
 ## 4. Functional and OOP MATLAB
 
@@ -742,8 +686,6 @@ function [varargout] = getNumbers(howMany)
 end
 ```
 
-
-
 ### 4.2 Anonymous Functions
 
 No named functions! Think lambda in python
@@ -782,8 +724,6 @@ function func = doMath2(num)
 end
 ```
 
-
-
 ### 4.3 Recursive Functions
 
 They call themselves!
@@ -798,8 +738,6 @@ end
 end
 ```
 
-
-
 ### 4.4 Classes
 
 Static members are shared amongst all members of a class
@@ -810,7 +748,7 @@ classdef Shape
         height
         width
     end
-    
+
     methods(Static)
         function out = setGetNumShapes(data)
             % Persistent values are shared by all objects also
@@ -824,7 +762,7 @@ classdef Shape
             out = Var;
         end
     end
-        
+
     methods
         % Define a constructor
         function obj = Shape(height, width)
@@ -863,8 +801,6 @@ Shape.setGetNumShapes
 a1 > a2
 ```
 
-
-
 ### 4.5 Class Inheritance
 
 ```matlab
@@ -873,7 +809,7 @@ classdef Trapezoid < Shape % Trapezoid inherits from Shape
     properties
         width2
     end
-    
+
     methods
         function obj = Trapezoid(height, width, width2)
             obj@Shape(height,width) % The @ sign means you're taking it from the parent
@@ -897,8 +833,6 @@ a3 = Trapezoid(10, 4, 6)
 disp(a3)
 a3.getArea
 ```
-
-
 
 ## 5. Plotting
 
@@ -946,8 +880,6 @@ clf % Delete all figures
 y = A.*cos(2*pi .* t/T - 2*pi .* x/lambda + phi0);
 ```
 
-
-
 ### 5.2 3D Plotting in MATLAB
 
 #### **3D Plots and Meshgrids**
@@ -986,8 +918,6 @@ quiver3() % 3D
 colorbar % Add a colorbar!
 ```
 
-
-
 ## 6. Intermediate and Advanced Math
 
 ### 6.1 Vector Calculus
@@ -999,13 +929,10 @@ curl()
 del2() % Discrete laplacian
 ```
 
-
-
 ```
                             .     .
                          .  |\-^-/|  .    
                         /| } O.=.O { |\
-
 ```
 
 ​    
@@ -1013,4 +940,3 @@ del2() % Discrete laplacian
 ------
 
  [![Yeah! Buy the DRAGON a COFFEE!](./assets/COFFEE%20BUTTON%20%E3%83%BE(%C2%B0%E2%88%87%C2%B0%5E).png)](https://www.buymeacoffee.com/methylDragon)
-
