@@ -1,0 +1,16 @@
+02 - Loops, Custom Types, and Errors
+03 - Functions, Generics, and IO
+  - Include local vs global
+  - Include user input
+  - Include paths
+04 - Traits and OOP
+05 - Scope, Memory, and The Borrow Checker
+  - Generalize scope
+06 - Modules, Crates, and Cargo
+07 - Concurrency
+08 - Collections
+
+BONUS - Macros
+BONUS - Testing and Documentation
+BONUS - Dark Arts, FFI, and Unsafe Rust
+BONUS - Performance
