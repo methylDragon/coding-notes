@@ -409,10 +409,10 @@ Returns
 <= // less than or equal to
 ```
 
-!! NOTE. "==" IS **NOT** "="
-
-== COMPARES
-= ASSIGNS VALUES
+> **NOTE**: `==` IS **NOT** `=`
+>
+> - `==` COMPARES
+> - `=` ASSIGNS VALUES
 
 **Logical Operators**
 
