@@ -12,7 +12,6 @@ I'll be adapting it from the ever amazing Derek Banas: https://www.youtube.com/w
 
 - How **variables, loops, conditionals, etc**. work (Basic coding fundamentals will help a lot!)
 - Linux (**Terminal/Console proficiency**) (We're going to need to compile our stuff)
-- Gone through the all preceding parts of the tutorial
 
 
 

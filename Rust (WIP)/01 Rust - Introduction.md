@@ -131,12 +131,15 @@ Other minor sources will be linked as they are used.
 
 ### More Recommended Reading
 
-- If you're still considering Rust, watch [this video](https://www.youtube.com/watch?v=DnT-LUQgc7s), it does a brief rundown of the features and pros and cons.
-- If you're interested in recipes: [Cookin' with Rust](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
-- If you need performance: [The Rust Performance Book](https://nnethercote.github.io/perf-book/introduction.html) and section in [The rustc Book](https://doc.rust-lang.org/rustc/profile-guided-optimization.html)
-- If you're interested in unsafe Rust: [The Rustonomicon](https://doc.rust-lang.org/nomicon/intro.html)
-- If you want to cross-compile: [The Rustup Book](https://rust-lang.github.io/rustup/cross-compilation.html)
-- If you want to use Rust code in C/C++: [The `bindgen` User Guide](https://rust-lang.github.io/rust-bindgen/introduction.html)
+- If you're looking for:
+  - Reasons to use Rust: Watch [this video](https://www.youtube.com/watch?v=DnT-LUQgc7s), it does a brief rundown of the features and pros and cons.
+  - Recipes: [Cookin' with Rust](https://rust-lang-nursery.github.io/rust-cookbook/intro.html), and the [Rust by Example -- Extended Edition](https://rust-by-example-ext.com/index.html)
+  - Performance: [The Rust Performance Book](https://nnethercote.github.io/perf-book/introduction.html) and section in [The rustc Book](https://doc.rust-lang.org/rustc/profile-guided-optimization.html)
+  - Unsafe Rust: [The Rustonomicon](https://doc.rust-lang.org/nomicon/intro.html)
+  - Cross-compilation: [The Rustup Book](https://rust-lang.github.io/rustup/cross-compilation.html)
+  - Using Rust code in C/C++: [The `bindgen` User Guide](https://rust-lang.github.io/rust-bindgen/introduction.html)
+
+- There's also [the Rust Reference](https://doc.rust-lang.org/reference/introduction.html)
 
 
 
@@ -244,6 +247,13 @@ There's a lot more to dependency management, but this should be enough to start 
 
 The lock files allow you to have reproducible builds! They disambiguate any ambiguous versions in the `Cargo.toml` file to specific versions used for the build you just had. This lets you share the `Cargo.lock` file to let others reproduce your build (using the `--locked` flag to use it!)
 
+Furthermore, if `cargo` sees a `Cargo.lock` file in your directory, it'll use that instead of trying to figure out all the specific versions from the `Cargo.toml` file, unless you specifically instruct it to upgrade.
+
+```shell
+# Instruct Cargo to Upgrade
+$ cargo upgrade
+```
+
 
 
 ### Package Layout
@@ -322,6 +332,26 @@ If you're interested in looking at more Rust toolings, you can take a look at th
 
 
 ## Rust Basic Syntax Reference
+
+### Hello World
+
+```shell
+$ cargo init hello-world
+$ cd hello-world
+$ cargo run
+```
+
+The `cargo init` command generates the hello world code in `hello-world/src/main.rs`
+
+**Every Rust program consists of a <u>main function</u>**
+
+```rust
+fn main() {
+	println!("Hello, World!");
+}
+```
+
+
 
 ### Comments
 
@@ -416,26 +446,6 @@ These are declarative function-like macros, which **cause code to be generated/s
 
 
 
-### Hello World
-
-```shell
-$ cargo init hello-world
-$ cd hello-world
-$ cargo run
-```
-
-The `cargo init` command generates the hello world code in `hello-world/src/main.rs`
-
-**Every Rust program consists of a <u>main function</u>**
-
-```rust
-fn main() {
-	println!("Hello, World!");
-}
-```
-
-
-
 ### Printing
 
 Some examples adapted from [Rust By Example](https://doc.rust-lang.org/rust-by-example/hello/print.html)
@@ -471,6 +481,13 @@ println!("Print from {outside_var}!");  // "Print from OUTSIDE!"
 // Padding
 println!("{number:>width$}", number=1, width=6);  // "     1"
 println!("{number:>width$}", number=1, width=6);  // "000001"
+
+// Printing Tuples or Arrays (Use the debug format)
+println!("{:?}", (1, 2, 3));
+println!("{:#?}", (1, 2, 3));  // Pretty print
+
+println!("{:?}", [[1; 5]; 5]);
+println!("{:#?}", [[1; 5]; 5]);  // Pretty print
 ```
 
 
@@ -504,7 +521,7 @@ let num = 2147483647 + 1;
 
 #### **Data Types**
 
-Here's a selection of some of the more commonly used primitive types you'll encounter.
+Here's a selection of some of the more commonly used **primitive types** you'll encounter.
 
 | Description                 | Types                                                        |
 | --------------------------- | ------------------------------------------------------------ |
@@ -514,15 +531,21 @@ Here's a selection of some of the more commonly used primitive types you'll enco
 | Characters (4-bytes)        | `char`                                                       |
 | Boolean (`true` or `false`) | `bool`                                                       |
 
+There is also another type, `()`, known as the **unit type**, which has a value of the **unit value**. This is what expressions implicitly return if they don't return any other value.
+
+
+
 **Explicit Typing**
 
 You can explicitly specify the type a variable should take! There's several ways to do this:
 
 ```rust
-let float: f64 = 1.0;     // Regular
-let num = 100i32;         // Suffix
+let float: f64 = 1.0;      // Regular
+let num = 100i32;          // Suffix
 
-let another_num = 100_i32 // With optional underscore separator
+let another_num = 100_i32  // With optional underscore separator
+
+l(WIPet string: &str = "wow";  // Strings must be defined as reference
 ```
 
 **Type Inference**
@@ -645,7 +668,7 @@ Nifty!
 
 
 
-### Casting
+### Casting (`as`, `from`)
 
 There's no implicit casting in Rust, only explicit casting. With...
 
@@ -665,8 +688,6 @@ Note, you can't always do a cast.
 let c = 65 as char;
 ```
 
-
-
 **`from`** (Recommended)
 
 `from` forbids overflows! It's safer that way!
@@ -678,9 +699,195 @@ let c = char::from(num);
 
 
 
+### Compound Data Types
+
+#### **Tuples**
+
+> Incidentally, the unit type `()` can be thought of as a tuple with no members!
+
+Tuples allow you to group any number of values, and tuples:
+
+- Can store elements **of differing types**
+- Are **immutable**, you can't change its members, or its length
+
+> **Modifying Tuple Values (You can't, but...)**
+>
+> Though you can't modify tuple values, tuples **can store mutable references** (that are themselves immutable, but have mutable values.)
+>
+> If you don't understand this yet it's fine, the knowledge you need to will probably be found later on when we talk about references and the borrow checker/memory management.
+
+```rust
+let inferred_tup = ("methylDragon", 1, 'a');           // With inferred type
+let tup: (str, i32, char) = ("methylDragon", 1, 'a');  // With explicit type
+```
+
+You can then access their members by index, or by **destructuring**
+
+```rust
+tup.0  // "methylDragon"
+tup.1  // 1
+tup.2  // 'a'
+
+// Destructure
+let (x, y, z) = tup;
+x  // "methylDragon"
+y  // 1
+z  // 'a'
+```
+
+You print tuples using the `{:?}` or `{:#?}` flags:
+
+```rust
+println!("{:?}", (1, 2, 3));   // (1, 2, 3)
+println!("{:#?}", (1, 2, 3));  // Pretty version (Output has too many newlines to paste)
+```
+
+
+
+#### **Arrays**
+
+Arrays are another way to have a collection of multiple elements, but:
+
+- **Every element of the array must be of the same type**
+- Arrays **always have a fixed length** (it's like C++ in that way.)
+- The **elements themselves can be modified** as long as the array containing them is mutable
+
+```rust
+let a = [1, 2, 3, 4, 5];             // Inferred
+let b: [i32; 5] = [1, 2, 3, 4, 5];   // Explicit (with length!)
+
+let c = [1; 5];                      // Pre-Initialized
+
+// You can also nest arrays! (To practically infinite dimensionality)
+let d: [[i32; 3]; 3] = [[1; 3]; 3];  // Create a 3x3 array, filled with 1s
+```
+
+You can access their members...
+
+```rust
+// By index
+a[0];      // 1
+b[0];      // [1, 1, 1];
+d[0][0];   // 1
+
+// By slice
+// You're slicing the array reference, not the value
+&a[0..3];  // [1, 2, 3]
+```
+
+And get their lengths
+
+```rust
+a.len();  // 5
+```
+
+You print arrays using the `{:?}` or `{:#?}` flags:
+
+```rust
+println!("{:?}", b);   // [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+println!("{:#?}", b);  // Pretty version (Output has too many newlines to paste)
+```
+
+
+
+#### **Bonus: Vectors**
+
+This is a bonus because it's not technically a primitive type, but it's so commonly used in the same sorts of contexts as arrays that it's much more useful to be here.
+
+Vectors are contiguous arrays of **varying length**! So they have all the same limitations of an array, but **their length can change**.
+
+You can use the `vec!` macro to initialize a vector instead of instantiating the actual `Vec` type manually. It's more convenient, and potentially faster.
+
+```rust
+// Most array syntax works, just prepend vec!
+let mut a = vec![1, 2, 3, 4, 5];
+let mut b: Vec<i32> = vec![1, 2, 3, 4, 5];
+let mut c = vec![1; 5]
+
+let mut d = vec![vec![1; 3]; 3];  // Nest them!
+let mut e: Vec<Vec<i32>> = vec![vec![1; 3]; 3];  // Nest explicitly!
+
+// We've seen these before...
+b[2];                 // 3
+&b[2..3];             // [3]
+b.len();              // 5
+println!("{:?}", b);  // [1, 2, 3, 4, 5]
+```
+
+Now let's modify our vectors!
+
+```rust
+a.push(6); // [1, 2, 3, 4, 5, 6]
+a.pop();   // Remove and return last element, if it exists: Gives us Some(6), a is now [1, 2, 3, 4, 5]
+
+println!("{}: {:?}", a.pop().unwrap(), a);  // "5: [1, 2, 3, 4]"
+```
+
+> We'll deal with `Some` later. But it basically just means it could potentially return nothing!
+
+> **More Vector Stuff**
+>
+> See the [docs](https://doc.rust-lang.org/std/vec/struct.Vec.html).
+>
+> You'll be able to:
+>
+> - For performance:
+>   - Reserve data to prevent frequent reallocations for performance
+>   - Specify a max capacity
+>   - Check the current capacity before reallocations
+> - Vector ops:
+>   - Truncate, shrink
+>   - Rotate
+>   - Insert or remove at location
+>   - Append (another vector's contents into the first)
+>   - Drain
+> - ... A whole heck of a lot more!!!
+>
+> Or you can even use other data structures, like `VecDeque`
+
+
+
+### Strings
+
+Strings aren't exactly primitives either, but they're so commonly used, it's good to go through their basics.
+
+> There are two types of strings in Rust: `String` and `&str`.
+>
+> - A `String` is stored as a vector of bytes (`Vec<u8>`), but guaranteed to always be a valid UTF-8 sequence. `String` is heap allocated, growable and not null terminated.
+> - `&str` is a slice (`&[u8]`) that always points to a valid UTF-8 sequence, and can be used to view into a `String`, just like `&[T]` is a view into `Vec<T>`.
+>
+> [Rust by Example](https://doc.rust-lang.org/rust-by-example/std/str.html)
+
+`String` is a vector of `u8`, `&str` is a view into that vector! Cool!
+
+```rust
+// Vector
+let mut vec_str_implicit = "Rawr".to_string();          // Implicit
+let mut vec_str: String = "Rawr".to_string();           // Explicit
+
+println!("{}: {:?}", vec_str.pop().unwrap(), vec_str);  // "r: Raw"
+
+// View
+let view_str = "Rer";
+```
+
+For both kinds of strings, you can mess around with them! (Some of these ops don't require mutable):
+
+```rust
+view_str.chars().count();           // Get length of string: 4
+let mut chars = view_str.chars();   // Get iterator to characters
+let mut indiv_char = chars.next();  // Get next char in string (and iterate accordingly)
+
+// Or collect it into a vector!
+let chars_vec: Vec<char> = view_str.chars().collect();
+println!("{:?}", chars_vec);        // ['R', 'e', 'r'] (Hilarious)
+```
+
+
+
 ### Arithmetic and Math
 
-#### **Numeric**
+#### **For Numerics**
 
 **Basic Arithmetic**
 
@@ -771,20 +978,33 @@ f64::NEG_INFINITY
 
 
 
-#### **String**
+#### **For Strings**
 
 ```rust
+// Concatenation
+// Requires String object at the start to concatenate (to_owned() converts the &str to String)
 let mut a = "A".to_owned() + "B";  // "AB", of type: alloc::string::STring
+a += "C";                          // Now we can do this
 
-// Now we can do this
-a += "C";
+// Split by Whitespace
+// ["Here", "be", "dragons"]
+let mut ws_split = "Here be dragons".split_whitespace();  // This gives an iterator you can call `.next()` with
+ws_split.collect();                                       // Or collect it into a vector...
+
+// Arbitrary Split
+// ["Here ", " dragons"]
+let mut split = "Here be dragons".split("be");  // Same deal
+split.collect();
+
+// By newlines
+"A\nB\nC".lines().collect();  // ["A", "B", "C"]
 ```
 
-The rationale for the `to_owned()` requires a concept that will come in later...
 
 
+### Conditionals (`if`, `else`, `match`, `if let`)
 
-### Conditionals
+#### **Operators**
 
 **Comparison Operators**
 
@@ -832,11 +1052,178 @@ if n < 5 {
 
 
 
-### Ternary Operators (WIP)
+#### **`if` Expression**
 
-You can also spoof a ternary operator in Rust.
+You can also have conditional assignments!
+
+```rust
+let a = if x > 5 { 1 } else { 2 };  // If x > 5 { a = 1; } else { a = 2; }
+```
 
 
+
+#### **Match**
+
+Adapted from: [Rust by Example](https://doc.rust-lang.org/rust-by-example/flow_control/match.html)
+
+Pattern matching works too (like a `switch` statement in C!) The match **must be exhaustive**, otherwise Rust will not compile.
+
+Matches are checked from top to bottom, and once a match is made, checking stops. It's as if you had a chain of `if` and `else ifs`.
+
+**Basic Match**
+
+```rust
+let number = 13;
+
+match number {
+    // Match single value
+    1 => println!("One!"),
+
+    // Match several values
+    2 | 3 | 5 | 7 | 11 | 13 => println!("This is a prime"),  // <--- Only this gets triggered
+
+    // Match inclusive range
+    //   Notice: If the previous match gets picked up, we skip out!!
+    //           This behavior might change, so beware
+    13..=19 => println!("A teen"),
+
+    // Handle the rest of cases, potentially passing that case in
+    num => println!("Catch-all case: {}", num),
+}
+
+// If number was 13, it'd print "Catch-all case: 20" instead
+```
+
+**Match Guards**
+
+Match guards are used to provide additional branches to a particular match, or to combine functionality with conditionals.
+
+And this works with matched values too!
+
+```rust
+let pair = (2, -2);
+
+// The conditions are guards!
+match pair {
+    (x, y) if x == y => println!("A: {x}, {y}"),
+    (x, y) if x + y == 0 => println!("B: {x}, {y}"),
+    (x, _) if x % 2 == 1 => println!("C: {x}"),
+    _ => println!("Catch-all"),
+}
+```
+
+**Binding Match**
+
+[The Book](https://doc.rust-lang.org/book/ch06-02-match.html)
+
+Matches can also destructure and deal with compound types! Here's some examples
+
+```rust
+match age {
+    0             => println!("I haven't celebrated my first birthday yet"),
+    n @ 1  ..= 12 => println!("I'm a child of age {:?}", n),
+    n @ 13 ..= 19 => println!("I'm a teen of age {:?}", n),
+    n             => println!("I'm an old person of age {:?}", n),
+    }
+}
+```
+
+**Enum Match**
+
+[The Book](https://doc.rust-lang.org/book/ch06-02-match.html)
+
+We'll talk about `Enum` later, but this is here for completeness
+
+```rust
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
+}
+```
+
+**Option<T> Match**
+
+[The Book](https://doc.rust-lang.org/book/ch06-02-match.html)
+
+Same thing with `Option`, we'll talk about it later.
+
+```rust
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
+let five = Some(5);
+let six = plus_one(five);
+let none = plus_one(None);
+```
+
+Binding works here too!
+
+```rust
+fn main() {
+    match Some(42) {
+        Some(n @ 42) => println!("The Answer: {}!", n),
+        Some(n)      => println!("Not interesting... {}", n),  // Match any other number
+        _            => (),                                    // Match anything else (`None` variant)
+    }
+}
+```
+
+
+
+#### **Bonus: `if let`**
+
+[Rust by Example](https://doc.rust-lang.org/rust-by-example/flow_control/if_let.html)
+
+This works for matching Enums or other types with matchable destructures. It's an alternative, cleaner way to do match cases.
+
+```rust
+// Adapted from: https://doc.rust-lang.org/rust-by-example/flow_control/if_let.html
+enum Foo {
+    Bar,
+    Baz,
+    Qux(u32)
+}
+
+fn main() {
+    let a = Foo::Bar;
+    let b = Foo::Baz;
+    let c = Foo::Qux(100);
+    
+    if let Foo::Bar = a {
+        println!("a is foobar");       // Triggers
+    }
+    
+    if let Foo::Bar = b {
+        println!("b is foobar");
+    } else {
+        println!("b is NOT foobar");   // Else block triggers
+    }
+    
+    if let Foo::Qux(value) = c {
+        println!("c is {}", value);    // Matches, passing in value
+    }
+
+    if let Foo::Qux(value @ 100) = c {
+        println!("c is one hundred");  // Matches with binding
+    }
+}
+
+```
 
 
 
@@ -847,7 +1234,7 @@ You can also spoof a ternary operator in Rust.
                         /| } O.=.O { |\
 ```
 
-​    
+  
 
 ------
 
