@@ -14,6 +14,7 @@ Contains a syntax reference for CMake. We'll be going through some concepts, the
 - Understood the linkage and build concepts from [this tutorial](../C++/08%20C++%20-%20Linkages%20and%20Preprocessor%20Directives.md)
 - The tutorial is written with Linux users in mind, specifically Ubuntu
   - But the scripting section should apply in general
+- Recommended: Check out this [15 minute tutorial](https://preshing.com/20170522/learn-cmakes-scripting-language-in-15-minutes/) to familiarise yourself with CMake!
 
 
 
