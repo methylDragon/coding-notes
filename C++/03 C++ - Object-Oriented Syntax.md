@@ -709,6 +709,10 @@ C++ provides 6 special functions that are called default operations that deal wi
 |   Move assignment   |   `operator=(X&&)`    |
 |     Destructor      |        `~X()`         |
 
+Why are these important? See the following videos (Thanks to The Cherno!):
+- [lvalues and rvalues](https://www.youtube.com/watch?v=fbYknr-HPYE)
+- [Move semantics](https://www.youtube.com/watch?v=ehMg6zvXuMY)
+
 You can explicitly define them, delete them, or lean on the compiler's default.
 
 ```c++
