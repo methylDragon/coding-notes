@@ -167,7 +167,7 @@ std::this_thread::sleep_until(time_point);
 
 **Global Variables**
 
-All global and static variables that are initialised at compile time can be accessed by threads. Since the threads should know the addresses for them.
+All global and static variables that have their memory allocation determined at compile time can be accessed by threads. Since the threads should know the addresses for them.
 
 #### **Passing By Reference**
 
